@@ -37,19 +37,25 @@ const handleContactForm = async (req, res) => {
       }
     });
 
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL;
     const targetEmail = getTargetEmail(inquiryType);
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER || process.env.EMAIL,
       to: targetEmail,
+      bcc: adminEmail && adminEmail !== targetEmail ? adminEmail : undefined,
+      replyTo: email,
       subject: `New ${inquiryType} from ${name}`,
       html: `
         <h2>Contact Form Submission</h2>
         <p><strong>Routed to:</strong> ${targetEmail}</p>
         <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
         ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ""}
-        <p>${message.replace(/\n/g, "<br>")}</p>
+        <p><strong>Message:</strong></p>
+        <div style="background-color: #f4f4f5; padding: 12px; border-radius: 8px; margin-top: 8px;">
+          ${message.replace(/\n/g, "<br>")}
+        </div>
       `
     });
 

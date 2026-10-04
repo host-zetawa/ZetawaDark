@@ -22,7 +22,11 @@ import {
   Sparkles,
   ArrowRight,
   ShieldCheck,
-  Code2
+  Code2,
+  TrendingUp,
+  Rocket,
+  Heart,
+  Quote
 } from 'lucide-react';
 import Nav from './Nav';
 import Footer from './Footer';
@@ -525,7 +529,7 @@ const AboutUs = () => {
                   Tabrez Alam
                 </h3>
                 <p style={{ fontSize: '1.15rem', opacity: 0.94, marginBottom: '1.25rem', fontWeight: 600, color: '#ffebee' }}>
-                  Founder &amp; Executive Director
+                  Founder &amp; Director, ZETAWA DARK PRIVATE LIMITED
                 </p>
 
                 {/* Contact chips */}
@@ -535,7 +539,7 @@ const AboutUs = () => {
                   {[
                     { icon: <Mail size={14} />, text: 'tabrez.zeta@gmail.com' },
                     { icon: <Phone size={14} />, text: '+91 70042 65718' },
-                    { icon: <MapPin size={14} />, text: 'Bihar, India' },
+                    { icon: <MapPin size={14} />, text: 'Dhaka, East Champaran, Bihar' },
                   ].map((item, i) => (
                     <span key={i} style={{
                       display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
@@ -590,25 +594,35 @@ const AboutUs = () => {
               </div>
             </div>
 
-            {/* Bio + highlights body */}
+            {/* Bio + Highlights + Philosophy body */}
             <div className="founder-body" style={{ padding: '3rem' }}>
-              {/* Bio paragraph */}
-              <p className="founder-bio" style={{
-                fontSize: '1.12rem',
-                lineHeight: '1.85',
-                color: '#475569',
+              {/* Executive Lead Summary */}
+              <div style={{
+                background: 'linear-gradient(135deg, rgba(126, 58, 65, 0.05) 0%, rgba(255, 255, 255, 0.95) 100%)',
+                border: '1px solid #ebd9dc',
+                borderLeft: '5px solid #7e3a41',
+                borderRadius: '18px',
+                padding: '2rem 2.25rem',
                 marginBottom: '2.5rem',
+                boxShadow: '0 4px 20px rgba(126, 58, 65, 0.04)'
               }}>
-                Tabrez Alam is an 8th-semester Information Technology student at NIT Srinagar, hailing from Dhaka Champaran district in Bihar. A rising star known equally for his technical acumen and selfless generosity, Tabrez founded Zetawa Dark Private Limited in November 2024, leading the company&apos;s strategic vision and overseeing all operations to drive growth and innovation across business units.
-              </p>
+                <p style={{
+                  fontSize: '1.16rem',
+                  lineHeight: '1.9',
+                  color: '#334155',
+                  margin: 0
+                }}>
+                  <strong style={{ color: '#7e3a41', fontWeight: 800 }}>Tabrez Alam</strong> is a <strong style={{ color: '#0f172a' }}>technology entrepreneur</strong>, <strong style={{ color: '#0f172a' }}>cybersecurity enthusiast</strong> and the <strong style={{ color: '#7e3a41', fontWeight: 700 }}>Founder &amp; Director</strong> of <strong style={{ color: '#0f172a' }}>ZETAWA DARK PRIVATE LIMITED</strong>, founded in <strong style={{ color: '#0f172a' }}>November 2024</strong>. Hailing from <strong style={{ color: '#0f172a' }}>Dhaka, East Champaran, Bihar</strong>, he holds a <strong style={{ color: '#0f172a' }}>B.Tech in Information Technology</strong> from <strong style={{ color: '#7e3a41', fontWeight: 700 }}>NIT Srinagar</strong>.
+                </p>
+              </div>
 
-              {/* Key Highlights */}
+              {/* 4 Themed Journey & Achievement Cards */}
               <div className="highlights-grid" style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
                 gap: '1.75rem',
               }}>
-                {/* Highlight 1: Education */}
+                {/* 1. Cybersecurity Recognition */}
                 <div className="highlight-card" style={{
                   padding: '2rem',
                   background: '#faf8f9',
@@ -616,29 +630,35 @@ const AboutUs = () => {
                   border: '1px solid #ecdfe2',
                   borderLeft: '5px solid #7e3a41',
                   transition: 'all 0.3s ease',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.85rem'
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.08)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem', color: '#7e3a41' }}>
-                    <GraduationCap size={24} />
-                    <h4 style={{ fontSize: '1.2rem', fontWeight: 800, margin: 0 }}>Education</h4>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#7e3a41' }}>
+                    <div style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '10px',
+                      background: 'rgba(126, 58, 65, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <ShieldCheck size={20} />
+                    </div>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#2d2d2d' }}>
+                      Cybersecurity Recognition
+                    </h4>
                   </div>
-                  <ul style={{ color: '#555', lineHeight: '1.75', paddingLeft: '0', margin: 0, listStyle: 'none' }}>
-                    {[
-                      'B.Tech in Information Technology — NIT Srinagar',
-                      'Resonance Eduventures Limited',
-                      'W3webschool',
-                    ].map((item, i) => (
-                      <li key={i} style={{ marginBottom: '0.4rem', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.92rem' }}>
-                        <span style={{ color: '#7e3a41', fontWeight: 'bold', flexShrink: 0 }}>•</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <p style={{ color: '#475569', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
+                    His early work in <strong style={{ color: '#0f172a' }}>cybersecurity</strong> gained recognition when he identified and responsibly disclosed a vulnerability in the <strong style={{ color: '#7e3a41' }}>MobiKwik digital payment application</strong>, earning a <span style={{ backgroundColor: 'rgba(126, 58, 65, 0.08)', color: '#7e3a41', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>₹1 lakh award</span> and <strong style={{ color: '#0f172a' }}>Certificate of Appreciation</strong> under MobiKwik&apos;s <strong style={{ color: '#0f172a' }}>Responsible Disclosure Program</strong>.
+                  </p>
                 </div>
 
-                {/* Highlight 2: Security Achievement */}
+                {/* 2. Equity Investing & Philanthropy */}
                 <div className="highlight-card" style={{
                   padding: '2rem',
                   background: '#faf8f9',
@@ -646,29 +666,35 @@ const AboutUs = () => {
                   border: '1px solid #ecdfe2',
                   borderLeft: '5px solid #7e3a41',
                   transition: 'all 0.3s ease',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.85rem'
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.08)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem', color: '#7e3a41' }}>
-                    <Bug size={24} />
-                    <h4 style={{ fontSize: '1.2rem', fontWeight: 800, margin: 0 }}>Security Recognition</h4>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#7e3a41' }}>
+                    <div style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '10px',
+                      background: 'rgba(126, 58, 65, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <TrendingUp size={20} />
+                    </div>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#2d2d2d' }}>
+                      Equity Investing &amp; Giving Back
+                    </h4>
                   </div>
-                  <ul style={{ color: '#555', lineHeight: '1.75', paddingLeft: '0', margin: 0, listStyle: 'none' }}>
-                    {[
-                      'Identified a critical bug in the MobiKwik digital payment app',
-                      'Earned ₹1 lakh under MobiKwik’s Responsible Disclosure Program',
-                      'Received a certificate of appreciation from MobiKwik',
-                    ].map((item, i) => (
-                      <li key={i} style={{ marginBottom: '0.4rem', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.92rem' }}>
-                        <span style={{ color: '#7e3a41', fontWeight: 'bold', flexShrink: 0 }}>•</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
+                  <p style={{ color: '#475569', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
+                    With a strong interest in <strong style={{ color: '#0f172a' }}>technology, cybersecurity, entrepreneurship, innovation and financial markets</strong>, Tabrez has also developed an interest in <strong style={{ color: '#0f172a' }}>equity-market investing</strong>. During his student years, he reported earning a <span style={{ backgroundColor: 'rgba(126, 58, 65, 0.08)', color: '#7e3a41', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>₹1.23 lakh profit</span> from a stock-market investment and chose to <strong style={{ color: '#7e3a41' }}>contribute the profit toward supporting students and marginalized sections of society</strong>.
+                  </p>
                 </div>
 
-                {/* Highlight 3: Leadership */}
+                {/* 3. Startup Ecosystem Exposure */}
                 <div className="highlight-card" style={{
                   padding: '2rem',
                   background: '#faf8f9',
@@ -676,26 +702,177 @@ const AboutUs = () => {
                   border: '1px solid #ecdfe2',
                   borderLeft: '5px solid #7e3a41',
                   transition: 'all 0.3s ease',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.85rem'
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.08)'; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '1rem', color: '#7e3a41' }}>
-                    <Briefcase size={24} />
-                    <h4 style={{ fontSize: '1.2rem', fontWeight: 800, margin: 0 }}>Leadership at Zetawa Dark</h4>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#7e3a41' }}>
+                    <div style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '10px',
+                      background: 'rgba(126, 58, 65, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <Rocket size={20} />
+                    </div>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#2d2d2d' }}>
+                      Startup Ecosystem Exposure
+                    </h4>
                   </div>
-                  <ul style={{ color: '#555', lineHeight: '1.75', paddingLeft: '0', margin: 0, listStyle: 'none' }}>
-                    {[
-                      'Strategic planning and business development',
-                      'Executive team leadership and mentoring',
-                      'Corporate governance and stakeholder management',
-                    ].map((item, i) => (
-                      <li key={i} style={{ marginBottom: '0.4rem', display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.92rem' }}>
-                        <span style={{ color: '#7e3a41', fontWeight: 'bold', flexShrink: 0 }}>•</span>
-                        {item}
-                      </li>
+                  <p style={{ color: '#475569', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
+                    His entrepreneurial journey includes participation in <strong style={{ color: '#7e3a41' }}>IIT Bombay&apos;s E-Summit</strong> and mentorship associated with <strong style={{ color: '#7e3a41' }}>Startup Mahakumbh at Bharat Mandapam, New Delhi</strong>, providing exposure to India&apos;s wider <strong style={{ color: '#0f172a' }}>startup and innovation ecosystem</strong>.
+                  </p>
+                </div>
+
+                {/* 4. Leadership at ZETAWA DARK */}
+                <div className="highlight-card" style={{
+                  padding: '2rem',
+                  background: '#faf8f9',
+                  borderRadius: '16px',
+                  border: '1px solid #ecdfe2',
+                  borderLeft: '5px solid #7e3a41',
+                  transition: 'all 0.3s ease',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '0.85rem'
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.08)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#7e3a41' }}>
+                    <div style={{
+                      width: '38px',
+                      height: '38px',
+                      borderRadius: '10px',
+                      background: 'rgba(126, 58, 65, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <Briefcase size={20} />
+                    </div>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#2d2d2d' }}>
+                      Leadership at ZETAWA DARK
+                    </h4>
+                  </div>
+                  <p style={{ color: '#475569', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
+                    As the <strong style={{ color: '#7e3a41' }}>Founder &amp; Director of ZETAWA DARK</strong>, he leads the company&apos;s <strong style={{ color: '#0f172a' }}>strategic vision, business development, team leadership and innovation initiatives</strong>, with a focus on <strong style={{ color: '#0f172a' }}>building practical technology solutions and nurturing emerging talent</strong>.
+                  </p>
+                </div>
+              </div>
+
+              {/* Social and Environmental Initiatives Banner */}
+              <div style={{
+                marginTop: '1.75rem',
+                padding: '1.75rem 2.25rem',
+                background: 'linear-gradient(135deg, #fdfbfb 0%, #faf6f7 100%)',
+                borderRadius: '16px',
+                border: '1px solid #ecdfe2',
+                borderLeft: '5px solid #7e3a41',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: '1.25rem',
+                boxShadow: '0 4px 15px rgba(126, 58, 65, 0.03)'
+              }}>
+                <div style={{
+                  width: '42px',
+                  height: '42px',
+                  borderRadius: '12px',
+                  background: 'rgba(126, 58, 65, 0.1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#7e3a41',
+                  flexShrink: 0
+                }}>
+                  <Heart size={22} />
+                </div>
+                <div>
+                  <h4 style={{ fontSize: '1.12rem', fontWeight: 800, margin: '0 0 0.45rem', color: '#2d2d2d' }}>
+                    Social &amp; Environmental Impact
+                  </h4>
+                  <p style={{
+                    fontSize: '1rem',
+                    lineHeight: '1.8',
+                    color: '#475569',
+                    margin: 0
+                  }}>
+                    Beyond technology and business, Tabrez is also interested in <strong style={{ color: '#7e3a41' }}>social and environmental initiatives</strong>, reflecting his belief that <strong style={{ color: '#0f172a' }}>entrepreneurship should create value for both society and the wider community</strong>.
+                  </p>
+                </div>
+              </div>
+
+              {/* Founder's Core Philosophy */}
+              <div style={{
+                marginTop: '2.5rem',
+                background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+                borderRadius: '22px',
+                padding: '2.5rem 2rem',
+                color: 'white',
+                position: 'relative',
+                overflow: 'hidden',
+                boxShadow: '0 14px 36px rgba(126, 58, 65, 0.22)',
+                textAlign: 'center'
+              }}>
+                {/* Decorative background glow */}
+                <div style={{
+                  position: 'absolute',
+                  top: '-40px',
+                  right: '-40px',
+                  width: '200px',
+                  height: '200px',
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+                  borderRadius: '50%',
+                  pointerEvents: 'none'
+                }} />
+
+                <div style={{ position: 'relative', zIndex: 1 }}>
+                  <p style={{
+                    fontSize: '1.1rem',
+                    fontWeight: 600,
+                    color: '#ffebee',
+                    marginBottom: '1.25rem',
+                    letterSpacing: '0.02em',
+                    textTransform: 'uppercase',
+                    opacity: 0.95
+                  }}>
+                    His philosophy is simple:
+                  </p>
+
+                  <div style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: '1rem',
+                  }}>
+                    {['LEARN', 'INNOVATE', 'BUILD', 'GIVE BACK'].map((item, idx) => (
+                      <div key={idx} style={{
+                        background: 'rgba(255, 255, 255, 0.16)',
+                        backdropFilter: 'blur(10px)',
+                        border: '1.5px solid rgba(255, 255, 255, 0.3)',
+                        borderRadius: '14px',
+                        padding: '0.9rem 1.8rem',
+                        boxShadow: '0 6px 18px rgba(0, 0, 0, 0.15)',
+                        transition: 'all 0.25s ease'
+                      }}>
+                        <span style={{
+                          fontSize: '1.35rem',
+                          fontWeight: 900,
+                          letterSpacing: '0.08em',
+                          color: '#ffffff'
+                        }}>
+                          {item}
+                        </span>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </div>
             </div>

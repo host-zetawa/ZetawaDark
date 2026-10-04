@@ -615,7 +615,7 @@ function ZetawaNav() {
                 style={{ marginLeft: '0.5rem' }}
               >
                 <LogIn size={15} />
-                Client Login
+                Login
               </button>
             )}
           </nav>

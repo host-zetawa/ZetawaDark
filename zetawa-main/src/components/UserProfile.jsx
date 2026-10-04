@@ -430,7 +430,7 @@ const UserProfile = () => {
 
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
                       <a
-                        href="https://wa.me/919999999999"
+                        href="https://wa.me/917004265718"
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{

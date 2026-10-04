@@ -13,6 +13,7 @@ import {
   Clock, 
   ShieldCheck, 
   DollarSign, 
+  IndianRupee,
   Briefcase, 
   ArrowRight,
   ExternalLink,
@@ -62,12 +63,12 @@ const SERVICES_OPTIONS = [
   }
 ];
 
-const BUDGET_OPTIONS = [
-  { id: "under-2.5k", label: "< $2,500 (MVP Prototype / Audit)" },
-  { id: "2.5k-7.5k", label: "$2,500 – $7,500 (Core Feature Build)" },
-  { id: "7.5k-20k", label: "$7,500 – $20,000 (Complete Production System)" },
-  { id: "20k-plus", label: "$20,000+ (Full Platform / Multi-Month Scale)" },
-  { id: "flexible", label: "Flexible / Milestone Sprints" }
+const BUDGET_PRESETS_INR = [
+  "₹25,000 – ₹50,000",
+  "₹50,000 – ₹1,50,000",
+  "₹1,50,000 – ₹5,00,000",
+  "₹5,00,000+",
+  "Flexible / To Discuss"
 ];
 
 const TIMELINE_OPTIONS = [
@@ -97,7 +98,7 @@ const Hireforms = () => {
   });
 
   const [selectedServices, setSelectedServices] = useState(["Full-Stack Web & SaaS"]);
-  const [selectedBudget, setSelectedBudget] = useState("$2,500 – $7,500 (Core Feature Build)");
+  const [budget, setBudget] = useState("");
   const [selectedTimeline, setSelectedTimeline] = useState("Within 1 Month");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -130,11 +131,15 @@ const Hireforms = () => {
 
     setIsSubmitting(true);
 
+    const formattedBudget = budget.trim()
+      ? (budget.trim().startsWith("₹") ? budget.trim() : `₹${budget.trim()}`)
+      : "Flexible / Not specified";
+
     const payload = {
       ...formData,
       clientName: `${formData.firstName} ${formData.lastName}`.trim() || (user?.name || "Client"),
       services: selectedServices,
-      budget: selectedBudget,
+      budget: formattedBudget,
       timeline: selectedTimeline,
       userId: user?._id || user?.id || ""
     };
@@ -252,8 +257,10 @@ const Hireforms = () => {
                 <span style={{ color: "#f8fafc", fontSize: "0.85rem", fontWeight: 600 }}>{selectedServices.join(", ")}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                <span style={{ color: "#64748b", fontSize: "0.85rem" }}>Budget Range:</span>
-                <span style={{ color: "#f8fafc", fontSize: "0.85rem", fontWeight: 600 }}>{selectedBudget}</span>
+                <span style={{ color: "#64748b", fontSize: "0.85rem" }}>Estimated Budget:</span>
+                <span style={{ color: "#f8fafc", fontSize: "0.85rem", fontWeight: 600 }}>
+                  {budget.trim() ? (budget.trim().startsWith("₹") ? budget.trim() : `₹${budget.trim()}`) : "Flexible / Not specified"}
+                </span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <span style={{ color: "#64748b", fontSize: "0.85rem" }}>Target Timeline:</span>
@@ -357,7 +364,7 @@ const Hireforms = () => {
                   <ShieldCheck size={15} style={{ color: "#10b981" }} /> Strict NDA Protection
                 </span>
                 <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "#cbd5e1" }}>
-                  <DollarSign size={15} style={{ color: "#38bdf8" }} /> Milestone-Based Pricing
+                  <IndianRupee size={15} style={{ color: "#38bdf8" }} /> Milestone-Based Pricing
                 </span>
               </div>
             </div>
@@ -632,37 +639,63 @@ const Hireforms = () => {
                 </p>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem" }}>
-                  {/* Budget Options */}
+                  {/* Budget Input in Rupees */}
                   <div>
-                    <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, color: "#f8fafc", marginBottom: "8px" }}>
-                      Estimated Budget Range
+                    <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.85rem", fontWeight: 700, color: "#f8fafc", marginBottom: "8px" }}>
+                      <span>Estimated Budget (₹ Rupees)</span>
+                      <span style={{ fontSize: "0.75rem", fontWeight: 500, color: "#94a3b8" }}>In Indian Rupees (INR)</span>
                     </label>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                      {BUDGET_OPTIONS.map((b) => {
-                        const isSelected = selectedBudget === b.label;
-                        return (
-                          <div
-                            key={b.id}
-                            onClick={() => setSelectedBudget(b.label)}
-                            style={{
-                              backgroundColor: isSelected ? "rgba(126, 58, 65, 0.25)" : "rgba(255, 255, 255, 0.03)",
-                              border: isSelected ? "1.5px solid #7e3a41" : "1px solid rgba(255, 255, 255, 0.08)",
-                              padding: "10px 14px",
-                              borderRadius: "10px",
-                              cursor: "pointer",
-                              display: "flex",
-                              alignItems: "center",
-                              justifyContent: "space-between",
-                              fontSize: "0.85rem",
-                              color: isSelected ? "white" : "#cbd5e1",
-                              fontWeight: isSelected ? 700 : 500
-                            }}
-                          >
-                            <span>{b.label}</span>
-                            {isSelected && <CheckCircle2 size={16} style={{ color: "#10b981" }} />}
-                          </div>
-                        );
-                      })}
+                    <div style={{ position: "relative" }}>
+                      <div style={{
+                        position: "absolute",
+                        left: "14px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        color: "#fca5a5",
+                        display: "flex",
+                        alignItems: "center",
+                        pointerEvents: "none",
+                        fontWeight: 700,
+                        fontSize: "1.1rem"
+                      }}>
+                        ₹
+                      </div>
+                      <input
+                        type="text"
+                        style={{
+                          ...formInputGlass,
+                          paddingLeft: "2.5rem"
+                        }}
+                        value={budget}
+                        onChange={(e) => setBudget(e.target.value)}
+                        placeholder="e.g. 50,000 or 1,00,000 – 2,50,000"
+                      />
+                    </div>
+                    <p style={{ color: "#64748b", fontSize: "0.78rem", marginTop: "6px", marginBottom: "0.85rem" }}>
+                      Enter your estimated project budget or range in Indian Rupees (₹).
+                    </p>
+
+                    {/* Quick suggestion tags in INR */}
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                      {BUDGET_PRESETS_INR.map((preset, idx) => (
+                        <button
+                          key={idx}
+                          type="button"
+                          onClick={() => setBudget(preset)}
+                          style={{
+                            background: budget === preset ? "rgba(126, 58, 65, 0.45)" : "rgba(255, 255, 255, 0.04)",
+                            border: budget === preset ? "1.5px solid #7e3a41" : "1px solid rgba(255, 255, 255, 0.08)",
+                            borderRadius: "20px",
+                            padding: "4px 10px",
+                            color: budget === preset ? "#fca5a5" : "#94a3b8",
+                            fontSize: "0.75rem",
+                            cursor: "pointer",
+                            transition: "all 0.2s ease"
+                          }}
+                        >
+                          {preset}
+                        </button>
+                      ))}
                     </div>
                   </div>
 

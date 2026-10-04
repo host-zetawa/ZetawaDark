@@ -894,7 +894,7 @@ const MainPage = () => {
                     <Phone size={20} color="#86efac" />
                     <div>
                       <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>WhatsApp &amp; Phone Line</div>
-                      <a href="https://wa.me/919999999999" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontWeight: 700, textDecoration: 'none', fontSize: '0.95rem' }}>+91 (Fast WhatsApp Support)</a>
+                      <a href="https://wa.me/917004265718" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontWeight: 700, textDecoration: 'none', fontSize: '0.95rem' }}>+91 7004265718 (Fast WhatsApp Support)</a>
                     </div>
                   </div>
                 </div>

@@ -386,7 +386,7 @@ const quickLinks = [
             textAlign: isMobile ? 'center' : 'left'
           }}>
             <div style={{ fontSize: '0.9rem', color: '#adb5bd' }}>
-              © 2025 ZETAWA DARK PRIVATE LIMITED. All rights reserved.
+              © 2026 ZETAWA DARK PRIVATE LIMITED. All rights reserved.
             </div>
             <div style={{ fontSize: '0.85rem', color: '#6c757d' }}>
               Equal opportunity employer committed to diversity and inclusion.

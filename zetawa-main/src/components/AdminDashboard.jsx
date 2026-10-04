@@ -823,7 +823,7 @@ const AdminDashboard = () => {
           boxShadow: "0 4px 16px rgba(0,0,0,0.03)"
         }}>
           {[
-            { id: "inquiries", label: "Project Consultations", icon: Inbox, badge: pendingInquiriesCount },
+            { id: "inquiries", label: "Project Consultations", icon: Inbox, badge: inquiries.length, pendingBadge: pendingInquiriesCount },
             { id: "services", label: "Services CMS", icon: Layers, badge: services.length },
             { id: "careers", label: "Careers & Openings", icon: Briefcase, badge: careers.length },
             { id: "press-releases", label: "Press Releases", icon: Newspaper, badge: pressReleases.length },
@@ -855,8 +855,8 @@ const AdminDashboard = () => {
                 <span>{tab.label}</span>
                 {tab.badge !== undefined && (
                   <span style={{
-                    backgroundColor: isActive ? "rgba(255,255,255,0.22)" : (tab.id === "inquiries" && tab.badge > 0 ? "#dc2626" : "#f0e6e8"),
-                    color: isActive ? "#ffffff" : (tab.id === "inquiries" && tab.badge > 0 ? "#ffffff" : "#7e3a41"),
+                    backgroundColor: isActive ? "rgba(255,255,255,0.22)" : "#f0e6e8",
+                    color: isActive ? "#ffffff" : "#7e3a41",
                     fontSize: "0.75rem",
                     fontWeight: 800,
                     padding: "0.15rem 0.55rem",
@@ -864,6 +864,21 @@ const AdminDashboard = () => {
                     marginLeft: "0.2rem"
                   }}>
                     {tab.badge}
+                  </span>
+                )}
+                {tab.pendingBadge > 0 && (
+                  <span 
+                    title={`${tab.pendingBadge} pending review`}
+                    style={{
+                      backgroundColor: "#dc2626",
+                      color: "#ffffff",
+                      fontSize: "0.7rem",
+                      fontWeight: 800,
+                      padding: "0.12rem 0.48rem",
+                      borderRadius: "20px",
+                      marginLeft: "0.1rem"
+                    }}>
+                    {tab.pendingBadge} new
                   </span>
                 )}
               </button>

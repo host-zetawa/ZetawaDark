@@ -1143,7 +1143,7 @@ const Events = () => {
             </div>
             <div style={{ textAlign: 'right' }}>
               <div style={{ marginBottom: '0.5rem' }}>
-                © 2025 ZETAWA DARK PRIVATE LIMITED. All rights reserved.
+                © 2026 ZETAWA DARK PRIVATE LIMITED. All rights reserved.
               </div>
               <div style={{ fontSize: '0.9rem', color: '#adb5bd' }}>
                 Equal opportunity employer committed to diversity and inclusion.
