@@ -120,21 +120,21 @@ function ZetawaNav() {
           top: 0;
           left: 0;
           right: 0;
-          background: rgba(20, 8, 13, 0.82);
+          background: var(--nav-bg, rgba(20, 8, 13, 0.82));
           backdrop-filter: blur(20px) saturate(180%);
           -webkit-backdrop-filter: blur(20px) saturate(180%);
           padding: 0.6rem 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.09);
-          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+          border-bottom: 1px solid var(--nav-border, rgba(255, 255, 255, 0.09));
+          box-shadow: var(--shadow-sm, 0 4px 24px rgba(0, 0, 0, 0.15));
           z-index: 1000;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-header.scrolled {
           padding: 0.45rem 0;
-          background: rgba(14, 7, 10, 0.94);
-          border-bottom: 1px solid rgba(242, 140, 40, 0.22);
-          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+          background: var(--nav-scrolled-bg, rgba(14, 7, 10, 0.94));
+          border-bottom: 1px solid rgba(242, 140, 40, 0.28);
+          box-shadow: var(--shadow-md, 0 8px 32px rgba(0, 0, 0, 0.25));
         }
 
         .nav-container {
@@ -165,7 +165,7 @@ function ZetawaNav() {
           border-radius: 50%;
           background: linear-gradient(135deg, #ffffff 0%, #f5eef0 100%);
           padding: 3px;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), 0 0 12px rgba(242, 140, 40, 0.2);
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15), 0 0 12px rgba(242, 140, 40, 0.2);
           transition: all 0.3s ease;
           display: flex;
           align-items: center;
@@ -190,11 +190,11 @@ function ZetawaNav() {
         }
 
         .brand-name {
-          color: #ffffff;
+          color: var(--nav-text, #ffffff);
           font-weight: 800;
           font-size: 1.1rem;
           letter-spacing: 0.8px;
-          background: linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.9) 100%);
+          background: var(--hero-title-gradient, linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.9) 100%));
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
@@ -212,7 +212,7 @@ function ZetawaNav() {
         }
 
         .nav-link {
-          color: rgba(255, 255, 255, 0.82);
+          color: var(--nav-link, rgba(255, 255, 255, 0.82));
           text-decoration: none;
           font-size: 0.9rem;
           font-weight: 600;
@@ -227,14 +227,14 @@ function ZetawaNav() {
         }
 
         .nav-link:hover {
-          color: #ffffff;
-          background: rgba(255, 255, 255, 0.08);
-          border-color: rgba(255, 255, 255, 0.12);
+          color: var(--nav-link-hover, #ffffff);
+          background: rgba(242, 140, 40, 0.1);
+          border-color: rgba(242, 140, 40, 0.25);
           transform: translateY(-1px);
         }
 
         .nav-link.active {
-          color: #ffffff;
+          color: var(--accent-orange, #f28c28);
           background: rgba(242, 140, 40, 0.16);
           border-color: rgba(242, 140, 40, 0.45);
           box-shadow: 0 0 14px rgba(242, 140, 40, 0.22);
@@ -244,9 +244,9 @@ function ZetawaNav() {
           width: 36px;
           height: 36px;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.07);
-          border: 1px solid rgba(255, 255, 255, 0.16);
-          color: rgba(255, 255, 255, 0.9);
+          background: var(--glass-card-bg, rgba(255, 255, 255, 0.07));
+          border: 1px solid var(--border-default, rgba(255, 255, 255, 0.16));
+          color: var(--text-primary, rgba(255, 255, 255, 0.9));
           display: flex;
           align-items: center;
           justify-content: center;
@@ -290,9 +290,9 @@ function ZetawaNav() {
         }
 
         .nav-user-btn {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #ffffff;
+          background: var(--glass-card-bg, rgba(255, 255, 255, 0.08));
+          border: 1px solid var(--border-default, rgba(255, 255, 255, 0.2));
+          color: var(--text-primary, #ffffff);
           padding: 0.3rem 0.8rem 0.3rem 0.3rem;
           border-radius: 9999px;
           font-size: 0.88rem;
@@ -309,7 +309,7 @@ function ZetawaNav() {
         }
 
         .nav-user-btn:hover {
-          background: rgba(255, 255, 255, 0.14);
+          background: var(--bg-surface-elevated, rgba(255, 255, 255, 0.14));
           border-color: rgba(242, 140, 40, 0.45);
         }
 
@@ -325,23 +325,23 @@ function ZetawaNav() {
           font-weight: 800;
           font-size: 0.84rem;
           flex-shrink: 0;
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         }
 
         .nav-dropdown {
           position: absolute;
           top: calc(100% + 8px);
           right: 0;
-          background: rgba(25, 14, 19, 0.96);
+          background: var(--nav-dropdown-bg, rgba(25, 14, 19, 0.96));
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border-radius: 14px;
-          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 1px rgba(255, 255, 255, 0.2);
+          box-shadow: var(--shadow-xl, 0 16px 48px rgba(0, 0, 0, 0.35));
           min-width: 220px;
           padding: 0.5rem 0;
           z-index: 1100;
           animation: dropdownSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          border: 1px solid var(--nav-dropdown-border, rgba(255, 255, 255, 0.12));
         }
 
         @keyframes dropdownSlideIn {
@@ -354,7 +354,7 @@ function ZetawaNav() {
           align-items: center;
           gap: 0.75rem;
           padding: 0.75rem 1.25rem;
-          color: #cbd5e1;
+          color: var(--text-secondary, #cbd5e1);
           font-size: 0.88rem;
           font-weight: 600;
           cursor: pointer;
@@ -369,12 +369,12 @@ function ZetawaNav() {
 
         .dropdown-item:hover {
           background: rgba(242, 140, 40, 0.12);
-          color: #f28c28;
+          color: var(--accent-orange, #f28c28);
         }
 
         .dropdown-divider {
           height: 1px;
-          background: rgba(255, 255, 255, 0.1);
+          background: var(--border-subtle, rgba(255, 255, 255, 0.1));
           margin: 0.4rem 0;
         }
 
@@ -388,9 +388,9 @@ function ZetawaNav() {
         }
 
         .menu-button {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #ffffff;
+          background: var(--glass-card-bg, rgba(255, 255, 255, 0.08));
+          border: 1px solid var(--border-default, rgba(255, 255, 255, 0.2));
+          color: var(--text-primary, #ffffff);
           width: 40px;
           height: 40px;
           border-radius: 10px;
@@ -405,7 +405,7 @@ function ZetawaNav() {
         .menu-button:hover, .menu-button:active {
           background: rgba(242, 140, 40, 0.18);
           border-color: rgba(242, 140, 40, 0.5);
-          color: #f28c28;
+          color: var(--accent-orange, #f28c28);
           transform: scale(1.05);
         }
 
@@ -415,7 +415,7 @@ function ZetawaNav() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(14, 7, 10, 0.96);
+          background: var(--nav-dropdown-bg, rgba(14, 7, 10, 0.96));
           backdrop-filter: blur(28px);
           -webkit-backdrop-filter: blur(28px);
           z-index: 2000;
@@ -443,14 +443,14 @@ function ZetawaNav() {
           align-items: center;
           justify-content: space-between;
           padding-bottom: 1rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
           margin-bottom: 1rem;
         }
 
         .close-button {
-          background: rgba(255, 255, 255, 0.08);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          color: #ffffff;
+          background: var(--glass-card-bg, rgba(255, 255, 255, 0.08));
+          border: 1px solid var(--border-default, rgba(255, 255, 255, 0.2));
+          color: var(--text-primary, #ffffff);
           width: 38px;
           height: 38px;
           border-radius: 50%;
@@ -464,7 +464,7 @@ function ZetawaNav() {
         .close-button:hover, .close-button:active {
           background: rgba(242, 140, 40, 0.2);
           border-color: rgba(242, 140, 40, 0.5);
-          color: #f28c28;
+          color: var(--accent-orange, #f28c28);
           transform: rotate(90deg) scale(1.05);
         }
 
@@ -479,7 +479,7 @@ function ZetawaNav() {
         .menu-item {
           width: 100%;
           padding: 0.85rem 1.15rem;
-          color: #e2e8f0;
+          color: var(--text-primary, #e2e8f0);
           cursor: pointer;
           border-radius: 12px;
           display: flex;
@@ -488,15 +488,15 @@ function ZetawaNav() {
           font-size: 0.95rem;
           font-weight: 600;
           transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-          background: rgba(255, 255, 255, 0.04);
-          border: 1px solid rgba(255, 255, 255, 0.08);
+          background: var(--glass-card-bg, rgba(255, 255, 255, 0.04));
+          border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
           text-decoration: none;
         }
 
         .menu-item:hover, .menu-item:active {
           background: rgba(242, 140, 40, 0.12);
           border-color: rgba(242, 140, 40, 0.35);
-          color: #ffffff;
+          color: var(--accent-orange, #ffffff);
           transform: translateX(3px);
         }
 
@@ -505,7 +505,7 @@ function ZetawaNav() {
           border-color: rgba(242, 140, 40, 0.45);
           color: #ffffff;
           font-weight: 700;
-          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
         /* Desktop Navigation */

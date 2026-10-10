@@ -19,6 +19,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
 import PrivacyPolicy from './components/PrivacyPolicy';
+import Background3D from './components/Background3D';
 // Scroll-to-top helper component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -32,6 +33,7 @@ const App = () => {
   return (
     <Router>
       <ScrollToTop />
+      <Background3D />
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage />} />

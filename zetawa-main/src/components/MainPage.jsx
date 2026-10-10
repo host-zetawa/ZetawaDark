@@ -68,7 +68,7 @@ const LatestUpdates = () => {
   if (updates.length === 0) return null;
 
   return (
-    <section style={{ padding: 'clamp(3rem, 6vw, 5rem) 0', backgroundColor: 'var(--bg-surface, #ffffff)', borderTop: '1px solid var(--border-subtle, #f0e6e8)' }}>
+    <section style={{ padding: 'clamp(3rem, 6vw, 5rem) 0', backgroundColor: 'transparent', borderTop: '1px solid var(--border-subtle, #f0e6e8)' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
         <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
           <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: '800', color: 'var(--text-primary, #1e293b)', marginBottom: '0.75rem', letterSpacing: '-0.02em', textWrap: 'balance' }}>
@@ -82,15 +82,17 @@ const LatestUpdates = () => {
           {updates.map(update => (
             <div key={update._id} style={{
               padding: 'clamp(1.5rem, 3vw, 2rem)',
-              backgroundColor: 'var(--bg-canvas, #faf8f9)',
+              backgroundColor: 'var(--glass-card-bg, #faf8f9)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
               borderRadius: '16px',
-              border: '1px solid var(--border-subtle, #f0e6e8)',
+              border: '1px solid var(--glass-card-border, #f0e6e8)',
               transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease',
               cursor: 'pointer',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
-              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.02)'
+              boxShadow: 'var(--shadow-sm, 0 4px 16px rgba(0, 0, 0, 0.02))'
             }}
               onMouseOver={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
@@ -99,8 +101,8 @@ const LatestUpdates = () => {
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.02)';
-                e.currentTarget.style.borderColor = 'var(--border-subtle, #f0e6e8)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm, 0 4px 16px rgba(0, 0, 0, 0.02))';
+                e.currentTarget.style.borderColor = 'var(--glass-card-border, #f0e6e8)';
               }}
             >
               <div>
@@ -162,7 +164,7 @@ const PressReleasesSection = () => {
   return (
     <section style={{
       padding: 'clamp(3rem, 6vw, 5rem) 0',
-      backgroundColor: 'var(--bg-canvas, #faf8f9)',
+      backgroundColor: 'transparent',
       borderTop: '1px solid var(--border-subtle, #f0e6e8)',
       borderBottom: '1px solid var(--border-subtle, #f0e6e8)'
     }}>
@@ -201,7 +203,7 @@ const PressReleasesSection = () => {
           <button
             onClick={() => navigate('/press-release')}
             style={{
-              backgroundColor: 'var(--bg-surface, #ffffff)',
+              backgroundColor: 'var(--glass-card-bg, #ffffff)',
               color: 'var(--brand-maroon, #6b2d3a)',
               border: '1.5px solid var(--brand-maroon, #6b2d3a)',
               padding: '0.65rem 1.25rem',
@@ -214,7 +216,8 @@ const PressReleasesSection = () => {
               gap: '0.4rem',
               transition: 'all 0.25s ease',
               minHeight: '44px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
+              backdropFilter: 'blur(8px)',
+              boxShadow: 'var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.03))'
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.backgroundColor = 'var(--brand-maroon, #6b2d3a)';
@@ -223,10 +226,10 @@ const PressReleasesSection = () => {
               e.currentTarget.style.boxShadow = '0 6px 18px rgba(107, 45, 58, 0.25)';
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--bg-surface, #ffffff)';
+              e.currentTarget.style.backgroundColor = 'var(--glass-card-bg, #ffffff)';
               e.currentTarget.style.color = 'var(--brand-maroon, #6b2d3a)';
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.03)';
+              e.currentTarget.style.boxShadow = 'var(--shadow-sm, 0 2px 8px rgba(0,0,0,0.03))';
             }}
           >
             Browse All Announcements <ArrowRight size={16} />
@@ -243,16 +246,18 @@ const PressReleasesSection = () => {
               key={release._id}
               onClick={() => navigate('/press-release')}
               style={{
-                backgroundColor: 'var(--bg-surface, #ffffff)',
+                backgroundColor: 'var(--glass-card-bg, #ffffff)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
                 borderRadius: '16px',
-                border: '1px solid var(--border-default, #e8e0e2)',
+                border: '1px solid var(--glass-card-border, #e8e0e2)',
                 padding: 'clamp(1.25rem, 3.5vw, 1.75rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.03)'
+                boxShadow: 'var(--shadow-sm, 0 4px 16px rgba(0,0,0,0.03))'
               }}
               onMouseOver={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
@@ -261,8 +266,8 @@ const PressReleasesSection = () => {
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.03)';
-                e.currentTarget.style.borderColor = 'var(--border-default, #e8e0e2)';
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm, 0 4px 16px rgba(0,0,0,0.03))';
+                e.currentTarget.style.borderColor = 'var(--glass-card-border, #e8e0e2)';
               }}
             >
               <div>
@@ -398,7 +403,7 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
   return (
     <section style={{
       padding: 'clamp(3rem, 6vw, 5.5rem) 0',
-      backgroundColor: 'var(--bg-surface, #ffffff)',
+      backgroundColor: 'transparent',
       borderBottom: '1px solid var(--border-subtle, #e8e0e2)'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
@@ -483,27 +488,28 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
               <div
                 key={item._id || item.id || idx}
                 style={{
-                  backgroundColor: 'var(--bg-canvas, #faf8f9)',
+                  backgroundColor: 'var(--glass-card-bg, #faf8f9)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
                   borderRadius: '16px',
-                  border: '1px solid var(--border-default, #ecdfe2)',
+                  border: '1px solid var(--glass-card-border, #ecdfe2)',
                   padding: 'clamp(1.75rem, 3.5vw, 2.25rem) clamp(1.25rem, 3vw, 1.75rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  position: 'relative'
+                  position: 'relative',
+                  boxShadow: 'var(--shadow-sm, 0 4px 16px rgba(0,0,0,0.02))'
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = 'translateY(-6px)';
                   e.currentTarget.style.boxShadow = '0 16px 36px rgba(42, 16, 25, 0.08)';
                   e.currentTarget.style.borderColor = 'rgba(242, 140, 40, 0.45)';
-                  e.currentTarget.style.backgroundColor = 'var(--bg-surface, #ffffff)';
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.borderColor = 'var(--border-default, #ecdfe2)';
-                  e.currentTarget.style.backgroundColor = 'var(--bg-canvas, #faf8f9)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-sm, 0 4px 16px rgba(0,0,0,0.02))';
+                  e.currentTarget.style.borderColor = 'var(--glass-card-border, #ecdfe2)';
                 }}
               >
                 <div>
@@ -681,7 +687,7 @@ const MainPage = () => {
   return (
     <div style={{ 
       fontFamily: 'var(--font-family, "Plus Jakarta Sans", system-ui, sans-serif)',
-      backgroundColor: 'var(--bg-canvas, #f8f6f7)',
+      backgroundColor: 'transparent',
       minHeight: '100vh',
       color: 'var(--text-primary, #1e293b)'
     }}>
@@ -692,44 +698,7 @@ const MainPage = () => {
           box-sizing: border-box;
         }
 
-        .triangle-shape {
-          position: absolute;
-          top: 15%;
-          right: 8%;
-          width: 0;
-          height: 0;
-          border-left: 140px solid transparent;
-          border-right: 140px solid transparent;
-          border-bottom: 240px solid rgba(242, 140, 40, 0.05);
-          transform: rotate(-15deg);
-          animation: float 8s ease-in-out infinite;
-          pointer-events: none;
-        }
-
-        .triangle-shape-2 {
-          position: absolute;
-          bottom: 25%;
-          left: 6%;
-          width: 0;
-          height: 0;
-          border-left: 90px solid transparent;
-          border-right: 90px solid transparent;
-          border-bottom: 160px solid rgba(107, 45, 58, 0.1);
-          transform: rotate(25deg);
-          animation: float 10s ease-in-out infinite reverse;
-          pointer-events: none;
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(-15deg); }
-          50% { transform: translateY(-20px) rotate(-15deg); }
-        }
-
         @media (max-width: 768px) {
-          .triangle-shape, .triangle-shape-2 {
-            display: none !important;
-          }
-
           .hero-content-container {
             padding: clamp(2rem, 6vw, 3rem) 1rem 2.25rem !important;
           }
@@ -782,25 +751,24 @@ const MainPage = () => {
 
       {/* ──────── Hero Section ──────── */}
       <header style={{
-        background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
-        color: '#ffffff',
+        background: 'var(--bg-hero-translucent, linear-gradient(180deg, rgba(20, 8, 13, 0.6) 0%, rgba(42, 16, 25, 0.75) 100%))',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        color: 'var(--text-primary)',
         padding: '0',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+        borderBottom: '1px solid var(--border-subtle, rgba(255, 255, 255, 0.08))'
       }}>
-        <div className="triangle-shape" />
-        <div className="triangle-shape-2" />
-
         <div className="hero-content-container" style={{ maxWidth: '960px', margin: '0 auto', padding: 'clamp(3rem, 6vw, 4.5rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 6vw, 4rem)', position: 'relative', zIndex: 10 }}>
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(242, 140, 40, 0.12)',
+            background: 'var(--accent-orange-subtle, rgba(242, 140, 40, 0.12))',
             border: '1px solid rgba(242, 140, 40, 0.35)',
-            color: '#f28c28',
+            color: 'var(--accent-orange, #f28c28)',
             padding: '0.4rem 1.1rem',
             borderRadius: '50px',
             fontSize: '0.82rem',
@@ -812,10 +780,10 @@ const MainPage = () => {
             <Sparkles size={15} /> AGILE SOFTWARE &amp; AI SPRINT SQUADS
           </div>
 
-          <h1 className="hero-title" style={{ fontSize: 'clamp(2rem, 5.5vw, 3.4rem)', fontWeight: '800', marginBottom: '1.25rem', lineHeight: 1.15, letterSpacing: '-0.02em', textWrap: 'balance' }}>
+          <h1 className="hero-title" style={{ fontSize: 'clamp(2rem, 5.5vw, 3.4rem)', fontWeight: '800', marginBottom: '1.25rem', lineHeight: 1.15, letterSpacing: '-0.02em', textWrap: 'balance', color: 'var(--text-primary)' }}>
             We Design, Build &amp; Scale<br />
             <span style={{
-              background: 'linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.95) 100%)',
+              background: 'var(--hero-title-gradient, linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.95) 100%))',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -823,7 +791,7 @@ const MainPage = () => {
           </h1>
 
           <p className="hero-subtitle" style={{
-            fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'rgba(255, 255, 255, 0.85)', maxWidth: '720px', margin: '0 auto 2.25rem auto', lineHeight: '1.65',
+            fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'var(--text-secondary)', maxWidth: '720px', margin: '0 auto 2.25rem auto', lineHeight: '1.65',
           }}>
             Zetawa Dark is a high-velocity technology partner. We engineer custom full-stack web &amp; mobile apps, autonomous AI agents, intuitive design systems, and resilient cloud architectures for modern companies and startups.
           </p>
@@ -851,9 +819,9 @@ const MainPage = () => {
             </button>
             <button
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                color: '#ffffff',
-                border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                backgroundColor: 'var(--hero-btn-secondary-bg, rgba(255, 255, 255, 0.08))',
+                color: 'var(--hero-btn-secondary-text, #ffffff)',
+                border: '1.5px solid var(--hero-btn-secondary-border, rgba(255, 255, 255, 0.25))',
                 padding: '0.85rem 2rem',
                 borderRadius: '50px',
                 fontSize: '1rem',
@@ -867,8 +835,8 @@ const MainPage = () => {
                 minHeight: '44px'
               }}
               onClick={() => navigate('/services')}
-              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.16)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.45)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               Explore Our Services <Layers size={18} />
             </button>
@@ -881,28 +849,28 @@ const MainPage = () => {
             justifyContent: 'center',
             gap: 'clamp(1rem, 2.5vw, 2.5rem)',
             padding: '1rem clamp(1.25rem, 3vw, 2.5rem)',
-            background: 'rgba(255, 255, 255, 0.07)',
+            background: 'var(--hero-trust-bg, rgba(255, 255, 255, 0.07))',
             backdropFilter: 'blur(16px)',
             borderRadius: '50px',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            border: '1px solid var(--hero-trust-border, rgba(255, 255, 255, 0.15))',
             flexWrap: 'wrap',
             maxWidth: '100%',
             boxSizing: 'border-box',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+            boxShadow: 'var(--shadow-md, 0 8px 32px rgba(0, 0, 0, 0.15))'
           }}>
             <div className="strip-item" style={{ textAlign: 'center' }}>
-              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>Fast Sprint Sprints</div>
-              <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-4 Week Delivery</div>
+              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'var(--text-primary)' }}>Fast Sprint Sprints</div>
+              <div className="strip-lbl" style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-4 Week Delivery</div>
             </div>
-            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.18)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'var(--border-subtle, rgba(255,255,255,0.18))' }} />
             <div className="strip-item" style={{ textAlign: 'center' }}>
-              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>100% IP Ownership</div>
-              <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Clean Production Code</div>
+              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'var(--text-primary)' }}>100% IP Ownership</div>
+              <div className="strip-lbl" style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Clean Production Code</div>
             </div>
-            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.18)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'var(--border-subtle, rgba(255,255,255,0.18))' }} />
             <div className="strip-item" style={{ textAlign: 'center' }}>
-              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>AI &amp; Full-Stack</div>
-              <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Next.js, Node &amp; LLMs</div>
+              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'var(--text-primary)' }}>AI &amp; Full-Stack</div>
+              <div className="strip-lbl" style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Next.js, Node &amp; LLMs</div>
             </div>
           </div>
         </div>
@@ -918,14 +886,16 @@ const MainPage = () => {
       <LatestUpdates />
 
       {/* ──────── Modern Frosted Glass Contact Section ──────── */}
-      <section id="contact" style={{ padding: 'clamp(3rem, 6vw, 6rem) 0', backgroundColor: 'var(--bg-canvas, #f8f6f7)' }}>
+      <section id="contact" style={{ padding: 'clamp(3rem, 6vw, 6rem) 0', backgroundColor: 'transparent' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
           
           <div style={{
-            background: 'linear-gradient(135deg, #1e0b12 0%, #2a1019 50%, #14080d 100%)',
+            background: 'linear-gradient(135deg, rgba(30, 11, 18, 0.9) 0%, rgba(42, 16, 25, 0.94) 50%, rgba(20, 8, 13, 0.92) 100%)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
             borderRadius: '28px',
             color: 'white',
-            boxShadow: '0 24px 60px rgba(20, 8, 13, 0.45)',
+            boxShadow: 'var(--shadow-xl, 0 24px 60px rgba(20, 8, 13, 0.45))',
             padding: 'clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem)',
             position: 'relative',
             overflow: 'hidden',
