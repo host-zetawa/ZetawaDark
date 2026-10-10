@@ -100,17 +100,17 @@ const PressRelease = () => {
   const getTypeStyle = (type) => {
     switch (type) {
       case 'Official Announcement':
-        return { bg: 'rgba(126, 58, 65, 0.1)', text: '#7e3a41', border: 'rgba(126, 58, 65, 0.25)' };
+        return { bg: 'rgba(242, 140, 40, 0.1)', text: '#f28c28', border: 'rgba(242, 140, 40, 0.25)' };
       case 'Business Update':
       case 'Company Update':
-        return { bg: 'rgba(37, 99, 235, 0.1)', text: '#1d4ed8', border: 'rgba(37, 99, 235, 0.25)' };
+        return { bg: 'rgba(59, 75, 200, 0.1)', text: '#3b4bc8', border: 'rgba(59, 75, 200, 0.25)' };
       case 'Milestone':
       case 'Project Award':
         return { bg: 'rgba(16, 185, 129, 0.1)', text: '#047857', border: 'rgba(16, 185, 129, 0.25)' };
       case 'Partnership':
         return { bg: 'rgba(217, 119, 6, 0.1)', text: '#b45309', border: 'rgba(217, 119, 6, 0.25)' };
       case 'Industry News':
-        return { bg: 'rgba(109, 40, 217, 0.1)', text: '#6d28d9', border: 'rgba(109, 40, 217, 0.25)' };
+        return { bg: 'rgba(107, 45, 58, 0.1)', text: '#6b2d3a', border: 'rgba(107, 45, 58, 0.25)' };
       default:
         return { bg: 'rgba(100, 116, 139, 0.1)', text: '#475569', border: 'rgba(100, 116, 139, 0.25)' };
     }
@@ -133,23 +133,21 @@ const PressRelease = () => {
 
   return (
     <div style={{
-      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-      backgroundColor: '#f8fafc',
+      fontFamily: 'var(--font-family, "Plus Jakarta Sans", system-ui, sans-serif)',
+      backgroundColor: 'var(--bg-canvas, #f8f6f7)',
       minHeight: '100vh',
-      color: '#1e293b'
+      color: 'var(--text-primary, #1e293b)'
     }}>
       <Nav />
 
       {/* Global CSS for Animations and Responsiveness */}
       <style>{`
-        :root {
-          --primary-red: #7e3a41;
-          --primary-red-hover: #6a3139;
-          --primary-red-light: rgba(126, 58, 65, 0.08);
+        * {
+          box-sizing: border-box;
         }
 
         .press-hero-gradient {
-          background: linear-gradient(135deg, #7e3a41 0%, #5d272d 100%);
+          background: linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%);
         }
 
         .pr-card {
@@ -158,12 +156,12 @@ const PressRelease = () => {
 
         .pr-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 20px 35px -8px rgba(126, 58, 65, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.04);
-          border-color: rgba(126, 58, 65, 0.35) !important;
+          box-shadow: 0 20px 35px -8px rgba(42, 16, 25, 0.12), 0 8px 16px -6px rgba(0, 0, 0, 0.04);
+          border-color: rgba(242, 140, 40, 0.4) !important;
         }
 
         .filter-btn {
-          transition: all 0.2s ease;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .filter-btn:hover {
@@ -175,7 +173,7 @@ const PressRelease = () => {
         }
 
         .read-btn:hover {
-          background-color: var(--primary-red-hover) !important;
+          background-color: var(--brand-maroon-hover, #55222d) !important;
           transform: translateY(-1px);
         }
 
@@ -184,7 +182,7 @@ const PressRelease = () => {
         }
 
         .source-btn:hover {
-          background-color: #004182 !important;
+          background-color: #2f3da8 !important;
           transform: translateY(-1px);
         }
 
@@ -194,6 +192,21 @@ const PressRelease = () => {
 
         .modal-panel {
           animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .pr-filter-scroll-row {
+          display: flex;
+          align-items: center;
+          gap: 0.65rem;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          padding-bottom: 0.25rem;
+        }
+
+        .pr-filter-scroll-row::-webkit-scrollbar {
+          display: none;
         }
 
         @keyframes fadeIn {
@@ -234,6 +247,7 @@ const PressRelease = () => {
             justify-content: center !important;
             padding: 0.45rem 0.85rem !important;
             font-size: 0.84rem !important;
+            flex-shrink: 0 !important;
           }
           .search-filter-row {
             flex-direction: column !important;
@@ -328,7 +342,8 @@ const PressRelease = () => {
         color: 'white',
         padding: 'clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem) 0',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
       }}>
         {/* Subtle geometric pattern overlay */}
         <div style={{
@@ -348,16 +363,16 @@ const PressRelease = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(255, 255, 255, 0.12)',
+            background: 'rgba(242, 140, 40, 0.12)',
             backdropFilter: 'blur(8px)',
-            color: '#ffdedf',
+            color: 'var(--accent-orange, #f28c28)',
             padding: '0.45rem 1.1rem',
             borderRadius: '50px',
-            fontSize: '0.85rem',
-            fontWeight: 600,
-            letterSpacing: '0.5px',
+            fontSize: '0.82rem',
+            fontWeight: 700,
+            letterSpacing: '0.8px',
             marginBottom: '1.25rem',
-            border: '1px solid rgba(255, 255, 255, 0.2)'
+            border: '1px solid rgba(242, 140, 40, 0.35)'
           }}>
             <Newspaper size={16} />
             ZETAWA DARK NEWSROOM & MEDIA CENTER
@@ -395,8 +410,8 @@ const PressRelease = () => {
                 }
               }}
               style={{
-                backgroundColor: 'white',
-                color: '#7e3a41',
+                backgroundColor: 'var(--accent-orange, #f28c28)',
+                color: '#ffffff',
                 padding: '0.75rem 1.5rem',
                 borderRadius: '50px',
                 border: 'none',
@@ -406,11 +421,12 @@ const PressRelease = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                boxShadow: '0 4px 14px rgba(0, 0, 0, 0.15)',
-                transition: 'all 0.2s ease'
+                boxShadow: '0 6px 20px rgba(242, 140, 40, 0.35)',
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                minHeight: '44px'
               }}
-              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#fcebee'; }}
-              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'white'; }}
+              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               Browse Announcements <ArrowRight size={16} />
             </button>
@@ -418,7 +434,7 @@ const PressRelease = () => {
             <a
               href="mailto:vansh100101102@gmail.com?subject=Press%20Inquiry%20-%20Zetawa%20Dark"
               style={{
-                backgroundColor: 'transparent',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
                 color: 'white',
                 padding: '0.75rem 1.5rem',
                 borderRadius: '50px',
@@ -428,11 +444,13 @@ const PressRelease = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                border: '1px solid rgba(255, 255, 255, 0.4)',
-                transition: 'all 0.2s ease'
+                border: '1px solid rgba(255, 255, 255, 0.25)',
+                transition: 'all 0.25s ease',
+                backdropFilter: 'blur(8px)',
+                minHeight: '44px'
               }}
-              onMouseOver={(e) => { e.currentTarget.style.borderColor = 'white'; e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'; e.currentTarget.style.background = 'transparent'; }}
+              onMouseOver={(e) => { e.currentTarget.style.borderColor = 'white'; e.currentTarget.style.background = 'rgba(255,255,255,0.16)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; e.currentTarget.style.background = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               <Mail size={16} /> Contact Media Desk
             </a>
@@ -442,8 +460,8 @@ const PressRelease = () => {
 
       {/* Corporate Stats Strip */}
       <section style={{
-        backgroundColor: '#ffffff',
-        borderBottom: '1px solid #e2e8f0',
+        backgroundColor: 'var(--bg-surface, #ffffff)',
+        borderBottom: '1px solid var(--border-subtle, #e2e8f0)',
         padding: '2.5rem 0'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
@@ -458,36 +476,49 @@ const PressRelease = () => {
                 <div
                   key={i}
                   style={{
+                    backgroundColor: 'var(--bg-canvas, #faf8f9)',
+                    borderRadius: '16px',
+                    border: '1px solid var(--border-default, #e2e8f0)',
                     padding: '1.5rem',
-                    borderRadius: '12px',
-                    backgroundColor: '#f8fafc',
-                    border: '1px solid #edf2f7',
                     display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: '1rem',
-                    transition: 'transform 0.2s ease'
+                    alignItems: 'center',
+                    gap: '1.25rem',
+                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.02)',
+                    transition: 'all 0.3s ease'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-3px)';
+                    e.currentTarget.style.boxShadow = '0 12px 24px rgba(42, 16, 25, 0.06)';
+                    e.currentTarget.style.borderColor = 'rgba(242, 140, 40, 0.4)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.02)';
+                    e.currentTarget.style.borderColor = 'var(--border-default, #e2e8f0)';
                   }}
                 >
                   <div style={{
-                    padding: '10px',
-                    borderRadius: '10px',
-                    backgroundColor: 'rgba(126, 58, 65, 0.08)',
-                    color: '#7e3a41',
+                    width: '52px',
+                    height: '52px',
+                    borderRadius: '14px',
+                    backgroundColor: 'rgba(242, 140, 40, 0.1)',
+                    color: 'var(--accent-orange, #f28c28)',
+                    border: '1px solid rgba(242, 140, 40, 0.25)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     flexShrink: 0
                   }}>
-                    <Icon size={22} />
+                    <Icon size={24} />
                   </div>
                   <div>
-                    <div style={{ fontSize: '1.8rem', fontWeight: 800, color: '#0f172a', lineHeight: 1.1 }}>
+                    <div style={{ fontSize: '1.65rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', lineHeight: 1.1 }}>
                       {stat.value}
                     </div>
-                    <div style={{ fontSize: '0.95rem', fontWeight: 600, color: '#334155', marginTop: '0.2rem' }}>
+                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: 'var(--brand-maroon, #6b2d3a)', margin: '2px 0' }}>
                       {stat.label}
                     </div>
-                    <div style={{ fontSize: '0.8rem', color: '#64748b', marginTop: '0.15rem' }}>
+                    <div style={{ fontSize: '0.78rem', color: 'var(--text-muted, #94a3b8)' }}>
                       {stat.desc}
                     </div>
                   </div>
@@ -503,9 +534,9 @@ const PressRelease = () => {
         
         {/* Search & Filter Toolbar */}
         <div className="filter-toolbar-box" style={{
-          backgroundColor: '#ffffff',
+          backgroundColor: 'var(--bg-surface, #ffffff)',
           borderRadius: '16px',
-          border: '1px solid #e2e8f0',
+          border: '1px solid var(--border-default, #e2e8f0)',
           padding: 'clamp(1.25rem, 3vw, 1.75rem)',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
           marginBottom: '2.5rem'
@@ -544,22 +575,22 @@ const PressRelease = () => {
                   width: '100%',
                   padding: '0.75rem 2.5rem 0.75rem 2.6rem',
                   borderRadius: '10px',
-                  border: '1px solid #cbd5e1',
+                  border: '1px solid var(--border-default, #cbd5e1)',
                   fontSize: '0.95rem',
                   outline: 'none',
-                  backgroundColor: '#f8fafc',
-                  color: '#1e293b',
+                  backgroundColor: 'var(--bg-canvas, #f8fafc)',
+                  color: 'var(--text-primary, #1e293b)',
                   transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
                 }}
                 onFocus={(e) => {
-                  e.target.style.borderColor = '#7e3a41';
-                  e.target.style.boxShadow = '0 0 0 3px rgba(126, 58, 65, 0.15)';
-                  e.target.style.backgroundColor = '#ffffff';
+                  e.target.style.borderColor = 'var(--accent-orange, #f28c28)';
+                  e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.15)';
+                  e.target.style.backgroundColor = 'var(--bg-surface, #ffffff)';
                 }}
                 onBlur={(e) => {
-                  e.target.style.borderColor = '#cbd5e1';
+                  e.target.style.borderColor = 'var(--border-default, #cbd5e1)';
                   e.target.style.boxShadow = 'none';
-                  e.target.style.backgroundColor = '#f8fafc';
+                  e.target.style.backgroundColor = 'var(--bg-canvas, #f8fafc)';
                 }}
               />
               {searchQuery && (
@@ -588,7 +619,7 @@ const PressRelease = () => {
             {/* Results count pill */}
             <div style={{
               fontSize: '0.9rem',
-              color: '#64748b',
+              color: 'var(--text-secondary, #64748b)',
               fontWeight: 500,
               display: 'flex',
               alignItems: 'center',
@@ -598,17 +629,17 @@ const PressRelease = () => {
             </div>
           </div>
 
-          {/* Bottom row: Filter Pills */}
+          {/* Bottom row: Filter Pills (Horizontally scrollable on mobile) */}
           <div style={{
             display: 'flex',
             flexDirection: 'column',
             gap: '1rem',
-            borderTop: '1px solid #f1f5f9',
+            borderTop: '1px solid var(--border-subtle, #f1f5f9)',
             paddingTop: '1.25rem'
           }}>
             {/* Year Filters */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569', minWidth: '85px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <div className="pr-filter-scroll-row">
+              <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary, #475569)', minWidth: '75px', display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
                 <Calendar size={14} /> Year:
               </span>
               <button
@@ -617,12 +648,14 @@ const PressRelease = () => {
                 style={{
                   padding: '0.45rem 1rem',
                   borderRadius: '30px',
-                  border: selectedYear === 'ALL' ? '1px solid #7e3a41' : '1px solid #e2e8f0',
-                  backgroundColor: selectedYear === 'ALL' ? '#7e3a41' : '#ffffff',
-                  color: selectedYear === 'ALL' ? '#ffffff' : '#475569',
+                  border: selectedYear === 'ALL' ? '1.5px solid var(--accent-orange, #f28c28)' : '1px solid var(--border-default, #e2e8f0)',
+                  backgroundColor: selectedYear === 'ALL' ? 'var(--brand-maroon, #6b2d3a)' : 'var(--bg-surface, #ffffff)',
+                  color: selectedYear === 'ALL' ? '#ffffff' : 'var(--text-secondary, #475569)',
                   fontWeight: selectedYear === 'ALL' ? 700 : 500,
                   fontSize: '0.85rem',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  flexShrink: 0,
+                  boxShadow: selectedYear === 'ALL' ? '0 4px 12px rgba(107, 45, 58, 0.2)' : 'none'
                 }}
               >
                 All Years ({releases.length})
@@ -638,12 +671,14 @@ const PressRelease = () => {
                     style={{
                       padding: '0.45rem 1rem',
                       borderRadius: '30px',
-                      border: isSelected ? '1px solid #7e3a41' : '1px solid #e2e8f0',
-                      backgroundColor: isSelected ? '#7e3a41' : '#ffffff',
-                      color: isSelected ? '#ffffff' : '#475569',
+                      border: isSelected ? '1.5px solid var(--accent-orange, #f28c28)' : '1px solid var(--border-default, #e2e8f0)',
+                      backgroundColor: isSelected ? 'var(--brand-maroon, #6b2d3a)' : 'var(--bg-surface, #ffffff)',
+                      color: isSelected ? '#ffffff' : 'var(--text-secondary, #475569)',
                       fontWeight: isSelected ? 700 : 500,
                       fontSize: '0.85rem',
-                      cursor: 'pointer'
+                      cursor: 'pointer',
+                      flexShrink: 0,
+                      boxShadow: isSelected ? '0 4px 12px rgba(107, 45, 58, 0.2)' : 'none'
                     }}
                   >
                     {year} ({count})
@@ -654,8 +689,8 @@ const PressRelease = () => {
 
             {/* Category Filters (if multiple exist) */}
             {availableCategories.length > 1 && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
-                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: '#475569', minWidth: '85px', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <div className="pr-filter-scroll-row">
+                <span style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-secondary, #475569)', minWidth: '75px', display: 'flex', alignItems: 'center', gap: '4px', flexShrink: 0 }}>
                   <Filter size={14} /> Category:
                 </span>
                 <button
@@ -664,12 +699,13 @@ const PressRelease = () => {
                   style={{
                     padding: '0.35rem 0.85rem',
                     borderRadius: '20px',
-                    border: selectedCategory === 'ALL' ? '1px solid #334155' : '1px solid #e2e8f0',
-                    backgroundColor: selectedCategory === 'ALL' ? '#334155' : '#ffffff',
-                    color: selectedCategory === 'ALL' ? '#ffffff' : '#64748b',
-                    fontWeight: selectedCategory === 'ALL' ? 600 : 500,
+                    border: selectedCategory === 'ALL' ? '1.5px solid var(--accent-orange, #f28c28)' : '1px solid var(--border-default, #e2e8f0)',
+                    backgroundColor: selectedCategory === 'ALL' ? 'var(--brand-maroon, #6b2d3a)' : 'var(--bg-surface, #ffffff)',
+                    color: selectedCategory === 'ALL' ? '#ffffff' : 'var(--text-secondary, #64748b)',
+                    fontWeight: selectedCategory === 'ALL' ? 700 : 500,
                     fontSize: '0.8rem',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    flexShrink: 0
                   }}
                 >
                   All Types
@@ -684,12 +720,13 @@ const PressRelease = () => {
                       style={{
                         padding: '0.35rem 0.85rem',
                         borderRadius: '20px',
-                        border: isSelected ? '1px solid #334155' : '1px solid #e2e8f0',
-                        backgroundColor: isSelected ? '#334155' : '#ffffff',
-                        color: isSelected ? '#ffffff' : '#64748b',
-                        fontWeight: isSelected ? 600 : 500,
+                        border: isSelected ? '1.5px solid var(--accent-orange, #f28c28)' : '1px solid var(--border-default, #e2e8f0)',
+                        backgroundColor: isSelected ? 'var(--brand-maroon, #6b2d3a)' : 'var(--bg-surface, #ffffff)',
+                        color: isSelected ? '#ffffff' : 'var(--text-secondary, #64748b)',
+                        fontWeight: isSelected ? 700 : 500,
                         fontSize: '0.8rem',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        flexShrink: 0
                       }}
                     >
                       {cat}
@@ -707,22 +744,22 @@ const PressRelease = () => {
             <div style={{
               width: '48px',
               height: '48px',
-              border: '3px solid rgba(126, 58, 65, 0.2)',
-              borderTopColor: '#7e3a41',
+              border: '3px solid rgba(242, 140, 40, 0.2)',
+              borderTopColor: 'var(--accent-orange, #f28c28)',
               borderRadius: '50%',
               margin: '0 auto 1.5rem',
               animation: 'spin 0.8s linear infinite'
             }} />
             <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
-            <h3 style={{ fontSize: '1.25rem', color: '#334155', fontWeight: 600 }}>Loading announcements...</h3>
-            <p style={{ color: '#64748b', fontSize: '0.95rem' }}>Fetching records from the Zetawa Dark Newsroom</p>
+            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-primary, #334155)', fontWeight: 600 }}>Loading announcements...</h3>
+            <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '0.95rem' }}>Fetching records from the Zetawa Dark Newsroom</p>
           </div>
         ) : filteredReleases.length === 0 ? (
           /* Empty State */
           <div style={{
-            backgroundColor: '#ffffff',
+            backgroundColor: 'var(--bg-surface, #ffffff)',
             borderRadius: '16px',
-            border: '1px solid #e2e8f0',
+            border: '1px solid var(--border-default, #e2e8f0)',
             padding: '4rem 2rem',
             textAlign: 'center',
             boxShadow: '0 4px 16px rgba(0, 0, 0, 0.03)'
@@ -731,7 +768,7 @@ const PressRelease = () => {
               width: '72px',
               height: '72px',
               borderRadius: '50%',
-              backgroundColor: '#f1f5f9',
+              backgroundColor: 'var(--bg-canvas, #f1f5f9)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -740,10 +777,10 @@ const PressRelease = () => {
             }}>
               <FileText size={36} />
             </div>
-            <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: '#1e293b', marginBottom: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--text-primary, #1e293b)', marginBottom: '0.5rem' }}>
               No press releases found
             </h3>
-            <p style={{ color: '#64748b', fontSize: '1rem', maxWidth: '500px', margin: '0 auto 1.5rem' }}>
+            <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '1rem', maxWidth: '500px', margin: '0 auto 1.5rem', lineHeight: 1.6 }}>
               {searchQuery || selectedYear !== 'ALL' || selectedCategory !== 'ALL'
                 ? "No announcements matched your current filter criteria. Try resetting your search or selecting a different year."
                 : "There are currently no public press releases uploaded to the system."}
@@ -757,14 +794,18 @@ const PressRelease = () => {
                 }}
                 style={{
                   padding: '0.65rem 1.4rem',
-                  backgroundColor: '#7e3a41',
+                  backgroundColor: 'var(--brand-maroon, #6b2d3a)',
                   color: 'white',
                   border: 'none',
                   borderRadius: '50px',
                   fontSize: '0.9rem',
                   fontWeight: 600,
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 4px 12px rgba(107, 45, 58, 0.2)'
                 }}
+                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--brand-maroon-hover, #55222d)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--brand-maroon, #6b2d3a)'; }}
               >
                 Reset All Filters
               </button>
@@ -787,16 +828,17 @@ const PressRelease = () => {
                   key={release._id || release.id || index}
                   className="pr-card"
                   style={{
-                    backgroundColor: '#ffffff',
+                    backgroundColor: 'var(--bg-surface, #ffffff)',
                     borderRadius: '16px',
-                    border: '1px solid #e2e8f0',
+                    border: '1px solid var(--border-default, #e2e8f0)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    padding: '2rem',
+                    padding: 'clamp(1.5rem, 3.5vw, 2rem)',
                     position: 'relative',
                     overflow: 'hidden',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    height: '100%'
                   }}
                   onClick={() => setSelectedRelease(release)}
                 >
@@ -807,7 +849,7 @@ const PressRelease = () => {
                     left: 0,
                     right: 0,
                     height: '4px',
-                    background: 'linear-gradient(90deg, #7e3a41 0%, #a84b55 100%)'
+                    background: 'linear-gradient(90deg, #6b2d3a 0%, #f28c28 100%)'
                   }} />
 
                   <div>
@@ -838,7 +880,7 @@ const PressRelease = () => {
                         display: 'flex',
                         alignItems: 'center',
                         gap: '0.5rem',
-                        color: '#64748b',
+                        color: 'var(--text-muted, #64748b)',
                         fontSize: '0.85rem',
                         fontWeight: 500
                       }}>
@@ -846,8 +888,9 @@ const PressRelease = () => {
                         <span>{release.date}</span>
                         {release.year && (
                           <span style={{
-                            backgroundColor: '#f1f5f9',
-                            color: '#475569',
+                            backgroundColor: 'var(--bg-canvas, #f1f5f9)',
+                            color: 'var(--text-secondary, #475569)',
+                            border: '1px solid var(--border-subtle, #e2e8f0)',
                             padding: '2px 8px',
                             borderRadius: '4px',
                             fontSize: '0.75rem',
@@ -863,7 +906,7 @@ const PressRelease = () => {
                     <h2 style={{
                       fontSize: '1.35rem',
                       fontWeight: 700,
-                      color: '#0f172a',
+                      color: 'var(--text-primary, #0f172a)',
                       lineHeight: 1.35,
                       marginBottom: '1rem',
                       display: '-webkit-box',
@@ -877,7 +920,7 @@ const PressRelease = () => {
                     {/* Content Excerpt (if provided) */}
                     {release.content ? (
                       <p style={{
-                        color: '#475569',
+                        color: 'var(--text-secondary, #475569)',
                         fontSize: '0.95rem',
                         lineHeight: 1.65,
                         marginBottom: '1.5rem',
@@ -890,7 +933,7 @@ const PressRelease = () => {
                       </p>
                     ) : (
                       <p style={{
-                        color: '#94a3b8',
+                        color: 'var(--text-muted, #94a3b8)',
                         fontSize: '0.9rem',
                         fontStyle: 'italic',
                         marginBottom: '1.5rem'
@@ -900,9 +943,9 @@ const PressRelease = () => {
                     )}
                   </div>
 
-                  {/* Card Bottom / Action Row */}
+                  {/* Card Bottom / Action Row (Pinned) */}
                   <div className="pr-card-actions" style={{
-                    borderTop: '1px solid #f1f5f9',
+                    borderTop: '1px solid var(--border-subtle, #f1f5f9)',
                     paddingTop: '1.25rem',
                     marginTop: 'auto',
                     display: 'flex',
@@ -919,10 +962,10 @@ const PressRelease = () => {
                         setSelectedRelease(release);
                       }}
                       style={{
-                        backgroundColor: '#7e3a41',
+                        backgroundColor: 'var(--brand-maroon, #6b2d3a)',
                         color: 'white',
                         border: 'none',
-                        padding: '0.6rem 1.15rem',
+                        padding: '0.65rem 1.15rem',
                         borderRadius: '8px',
                         fontSize: '0.85rem',
                         fontWeight: 600,
@@ -930,7 +973,10 @@ const PressRelease = () => {
                         display: 'inline-flex',
                         alignItems: 'center',
                         gap: '0.45rem',
-                        boxShadow: '0 2px 8px rgba(126, 58, 65, 0.2)'
+                        boxShadow: '0 2px 8px rgba(107, 45, 58, 0.2)',
+                        minHeight: '40px',
+                        whiteSpace: 'normal',
+                        lineHeight: 1.35
                       }}
                     >
                       <BookOpen size={15} /> Read Details
@@ -945,17 +991,20 @@ const PressRelease = () => {
                         className="source-btn"
                         onClick={(e) => e.stopPropagation()}
                         style={{
-                          backgroundColor: '#0077b5',
+                          backgroundColor: 'var(--accent-indigo, #3b4bc8)',
                           color: 'white',
                           textDecoration: 'none',
-                          padding: '0.6rem 1rem',
+                          padding: '0.65rem 1rem',
                           borderRadius: '8px',
                           fontSize: '0.85rem',
                           fontWeight: 600,
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '0.4rem',
-                          boxShadow: '0 2px 8px rgba(0, 119, 181, 0.2)'
+                          boxShadow: '0 2px 8px rgba(59, 75, 200, 0.2)',
+                          minHeight: '40px',
+                          whiteSpace: 'normal',
+                          lineHeight: 1.35
                         }}
                         title={`Open source on ${release.source || 'Media'}`}
                       >
@@ -971,26 +1020,27 @@ const PressRelease = () => {
           </div>
         )}
 
-        {/* Media Desk Contact & Resources Strip */}
+        {/* Media Desk Contact & Resources Strip (Replaced beige panel with sleek dark glassmorphism) */}
         <section className="media-desk-section" style={{
           marginTop: 'clamp(3rem, 6vw, 5rem)',
-          backgroundColor: '#ffffff',
-          borderRadius: '20px',
-          border: '1px solid #e2e8f0',
-          padding: 'clamp(2rem, 4vw, 3rem) clamp(1.25rem, 3.5vw, 2.5rem)',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.04)',
+          background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
+          borderRadius: '24px',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
+          padding: 'clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem)',
+          boxShadow: '0 24px 60px rgba(20, 8, 13, 0.45)',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          color: '#ffffff'
         }}>
+          {/* Ambient Background Glow replacing the old beige block */}
           <div style={{
             position: 'absolute',
-            top: 0,
-            right: 0,
-            width: '280px',
-            height: '100%',
-            background: 'linear-gradient(135deg, rgba(126, 58, 65, 0.05) 0%, rgba(126, 58, 65, 0.12) 100%)',
-            borderTopRightRadius: '20px',
-            borderBottomRightRadius: '20px',
+            top: '-80px',
+            right: '-80px',
+            width: '320px',
+            height: '320px',
+            background: 'radial-gradient(circle, rgba(242, 140, 40, 0.15) 0%, transparent 70%)',
+            borderRadius: '50%',
             pointerEvents: 'none'
           }} />
 
@@ -999,21 +1049,25 @@ const PressRelease = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              color: '#7e3a41',
+              color: 'var(--accent-orange, #f28c28)',
               fontWeight: 700,
-              fontSize: '0.85rem',
+              fontSize: '0.82rem',
               textTransform: 'uppercase',
-              letterSpacing: '1px',
-              marginBottom: '0.75rem'
+              letterSpacing: '0.8px',
+              marginBottom: '0.75rem',
+              backgroundColor: 'rgba(242, 140, 40, 0.12)',
+              border: '1px solid rgba(242, 140, 40, 0.3)',
+              padding: '0.35rem 0.85rem',
+              borderRadius: '20px'
             }}>
               <Mail size={16} /> Press & Media Relations Desk
             </div>
 
-            <h3 style={{ fontSize: '1.85rem', fontWeight: 800, color: '#0f172a', marginBottom: '0.75rem' }}>
+            <h3 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 800, color: '#ffffff', marginBottom: '0.75rem', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
               Have a media inquiry or interview request?
             </h3>
 
-            <p style={{ color: '#475569', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: '2rem' }}>
+            <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '1.02rem', lineHeight: 1.65, marginBottom: '2rem' }}>
               Members of the press, industry analysts, and conference organizers are invited to connect directly with the Zetawa Dark communications team for official commentary, executive bios, and brand assets.
             </p>
 
@@ -1021,21 +1075,22 @@ const PressRelease = () => {
               <a
                 href="mailto:vansh100101102@gmail.com?subject=Press%20Inquiry%20-%20Zetawa%20Dark"
                 style={{
-                  backgroundColor: '#7e3a41',
+                  backgroundColor: 'var(--accent-orange, #f28c28)',
                   color: 'white',
-                  padding: '0.8rem 1.6rem',
+                  padding: '0.85rem 1.75rem',
                   borderRadius: '50px',
                   textDecoration: 'none',
-                  fontWeight: 600,
+                  fontWeight: 700,
                   fontSize: '0.95rem',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  boxShadow: '0 4px 14px rgba(126, 58, 65, 0.25)',
-                  transition: 'all 0.2s ease'
+                  boxShadow: '0 6px 20px rgba(242, 140, 40, 0.35)',
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  minHeight: '44px'
                 }}
-                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#6a3139'; }}
-                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#7e3a41'; }}
+                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; }}
               >
                 <Mail size={18} /> Inquire with Communications
               </a>
@@ -1043,9 +1098,9 @@ const PressRelease = () => {
               <Link
                 to="/aboutus"
                 style={{
-                  backgroundColor: '#f1f5f9',
-                  color: '#334155',
-                  padding: '0.8rem 1.6rem',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  color: '#ffffff',
+                  padding: '0.85rem 1.75rem',
                   borderRadius: '50px',
                   textDecoration: 'none',
                   fontWeight: 600,
@@ -1053,10 +1108,13 @@ const PressRelease = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  transition: 'all 0.2s ease'
+                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  backdropFilter: 'blur(8px)',
+                  transition: 'all 0.25s ease',
+                  minHeight: '44px'
                 }}
-                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#e2e8f0'; }}
-                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#f1f5f9'; }}
+                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.16)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.transform = 'translateY(0)'; }}
               >
                 About Zetawa Dark <ChevronRight size={18} />
               </Link>
@@ -1076,8 +1134,9 @@ const PressRelease = () => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(15, 23, 42, 0.7)',
-            backdropFilter: 'blur(6px)',
+            backgroundColor: 'rgba(14, 7, 10, 0.85)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -1089,29 +1148,30 @@ const PressRelease = () => {
             className="modal-panel"
             onClick={(e) => e.stopPropagation()}
             style={{
-              backgroundColor: '#ffffff',
+              backgroundColor: 'var(--bg-surface, #ffffff)',
               borderRadius: '20px',
               maxWidth: '750px',
               width: '100%',
               maxHeight: '85vh',
               display: 'flex',
               flexDirection: 'column',
-              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+              boxShadow: '0 25px 60px -12px rgba(0, 0, 0, 0.45)',
               overflow: 'hidden',
-              position: 'relative'
+              position: 'relative',
+              border: '1px solid var(--border-default, #e2e8f0)'
             }}
           >
             {/* Modal Top Accent Line */}
             <div style={{
               height: '5px',
-              background: 'linear-gradient(90deg, #7e3a41 0%, #c2525d 100%)',
+              background: 'linear-gradient(90deg, #6b2d3a 0%, #f28c28 100%)',
               width: '100%'
             }} />
 
             {/* Modal Header */}
             <div className="modal-header-section" style={{
               padding: '1.75rem 2rem 1.25rem 2rem',
-              borderBottom: '1px solid #f1f5f9',
+              borderBottom: '1px solid var(--border-subtle, #f1f5f9)',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'flex-start',
@@ -1135,8 +1195,9 @@ const PressRelease = () => {
 
                   {selectedRelease.year && (
                     <span style={{
-                      backgroundColor: '#f1f5f9',
-                      color: '#475569',
+                      backgroundColor: 'var(--bg-canvas, #f1f5f9)',
+                      color: 'var(--text-secondary, #475569)',
+                      border: '1px solid var(--border-subtle, #e2e8f0)',
                       padding: '3px 8px',
                       borderRadius: '6px',
                       fontSize: '0.75rem',
@@ -1146,7 +1207,7 @@ const PressRelease = () => {
                     </span>
                   )}
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: '#64748b', fontSize: '0.85rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', color: 'var(--text-muted, #64748b)', fontSize: '0.85rem' }}>
                     <Calendar size={14} />
                     <span>{selectedRelease.date}</span>
                   </div>
@@ -1155,7 +1216,7 @@ const PressRelease = () => {
                 <h2 style={{
                   fontSize: '1.65rem',
                   fontWeight: 800,
-                  color: '#0f172a',
+                  color: 'var(--text-primary, #0f172a)',
                   lineHeight: 1.3,
                   margin: 0
                 }}>
@@ -1167,26 +1228,26 @@ const PressRelease = () => {
               <button
                 onClick={() => setSelectedRelease(null)}
                 style={{
-                  background: '#f1f5f9',
-                  border: 'none',
+                  background: 'var(--bg-canvas, #f1f5f9)',
+                  border: '1px solid var(--border-subtle, #e2e8f0)',
                   borderRadius: '50%',
                   width: '36px',
                   height: '36px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#64748b',
+                  color: 'var(--text-muted, #64748b)',
                   cursor: 'pointer',
                   flexShrink: 0,
                   transition: 'all 0.2s ease'
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = '#e2e8f0';
+                  e.currentTarget.style.backgroundColor = 'var(--border-subtle, #e2e8f0)';
                   e.currentTarget.style.color = '#0f172a';
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = '#f1f5f9';
-                  e.currentTarget.style.color = '#64748b';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-canvas, #f1f5f9)';
+                  e.currentTarget.style.color = 'var(--text-muted, #64748b)';
                 }}
                 title="Close (Esc)"
               >
@@ -1202,13 +1263,13 @@ const PressRelease = () => {
             }}>
               {/* Publication metadata notice */}
               <div style={{
-                backgroundColor: '#f8fafc',
-                borderLeft: '4px solid #7e3a41',
+                backgroundColor: 'var(--bg-canvas, #f8fafc)',
+                borderLeft: '4px solid var(--brand-maroon, #6b2d3a)',
                 padding: '0.85rem 1.25rem',
                 borderRadius: '0 8px 8px 0',
                 marginBottom: '1.75rem',
                 fontSize: '0.85rem',
-                color: '#475569',
+                color: 'var(--text-secondary, #475569)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
@@ -1224,7 +1285,7 @@ const PressRelease = () => {
                   style={{
                     background: 'none',
                     border: 'none',
-                    color: copiedId === selectedRelease._id ? '#047857' : '#7e3a41',
+                    color: copiedId === selectedRelease._id ? '#047857' : 'var(--brand-maroon, #6b2d3a)',
                     fontSize: '0.85rem',
                     fontWeight: 600,
                     cursor: 'pointer',
@@ -1250,7 +1311,7 @@ const PressRelease = () => {
                 <div style={{
                   fontSize: '1.05rem',
                   lineHeight: 1.8,
-                  color: '#334155',
+                  color: 'var(--text-primary, #334155)',
                   whiteSpace: 'pre-wrap',
                   wordBreak: 'break-word'
                 }}>
@@ -1260,7 +1321,7 @@ const PressRelease = () => {
                 <div style={{
                   textAlign: 'center',
                   padding: '3rem 1rem',
-                  color: '#64748b'
+                  color: 'var(--text-muted, #64748b)'
                 }}>
                   <p style={{ fontSize: '1rem', fontStyle: 'italic' }}>
                     No extended text was included with this press announcement. Please refer to the official external link below for full coverage.
@@ -1272,8 +1333,8 @@ const PressRelease = () => {
             {/* Modal Footer */}
             <div className="modal-footer-section" style={{
               padding: '1.25rem 2rem',
-              borderTop: '1px solid #f1f5f9',
-              backgroundColor: '#f8fafc',
+              borderTop: '1px solid var(--border-subtle, #f1f5f9)',
+              backgroundColor: 'var(--bg-canvas, #f8fafc)',
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -1287,7 +1348,7 @@ const PressRelease = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      backgroundColor: '#0077b5',
+                      backgroundColor: 'var(--accent-indigo, #3b4bc8)',
                       color: 'white',
                       padding: '0.65rem 1.25rem',
                       borderRadius: '8px',
@@ -1297,11 +1358,12 @@ const PressRelease = () => {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.5rem',
-                      boxShadow: '0 2px 6px rgba(0, 119, 181, 0.25)',
-                      transition: 'all 0.2s ease'
+                      boxShadow: '0 2px 8px rgba(59, 75, 200, 0.25)',
+                      transition: 'all 0.2s ease',
+                      minHeight: '40px'
                     }}
-                    onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#005582'; }}
-                    onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#0077b5'; }}
+                    onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#2f3da8'; }}
+                    onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-indigo, #3b4bc8)'; }}
                   >
                     <Globe size={16} />
                     <span>View Official Source ({selectedRelease.source || 'LinkedIn'})</span>
@@ -1313,23 +1375,24 @@ const PressRelease = () => {
               <button
                 onClick={() => setSelectedRelease(null)}
                 style={{
-                  backgroundColor: '#ffffff',
-                  color: '#475569',
-                  border: '1px solid #cbd5e1',
+                  backgroundColor: 'var(--bg-surface, #ffffff)',
+                  color: 'var(--text-secondary, #475569)',
+                  border: '1px solid var(--border-default, #cbd5e1)',
                   padding: '0.65rem 1.4rem',
                   borderRadius: '8px',
                   fontSize: '0.9rem',
                   fontWeight: 600,
                   cursor: 'pointer',
-                  transition: 'all 0.2s ease'
+                  transition: 'all 0.2s ease',
+                  minHeight: '40px'
                 }}
                 onMouseOver={(e) => {
-                  e.currentTarget.style.backgroundColor = '#f1f5f9';
-                  e.currentTarget.style.color = '#0f172a';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-canvas, #f1f5f9)';
+                  e.currentTarget.style.color = 'var(--text-primary, #0f172a)';
                 }}
                 onMouseOut={(e) => {
-                  e.currentTarget.style.backgroundColor = '#ffffff';
-                  e.currentTarget.style.color = '#475569';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface, #ffffff)';
+                  e.currentTarget.style.color = 'var(--text-secondary, #475569)';
                 }}
               >
                 Close Release

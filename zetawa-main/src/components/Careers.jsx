@@ -208,12 +208,44 @@ const Careers = () => {
 
   return (
     <div style={{
-      fontFamily: 'system-ui, -apple-system, sans-serif',
-      backgroundColor: '#f8f6f7',
+      fontFamily: 'var(--font-family, "Plus Jakarta Sans", system-ui, sans-serif)',
+      backgroundColor: 'var(--bg-canvas, #f8f6f7)',
       minHeight: '100vh',
-      color: '#1e293b'
+      color: 'var(--text-primary, #1e293b)'
     }}>
       <Nav />
+      <style>{`
+        * {
+          box-sizing: border-box;
+        }
+
+        .careers-category-scroll {
+          display: flex;
+          gap: 0.5rem;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          padding-bottom: 0.35rem;
+        }
+
+        .careers-category-scroll::-webkit-scrollbar {
+          display: none;
+        }
+
+        @media (max-width: 640px) {
+          .careers-resume-cta {
+            width: 100% !important;
+            padding: 0.9rem 1.25rem !important;
+            font-size: 0.95rem !important;
+            min-height: 48px !important;
+            justify-content: center !important;
+            white-space: normal !important;
+            line-height: 1.35 !important;
+          }
+        }
+      `}</style>
+
       <AuthModal 
         isOpen={showAuthModal} 
         onClose={() => { setShowAuthModal(false); setPendingApplyLink(null); }} 
@@ -222,12 +254,13 @@ const Careers = () => {
 
       {/* ──────── Hero Header ──────── */}
       <section style={{
-        background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
-        color: 'white',
-        padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 5vw, 4.5rem)',
+        background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
+        color: '#ffffff',
+        padding: 'clamp(3rem, 6vw, 5.5rem) clamp(1rem, 4vw, 1.5rem) clamp(3rem, 6vw, 5rem)',
         textAlign: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
       }}>
         {/* Glow ambient background */}
         <div style={{
@@ -236,7 +269,7 @@ const Careers = () => {
           right: '-80px',
           width: '320px',
           height: '320px',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(242, 140, 40, 0.15) 0%, transparent 70%)',
           borderRadius: '50%',
           pointerEvents: 'none'
         }} />
@@ -246,14 +279,15 @@ const Careers = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(255, 255, 255, 0.15)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
+            background: 'rgba(242, 140, 40, 0.12)',
+            border: '1px solid rgba(242, 140, 40, 0.35)',
+            color: '#f28c28',
             padding: '0.4rem 1.25rem',
             borderRadius: '50px',
-            fontSize: '0.85rem',
+            fontSize: '0.82rem',
             fontWeight: 700,
             textTransform: 'uppercase',
-            letterSpacing: '1px',
+            letterSpacing: '0.8px',
             marginBottom: '1.25rem',
             backdropFilter: 'blur(8px)'
           }}>
@@ -261,7 +295,7 @@ const Careers = () => {
           </div>
 
           <h1 style={{
-            fontSize: 'clamp(1.9rem, 5.2vw, 3.4rem)',
+            fontSize: 'clamp(2rem, 5.5vw, 3.4rem)',
             fontWeight: 800,
             marginBottom: '1.25rem',
             lineHeight: 1.15,
@@ -269,15 +303,20 @@ const Careers = () => {
             textWrap: 'balance'
           }}>
             Build Exceptional Software. <br />
-            <span style={{ color: '#ffebee' }}>Grow Without Limits.</span>
+            <span style={{
+              background: 'linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.95) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>Grow Without Limits.</span>
           </h1>
 
           <p style={{
             fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
-            opacity: 0.94,
+            color: 'rgba(255, 255, 255, 0.85)',
             maxWidth: '720px',
             margin: '0 auto 2.5rem',
-            lineHeight: 1.6
+            lineHeight: 1.65
           }}>
             We are an ambitious team of engineers, designers, and AI specialists building production systems and next-gen tools for fast-growing companies. Join us to ship high-impact code.
           </p>
@@ -289,26 +328,27 @@ const Careers = () => {
             justifyContent: 'center',
             gap: 'clamp(1rem, 2.5vw, 2.5rem)',
             padding: '1rem clamp(1.25rem, 3vw, 2.5rem)',
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(12px)',
+            background: 'rgba(255, 255, 255, 0.07)',
+            backdropFilter: 'blur(16px)',
             borderRadius: '50px',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
             flexWrap: 'wrap',
             maxWidth: '100%',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
           }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>100% Remote</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>100% Remote</div>
               <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Async &amp; Flexible</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.18)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Fast Sprints</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>Fast Sprints</div>
               <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-Week Iterations</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.18)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Real Ownership</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>Real Ownership</div>
               <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Direct Production Code</div>
             </div>
           </div>
@@ -316,7 +356,7 @@ const Careers = () => {
       </section>
 
       {/* ──────── Open Positions Explorer ──────── */}
-      <section style={{ padding: '4.5rem 1.5rem', maxWidth: '1240px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(3rem, 6vw, 4.5rem) clamp(1rem, 3vw, 1.5rem)', maxWidth: '1240px', margin: '0 auto' }}>
         
         {/* Section Title & Search */}
         <div style={{
@@ -332,25 +372,27 @@ const Careers = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              backgroundColor: 'rgba(126, 58, 65, 0.08)',
-              color: '#7e3a41',
+              backgroundColor: 'rgba(242, 140, 40, 0.1)',
+              color: 'var(--accent-orange, #f28c28)',
+              border: '1px solid rgba(242, 140, 40, 0.25)',
               padding: '0.35rem 0.9rem',
               borderRadius: '20px',
               fontSize: '0.8rem',
               fontWeight: 700,
               marginBottom: '0.6rem',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              letterSpacing: '0.5px'
             }}>
               <Briefcase size={14} /> CURRENT OPPORTUNITIES
             </div>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.4rem)', fontWeight: 800, color: '#2d2d2d', margin: 0, textWrap: 'balance' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.4rem)', fontWeight: 800, color: 'var(--text-primary, #1e293b)', margin: 0, textWrap: 'balance', letterSpacing: '-0.02em' }}>
               Open Roles &amp; Fellowships
             </h2>
           </div>
 
           {/* Search Input */}
-          <div style={{ position: 'relative', minWidth: '280px' }}>
-            <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#999' }} />
+          <div style={{ position: 'relative', minWidth: '280px', flex: '1', maxWidth: '400px' }}>
+            <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
             <input
               type="text"
               placeholder="Search by role title or skill..."
@@ -360,23 +402,28 @@ const Careers = () => {
                 width: '100%',
                 padding: '0.75rem 1rem 0.75rem 2.4rem',
                 borderRadius: '12px',
-                border: '1px solid #ddd',
+                border: '1px solid var(--border-default, #e2e8f0)',
                 fontSize: '0.92rem',
                 outline: 'none',
-                backgroundColor: '#ffffff',
-                boxSizing: 'border-box'
+                backgroundColor: 'var(--bg-surface, #ffffff)',
+                color: 'var(--text-primary, #1e293b)',
+                boxSizing: 'border-box',
+                transition: 'border-color 0.2s ease, box-shadow 0.2s ease'
+              }}
+              onFocus={(e) => {
+                e.target.style.borderColor = 'var(--accent-orange, #f28c28)';
+                e.target.style.boxShadow = '0 0 0 3px rgba(242, 140, 40, 0.15)';
+              }}
+              onBlur={(e) => {
+                e.target.style.borderColor = 'var(--border-default, #e2e8f0)';
+                e.target.style.boxShadow = 'none';
               }}
             />
           </div>
         </div>
 
-        {/* Category Pills */}
-        <div style={{
-          display: 'flex',
-          gap: '0.5rem',
-          flexWrap: 'wrap',
-          marginBottom: '2.5rem'
-        }}>
+        {/* Category Pills (Horizontally scrollable on mobile) */}
+        <div className="careers-category-scroll" style={{ marginBottom: '2.5rem' }}>
           {departments.map(dept => (
             <button
               key={dept.id}
@@ -384,14 +431,17 @@ const Careers = () => {
               style={{
                 padding: '0.55rem 1.25rem',
                 borderRadius: '50px',
-                border: activeCategory === dept.id ? '1.5px solid #7e3a41' : '1px solid #e2e8f0',
-                backgroundColor: activeCategory === dept.id ? '#7e3a41' : '#ffffff',
-                color: activeCategory === dept.id ? 'white' : '#475569',
+                border: activeCategory === dept.id ? '1.5px solid var(--accent-orange, #f28c28)' : '1px solid var(--border-default, #e2e8f0)',
+                backgroundColor: activeCategory === dept.id ? 'var(--brand-maroon, #6b2d3a)' : 'var(--bg-surface, #ffffff)',
+                color: activeCategory === dept.id ? '#ffffff' : 'var(--text-secondary, #475569)',
                 fontSize: '0.88rem',
                 fontWeight: activeCategory === dept.id ? 700 : 600,
                 cursor: 'pointer',
-                transition: 'all 0.2s ease',
-                boxShadow: activeCategory === dept.id ? '0 4px 12px rgba(126,58,65,0.2)' : 'none'
+                transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: activeCategory === dept.id ? '0 4px 14px rgba(107, 45, 58, 0.25)' : 'none',
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+                minHeight: '40px'
               }}
             >
               {dept.label}
@@ -401,29 +451,29 @@ const Careers = () => {
 
         {/* Jobs Grid */}
         {loading ? (
-          <div style={{ textAlign: 'center', padding: '4rem 2rem', background: 'white', borderRadius: '16px', border: '1px solid #eee' }}>
-            <div style={{ display: 'inline-block', width: '36px', height: '36px', border: '3px solid #f3e8e9', borderTop: '3px solid #7e3a41', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-            <p style={{ color: '#777', marginTop: '1rem', fontWeight: 600 }}>Loading active positions...</p>
+          <div style={{ textAlign: 'center', padding: '4rem 2rem', background: 'var(--bg-surface, #ffffff)', borderRadius: '16px', border: '1px solid var(--border-subtle, #eee)' }}>
+            <div style={{ display: 'inline-block', width: '36px', height: '36px', border: '3px solid #f3e8e9', borderTop: '3px solid var(--brand-maroon, #6b2d3a)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+            <p style={{ color: 'var(--text-muted, #777)', marginTop: '1rem', fontWeight: 600 }}>Loading active positions...</p>
           </div>
         ) : filteredJobs.length === 0 ? (
           <div style={{
-            background: 'white',
+            background: 'var(--bg-surface, #ffffff)',
             borderRadius: '20px',
             padding: '4rem 2rem',
             textAlign: 'center',
-            border: '1px dashed #d5c8ca'
+            border: '1px dashed var(--border-default, #d5c8ca)'
           }}>
             <Briefcase size={48} color="#b0a0a2" style={{ margin: '0 auto 1rem' }} />
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#2d2d2d', marginBottom: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', marginBottom: '0.5rem' }}>
               No Openings Found
             </h3>
-            <p style={{ color: '#666', fontSize: '0.95rem', maxWidth: '460px', margin: '0 auto 1.5rem' }}>
+            <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '0.95rem', maxWidth: '460px', margin: '0 auto 1.5rem', lineHeight: 1.6 }}>
               We don&apos;t currently have an open position matching your exact filter, but we are always eager to meet talented developers and creators.
             </p>
             <a
               href="mailto:director@zetawa.com?subject=General%20Application%20-%20Zetawa%20Dark"
               style={{
-                backgroundColor: '#7e3a41',
+                backgroundColor: 'var(--brand-maroon, #6b2d3a)',
                 color: 'white',
                 padding: '0.85rem 1.75rem',
                 borderRadius: '12px',
@@ -432,8 +482,12 @@ const Careers = () => {
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.5rem'
+                gap: '0.5rem',
+                transition: 'all 0.2s ease',
+                boxShadow: '0 4px 14px rgba(107, 45, 58, 0.25)'
               }}
+              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--brand-maroon-hover, #55222d)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--brand-maroon, #6b2d3a)'; }}
             >
               <Mail size={16} /> Send General Application
             </a>
@@ -441,56 +495,57 @@ const Careers = () => {
         ) : (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.75rem' }}>
             {filteredJobs.map((job) => {
-              const isExpanded = expandedJobId === job._id;
               const requirements = Array.isArray(job.requirements) ? job.requirements : [];
 
               return (
                 <div
                   key={job._id}
                   style={{
-                    backgroundColor: '#ffffff',
+                    backgroundColor: 'var(--bg-surface, #ffffff)',
                     borderRadius: '20px',
-                    border: '1px solid #e8e0e2',
-                    padding: 'clamp(1.25rem, 4vw, 2.25rem)',
-                    boxShadow: '0 4px 18px rgba(0,0,0,0.03)',
+                    border: '1px solid var(--border-default, #e8e0e2)',
+                    padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
+                    boxShadow: '0 4px 18px rgba(0, 0, 0, 0.03)',
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'space-between',
-                    transition: 'all 0.3s ease'
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    height: '100%'
                   }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.transform = 'translateY(-5px)';
-                    e.currentTarget.style.boxShadow = '0 16px 36px rgba(126,58,65,0.09)';
-                    e.currentTarget.style.borderColor = 'rgba(126, 58, 65, 0.35)';
+                    e.currentTarget.style.boxShadow = '0 16px 36px rgba(42, 16, 25, 0.09)';
+                    e.currentTarget.style.borderColor = 'rgba(242, 140, 40, 0.45)';
                   }}
                   onMouseLeave={(e) => {
                     e.currentTarget.style.transform = 'translateY(0)';
-                    e.currentTarget.style.boxShadow = '0 4px 18px rgba(0,0,0,0.03)';
-                    e.currentTarget.style.borderColor = '#e8e0e2';
+                    e.currentTarget.style.boxShadow = '0 4px 18px rgba(0, 0, 0, 0.03)';
+                    e.currentTarget.style.borderColor = 'var(--border-default, #e8e0e2)';
                   }}
                 >
                   <div>
-                    {/* Top Tag Badges */}
+                    {/* Consistent Top Tag Meta Bar */}
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem', marginBottom: '1.25rem' }}>
                       <span style={{
                         padding: '0.3rem 0.75rem',
                         borderRadius: '20px',
                         fontSize: '0.78rem',
                         fontWeight: 700,
-                        backgroundColor: '#f1eaeb',
-                        color: '#7e3a41',
-                        border: '1px solid #ecd8db'
+                        backgroundColor: 'rgba(242, 140, 40, 0.1)',
+                        color: 'var(--accent-orange, #f28c28)',
+                        border: '1px solid rgba(242, 140, 40, 0.25)'
                       }}>
                         {job.department || 'Engineering'}
                       </span>
-                      <div style={{ display: 'flex', gap: '0.4rem' }}>
+                      <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap' }}>
                         <span style={{
                           padding: '0.3rem 0.65rem',
                           borderRadius: '8px',
                           fontSize: '0.75rem',
                           fontWeight: 600,
-                          backgroundColor: '#f8fafc',
-                          color: '#475569',
+                          backgroundColor: 'var(--bg-canvas, #f8fafc)',
+                          color: 'var(--text-secondary, #475569)',
+                          border: '1px solid var(--border-subtle, #e2e8f0)',
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '0.25rem'
@@ -502,8 +557,9 @@ const Careers = () => {
                           borderRadius: '8px',
                           fontSize: '0.75rem',
                           fontWeight: 600,
-                          backgroundColor: '#f8fafc',
-                          color: '#475569',
+                          backgroundColor: 'var(--bg-canvas, #f8fafc)',
+                          color: 'var(--text-secondary, #475569)',
+                          border: '1px solid var(--border-subtle, #e2e8f0)',
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '0.25rem'
@@ -513,30 +569,30 @@ const Careers = () => {
                       </div>
                     </div>
 
-                    <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#2d2d2d', marginBottom: '0.4rem', lineHeight: 1.3 }}>
+                    <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', marginBottom: '0.4rem', lineHeight: 1.3 }}>
                       {job.title}
                     </h3>
 
                     {job.experience && (
-                      <p style={{ color: '#7e3a41', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.85rem' }}>
+                      <p style={{ color: 'var(--brand-maroon, #6b2d3a)', fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.85rem' }}>
                         Experience: {job.experience}
                       </p>
                     )}
 
-                    <p style={{ color: '#64748b', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
+                    <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
                       {job.description}
                     </p>
 
                     {/* Requirements / Key Points */}
                     {requirements.length > 0 && (
-                      <div style={{ marginBottom: '1.5rem', backgroundColor: '#faf8f9', padding: '1rem 1.25rem', borderRadius: '12px', border: '1px solid #f0e6e8' }}>
-                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#7e3a41', textTransform: 'uppercase', marginBottom: '0.6rem', letterSpacing: '0.5px' }}>
+                      <div style={{ marginBottom: '1.5rem', backgroundColor: 'var(--bg-canvas, #faf8f9)', padding: '1rem 1.25rem', borderRadius: '12px', border: '1px solid var(--border-subtle, #f0e6e8)' }}>
+                        <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-orange, #f28c28)', textTransform: 'uppercase', marginBottom: '0.6rem', letterSpacing: '0.5px' }}>
                           Key Qualifications:
                         </div>
                         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
                           {requirements.map((req, rIdx) => (
-                            <li key={rIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.86rem', color: '#334155' }}>
-                              <CheckCircle2 size={15} style={{ color: '#7e3a41', flexShrink: 0, marginTop: '2px' }} />
+                            <li key={rIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.86rem', color: 'var(--text-primary, #334155)' }}>
+                              <CheckCircle2 size={15} style={{ color: 'var(--accent-orange, #f28c28)', flexShrink: 0, marginTop: '2px' }} />
                               <span>{req}</span>
                             </li>
                           ))}
@@ -545,13 +601,13 @@ const Careers = () => {
                     )}
                   </div>
 
-                  {/* Apply Button */}
-                  <div style={{ borderTop: '1px solid #f3ecee', paddingTop: '1.25rem', marginTop: '0.5rem' }}>
+                  {/* Apply Button (Pinned to Bottom) */}
+                  <div style={{ borderTop: '1px solid var(--border-subtle, #f3ecee)', paddingTop: '1.25rem', marginTop: 'auto' }}>
                     <button
                       onClick={() => handleApplyClick(job.applyLink)}
                       style={{
                         width: '100%',
-                        backgroundColor: '#7e3a41',
+                        backgroundColor: 'var(--brand-maroon, #6b2d3a)',
                         color: 'white',
                         border: 'none',
                         padding: '0.85rem 1.5rem',
@@ -563,11 +619,20 @@ const Careers = () => {
                         alignItems: 'center',
                         justifyContent: 'center',
                         gap: '0.5rem',
-                        transition: 'background 0.2s ease',
-                        boxShadow: '0 4px 12px rgba(126,58,65,0.2)'
+                        transition: 'all 0.25s ease',
+                        boxShadow: '0 4px 14px rgba(107, 45, 58, 0.2)',
+                        minHeight: '44px'
                       }}
-                      onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#60292f'; }}
-                      onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#7e3a41'; }}
+                      onMouseOver={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)';
+                        e.currentTarget.style.transform = 'translateY(-2px)';
+                        e.currentTarget.style.boxShadow = '0 6px 18px rgba(242, 140, 40, 0.35)';
+                      }}
+                      onMouseOut={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--brand-maroon, #6b2d3a)';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = '0 4px 14px rgba(107, 45, 58, 0.2)';
+                      }}
                     >
                       Apply for this Position <ArrowRight size={16} />
                     </button>
@@ -580,28 +645,30 @@ const Careers = () => {
       </section>
 
       {/* ──────── Engineering Culture & Pillars ──────── */}
-      <section style={{ padding: '5rem 1.5rem', backgroundColor: '#ffffff', borderTop: '1px solid #e8e0e2', borderBottom: '1px solid #e8e0e2' }}>
+      <section style={{ padding: 'clamp(3.5rem, 6vw, 5rem) clamp(1rem, 3vw, 1.5rem)', backgroundColor: 'var(--bg-surface, #ffffff)', borderTop: '1px solid var(--border-subtle, #e8e0e2)', borderBottom: '1px solid var(--border-subtle, #e8e0e2)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              backgroundColor: 'rgba(126, 58, 65, 0.08)',
-              color: '#7e3a41',
+              backgroundColor: 'rgba(242, 140, 40, 0.1)',
+              color: 'var(--accent-orange, #f28c28)',
+              border: '1px solid rgba(242, 140, 40, 0.25)',
               padding: '0.35rem 0.9rem',
               borderRadius: '20px',
               fontSize: '0.8rem',
               fontWeight: 700,
               marginBottom: '0.75rem',
-              textTransform: 'uppercase'
+              textTransform: 'uppercase',
+              letterSpacing: '0.6px'
             }}>
               <Users size={14} /> LIFE AT ZETAWA DARK
             </div>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, color: '#2d2d2d', margin: 0, textWrap: 'balance' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, color: 'var(--text-primary, #1e293b)', margin: 0, textWrap: 'balance', letterSpacing: '-0.02em' }}>
               Why Build Your Career With Us?
             </h2>
-            <p style={{ color: '#666', fontSize: '1.05rem', maxWidth: '650px', margin: '0.5rem auto 0' }}>
+            <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '1.05rem', maxWidth: '650px', margin: '0.5rem auto 0', lineHeight: 1.6 }}>
               We combine startup agility with serious engineering standards, giving you high ownership and rapid skill acceleration.
             </p>
           </div>
@@ -632,32 +699,35 @@ const Careers = () => {
               <div
                 key={pIdx}
                 style={{
-                  backgroundColor: '#faf8f9',
+                  backgroundColor: 'var(--bg-canvas, #faf8f9)',
                   borderRadius: '20px',
                   padding: '2.25rem 2rem',
-                  border: '1px solid #ecdfe2',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.02)',
-                  transition: 'all 0.3s ease'
+                  border: '1px solid var(--border-default, #ecdfe2)',
+                  boxShadow: '0 4px 14px rgba(0, 0, 0, 0.02)',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  display: 'flex',
+                  flexDirection: 'column'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-5px)';
-                  e.currentTarget.style.boxShadow = '0 14px 30px rgba(126,58,65,0.08)';
-                  e.currentTarget.style.borderColor = '#7e3a41';
-                  e.currentTarget.style.backgroundColor = '#ffffff';
+                  e.currentTarget.style.boxShadow = '0 16px 36px rgba(42, 16, 25, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(242, 140, 40, 0.45)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface, #ffffff)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.02)';
-                  e.currentTarget.style.borderColor = '#ecdfe2';
-                  e.currentTarget.style.backgroundColor = '#faf8f9';
+                  e.currentTarget.style.boxShadow = '0 4px 14px rgba(0, 0, 0, 0.02)';
+                  e.currentTarget.style.borderColor = 'var(--border-default, #ecdfe2)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-canvas, #faf8f9)';
                 }}
               >
                 <div style={{
                   width: '54px',
                   height: '54px',
                   borderRadius: '14px',
-                  backgroundColor: 'rgba(126, 58, 65, 0.1)',
-                  color: '#7e3a41',
+                  backgroundColor: 'rgba(242, 140, 40, 0.1)',
+                  color: 'var(--accent-orange, #f28c28)',
+                  border: '1px solid rgba(242, 140, 40, 0.25)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -665,10 +735,10 @@ const Careers = () => {
                 }}>
                   {perk.icon}
                 </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#2d2d2d', marginBottom: '0.65rem' }}>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', marginBottom: '0.65rem' }}>
                   {perk.title}
                 </h3>
-                <p style={{ color: '#64748b', fontSize: '0.92rem', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '0.92rem', lineHeight: 1.6, margin: 0 }}>
                   {perk.desc}
                 </p>
               </div>
@@ -678,29 +748,31 @@ const Careers = () => {
       </section>
 
       {/* ──────── Direct Resume Drop Banner ──────── */}
-      <section style={{ padding: '5rem 1.5rem', maxWidth: '1000px', margin: '0 auto' }}>
+      <section style={{ padding: 'clamp(3.5rem, 6vw, 5rem) clamp(1rem, 3vw, 1.5rem)', maxWidth: '1000px', margin: '0 auto' }}>
         <div style={{
-          background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+          background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
           borderRadius: '24px',
-          padding: '3.5rem 2.5rem',
+          padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem)',
           color: 'white',
           textAlign: 'center',
-          boxShadow: '0 16px 40px rgba(126, 58, 65, 0.2)',
+          boxShadow: '0 24px 60px rgba(20, 8, 13, 0.4)',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          border: '1px solid rgba(255, 255, 255, 0.12)'
         }}>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.01em' }}>
+          <h2 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.4rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em', textWrap: 'balance' }}>
             Don&apos;t See Your Exact Role?
           </h2>
-          <p style={{ fontSize: '1.1rem', opacity: 0.92, maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'rgba(255, 255, 255, 0.85)', maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
             We are always looking for exceptional software engineers, designers, and AI creators. Send your resume, GitHub profile, and portfolio directly to our leadership team.
           </p>
           <a
             href="mailto:director@zetawa.com?subject=Direct%20Career%20Inquiry%20-%20Zetawa%20Dark"
+            className="careers-resume-cta"
             style={{
-              backgroundColor: 'white',
-              color: '#7e3a41',
-              padding: '1rem 2.5rem',
+              backgroundColor: 'var(--accent-orange, #f28c28)',
+              color: '#ffffff',
+              padding: '1rem 2.25rem',
               borderRadius: '50px',
               fontSize: '1rem',
               fontWeight: 800,
@@ -708,11 +780,15 @@ const Careers = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-              transition: 'transform 0.2s ease'
+              boxShadow: '0 8px 24px rgba(242, 140, 40, 0.4)',
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+              minHeight: '48px',
+              maxWidth: '100%',
+              textAlign: 'center',
+              lineHeight: 1.35
             }}
-            onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(242, 140, 40, 0.5)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(242, 140, 40, 0.4)'; }}
           >
             <Mail size={18} /> Email Resume to director@zetawa.com
           </a>
