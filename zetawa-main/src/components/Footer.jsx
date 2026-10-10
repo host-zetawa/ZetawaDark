@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Phone, Mail, Instagram, Linkedin, MapPin, Send, Heart, ArrowUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
+
 function Footer() {
   const [screenSize, setScreenSize] = useState({
     isMobile: false,
@@ -52,38 +53,38 @@ function Footer() {
     {
       name: 'LinkedIn',
       url: 'https://www.linkedin.com/company/107492000/admin/dashboard/',
-      color: '#0077B5',
-      hoverColor: '#005885'
+      color: '#6b2d3a',
+      hoverColor: '#f28c28'
     },
     {
       name: 'Instagram',
       url: 'https://www.instagram.com/zetawadark?igsh=NXQ0dTdram83ejQx',
-      color: '#E4405F',
-      hoverColor: '#C13584'
+      color: '#6b2d3a',
+      hoverColor: '#f28c28'
     },
     {
       name: 'Phone',
       url: 'tel:7004265718',
-      color: '#34A853',
-      hoverColor: '#2d8a47'
+      color: '#6b2d3a',
+      hoverColor: '#f28c28'
     },
     {
       name: 'Email',
       url: 'mailto:director@zetawa.com',
-      color: '#EA4335',
-      hoverColor: '#c5362d'
+      color: '#6b2d3a',
+      hoverColor: '#f28c28'
     }
   ];
 
-const quickLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'About Us', path: '/aboutus' },
-  { name: 'Services', path: '/services' },
-  { name: 'Careers', path: '/careers' },
-  { name: 'Certifications', path: '/certifications' },
-  { name: 'Press Releases', path: '/press-release' },
-  { name: 'Privacy Policy', path: '/privacy-policy' },
-];
+  const quickLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'About Us', path: '/aboutus' },
+    { name: 'Services', path: '/services' },
+    { name: 'Careers', path: '/careers' },
+    { name: 'Certifications', path: '/certifications' },
+    { name: 'Press Releases', path: '/press-release' },
+    { name: 'Privacy Policy', path: '/privacy-policy' },
+  ];
 
   return (
     <>
@@ -135,7 +136,7 @@ const quickLinks = [
             transform: translateY(0px);
           }
           50% {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
           }
         }
 
@@ -151,20 +152,34 @@ const quickLinks = [
           }
         }
 
-      
         .social-icon {
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: pointer;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          color: rgba(255, 255, 255, 0.85);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 48px;
+          height: 48px;
+          border-radius: 12px;
+          text-decoration: none;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+          backdrop-filter: blur(8px);
         }
 
         .social-icon:hover {
-          transform: translateY(-5px) scale(1.1);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+          transform: translateY(-4px) scale(1.06);
+          background: linear-gradient(135deg, #6b2d3a 0%, #f28c28 100%);
+          border-color: rgba(242, 140, 40, 0.5);
+          color: #ffffff;
+          box-shadow: 0 8px 24px rgba(242, 140, 40, 0.35);
         }
 
         .quick-link {
           position: relative;
-          transition: all 0.3s ease;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: pointer;
         }
 
@@ -175,13 +190,13 @@ const quickLinks = [
           left: 0;
           width: 0;
           height: 2px;
-          background: linear-gradient(90deg, #9d4e55, #c85a5f);
+          background: linear-gradient(90deg, #f28c28, #6b2d3a);
           transition: width 0.3s ease;
         }
 
         .quick-link:hover {
-          color: #c85a5f;
-          transform: translateX(5px);
+          color: #f28c28 !important;
+          transform: translateX(4px);
         }
 
         .quick-link:hover::after {
@@ -190,68 +205,63 @@ const quickLinks = [
 
         .scroll-top-btn {
           position: fixed;
-          bottom: 30px;
-          right: 30px;
-          width: 50px;
-          height: 50px;
+          bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+          right: clamp(16px, 3.5vw, 28px);
+          width: 46px;
+          height: 46px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #9d4e55, #c85a5f);
+          background: linear-gradient(135deg, #6b2d3a 0%, #f28c28 100%);
           color: white;
-          border: none;
+          border: 1px solid rgba(255, 255, 255, 0.25);
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 5px 20px rgba(157, 78, 85, 0.4);
-          transition: all 0.3s ease;
-          z-index: 1000;
+          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(242, 140, 40, 0.25);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          z-index: 99;
           animation: float 3s ease-in-out infinite;
         }
 
         .scroll-top-btn:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 10px 30px rgba(157, 78, 85, 0.6);
+          transform: translateY(-4px) scale(1.08);
+          box-shadow: 0 10px 28px rgba(242, 140, 40, 0.45);
         }
 
         .gradient-text {
-          background: linear-gradient(90deg, #9d4e55, #c85a5f, #d67074);
+          background: linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.9) 100%);
           background-size: 200% 200%;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          animation: gradient 3s ease infinite;
+          animation: gradient 6s ease infinite;
         }
 
         .divider {
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
           margin: 2rem 0;
         }
 
-
-
         @media (max-width: 768px) {
           .scroll-top-btn {
-            bottom: 20px;
-            right: 20px;
-            width: 45px;
-            height: 45px;
+            width: 42px;
+            height: 42px;
           }
           
           .footer-card {
-            padding: 1.5rem;
+            padding: 1.25rem 0;
           }
         }
       `}</style>
 
-     
-
       {/* Main Footer */}
       <div className="footer-animated" style={{ 
-        background: 'linear-gradient(180deg, #2a2a2aff 30%, #1a1a1a 100%)',
-        color: 'white', 
-        padding: isMobile ? '2rem 0' : '4rem 0 2rem 0',
-        position: 'relative'
+        background: 'linear-gradient(180deg, #14080d 0%, #0e070a 100%)',
+        color: '#f8fafc', 
+        padding: isMobile ? '2.5rem 0 2rem 0' : '4rem 0 2.5rem 0',
+        position: 'relative',
+        borderTop: '1px solid rgba(255, 255, 255, 0.08)'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
           
@@ -260,35 +270,36 @@ const quickLinks = [
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '2fr 1fr 1fr',
             gap: isMobile ? '2rem' : '3rem',
-            marginBottom: '3rem'
+            marginBottom: '2.5rem'
           }}>
             
             {/* Company Info */}
             <div className="footer-section-left footer-card">
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1.25rem' }}>
                 <div style={{
-                  width: '40px',
-                  height: '40px',
+                  width: '42px',
+                  height: '42px',
                   borderRadius: '50%',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: 'linear-gradient(135deg, #9d4e55, #c85a5f)',
+                  background: 'linear-gradient(135deg, #6b2d3a 0%, #f28c28 100%)',
                   marginRight: '1rem',
-                  boxShadow: '0 5px 15px rgba(157, 78, 85, 0.3)'
+                  boxShadow: '0 4px 16px rgba(242, 140, 40, 0.3)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)'
                 }}>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>Z</span>
+                  <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff' }}>Z</span>
                 </div>
                 <div>
-                  <div className="gradient-text" style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>
+                  <div className="gradient-text" style={{ fontWeight: '800', fontSize: '1.2rem', letterSpacing: '0.6px' }}>
                     ZETAWA DARK
                   </div>
-                  <div style={{ fontSize: '0.8rem', color: '#adb5bd' }}>
+                  <div style={{ fontSize: '0.78rem', color: '#94a3b8', letterSpacing: '0.8px' }}>
                     PRIVATE LIMITED
                   </div>
                 </div>
               </div>
-              <p style={{ color: '#adb5bd', lineHeight: '1.6', fontSize: '0.95rem' }}>
+              <p style={{ color: '#94a3b8', lineHeight: '1.65', fontSize: '0.94rem', maxWidth: '420px' }}>
                 We design, build, and market intelligent software solutions and websites to help your business grow and thrive in the digital age.
               </p>
             </div>
@@ -296,17 +307,17 @@ const quickLinks = [
             {/* Quick Links */}
             <div className="footer-section-right">
               <h3 style={{ 
-                fontSize: '1.2rem', 
-                marginBottom: '1.5rem',
-                color: 'white',
-                fontWeight: '600'
+                fontSize: '1.15rem', 
+                marginBottom: '1.25rem',
+                color: '#ffffff',
+                fontWeight: '700'
               }}>
                 Quick Links
               </h3>
               <div style={{
                 display: 'grid',
                 gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : '1fr',
-                gap: isMobile ? '0.75rem 1rem' : '1rem'
+                gap: isMobile ? '0.75rem 1rem' : '0.85rem'
               }}>
                 {quickLinks.map(link => (
                   <Link 
@@ -314,7 +325,7 @@ const quickLinks = [
                     to={link.path}
                     className="quick-link"
                     style={{
-                      color: '#adb5bd',
+                      color: '#cbd5e1',
                       textDecoration: 'none',
                       fontSize: '0.92rem',
                       display: 'inline-block'
@@ -328,17 +339,17 @@ const quickLinks = [
             {/* Contact & Social */}
             <div className="footer-section-right">
               <h3 style={{ 
-                fontSize: '1.2rem', 
-                marginBottom: '1.5rem',
-                color: 'white',
-                fontWeight: '600'
+                fontSize: '1.15rem', 
+                marginBottom: '1.25rem',
+                color: '#ffffff',
+                fontWeight: '700'
               }}>
                 Connect With Us
               </h3>
               <div style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(2, 1fr)',
-                gap: '1rem',
+                gridTemplateColumns: 'repeat(4, 48px)',
+                gap: '0.75rem',
                 marginBottom: '1.5rem'
               }}>
                 {socialLinks.map((social, index) => (
@@ -346,18 +357,6 @@ const quickLinks = [
                     key={index}
                     href={social.url}
                     className="social-icon"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      width: '50px',
-                      height: '50px',
-                      borderRadius: '12px',
-                      background: `linear-gradient(135deg, ${social.color}, ${social.hoverColor})`,
-                      color: 'white',
-                      textDecoration: 'none',
-                      boxShadow: `0 4px 15px ${social.color}40`
-                    }}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -365,13 +364,13 @@ const quickLinks = [
                   </a>
                 ))}
               </div>
-              <div style={{ color: '#adb5bd', fontSize: '0.9rem' }}>
-                <div style={{ marginBottom: '0.5rem' }}>
-                  <Phone size={16} style={{ display: 'inline', marginRight: '8px' }} />
+              <div style={{ color: '#94a3b8', fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Phone size={16} style={{ display: 'inline', marginRight: '8px', color: '#f28c28' }} />
                   7004265718
                 </div>
-                <div>
-                  <Mail size={16} style={{ display: 'inline', marginRight: '8px' }} />
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Mail size={16} style={{ display: 'inline', marginRight: '8px', color: '#f28c28' }} />
                   director@zetawa.com
                 </div>
               </div>
@@ -390,8 +389,8 @@ const quickLinks = [
             textAlign: isMobile ? 'center' : 'left'
           }}>
             <div style={{ 
-              fontSize: '0.9rem', 
-              color: '#adb5bd', 
+              fontSize: '0.88rem', 
+              color: '#94a3b8', 
               display: 'flex', 
               alignItems: 'center', 
               gap: '0.65rem', 
@@ -403,7 +402,7 @@ const quickLinks = [
               <Link 
                 to="/privacy-policy" 
                 style={{ 
-                  color: '#adb5bd', 
+                  color: '#f28c28', 
                   textDecoration: 'underline', 
                   textUnderlineOffset: '3px',
                   fontWeight: 500
@@ -412,7 +411,7 @@ const quickLinks = [
                 Privacy Policy
               </Link>
             </div>
-            <div style={{ fontSize: '0.85rem', color: '#6c757d' }}>
+            <div style={{ fontSize: '0.82rem', color: '#64748b' }}>
               Equal opportunity employer committed to diversity and inclusion.
             </div>
           </div>
@@ -426,7 +425,7 @@ const quickLinks = [
           onClick={scrollToTop}
           aria-label="Scroll to top"
         >
-          <ArrowUp size={24} />
+          <ArrowUp size={22} />
         </button>
       )}
     </>

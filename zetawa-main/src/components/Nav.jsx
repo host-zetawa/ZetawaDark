@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, ChevronRight, LogIn, LogOut, User, Shield, Briefcase, FileText, Sparkles, Phone, ArrowRight } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight, LogIn, LogOut, User, Shield, Briefcase, FileText, Sparkles, Phone, ArrowRight, Sun, Moon } from 'lucide-react';
 import img1 from '../assets/vite.png';
 import { useAppContext } from '../context/AppContext';
 import AuthModal from './AuthModal';
@@ -11,6 +11,14 @@ function ZetawaNav() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('zetawa-theme');
+      if (saved) return saved;
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    return 'dark';
+  });
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -24,6 +32,19 @@ function ZetawaNav() {
     { name: 'Certifications', path: '/certifications' },
     { name: 'Careers', path: '/careers' },
   ];
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('zetawa-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
 
   const handleLogout = async (e) => {
     if (e) {
@@ -99,21 +120,21 @@ function ZetawaNav() {
           top: 0;
           left: 0;
           right: 0;
-          background: rgba(126, 58, 65, 0.94);
-          backdrop-filter: blur(16px);
-          -webkit-backdrop-filter: blur(16px);
-          padding: 0.55rem 0;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-          box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+          background: rgba(20, 8, 13, 0.82);
+          backdrop-filter: blur(20px) saturate(180%);
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          padding: 0.6rem 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+          box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
           z-index: 1000;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-header.scrolled {
           padding: 0.45rem 0;
-          background: rgba(110, 48, 55, 0.97);
-          border-bottom: 1px solid rgba(255, 255, 255, 0.18);
-          box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+          background: rgba(14, 7, 10, 0.94);
+          border-bottom: 1px solid rgba(242, 140, 40, 0.22);
+          box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
         }
 
         .nav-container {
@@ -130,7 +151,8 @@ function ZetawaNav() {
           align-items: center;
           gap: 0.75rem;
           cursor: pointer;
-          transition: transform 0.3s ease;
+          transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          text-decoration: none;
         }
 
         .nav-brand:hover {
@@ -141,20 +163,23 @@ function ZetawaNav() {
           width: 36px;
           height: 36px;
           border-radius: 50%;
-          background: white;
-          padding: 4px;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+          background: linear-gradient(135deg, #ffffff 0%, #f5eef0 100%);
+          padding: 3px;
+          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3), 0 0 12px rgba(242, 140, 40, 0.2);
           transition: all 0.3s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
         }
 
         .nav-header.scrolled .logo-container {
-          width: 30px;
-          height: 30px;
+          width: 32px;
+          height: 32px;
         }
 
         .logo-container:hover {
-          transform: scale(1.05);
-          box-shadow: 0 6px 20px rgba(255, 255, 255, 0.3);
+          transform: scale(1.06) rotate(6deg);
+          box-shadow: 0 6px 20px rgba(242, 140, 40, 0.45);
         }
 
         .logo-img {
@@ -165,87 +190,118 @@ function ZetawaNav() {
         }
 
         .brand-name {
-          color: white;
+          color: #ffffff;
           font-weight: 800;
           font-size: 1.1rem;
-          letter-spacing: 0.5px;
+          letter-spacing: 0.8px;
+          background: linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.9) 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
           transition: all 0.3s ease;
         }
 
         .nav-header.scrolled .brand-name {
-          font-size: 1rem;
+          font-size: 1.02rem;
         }
 
         .nav-links {
           display: none;
           align-items: center;
-          gap: 0.5rem;
+          gap: 0.35rem;
         }
 
         .nav-link {
-          color: rgba(255, 255, 255, 0.88);
+          color: rgba(255, 255, 255, 0.82);
           text-decoration: none;
-          font-size: 0.92rem;
+          font-size: 0.9rem;
           font-weight: 600;
-          padding: 0.45rem 0.95rem;
-          border-radius: 20px;
-          transition: all 0.25s ease;
+          padding: 0.45rem 0.9rem;
+          border-radius: 9999px;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           align-items: center;
           gap: 0.5rem;
           cursor: pointer;
+          border: 1px solid transparent;
         }
 
         .nav-link:hover {
-          color: white;
-          background: rgba(255, 255, 255, 0.15);
+          color: #ffffff;
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.12);
+          transform: translateY(-1px);
         }
 
         .nav-link.active {
-          color: white;
-          background: rgba(255, 255, 255, 0.22);
-          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+          color: #ffffff;
+          background: rgba(242, 140, 40, 0.16);
+          border-color: rgba(242, 140, 40, 0.45);
+          box-shadow: 0 0 14px rgba(242, 140, 40, 0.22);
+        }
+
+        .nav-theme-btn {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.07);
+          border: 1px solid rgba(255, 255, 255, 0.16);
+          color: rgba(255, 255, 255, 0.9);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+          backdrop-filter: blur(8px);
+        }
+
+        .nav-theme-btn:hover {
+          background: rgba(242, 140, 40, 0.18);
+          border-color: rgba(242, 140, 40, 0.5);
+          color: #f28c28;
+          transform: scale(1.08) rotate(15deg);
+          box-shadow: 0 0 14px rgba(242, 140, 40, 0.3);
         }
 
         .nav-auth-btn {
-          background: rgba(255,255,255,0.18);
-          border: 1.5px solid rgba(255,255,255,0.45);
-          color: white;
-          padding: 0.45rem 1.25rem;
-          border-radius: 20px;
+          background: linear-gradient(135deg, rgba(242, 140, 40, 0.18) 0%, rgba(107, 45, 58, 0.35) 100%);
+          border: 1px solid rgba(242, 140, 40, 0.45);
+          color: #ffffff;
+          padding: 0.45rem 1.15rem;
+          border-radius: 9999px;
           font-size: 0.88rem;
           font-weight: 700;
           cursor: pointer;
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          transition: all 0.25s ease;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           font-family: inherit;
           white-space: nowrap;
           backdrop-filter: blur(8px);
         }
 
         .nav-auth-btn:hover {
-          background: white;
-          color: #7e3a41;
-          border-color: white;
+          background: linear-gradient(135deg, #f28c28 0%, #e07b18 100%);
+          color: #ffffff;
+          border-color: #f28c28;
           transform: translateY(-1px);
-          box-shadow: 0 4px 14px rgba(255,255,255,0.3);
+          box-shadow: 0 4px 18px rgba(242, 140, 40, 0.4);
         }
 
         .nav-user-btn {
-          background: rgba(255,255,255,0.15);
-          border: 1.5px solid rgba(255,255,255,0.35);
-          color: white;
-          padding: 0.35rem 0.85rem 0.35rem 0.35rem;
-          border-radius: 50px;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #ffffff;
+          padding: 0.3rem 0.8rem 0.3rem 0.3rem;
+          border-radius: 9999px;
           font-size: 0.88rem;
           font-weight: 700;
           cursor: pointer;
           display: flex;
           align-items: center;
-          gap: 0.6rem;
-          transition: all 0.25s ease;
+          gap: 0.55rem;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           font-family: inherit;
           position: relative;
           white-space: nowrap;
@@ -253,41 +309,44 @@ function ZetawaNav() {
         }
 
         .nav-user-btn:hover {
-          background: rgba(255,255,255,0.25);
-          border-color: rgba(255,255,255,0.6);
+          background: rgba(255, 255, 255, 0.14);
+          border-color: rgba(242, 140, 40, 0.45);
         }
 
         .nav-avatar {
           width: 30px;
           height: 30px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #fff 0%, #f0e0e3 100%);
-          color: #7e3a41;
+          background: linear-gradient(135deg, #f28c28 0%, #6b2d3a 100%);
+          color: #ffffff;
           display: flex;
           align-items: center;
           justify-content: center;
           font-weight: 800;
-          fontSize: 0.85rem;
+          font-size: 0.84rem;
           flex-shrink: 0;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
         }
 
         .nav-dropdown {
           position: absolute;
           top: calc(100% + 8px);
           right: 0;
-          background: white;
+          background: rgba(25, 14, 19, 0.96);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
           border-radius: 14px;
-          box-shadow: 0 12px 40px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.06);
+          box-shadow: 0 16px 48px rgba(0, 0, 0, 0.55), 0 0 1px rgba(255, 255, 255, 0.2);
           min-width: 220px;
           padding: 0.5rem 0;
           z-index: 1100;
-          animation: dropdownSlideIn 0.2s ease;
-          border: 1px solid rgba(126, 58, 65, 0.12);
+          animation: dropdownSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         @keyframes dropdownSlideIn {
-          from { opacity: 0; transform: translateY(-8px); }
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translateY(-8px) scale(0.98); }
+          to { opacity: 1; transform: translateY(0) scale(1); }
         }
 
         .dropdown-item {
@@ -295,8 +354,8 @@ function ZetawaNav() {
           align-items: center;
           gap: 0.75rem;
           padding: 0.75rem 1.25rem;
-          color: #444;
-          font-size: 0.9rem;
+          color: #cbd5e1;
+          font-size: 0.88rem;
           font-weight: 600;
           cursor: pointer;
           transition: all 0.15s ease;
@@ -309,33 +368,34 @@ function ZetawaNav() {
         }
 
         .dropdown-item:hover {
-          background: rgba(126,58,65,0.08);
-          color: #7e3a41;
+          background: rgba(242, 140, 40, 0.12);
+          color: #f28c28;
         }
 
         .dropdown-divider {
           height: 1px;
-          background: #f0e6e8;
+          background: rgba(255, 255, 255, 0.1);
           margin: 0.4rem 0;
         }
 
         .dropdown-item.danger {
-          color: #c0392b;
+          color: #e5484d;
         }
 
         .dropdown-item.danger:hover {
-          background: rgba(192,57,43,0.08);
+          background: rgba(229, 72, 77, 0.14);
+          color: #ff6b6b;
         }
 
         .menu-button {
-          background: rgba(255, 255, 255, 0.15);
-          border: 1.5px solid rgba(255, 255, 255, 0.45);
-          color: white;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #ffffff;
           width: 40px;
           height: 40px;
           border-radius: 10px;
           cursor: pointer;
-          transition: all 0.25s ease;
+          transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -343,8 +403,9 @@ function ZetawaNav() {
         }
 
         .menu-button:hover, .menu-button:active {
-          background: white;
-          color: #7e3a41;
+          background: rgba(242, 140, 40, 0.18);
+          border-color: rgba(242, 140, 40, 0.5);
+          color: #f28c28;
           transform: scale(1.05);
         }
 
@@ -354,9 +415,9 @@ function ZetawaNav() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(18, 9, 11, 0.97);
-          backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
+          background: rgba(14, 7, 10, 0.96);
+          backdrop-filter: blur(28px);
+          -webkit-backdrop-filter: blur(28px);
           z-index: 2000;
           display: flex;
           flex-direction: column;
@@ -367,7 +428,7 @@ function ZetawaNav() {
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
-          padding: 1.25rem 1rem 3rem;
+          padding: 1.25rem 1rem calc(2rem + env(safe-area-inset-bottom, 0px));
         }
 
         .menu-overlay.active {
@@ -382,14 +443,14 @@ function ZetawaNav() {
           align-items: center;
           justify-content: space-between;
           padding-bottom: 1rem;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
           margin-bottom: 1rem;
         }
 
         .close-button {
-          background: rgba(255, 255, 255, 0.12);
-          border: 1px solid rgba(255, 255, 255, 0.25);
-          color: white;
+          background: rgba(255, 255, 255, 0.08);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          color: #ffffff;
           width: 38px;
           height: 38px;
           border-radius: 50%;
@@ -401,8 +462,9 @@ function ZetawaNav() {
         }
 
         .close-button:hover, .close-button:active {
-          background: white;
-          color: #7e3a41;
+          background: rgba(242, 140, 40, 0.2);
+          border-color: rgba(242, 140, 40, 0.5);
+          color: #f28c28;
           transform: rotate(90deg) scale(1.05);
         }
 
@@ -417,32 +479,33 @@ function ZetawaNav() {
         .menu-item {
           width: 100%;
           padding: 0.85rem 1.15rem;
-          color: #f1f5f9;
+          color: #e2e8f0;
           cursor: pointer;
           border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          font-size: 0.96rem;
+          font-size: 0.95rem;
           font-weight: 600;
-          transition: all 0.2s ease;
-          background: rgba(255, 255, 255, 0.05);
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+          background: rgba(255, 255, 255, 0.04);
           border: 1px solid rgba(255, 255, 255, 0.08);
           text-decoration: none;
         }
 
         .menu-item:hover, .menu-item:active {
-          background: rgba(126, 58, 65, 0.4);
-          border-color: rgba(255, 255, 255, 0.25);
-          color: white;
+          background: rgba(242, 140, 40, 0.12);
+          border-color: rgba(242, 140, 40, 0.35);
+          color: #ffffff;
           transform: translateX(3px);
         }
 
         .menu-item.active {
-          background: linear-gradient(135deg, rgba(126, 58, 65, 0.7), rgba(82, 32, 38, 0.7));
-          border-color: rgba(255, 255, 255, 0.3);
-          color: white;
+          background: linear-gradient(135deg, rgba(107, 45, 58, 0.6) 0%, rgba(242, 140, 40, 0.2) 100%);
+          border-color: rgba(242, 140, 40, 0.45);
+          color: #ffffff;
           font-weight: 700;
+          box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         }
 
         /* Desktop Navigation */
@@ -464,7 +527,7 @@ function ZetawaNav() {
           }
 
           .nav-links {
-            gap: 0.25rem;
+            gap: 0.2rem;
           }
 
           .nav-link {
@@ -473,7 +536,7 @@ function ZetawaNav() {
           }
 
           .brand-name {
-            font-size: 0.95rem;
+            font-size: 0.98rem;
           }
 
           .nav-auth-btn {
@@ -491,16 +554,16 @@ function ZetawaNav() {
         @media (max-width: 768px) {
           .nav-container {
             padding: 0 0.85rem;
-            height: 52px;
+            height: 54px;
           }
 
           .brand-name {
-            font-size: 0.9rem;
-            letter-spacing: 0.8px;
+            font-size: 0.92rem;
+            letter-spacing: 0.6px;
           }
 
           .nav-spacer {
-            height: 52px !important;
+            height: 54px !important;
           }
         }
       `}</style>
@@ -527,13 +590,22 @@ function ZetawaNav() {
                 <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Industrial & Digital Solutions</span>
               </div>
             </div>
-            <button
-              className="close-button"
-              onClick={handleMenuClose}
-              aria-label="Close menu"
-            >
-              <X size={20} />
-            </button>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <button
+                className="nav-theme-btn"
+                onClick={toggleTheme}
+                aria-label="Toggle color theme"
+              >
+                {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+              </button>
+              <button
+                className="close-button"
+                onClick={handleMenuClose}
+                aria-label="Close menu"
+              >
+                <X size={20} />
+              </button>
+            </div>
           </div>
 
           <div className="menu-content" onClick={(e) => e.stopPropagation()}>
@@ -564,10 +636,10 @@ function ZetawaNav() {
               <div
                 className="menu-item"
                 onClick={() => { navigate('/admin'); handleMenuClose(); }}
-                style={{ background: 'rgba(239, 68, 68, 0.15)', borderColor: 'rgba(239, 68, 68, 0.3)' }}
+                style={{ background: 'rgba(242, 140, 40, 0.12)', borderColor: 'rgba(242, 140, 40, 0.35)' }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
-                  <Shield size={18} strokeWidth={2.2} style={{ color: '#ef4444' }} />
+                  <Shield size={18} strokeWidth={2.2} style={{ color: '#f28c28' }} />
                   <span>Admin Command Center</span>
                 </div>
                 <ChevronRight size={16} opacity={0.6} />
@@ -613,7 +685,7 @@ function ZetawaNav() {
                   padding: '0.85rem 1rem',
                   borderRadius: '12px',
                   border: 'none',
-                  background: 'linear-gradient(135deg, #7e3a41 0%, #a84b55 100%)',
+                  background: 'linear-gradient(135deg, #f28c28 0%, #6b2d3a 100%)',
                   color: 'white',
                   fontWeight: 700,
                   fontSize: '0.92rem',
@@ -622,7 +694,7 @@ function ZetawaNav() {
                   justifyContent: 'center',
                   gap: '0.5rem',
                   cursor: 'pointer',
-                  boxShadow: '0 4px 15px rgba(126,58,65,0.4)',
+                  boxShadow: '0 4px 18px rgba(242, 140, 40, 0.35)',
                   minHeight: '46px'
                 }}
               >
@@ -636,7 +708,7 @@ function ZetawaNav() {
               <div
                 className="menu-item"
                 onClick={handleLogout}
-                style={{ color: '#ef4444', borderColor: 'rgba(239, 57, 43, 0.3)', background: 'rgba(239, 57, 43, 0.1)' }}
+                style={{ color: '#e5484d', borderColor: 'rgba(229, 72, 77, 0.35)', background: 'rgba(229, 72, 77, 0.1)' }}
               >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
                   <LogOut size={18} strokeWidth={2.2} />
@@ -697,6 +769,16 @@ function ZetawaNav() {
               );
             })}
 
+            {/* Theme Toggle Button on Desktop */}
+            <button
+              className="nav-theme-btn"
+              onClick={toggleTheme}
+              aria-label="Toggle color theme"
+              style={{ marginLeft: '0.4rem' }}
+            >
+              {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
+
             {/* Auth section on desktop */}
             {isAuth ? (
               <div ref={dropdownRef} style={{ position: 'relative', marginLeft: '0.5rem' }}>
@@ -730,7 +812,7 @@ function ZetawaNav() {
                       <>
                         <div className="dropdown-divider" />
                         <button type="button" className="dropdown-item" onClick={() => { navigate('/admin'); setShowDropdown(false); }}>
-                          <Shield size={16} />
+                          <Shield size={16} style={{ color: '#f28c28' }} />
                           Admin Command Center
                         </button>
                       </>
@@ -755,19 +837,27 @@ function ZetawaNav() {
             )}
           </nav>
 
-          {/* Mobile: Auth + Hamburger */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          {/* Mobile: Theme + Auth + Hamburger */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <style>{`
               .mobile-auth-area { display: flex; align-items: center; gap: 0.5rem; }
               @media (min-width: 1024px) { .mobile-auth-area { display: none; } }
             `}</style>
             <div className="mobile-auth-area">
+              <button
+                className="nav-theme-btn"
+                onClick={toggleTheme}
+                aria-label="Toggle color theme"
+                style={{ width: '34px', height: '34px' }}
+              >
+                {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
+              </button>
               {isAuth ? (
                 <div ref={!showDropdown ? undefined : dropdownRef} style={{ position: 'relative' }}>
                   <button
                     className="nav-user-btn"
                     onClick={() => setShowDropdown(!showDropdown)}
-                    style={{ padding: '0.3rem 0.6rem 0.3rem 0.3rem', fontSize: '0.8rem' }}
+                    style={{ padding: '0.25rem 0.55rem 0.25rem 0.25rem', fontSize: '0.8rem' }}
                   >
                     <div className="nav-avatar" style={{ width: '26px', height: '26px', fontSize: '0.75rem' }}>{userInitial}</div>
                     <ChevronDown size={12} />
@@ -777,7 +867,7 @@ function ZetawaNav() {
                 <button
                   className="nav-auth-btn"
                   onClick={() => setShowAuthModal(true)}
-                  style={{ padding: '0.35rem 0.85rem', fontSize: '0.8rem' }}
+                  style={{ padding: '0.35rem 0.8rem', fontSize: '0.8rem' }}
                 >
                   <LogIn size={14} />
                   Login
@@ -801,7 +891,7 @@ function ZetawaNav() {
         className="nav-spacer"
         style={{
           height: isScrolled ? '54px' : '62px',
-          background: 'rgba(126, 58, 65, 0.94)',
+          background: 'rgba(20, 8, 13, 0.94)',
           transition: 'height 0.3s ease'
         }}
       />
