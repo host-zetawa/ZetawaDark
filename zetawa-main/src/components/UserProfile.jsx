@@ -113,7 +113,7 @@ const UserProfile = () => {
     }}>
       <Nav />
       
-      <div style={{ flex: 1, padding: 'clamp(5.5rem, 8vw, 6.5rem) clamp(1rem, 3vw, 1.5rem) 3rem', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+      <div style={{ flex: 1, padding: 'clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 1.5rem) 3rem', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         
         {/* User Hero Banner */}
         <div style={{
@@ -217,7 +217,7 @@ const UserProfile = () => {
           {/* Quick Metrics Bar */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))',
             gap: '1rem',
             marginTop: '2rem',
             paddingTop: '1.5rem',

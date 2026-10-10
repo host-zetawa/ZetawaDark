@@ -303,22 +303,25 @@ const quickLinks = [
               }}>
                 Quick Links
               </h3>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: isMobile ? 'repeat(2, 1fr)' : '1fr',
+                gap: isMobile ? '0.75rem 1rem' : '1rem'
+              }}>
                 {quickLinks.map(link => (
                   <Link 
-                  key={link.name} 
-                  to={link.path}
-                  className="quick-link"
+                    key={link.name} 
+                    to={link.path}
+                    className="quick-link"
                     style={{
                       color: '#adb5bd',
                       textDecoration: 'none',
-                      fontSize: '0.95rem'
+                      fontSize: '0.92rem',
+                      display: 'inline-block'
                     }}>
                     {link.name}
                   </Link>
                 ))}
-
               </div>
             </div>
 

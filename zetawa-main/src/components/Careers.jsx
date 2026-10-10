@@ -224,7 +224,7 @@ const Careers = () => {
       <section style={{
         background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
         color: 'white',
-        padding: '5rem 1.5rem 4.5rem',
+        padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 5vw, 4.5rem)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
@@ -343,7 +343,7 @@ const Careers = () => {
             }}>
               <Briefcase size={14} /> CURRENT OPPORTUNITIES
             </div>
-            <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#2d2d2d', margin: 0 }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.4rem)', fontWeight: 800, color: '#2d2d2d', margin: 0, textWrap: 'balance' }}>
               Open Roles &amp; Fellowships
             </h2>
           </div>
@@ -439,7 +439,7 @@ const Careers = () => {
             </a>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.75rem' }}>
             {filteredJobs.map((job) => {
               const isExpanded = expandedJobId === job._id;
               const requirements = Array.isArray(job.requirements) ? job.requirements : [];
@@ -451,7 +451,7 @@ const Careers = () => {
                     backgroundColor: '#ffffff',
                     borderRadius: '20px',
                     border: '1px solid #e8e0e2',
-                    padding: '2.25rem',
+                    padding: 'clamp(1.25rem, 4vw, 2.25rem)',
                     boxShadow: '0 4px 18px rgba(0,0,0,0.03)',
                     display: 'flex',
                     flexDirection: 'column',
@@ -598,7 +598,7 @@ const Careers = () => {
             }}>
               <Users size={14} /> LIFE AT ZETAWA DARK
             </div>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#2d2d2d', margin: 0 }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, color: '#2d2d2d', margin: 0, textWrap: 'balance' }}>
               Why Build Your Career With Us?
             </h2>
             <p style={{ color: '#666', fontSize: '1.05rem', maxWidth: '650px', margin: '0.5rem auto 0' }}>
@@ -606,7 +606,7 @@ const Careers = () => {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.75rem' }}>
             {[
               {
                 icon: <Zap size={28} />,

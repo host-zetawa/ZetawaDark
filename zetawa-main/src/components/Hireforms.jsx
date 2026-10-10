@@ -375,7 +375,7 @@ const Hireforms = () => {
               backdropFilter: "blur(20px)",
               border: "1px solid rgba(255, 255, 255, 0.08)",
               borderRadius: "24px",
-              padding: "3rem 2.5rem",
+              padding: "clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3.5vw, 2.5rem)",
               boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)"
             }}>
 
@@ -404,7 +404,7 @@ const Hireforms = () => {
 
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
                   gap: "1rem"
                 }}>
                   {SERVICES_OPTIONS.map((srv) => {
@@ -481,7 +481,7 @@ const Hireforms = () => {
 
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
                   gap: "1.25rem"
                 }}>
                   <div>
@@ -638,7 +638,7 @@ const Hireforms = () => {
                   This helps us architect the right scope, team size, and milestone schedule.
                 </p>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1.5rem" }}>
                   {/* Budget Input in Rupees */}
                   <div>
                     <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.85rem", fontWeight: 700, color: "#f8fafc", marginBottom: "8px" }}>

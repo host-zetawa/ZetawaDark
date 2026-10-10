@@ -46,7 +46,7 @@ const AboutUs = () => {
       <section className="hero-section" style={{
         background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
         color: 'white',
-        padding: '5rem 1.5rem 4.5rem',
+        padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 5vw, 4.5rem)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
@@ -144,7 +144,7 @@ const AboutUs = () => {
         <section className="mission-vision-section" style={{ padding: '4.5rem 0' }}>
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', 
             gap: '2.5rem',
             alignItems: 'stretch'
           }}>
@@ -346,7 +346,7 @@ const AboutUs = () => {
 
           <div className="features-grid" style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', 
             gap: '2rem'
           }}>
             {[
@@ -622,7 +622,7 @@ const AboutUs = () => {
               {/* 4 Themed Journey & Achievement Cards */}
               <div className="highlights-grid" style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
                 gap: '1.75rem',
               }}>
                 {/* 1. Cybersecurity Recognition */}

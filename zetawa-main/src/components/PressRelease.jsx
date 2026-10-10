@@ -234,7 +234,7 @@ const PressRelease = () => {
       {/* Hero Header */}
       <header className="press-hero-gradient" style={{
         color: 'white',
-        padding: '5rem 0 4rem 0',
+        padding: 'clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem) 0',
         position: 'relative',
         overflow: 'hidden'
       }}>
@@ -250,7 +250,7 @@ const PressRelease = () => {
           backgroundSize: '30px 30px'
         }} />
 
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)', position: 'relative', zIndex: 1 }}>
           {/* Breadcrumb / Category indicator */}
           <div style={{
             display: 'inline-flex',
@@ -682,7 +682,7 @@ const PressRelease = () => {
           /* Announcements Grid */
           <div className="pr-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))',
             gap: '1.75rem'
           }}>
             {filteredReleases.map((release, index) => {

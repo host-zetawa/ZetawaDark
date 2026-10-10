@@ -689,6 +689,53 @@ const MainPage = () => {
           0%, 100% { transform: translateY(0px) rotate(-15deg); }
           50% { transform: translateY(-20px) rotate(-15deg); }
         }
+
+        @media (max-width: 768px) {
+          .triangle-shape, .triangle-shape-2 {
+            display: none !important;
+          }
+
+          .hero-content-container {
+            padding: clamp(1.75rem, 5vw, 2.5rem) 1rem 2rem !important;
+          }
+
+          .hero-action-buttons {
+            flex-direction: column !important;
+            width: 100% !important;
+            max-width: 380px !important;
+            margin: 0 auto 2rem auto !important;
+            gap: 0.75rem !important;
+          }
+
+          .hero-action-buttons button {
+            width: 100% !important;
+            padding: 0.85rem 1.25rem !important;
+            font-size: 0.95rem !important;
+          }
+
+          .hero-trust-strip {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr 1fr !important;
+            border-radius: 16px !important;
+            padding: 0.85rem 0.5rem !important;
+            width: 100% !important;
+            gap: 0.35rem !important;
+          }
+
+          .hero-trust-strip .strip-divider {
+            display: none !important;
+          }
+
+          .hero-trust-strip .strip-val {
+            font-size: 0.86rem !important;
+            line-height: 1.2 !important;
+          }
+
+          .hero-trust-strip .strip-lbl {
+            font-size: 0.65rem !important;
+            letter-spacing: 0px !important;
+          }
+        }
       `}</style>
 
       {/* Navigation */}
@@ -709,7 +756,7 @@ const MainPage = () => {
         <div className="triangle-shape" />
         <div className="triangle-shape-2" />
 
-        <div style={{ maxWidth: '960px', margin: '0 auto', padding: '4rem 2rem 3.5rem', position: 'relative', zIndex: 10 }}>
+        <div className="hero-content-container" style={{ maxWidth: '960px', margin: '0 auto', padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem) clamp(2.5rem, 5vw, 3.5rem)', position: 'relative', zIndex: 10 }}>
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
@@ -796,19 +843,19 @@ const MainPage = () => {
             maxWidth: '100%',
             boxSizing: 'border-box'
           }}>
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>Fast Sprint Sprints</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-4 Week Delivery</div>
+            <div className="strip-item" style={{ textAlign: 'center' }}>
+              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>Fast Sprint Sprints</div>
+              <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-4 Week Delivery</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>100% IP Ownership</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Clean Production Code</div>
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div className="strip-item" style={{ textAlign: 'center' }}>
+              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>100% IP Ownership</div>
+              <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Clean Production Code</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>AI &amp; Full-Stack</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Next.js, Node &amp; LLMs</div>
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div className="strip-item" style={{ textAlign: 'center' }}>
+              <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>AI &amp; Full-Stack</div>
+              <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Next.js, Node &amp; LLMs</div>
             </div>
           </div>
         </div>

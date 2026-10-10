@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { Menu, X, ChevronDown, LogIn, LogOut, User, Shield, Briefcase, FileText, Sparkles } from 'lucide-react';
+import { Menu, X, ChevronDown, ChevronRight, LogIn, LogOut, User, Shield, Briefcase, FileText, Sparkles, Phone, ArrowRight } from 'lucide-react';
 import img1 from '../assets/vite.png';
 import { useAppContext } from '../context/AppContext';
 import AuthModal from './AuthModal';
@@ -329,21 +329,23 @@ function ZetawaNav() {
 
         .menu-button {
           background: rgba(255, 255, 255, 0.15);
-          border: 1.5px solid rgba(255, 255, 255, 0.5);
+          border: 1.5px solid rgba(255, 255, 255, 0.45);
           color: white;
-          padding: 8px 10px;
+          width: 40px;
+          height: 40px;
           border-radius: 10px;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.25s ease;
           display: flex;
           align-items: center;
           justify-content: center;
+          backdrop-filter: blur(8px);
         }
 
-        .menu-button:hover {
+        .menu-button:hover, .menu-button:active {
           background: white;
           color: #7e3a41;
-          transform: translateY(-1px);
+          transform: scale(1.05);
         }
 
         .menu-overlay {
@@ -352,18 +354,20 @@ function ZetawaNav() {
           left: 0;
           right: 0;
           bottom: 0;
-          background: rgba(255, 255, 255, 0.98);
+          background: rgba(18, 9, 11, 0.97);
           backdrop-filter: blur(24px);
           -webkit-backdrop-filter: blur(24px);
           z-index: 2000;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+          justify-content: flex-start;
           align-items: center;
           opacity: 0;
           visibility: hidden;
-          transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+          padding: 1.25rem 1rem 3rem;
         }
 
         .menu-overlay.active {
@@ -371,60 +375,74 @@ function ZetawaNav() {
           visibility: visible;
         }
 
+        .menu-drawer-header {
+          width: 100%;
+          max-width: 440px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+          margin-bottom: 1rem;
+        }
+
         .close-button {
-          position: fixed;
-          top: 1.75rem;
-          right: 1.75rem;
-          background: rgba(126, 58, 65, 0.08);
-          border: 1.5px solid #7e3a41;
-          color: #7e3a41;
-          padding: 12px;
+          background: rgba(255, 255, 255, 0.12);
+          border: 1px solid rgba(255, 255, 255, 0.25);
+          color: white;
+          width: 38px;
+          height: 38px;
           border-radius: 50%;
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.25s ease;
           display: flex;
           align-items: center;
           justify-content: center;
-          z-index: 2001;
         }
 
-        .close-button:hover {
-          background: #7e3a41;
-          color: white;
+        .close-button:hover, .close-button:active {
+          background: white;
+          color: #7e3a41;
           transform: rotate(90deg) scale(1.05);
         }
 
         .menu-content {
           display: flex;
           flex-direction: column;
-          align-items: center;
-          gap: 0.75rem;
-          padding: 2rem;
+          gap: 0.45rem;
           width: 100%;
-          max-width: 480px;
+          max-width: 440px;
         }
 
         .menu-item {
           width: 100%;
-          padding: 1.1rem 1.75rem;
-          color: #7e3a41;
+          padding: 0.85rem 1.15rem;
+          color: #f1f5f9;
           cursor: pointer;
-          border-radius: 14px;
+          border-radius: 12px;
           display: flex;
           align-items: center;
-          justify-content: center;
-          gap: 0.75rem;
-          font-size: 1.1rem;
-          font-weight: 700;
-          transition: all 0.3s ease;
-          background: rgba(126, 58, 65, 0.05);
-          border: 1.5px solid rgba(126, 58, 65, 0.12);
+          justify-content: space-between;
+          font-size: 0.96rem;
+          font-weight: 600;
+          transition: all 0.2s ease;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          text-decoration: none;
         }
 
-        .menu-item:hover {
-          background: rgba(126, 58, 65, 0.12);
-          border-color: rgba(126, 58, 65, 0.3);
-          transform: translateY(-2px);
+        .menu-item:hover, .menu-item:active {
+          background: rgba(126, 58, 65, 0.4);
+          border-color: rgba(255, 255, 255, 0.25);
+          color: white;
+          transform: translateX(3px);
+        }
+
+        .menu-item.active {
+          background: linear-gradient(135deg, rgba(126, 58, 65, 0.7), rgba(82, 32, 38, 0.7));
+          border-color: rgba(255, 255, 255, 0.3);
+          color: white;
+          font-weight: 700;
         }
 
         /* Desktop Navigation */
@@ -472,11 +490,17 @@ function ZetawaNav() {
 
         @media (max-width: 768px) {
           .nav-container {
-            padding: 0 1rem;
+            padding: 0 0.85rem;
+            height: 52px;
           }
 
           .brand-name {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.8px;
+          }
+
+          .nav-spacer {
+            height: 52px !important;
           }
         }
       `}</style>
@@ -493,30 +517,46 @@ function ZetawaNav() {
           className={`menu-overlay ${isMenuOpen ? 'active' : ''}`}
           onClick={handleMenuClose}
         >
-          <button
-            className="close-button"
-            onClick={handleMenuClose}
-            aria-label="Close menu"
-          >
-            <X size={22} />
-          </button>
+          <div className="menu-drawer-header" onClick={(e) => e.stopPropagation()}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+              <div className="logo-container" style={{ width: '34px', height: '34px' }}>
+                <img src={img1} alt="Zetawa Logo" className="logo-img" />
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span className="brand-name" style={{ fontSize: '0.98rem', letterSpacing: '0.8px', color: '#fff', fontWeight: 800 }}>ZETAWA DARK</span>
+                <span style={{ fontSize: '0.68rem', color: 'rgba(255,255,255,0.6)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Industrial & Digital Solutions</span>
+              </div>
+            </div>
+            <button
+              className="close-button"
+              onClick={handleMenuClose}
+              aria-label="Close menu"
+            >
+              <X size={20} />
+            </button>
+          </div>
 
           <div className="menu-content" onClick={(e) => e.stopPropagation()}>
-            {navigationItems.map((item) => (
-              <div
-                key={item.name}
-                className="menu-item"
-                onClick={() => handleNavClick(item)}
-              >
-                <span>{item.name}</span>
-              </div>
-            ))}
+            {navigationItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <div
+                  key={item.name}
+                  className={`menu-item ${isActive ? 'active' : ''}`}
+                  onClick={() => handleNavClick(item)}
+                >
+                  <span>{item.name}</span>
+                  <ChevronRight size={16} opacity={0.55} />
+                </div>
+              );
+            })}
 
             <div
-              className="menu-item"
+              className={`menu-item ${location.pathname === '/privacy-policy' ? 'active' : ''}`}
               onClick={() => { navigate('/privacy-policy'); handleMenuClose(); }}
             >
               <span>Privacy Policy</span>
+              <ChevronRight size={16} opacity={0.55} />
             </div>
 
             {/* Admin Portal in mobile menu - only for admins */}
@@ -524,9 +564,13 @@ function ZetawaNav() {
               <div
                 className="menu-item"
                 onClick={() => { navigate('/admin'); handleMenuClose(); }}
+                style={{ background: 'rgba(239, 68, 68, 0.15)', borderColor: 'rgba(239, 68, 68, 0.3)' }}
               >
-                <Shield size={20} strokeWidth={2.5} />
-                <span>Admin Command Center</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                  <Shield size={18} strokeWidth={2.2} style={{ color: '#ef4444' }} />
+                  <span>Admin Command Center</span>
+                </div>
+                <ChevronRight size={16} opacity={0.6} />
               </div>
             )}
 
@@ -537,17 +581,54 @@ function ZetawaNav() {
                   className="menu-item"
                   onClick={() => { navigate('/profile'); handleMenuClose(); }}
                 >
-                  <User size={20} strokeWidth={2.5} />
-                  <span>My Project Portal</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                    <User size={18} strokeWidth={2.2} />
+                    <span>My Project Portal</span>
+                  </div>
+                  <ChevronRight size={16} opacity={0.6} />
                 </div>
                 <div
                   className="menu-item"
                   onClick={() => { navigate('/hireforms'); handleMenuClose(); }}
                 >
-                  <FileText size={20} strokeWidth={2.5} />
-                  <span>Hire Us / Start Project</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                    <FileText size={18} strokeWidth={2.2} />
+                    <span>Hire Us / Start Project</span>
+                  </div>
+                  <ChevronRight size={16} opacity={0.6} />
                 </div>
               </>
+            )}
+
+            {/* Divider */}
+            <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', margin: '0.5rem 0' }} />
+
+            {/* Hire/Consultation primary button if not auth */}
+            {!isAuth && (
+              <button
+                type="button"
+                onClick={() => { navigate('/hireforms'); handleMenuClose(); }}
+                style={{
+                  width: '100%',
+                  padding: '0.85rem 1rem',
+                  borderRadius: '12px',
+                  border: 'none',
+                  background: 'linear-gradient(135deg, #7e3a41 0%, #a84b55 100%)',
+                  color: 'white',
+                  fontWeight: 700,
+                  fontSize: '0.92rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  cursor: 'pointer',
+                  boxShadow: '0 4px 15px rgba(126,58,65,0.4)',
+                  minHeight: '46px'
+                }}
+              >
+                <span>Start Project Consultation</span>
+                <ArrowRight size={16} />
+              </button>
             )}
 
             {/* Logout / Login in mobile menu */}
@@ -555,20 +636,37 @@ function ZetawaNav() {
               <div
                 className="menu-item"
                 onClick={handleLogout}
-                style={{ color: '#c0392b', borderColor: 'rgba(192,57,43,0.2)', background: 'rgba(192,57,43,0.06)' }}
+                style={{ color: '#ef4444', borderColor: 'rgba(239, 57, 43, 0.3)', background: 'rgba(239, 57, 43, 0.1)' }}
               >
-                <LogOut size={20} strokeWidth={2.5} />
-                <span>Logout ({userFirstName})</span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                  <LogOut size={18} strokeWidth={2.2} />
+                  <span>Logout ({userFirstName})</span>
+                </div>
               </div>
             ) : (
-              <div
-                className="menu-item"
+              <button
+                type="button"
                 onClick={() => { setShowAuthModal(true); handleMenuClose(); }}
-                style={{ background: 'linear-gradient(135deg, #7e3a41 0%, #60292f 100%)', color: 'white', borderColor: 'transparent' }}
+                style={{
+                  width: '100%',
+                  padding: '0.8rem 1rem',
+                  borderRadius: '12px',
+                  background: 'rgba(255, 255, 255, 0.08)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  color: 'white',
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.5rem',
+                  cursor: 'pointer',
+                  minHeight: '44px'
+                }}
               >
-                <LogIn size={20} strokeWidth={2.5} />
-                <span>Login / Sign Up</span>
-              </div>
+                <LogIn size={18} strokeWidth={2.2} />
+                <span>Client Login / Register</span>
+              </button>
             )}
           </div>
         </div>
@@ -700,6 +798,7 @@ function ZetawaNav() {
 
       {/* Spacer to prevent content from hiding behind fixed header */}
       <div
+        className="nav-spacer"
         style={{
           height: isScrolled ? '54px' : '62px',
           background: 'rgba(126, 58, 65, 0.94)',

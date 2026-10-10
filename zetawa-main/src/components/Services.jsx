@@ -216,7 +216,7 @@ const Services = () => {
       <section style={{
         background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
         color: '#ffffff',
-        padding: '5rem 1.5rem 4.5rem',
+        padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 5vw, 4.5rem)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
@@ -365,7 +365,7 @@ const Services = () => {
 
       {/* ──────── Services Detailed Grid ──────── */}
       <section style={{ padding: '4.5rem 1.5rem', maxWidth: '1240px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '2.5rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '2rem' }}>
           {filteredServices.map((service, index) => {
             const Icon = resolveIcon(service.icon);
             return (
@@ -375,7 +375,7 @@ const Services = () => {
                   backgroundColor: '#ffffff',
                   borderRadius: '24px',
                   border: '1px solid #e8e0e2',
-                  padding: '2.5rem',
+                  padding: 'clamp(1.5rem, 4vw, 2.5rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',

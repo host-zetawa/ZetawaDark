@@ -80,7 +80,7 @@ const Certifications = () => {
       <section style={{
         background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
         color: 'white',
-        padding: '5rem 1.5rem 4.5rem',
+        padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 5vw, 4.5rem)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
@@ -172,11 +172,11 @@ const Certifications = () => {
       </section>
 
       {/* ──────── Verification Card Section ──────── */}
-      <section style={{ padding: '4.5rem 1.5rem', maxWidth: '1000px', margin: '-2.5rem auto 0', position: 'relative', zIndex: 10 }}>
+      <section style={{ padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 1.5rem)', maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <div style={{
           backgroundColor: '#ffffff',
           borderRadius: '24px',
-          padding: '2.75rem',
+          padding: 'clamp(1.5rem, 4vw, 2.75rem)',
           boxShadow: '0 16px 40px rgba(126, 58, 65, 0.1)',
           border: '1px solid #e8e0e2'
         }}>
@@ -194,7 +194,7 @@ const Certifications = () => {
             }}>
               <ShieldCheck size={30} />
             </div>
-            <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#2d2d2d', margin: '0 0 0.5rem' }}>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: 800, color: '#2d2d2d', margin: '0 0 0.5rem', textWrap: 'balance' }}>
               Verify Certificate Authenticity
             </h2>
             <p style={{ color: '#666', fontSize: '1rem', maxWidth: '550px', margin: '0 auto' }}>
@@ -479,7 +479,7 @@ const Certifications = () => {
           }}>
             <ShieldCheck size={14} /> RIGOROUS CREDENTIALING
           </div>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#2d2d2d', margin: '0 0 0.75rem' }}>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2.4rem)', fontWeight: 800, color: '#2d2d2d', margin: '0 0 0.75rem', textWrap: 'balance' }}>
             Zetawa Dark Professional &amp; Industry Standards
           </h2>
           <p style={{ color: '#666', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
@@ -487,7 +487,7 @@ const Certifications = () => {
           </p>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.75rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.75rem' }}>
           {[
             {
               icon: <Code2 size={26} />,

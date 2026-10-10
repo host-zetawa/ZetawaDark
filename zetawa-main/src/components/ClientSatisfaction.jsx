@@ -65,8 +65,8 @@ export default function ClientSatisfaction() {
     <>
       <Nav />
 
-      <div className="container" style={{ paddingTop: '6.5rem', paddingBottom: '4rem', maxWidth: '900px', paddingLeft: 'clamp(1rem, 3vw, 1.5rem)', paddingRight: 'clamp(1rem, 3vw, 1.5rem)' }}>
-        <h2 className="text-center mb-4 fw-bold" style={{ color: '#7e3a41', fontSize: 'clamp(1.75rem, 4vw, 2.4rem)' }}>
+      <div className="container" style={{ paddingTop: 'clamp(1.5rem, 4vw, 3rem)', paddingBottom: '4rem', maxWidth: '900px', paddingLeft: 'clamp(1rem, 3vw, 1.5rem)', paddingRight: 'clamp(1rem, 3vw, 1.5rem)' }}>
+        <h2 className="text-center mb-4 fw-bold" style={{ color: '#7e3a41', fontSize: 'clamp(1.6rem, 4vw, 2.4rem)' }}>
           Client Satisfaction &amp; Testimonials
         </h2>
 
