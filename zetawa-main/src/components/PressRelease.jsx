@@ -272,17 +272,18 @@ const PressRelease = () => {
           </div>
 
           <h1 className="hero-title" style={{
-            fontSize: '3.4rem',
+            fontSize: 'clamp(1.9rem, 5.2vw, 3.4rem)',
             fontWeight: '800',
             letterSpacing: '-0.02em',
             marginBottom: '1rem',
-            lineHeight: 1.2
+            lineHeight: 1.2,
+            textWrap: 'balance'
           }}>
-            Press Releases & Corporate Announcements
+            Press Releases &amp; Corporate Announcements
           </h1>
 
           <p className="hero-subtitle" style={{
-            fontSize: '1.25rem',
+            fontSize: 'clamp(0.95rem, 2vw, 1.2rem)',
             maxWidth: '750px',
             opacity: 0.92,
             lineHeight: 1.6,

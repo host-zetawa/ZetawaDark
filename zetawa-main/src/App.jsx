@@ -18,6 +18,7 @@ import ResetPassword from './components/ResetPassword';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminDashboard from './components/AdminDashboard';
 import AdminRoute from './components/AdminRoute';
+import PrivacyPolicy from './components/PrivacyPolicy';
 // Scroll-to-top helper component
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -42,6 +43,8 @@ const App = () => {
           <Route path="/press-release" element={<PressRelease />} />
           <Route path="/hireforms" element={<Hireforms />} />
           <Route path="/aboutus" element={<AboutUs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
           <Route path="/client-satisfaction" element={<ClientSatisfaction />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

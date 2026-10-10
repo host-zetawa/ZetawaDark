@@ -336,11 +336,11 @@ const Hireforms = () => {
                 <Sparkles size={14} /> STARTUP &amp; PRODUCT DISCOVERY
               </div>
 
-              <h1 style={{ fontSize: "2.8rem", fontWeight: 800, color: "white", marginBottom: "1rem", letterSpacing: "-0.02em", lineHeight: 1.15 }}>
+              <h1 style={{ fontSize: "clamp(1.75rem, 5vw, 2.8rem)", fontWeight: 800, color: "white", marginBottom: "1rem", letterSpacing: "-0.02em", lineHeight: 1.15, textWrap: "balance" }}>
                 Let us Build Something High-Impact Together
               </h1>
 
-              <p style={{ color: "#94a3b8", fontSize: "1.15rem", maxWidth: "700px", margin: "0 auto 2rem", lineHeight: 1.6 }}>
+              <p style={{ color: "#94a3b8", fontSize: "clamp(0.95rem, 2vw, 1.15rem)", maxWidth: "700px", margin: "0 auto 2rem", lineHeight: 1.6 }}>
                 Tell us about your startup, product vision, or technical requirements. We will analyze your scope and return with an architectural plan and sprint estimate within 24 hours.
               </p>
 

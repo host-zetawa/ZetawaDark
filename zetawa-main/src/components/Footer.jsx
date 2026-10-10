@@ -82,6 +82,7 @@ const quickLinks = [
   { name: 'Careers', path: '/careers' },
   { name: 'Certifications', path: '/certifications' },
   { name: 'Press Releases', path: '/press-release' },
+  { name: 'Privacy Policy', path: '/privacy-policy' },
 ];
 
   return (
@@ -252,13 +253,13 @@ const quickLinks = [
         padding: isMobile ? '2rem 0' : '4rem 0 2rem 0',
         position: 'relative'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
           
           {/* Top Section */}
           <div style={{ 
             display: 'grid',
             gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '2fr 1fr 1fr',
-            gap: '3rem',
+            gap: isMobile ? '2rem' : '3rem',
             marginBottom: '3rem'
           }}>
             
@@ -385,8 +386,28 @@ const quickLinks = [
             gap: '1rem',
             textAlign: isMobile ? 'center' : 'left'
           }}>
-            <div style={{ fontSize: '0.9rem', color: '#adb5bd' }}>
-              © 2026 ZETAWA DARK PRIVATE LIMITED. All rights reserved.
+            <div style={{ 
+              fontSize: '0.9rem', 
+              color: '#adb5bd', 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '0.65rem', 
+              flexWrap: 'wrap',
+              justifyContent: isMobile ? 'center' : 'flex-start'
+            }}>
+              <span>© 2026 ZETAWA DARK PRIVATE LIMITED. All rights reserved.</span>
+              <span style={{ opacity: 0.4 }}>•</span>
+              <Link 
+                to="/privacy-policy" 
+                style={{ 
+                  color: '#adb5bd', 
+                  textDecoration: 'underline', 
+                  textUnderlineOffset: '3px',
+                  fontWeight: 500
+                }}
+              >
+                Privacy Policy
+              </Link>
             </div>
             <div style={{ fontSize: '0.85rem', color: '#6c757d' }}>
               Equal opportunity employer committed to diversity and inclusion.

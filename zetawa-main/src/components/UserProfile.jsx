@@ -113,13 +113,13 @@ const UserProfile = () => {
     }}>
       <Nav />
       
-      <div style={{ flex: 1, padding: '2.5rem 1.5rem', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
+      <div style={{ flex: 1, padding: 'clamp(5.5rem, 8vw, 6.5rem) clamp(1rem, 3vw, 1.5rem) 3rem', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         
         {/* User Hero Banner */}
         <div style={{
           background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
           borderRadius: '24px',
-          padding: '2.5rem',
+          padding: 'clamp(1.5rem, 4vw, 2.5rem)',
           color: 'white',
           boxShadow: '0 12px 36px rgba(126, 58, 65, 0.18)',
           marginBottom: '2.5rem',
@@ -137,26 +137,27 @@ const UserProfile = () => {
           }} />
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1.5rem', position: 'relative', zIndex: 1 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 'clamp(1rem, 3vw, 1.5rem)', flexWrap: 'wrap' }}>
               <div style={{
-                width: '76px',
-                height: '76px',
+                width: '64px',
+                height: '64px',
                 borderRadius: '50%',
                 background: 'linear-gradient(135deg, #ffffff 0%, #f0e1e3 100%)',
                 color: '#7e3a41',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                fontSize: '2rem',
+                fontSize: '1.75rem',
                 fontWeight: 800,
                 boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
-                border: '3px solid rgba(255,255,255,0.4)'
+                border: '3px solid rgba(255,255,255,0.4)',
+                flexShrink: 0
               }}>
                 {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.3rem' }}>
-                  <h1 style={{ fontSize: '1.8rem', fontWeight: 800, margin: 0 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.3rem', flexWrap: 'wrap' }}>
+                  <h1 style={{ fontSize: 'clamp(1.3rem, 3.5vw, 1.8rem)', fontWeight: 800, margin: 0 }}>
                     {user?.name || 'Client Portal'}
                   </h1>
                   {isAdmin && (

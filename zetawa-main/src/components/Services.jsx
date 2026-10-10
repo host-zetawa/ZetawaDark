@@ -251,18 +251,19 @@ const Services = () => {
           </div>
 
           <h1 style={{
-            fontSize: '3.4rem',
+            fontSize: 'clamp(1.9rem, 5.2vw, 3.4rem)',
             fontWeight: 800,
             marginBottom: '1.25rem',
             lineHeight: 1.15,
-            letterSpacing: '-0.02em'
+            letterSpacing: '-0.02em',
+            textWrap: 'balance'
           }}>
             Engineering Services Built for <br />
             <span style={{ color: '#ffebee' }}>Velocity, Quality &amp; Scale</span>
           </h1>
 
           <p style={{
-            fontSize: '1.2rem',
+            fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
             opacity: 0.94,
             maxWidth: '720px',
             margin: '0 auto 2.5rem',

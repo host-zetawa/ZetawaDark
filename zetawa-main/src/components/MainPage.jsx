@@ -68,17 +68,17 @@ const LatestUpdates = () => {
   if (updates.length === 0) return null;
 
   return (
-    <section style={{ padding: '5rem 0', backgroundColor: 'white' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
-        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: '800', color: '#2d2d2d', marginBottom: '0.75rem' }}>
+    <section style={{ padding: 'clamp(3rem, 6vw, 5rem) 0', backgroundColor: 'white' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
+        <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: '800', color: '#2d2d2d', marginBottom: '0.75rem' }}>
             Latest Updates
           </h2>
-          <p style={{ fontSize: '1.1rem', color: '#666' }}>
+          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: '#666' }}>
             Stay informed about our latest engineering developments and team milestones
           </p>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem' }}>
           {updates.map(update => (
             <div key={update._id} style={{
               padding: '2rem',
@@ -149,17 +149,17 @@ const PressReleasesSection = () => {
 
   return (
     <section style={{
-      padding: '5rem 0',
+      padding: 'clamp(3rem, 6vw, 5rem) 0',
       backgroundColor: '#faf8f9',
       borderTop: '1px solid #f0e6e8',
       borderBottom: '1px solid #f0e6e8'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'flex-end',
-          marginBottom: '3rem',
+          marginBottom: 'clamp(2rem, 4vw, 3rem)',
           flexWrap: 'wrap',
           gap: '1rem'
         }}>
@@ -180,7 +180,7 @@ const PressReleasesSection = () => {
             }}>
               <Newspaper size={14} /> OFFICIAL ANNOUNCEMENTS
             </div>
-            <h2 style={{ fontSize: '2.4rem', fontWeight: 800, color: '#2d2d2d', margin: 0 }}>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2.4rem)', fontWeight: 800, color: '#2d2d2d', margin: 0, textWrap: 'balance' }}>
               Company Announcements &amp; Updates
             </h2>
           </div>
@@ -191,10 +191,10 @@ const PressReleasesSection = () => {
               backgroundColor: 'white',
               color: '#7e3a41',
               border: '1.5px solid #7e3a41',
-              padding: '0.75rem 1.4rem',
+              padding: '0.65rem 1.25rem',
               borderRadius: '12px',
               fontWeight: 700,
-              fontSize: '0.9rem',
+              fontSize: '0.88rem',
               cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
@@ -216,8 +216,8 @@ const PressReleasesSection = () => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '2rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+          gap: '1.5rem'
         }}>
           {releases.map((release) => (
             <div
@@ -366,16 +366,16 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
 
   return (
     <section style={{
-      padding: '5.5rem 0',
+      padding: 'clamp(3rem, 6vw, 5.5rem) 0',
       backgroundColor: '#ffffff',
       borderBottom: '1px solid #e8e0e2'
     }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'flex-end',
-          marginBottom: '3.5rem',
+          marginBottom: 'clamp(2rem, 4vw, 3.5rem)',
           flexWrap: 'wrap',
           gap: '1.5rem'
         }}>
@@ -396,10 +396,10 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
             }}>
               <Sparkles size={14} /> WHAT WE BUILD
             </div>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#2d2d2d', margin: 0, letterSpacing: '-0.01em' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, color: '#2d2d2d', margin: 0, letterSpacing: '-0.01em', textWrap: 'balance' }}>
               Engineered for Speed, Polish &amp; Growth
             </h2>
-            <p style={{ fontSize: '1.1rem', color: '#666', marginTop: '0.5rem', margin: 0, maxWidth: '650px' }}>
+            <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: '#666', marginTop: '0.5rem', margin: 0, maxWidth: '650px' }}>
               Agile development sprints tailored for modern startups, mid-sized companies, and expanding businesses.
             </p>
           </div>
@@ -412,11 +412,11 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
               gap: '0.5rem',
               backgroundColor: '#7e3a41',
               color: 'white',
-              padding: '0.85rem 1.8rem',
+              padding: '0.75rem 1.6rem',
               borderRadius: '50px',
               textDecoration: 'none',
               fontWeight: 700,
-              fontSize: '0.95rem',
+              fontSize: '0.92rem',
               transition: 'all 0.25s ease',
               boxShadow: '0 4px 14px rgba(126,58,65,0.25)'
             }}
@@ -435,7 +435,7 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 270px), 1fr))',
           gap: '1.75rem'
         }}>
           {displayServices.map((item, idx) => {
@@ -726,24 +726,24 @@ const MainPage = () => {
             <Sparkles size={15} /> AGILE SOFTWARE &amp; AI SPRINT SQUADS
           </div>
 
-          <h1 className="hero-title" style={{ fontSize: '3.2rem', fontWeight: '800', marginBottom: '1.25rem', lineHeight: 1.15, letterSpacing: '-0.02em' }}>
+          <h1 className="hero-title" style={{ fontSize: 'clamp(1.9rem, 5.2vw, 3.2rem)', fontWeight: '800', marginBottom: '1.25rem', lineHeight: 1.15, letterSpacing: '-0.02em', textWrap: 'balance' }}>
             We Design, Build &amp; Scale<br />
             <span style={{ color: '#ffebee' }}>High-Impact Software Solutions</span>
           </h1>
 
           <p className="hero-subtitle" style={{
-            fontSize: '1.2rem', opacity: '0.94', maxWidth: '700px', margin: '0 auto 2.25rem auto', lineHeight: '1.65',
+            fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', opacity: '0.94', maxWidth: '700px', margin: '0 auto 2.25rem auto', lineHeight: '1.65',
           }}>
             Zetawa Dark is a high-velocity technology partner. We engineer custom full-stack web &amp; mobile apps, autonomous AI agents, intuitive design systems, and resilient cloud architectures for modern companies and startups.
           </p>
 
-          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2.75rem' }}>
+          <div className="hero-action-buttons" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2.75rem' }}>
             <button
               style={{
                 backgroundColor: 'white',
                 color: '#7e3a41',
                 border: '2px solid white',
-                padding: '0.9rem 2.2rem',
+                padding: '0.85rem 2rem',
                 borderRadius: '50px',
                 fontSize: '1rem',
                 fontWeight: '700',
@@ -762,7 +762,7 @@ const MainPage = () => {
                 backgroundColor: 'rgba(255,255,255,0.12)',
                 color: 'white',
                 border: '1.5px solid rgba(255,255,255,0.4)',
-                padding: '0.9rem 2.2rem',
+                padding: '0.85rem 2rem',
                 borderRadius: '50px',
                 fontSize: '1rem',
                 fontWeight: '600',
@@ -782,30 +782,32 @@ const MainPage = () => {
           </div>
 
           {/* Quick Metrics Trust Strip */}
-          <div style={{
+          <div className="hero-trust-strip" style={{
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '2.5rem',
-            padding: '1.1rem 2.5rem',
+            gap: 'clamp(1rem, 2.5vw, 2.5rem)',
+            padding: '1rem clamp(1.25rem, 3vw, 2.5rem)',
             background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(12px)',
             borderRadius: '50px',
             border: '1px solid rgba(255, 255, 255, 0.2)',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            maxWidth: '100%',
+            boxSizing: 'border-box'
           }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>Fast Sprint Sprints</div>
+              <div style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>Fast Sprint Sprints</div>
               <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-4 Week Delivery</div>
             </div>
             <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>100% IP Ownership</div>
+              <div style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>100% IP Ownership</div>
               <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Clean Production Code</div>
             </div>
             <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>AI &amp; Full-Stack</div>
+              <div style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>AI &amp; Full-Stack</div>
               <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Next.js, Node &amp; LLMs</div>
             </div>
           </div>
@@ -822,15 +824,15 @@ const MainPage = () => {
       <LatestUpdates />
 
       {/* ──────── Modern Frosted Glass Contact Section ──────── */}
-      <section id="contact" style={{ padding: '6rem 0', backgroundColor: '#f8f6f7' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+      <section id="contact" style={{ padding: 'clamp(3rem, 6vw, 6rem) 0', backgroundColor: '#f8f6f7' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
           
           <div style={{
             background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
             borderRadius: '28px',
             color: 'white',
             boxShadow: '0 20px 50px rgba(126, 58, 65, 0.22)',
-            padding: '3.5rem 3rem',
+            padding: 'clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem)',
             position: 'relative',
             overflow: 'hidden'
           }}>
@@ -848,8 +850,8 @@ const MainPage = () => {
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-              gap: '3rem',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 290px), 1fr))',
+              gap: 'clamp(1.5rem, 4vw, 3rem)',
               alignItems: 'center',
               position: 'relative',
               zIndex: 2
@@ -872,29 +874,29 @@ const MainPage = () => {
                   <Clock size={14} /> ⚡ Response within 24 Hours
                 </div>
 
-                <h2 style={{ fontSize: '2.5rem', fontWeight: 800, lineHeight: 1.2, marginBottom: '1rem', letterSpacing: '-0.01em' }}>
+                <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, lineHeight: 1.2, marginBottom: '1rem', letterSpacing: '-0.01em', textWrap: 'balance' }}>
                   Let&apos;s Build Something <br />Exceptional Together
                 </h2>
 
-                <p style={{ fontSize: '1.05rem', opacity: 0.9, lineHeight: 1.6, marginBottom: '2rem' }}>
+                <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', opacity: 0.9, lineHeight: 1.6, marginBottom: '2rem' }}>
                   Have a product to build, an AI feature to integrate, or a technical architecture to review? Reach out to our core team for immediate engineering discovery.
                 </p>
 
                 {/* Direct Contact Cards */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '2rem' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', backgroundColor: 'rgba(255,255,255,0.1)', padding: '0.85rem 1.25rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.15)' }}>
-                    <Mail size={20} color="#fef08a" />
-                    <div>
+                    <Mail size={20} color="#fef08a" style={{ flexShrink: 0 }} />
+                    <div style={{ minWidth: 0, overflow: 'hidden' }}>
                       <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>Direct Email</div>
-                      <a href="mailto:support@zetawa.com" style={{ color: 'white', fontWeight: 700, textDecoration: 'none', fontSize: '0.95rem' }}>support@zetawa.com</a>
+                      <a href="mailto:support@zetawa.com" style={{ color: 'white', fontWeight: 700, textDecoration: 'none', fontSize: '0.92rem', wordBreak: 'break-all' }}>support@zetawa.com</a>
                     </div>
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', backgroundColor: 'rgba(255,255,255,0.1)', padding: '0.85rem 1.25rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.15)' }}>
-                    <Phone size={20} color="#86efac" />
-                    <div>
+                    <Phone size={20} color="#86efac" style={{ flexShrink: 0 }} />
+                    <div style={{ minWidth: 0, overflow: 'hidden' }}>
                       <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>WhatsApp &amp; Phone Line</div>
-                      <a href="https://wa.me/917004265718" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontWeight: 700, textDecoration: 'none', fontSize: '0.95rem' }}>+91 7004265718 (Fast WhatsApp Support)</a>
+                      <a href="https://wa.me/917004265718" target="_blank" rel="noopener noreferrer" style={{ color: 'white', fontWeight: 700, textDecoration: 'none', fontSize: '0.92rem', wordBreak: 'break-word' }}>+91 7004265718 (Fast WhatsApp Support)</a>
                     </div>
                   </div>
                 </div>
@@ -938,7 +940,7 @@ const MainPage = () => {
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
                 borderRadius: '20px',
-                padding: '2.5rem',
+                padding: 'clamp(1.25rem, 4vw, 2.5rem)',
                 border: '1.5px solid rgba(255, 255, 255, 0.25)',
                 boxShadow: '0 12px 30px rgba(0,0,0,0.1)'
               }}>

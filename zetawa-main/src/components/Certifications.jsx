@@ -117,18 +117,19 @@ const Certifications = () => {
           </div>
 
           <h1 style={{
-            fontSize: '3.3rem',
+            fontSize: 'clamp(1.9rem, 5.2vw, 3.3rem)',
             fontWeight: 800,
             marginBottom: '1.25rem',
             lineHeight: 1.15,
-            letterSpacing: '-0.02em'
+            letterSpacing: '-0.02em',
+            textWrap: 'balance'
           }}>
             Certificate Verification &amp; <br />
             <span style={{ color: '#ffebee' }}>Credential Authenticity</span>
           </h1>
 
           <p style={{
-            fontSize: '1.15rem',
+            fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
             opacity: 0.94,
             maxWidth: '700px',
             margin: '0 auto 2.5rem',
@@ -138,17 +139,19 @@ const Certifications = () => {
           </p>
 
           {/* Quick Metrics Strip */}
-          <div style={{
+          <div className="hero-trust-strip" style={{
             display: 'inline-flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '2.5rem',
-            padding: '1rem 2.5rem',
+            gap: 'clamp(1rem, 2.5vw, 2.5rem)',
+            padding: '1rem clamp(1.25rem, 3vw, 2.5rem)',
             background: 'rgba(255, 255, 255, 0.1)',
             backdropFilter: 'blur(12px)',
             borderRadius: '50px',
             border: '1px solid rgba(255, 255, 255, 0.2)',
-            flexWrap: 'wrap'
+            flexWrap: 'wrap',
+            maxWidth: '100%',
+            boxSizing: 'border-box'
           }}>
             <div style={{ textAlign: 'center' }}>
               <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>100% Tamper-Proof</div>

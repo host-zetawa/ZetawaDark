@@ -431,6 +431,8 @@ function ZetawaNav() {
         @media (min-width: 1024px) {
           .nav-links {
             display: flex;
+            flex-wrap: nowrap;
+            align-items: center;
           }
 
           .menu-button {
@@ -438,15 +440,43 @@ function ZetawaNav() {
           }
         }
 
+        @media (min-width: 1024px) and (max-width: 1200px) {
+          .nav-container {
+            padding: 0 1rem;
+          }
+
+          .nav-links {
+            gap: 0.25rem;
+          }
+
+          .nav-link {
+            font-size: 0.82rem;
+            padding: 0.35rem 0.65rem;
+          }
+
+          .brand-name {
+            font-size: 0.95rem;
+          }
+
+          .nav-auth-btn {
+            padding: 0.35rem 0.85rem;
+            font-size: 0.82rem;
+          }
+        }
+
         @media (max-width: 1023px) {
           .nav-container {
-            padding: 0 1.5rem;
+            padding: 0 1.25rem;
           }
         }
 
         @media (max-width: 768px) {
           .nav-container {
-            padding: 0 1.25rem;
+            padding: 0 1rem;
+          }
+
+          .brand-name {
+            font-size: 0.95rem;
           }
         }
       `}</style>
@@ -481,6 +511,13 @@ function ZetawaNav() {
                 <span>{item.name}</span>
               </div>
             ))}
+
+            <div
+              className="menu-item"
+              onClick={() => { navigate('/privacy-policy'); handleMenuClose(); }}
+            >
+              <span>Privacy Policy</span>
+            </div>
 
             {/* Admin Portal in mobile menu - only for admins */}
             {isAdmin && (

@@ -244,21 +244,22 @@ const Events = () => {
         }
         
         .hero-title {
-          font-size: 2.8rem;
+          font-size: clamp(1.85rem, 5vw, 2.8rem);
           font-weight: 700;
           margin-bottom: 1rem;
           color: #ffebee;
+          text-wrap: balance;
         }
 
         .hero-subtitle {
-          font-size: 1.3rem;
+          font-size: clamp(1.05rem, 2.5vw, 1.3rem);
           margin-bottom: 0.5rem;
           opacity: 0.9;
           color: white;
         }
 
         .hero-description {
-          font-size: 1rem;
+          font-size: clamp(0.9rem, 2vw, 1rem);
           opacity: 0.8;
           color: #f5f5f5;
           margin: 0;

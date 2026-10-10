@@ -65,14 +65,14 @@ export default function ClientSatisfaction() {
     <>
       <Nav />
 
-      <div className="container my-5">
-        <h2 className="text-center mb-4 fw-bold text-success">
-          Client Satisfaction
+      <div className="container" style={{ paddingTop: '6.5rem', paddingBottom: '4rem', maxWidth: '900px', paddingLeft: 'clamp(1rem, 3vw, 1.5rem)', paddingRight: 'clamp(1rem, 3vw, 1.5rem)' }}>
+        <h2 className="text-center mb-4 fw-bold" style={{ color: '#7e3a41', fontSize: 'clamp(1.75rem, 4vw, 2.4rem)' }}>
+          Client Satisfaction &amp; Testimonials
         </h2>
 
         {/* Submit Form */}
-        <div className="card p-4 shadow-lg border-0 mb-5">
-          <h4 className="fw-bold text-primary mb-3">Submit Your Feedback</h4>
+        <div className="card p-4 shadow-sm border-0 mb-5" style={{ borderRadius: '16px', border: '1px solid #f0e6e8' }}>
+          <h4 className="fw-bold mb-3" style={{ color: '#2d2d2d' }}>Submit Your Feedback</h4>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label className="form-label fw-semibold">Name</label>
