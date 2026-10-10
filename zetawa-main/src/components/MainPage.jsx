@@ -68,52 +68,64 @@ const LatestUpdates = () => {
   if (updates.length === 0) return null;
 
   return (
-    <section style={{ padding: 'clamp(3rem, 6vw, 5rem) 0', backgroundColor: 'white' }}>
+    <section style={{ padding: 'clamp(3rem, 6vw, 5rem) 0', backgroundColor: 'var(--bg-surface, #ffffff)', borderTop: '1px solid var(--border-subtle, #f0e6e8)' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
         <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: '800', color: '#2d2d2d', marginBottom: '0.75rem' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: '800', color: 'var(--text-primary, #1e293b)', marginBottom: '0.75rem', letterSpacing: '-0.02em', textWrap: 'balance' }}>
             Latest Updates
           </h2>
-          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: '#666' }}>
+          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'var(--text-secondary, #64748b)', maxWidth: '640px', margin: '0 auto' }}>
             Stay informed about our latest engineering developments and team milestones
           </p>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem' }}>
           {updates.map(update => (
             <div key={update._id} style={{
-              padding: '2rem',
-              backgroundColor: '#faf8f9',
+              padding: 'clamp(1.5rem, 3vw, 2rem)',
+              backgroundColor: 'var(--bg-canvas, #faf8f9)',
               borderRadius: '16px',
-              border: '1px solid #f0e6e8',
-              transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-              cursor: 'pointer'
+              border: '1px solid var(--border-subtle, #f0e6e8)',
+              transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease',
+              cursor: 'pointer',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.02)'
             }}
               onMouseOver={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 12px 28px rgba(126,58,65,0.08)';
+                e.currentTarget.style.boxShadow = '0 16px 36px rgba(42, 16, 25, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(242, 140, 40, 0.4)';
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'none';
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.02)';
+                e.currentTarget.style.borderColor = 'var(--border-subtle, #f0e6e8)';
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                <Bell size={18} style={{ color: '#7e3a41', marginRight: '0.5rem' }} />
-                <span style={{ color: '#7e3a41', fontWeight: '700', fontSize: '0.85rem' }}>Update</span>
-                {update.date && <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: '#999' }}>{update.date}</span>}
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--accent-orange, #f28c28)', fontWeight: '700', fontSize: '0.85rem' }}>
+                    <Bell size={16} />
+                    <span>Update</span>
+                  </div>
+                  {update.date && <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--text-muted, #94a3b8)' }}>{update.date}</span>}
+                </div>
+                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--text-primary, #1e293b)', marginBottom: '0.75rem', lineHeight: 1.35 }}>
+                  {update.title}
+                </h3>
+                <p style={{ color: 'var(--text-secondary, #64748b)', marginBottom: '1.25rem', lineHeight: '1.6', fontSize: '0.92rem' }}>
+                  {update.description}
+                </p>
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: '#2d2d2d', marginBottom: '0.75rem' }}>
-                {update.title}
-              </h3>
-              <p style={{ color: '#666', marginBottom: '1rem', lineHeight: '1.6', fontSize: '0.92rem' }}>
-                {update.description}
-              </p>
               {update.file && (
-                <a href={update.file.startsWith('http') ? update.file : `http://localhost:4000/${update.file}`} target="_blank" rel="noopener noreferrer" style={{
-                  color: '#7e3a41', display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: '600', textDecoration: 'none', fontSize: '0.88rem'
-                }}>
-                  View Attachment <ChevronRight size={16} />
-                </a>
+                <div style={{ borderTop: '1px solid var(--border-subtle, #f0e6e8)', paddingTop: '1rem', marginTop: 'auto' }}>
+                  <a href={update.file.startsWith('http') ? update.file : `http://localhost:4000/${update.file}`} target="_blank" rel="noopener noreferrer" style={{
+                    color: 'var(--accent-orange, #f28c28)', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontWeight: '700', textDecoration: 'none', fontSize: '0.88rem'
+                  }}>
+                    View Attachment <ChevronRight size={16} />
+                  </a>
+                </div>
               )}
             </div>
           ))}
@@ -150,9 +162,9 @@ const PressReleasesSection = () => {
   return (
     <section style={{
       padding: 'clamp(3rem, 6vw, 5rem) 0',
-      backgroundColor: '#faf8f9',
-      borderTop: '1px solid #f0e6e8',
-      borderBottom: '1px solid #f0e6e8'
+      backgroundColor: 'var(--bg-canvas, #faf8f9)',
+      borderTop: '1px solid var(--border-subtle, #f0e6e8)',
+      borderBottom: '1px solid var(--border-subtle, #f0e6e8)'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
         <div style={{
@@ -161,26 +173,27 @@ const PressReleasesSection = () => {
           alignItems: 'flex-end',
           marginBottom: 'clamp(2rem, 4vw, 3rem)',
           flexWrap: 'wrap',
-          gap: '1rem'
+          gap: '1.25rem'
         }}>
           <div>
             <div style={{
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              backgroundColor: 'rgba(126, 58, 65, 0.1)',
-              color: '#7e3a41',
+              backgroundColor: 'rgba(242, 140, 40, 0.1)',
+              color: 'var(--accent-orange, #f28c28)',
+              border: '1px solid rgba(242, 140, 40, 0.25)',
               padding: '0.35rem 0.85rem',
               borderRadius: '20px',
-              fontSize: '0.8rem',
+              fontSize: '0.78rem',
               fontWeight: 700,
               textTransform: 'uppercase',
-              letterSpacing: '0.5px',
+              letterSpacing: '0.6px',
               marginBottom: '0.6rem'
             }}>
               <Newspaper size={14} /> OFFICIAL ANNOUNCEMENTS
             </div>
-            <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2.4rem)', fontWeight: 800, color: '#2d2d2d', margin: 0, textWrap: 'balance' }}>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2.4rem)', fontWeight: 800, color: 'var(--text-primary, #1e293b)', margin: 0, textWrap: 'balance', letterSpacing: '-0.02em' }}>
               Company Announcements &amp; Updates
             </h2>
           </div>
@@ -188,9 +201,9 @@ const PressReleasesSection = () => {
           <button
             onClick={() => navigate('/press-release')}
             style={{
-              backgroundColor: 'white',
-              color: '#7e3a41',
-              border: '1.5px solid #7e3a41',
+              backgroundColor: 'var(--bg-surface, #ffffff)',
+              color: 'var(--brand-maroon, #6b2d3a)',
+              border: '1.5px solid var(--brand-maroon, #6b2d3a)',
               padding: '0.65rem 1.25rem',
               borderRadius: '12px',
               fontWeight: 700,
@@ -199,16 +212,21 @@ const PressReleasesSection = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              transition: 'all 0.2s ease',
-              minHeight: '44px'
+              transition: 'all 0.25s ease',
+              minHeight: '44px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.03)'
             }}
             onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = '#7e3a41';
-              e.currentTarget.style.color = 'white';
+              e.currentTarget.style.backgroundColor = 'var(--brand-maroon, #6b2d3a)';
+              e.currentTarget.style.color = '#ffffff';
+              e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 6px 18px rgba(107, 45, 58, 0.25)';
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'white';
-              e.currentTarget.style.color = '#7e3a41';
+              e.currentTarget.style.backgroundColor = 'var(--bg-surface, #ffffff)';
+              e.currentTarget.style.color = 'var(--brand-maroon, #6b2d3a)';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 2px 8px rgba(0,0,0,0.03)';
             }}
           >
             Browse All Announcements <ArrowRight size={16} />
@@ -225,24 +243,26 @@ const PressReleasesSection = () => {
               key={release._id}
               onClick={() => navigate('/press-release')}
               style={{
-                backgroundColor: 'white',
+                backgroundColor: 'var(--bg-surface, #ffffff)',
                 borderRadius: '16px',
-                border: '1px solid #e8e0e2',
+                border: '1px solid var(--border-default, #e8e0e2)',
                 padding: 'clamp(1.25rem, 3.5vw, 1.75rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 cursor: 'pointer',
                 boxShadow: '0 4px 16px rgba(0,0,0,0.03)'
               }}
               onMouseOver={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 12px 30px rgba(126,58,65,0.08)';
+                e.currentTarget.style.boxShadow = '0 16px 36px rgba(42, 16, 25, 0.08)';
+                e.currentTarget.style.borderColor = 'rgba(242, 140, 40, 0.4)';
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
                 e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.03)';
+                e.currentTarget.style.borderColor = 'var(--border-default, #e8e0e2)';
               }}
             >
               <div>
@@ -259,22 +279,23 @@ const PressReleasesSection = () => {
                     borderRadius: '20px',
                     fontSize: '0.75rem',
                     fontWeight: 700,
-                    backgroundColor: 'rgba(126, 58, 65, 0.08)',
-                    color: '#7e3a41'
+                    backgroundColor: 'rgba(242, 140, 40, 0.1)',
+                    color: 'var(--accent-orange, #f28c28)',
+                    border: '1px solid rgba(242, 140, 40, 0.25)'
                   }}>
                     {release.type || 'Announcement'}
                   </span>
-                  <span style={{ fontSize: '0.8rem', color: '#999', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted, #94a3b8)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
                     <Calendar size={13} /> {release.date}
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#2d2d2d', marginBottom: '0.75rem', lineHeight: 1.4, wordBreak: 'break-word' }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text-primary, #1e293b)', marginBottom: '0.75rem', lineHeight: 1.4, wordBreak: 'break-word' }}>
                   {release.title}
                 </h3>
 
                 {release.content && (
-                  <p style={{ color: '#666', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+                  <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
                     {release.content.length > 140 ? release.content.substring(0, 140) + '...' : release.content}
                   </p>
                 )}
@@ -285,11 +306,12 @@ const PressReleasesSection = () => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 paddingTop: '1rem',
-                borderTop: '1px solid #f4f1f2',
+                borderTop: '1px solid var(--border-subtle, #f4f1f2)',
                 flexWrap: 'wrap',
-                gap: '0.65rem'
+                gap: '0.65rem',
+                marginTop: 'auto'
               }}>
-                <span style={{ color: '#7e3a41', fontWeight: 700, fontSize: '0.88rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
+                <span style={{ color: 'var(--brand-maroon, #6b2d3a)', fontWeight: 700, fontSize: '0.88rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                   Read Announcement <ChevronRight size={15} />
                 </span>
 
@@ -303,8 +325,9 @@ const PressReleasesSection = () => {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.35rem',
-                      color: '#0077b5',
-                      backgroundColor: 'rgba(0, 119, 181, 0.08)',
+                      color: 'var(--accent-indigo, #3b4bc8)',
+                      backgroundColor: 'rgba(59, 75, 200, 0.08)',
+                      border: '1px solid rgba(59, 75, 200, 0.18)',
                       padding: '0.35rem 0.75rem',
                       borderRadius: '8px',
                       fontSize: '0.82rem',
@@ -375,8 +398,8 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
   return (
     <section style={{
       padding: 'clamp(3rem, 6vw, 5.5rem) 0',
-      backgroundColor: '#ffffff',
-      borderBottom: '1px solid #e8e0e2'
+      backgroundColor: 'var(--bg-surface, #ffffff)',
+      borderBottom: '1px solid var(--border-subtle, #e8e0e2)'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
         <div style={{
@@ -392,22 +415,23 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              background: 'rgba(126, 58, 65, 0.08)',
-              color: '#7e3a41',
+              background: 'rgba(242, 140, 40, 0.1)',
+              color: 'var(--accent-orange, #f28c28)',
+              border: '1px solid rgba(242, 140, 40, 0.25)',
               padding: '0.4rem 1rem',
               borderRadius: '50px',
               fontSize: '0.8rem',
               fontWeight: 700,
               textTransform: 'uppercase',
-              letterSpacing: '1px',
+              letterSpacing: '0.8px',
               marginBottom: '0.75rem'
             }}>
               <Sparkles size={14} /> WHAT WE BUILD
             </div>
-            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, color: '#2d2d2d', margin: 0, letterSpacing: '-0.01em', textWrap: 'balance' }}>
+            <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: 800, color: 'var(--text-primary, #1e293b)', margin: 0, letterSpacing: '-0.02em', textWrap: 'balance' }}>
               Engineered for Speed, Polish &amp; Growth
             </h2>
-            <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: '#666', marginTop: '0.5rem', margin: 0, maxWidth: '650px' }}>
+            <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'var(--text-secondary, #64748b)', marginTop: '0.5rem', margin: 0, maxWidth: '650px' }}>
               Agile development sprints tailored for modern startups, mid-sized companies, and expanding businesses.
             </p>
           </div>
@@ -418,23 +442,25 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              backgroundColor: '#7e3a41',
+              backgroundColor: 'var(--brand-maroon, #6b2d3a)',
               color: 'white',
               padding: '0.75rem 1.6rem',
               borderRadius: '50px',
               textDecoration: 'none',
               fontWeight: 700,
               fontSize: '0.92rem',
-              transition: 'all 0.25s ease',
-              boxShadow: '0 4px 14px rgba(126,58,65,0.25)'
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+              boxShadow: '0 4px 14px rgba(107, 45, 58, 0.25)'
             }}
             onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = '#60292f';
+              e.currentTarget.style.backgroundColor = 'var(--brand-maroon-hover, #55222d)';
               e.currentTarget.style.transform = 'translateY(-2px)';
+              e.currentTarget.style.boxShadow = '0 8px 24px rgba(107, 45, 58, 0.35)';
             }}
             onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = '#7e3a41';
+              e.currentTarget.style.backgroundColor = 'var(--brand-maroon, #6b2d3a)';
               e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 4px 14px rgba(107, 45, 58, 0.25)';
             }}
           >
             Explore All Services <ArrowRight size={16} />
@@ -457,10 +483,10 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
               <div
                 key={item._id || item.id || idx}
                 style={{
-                  backgroundColor: '#faf8f9',
+                  backgroundColor: 'var(--bg-canvas, #faf8f9)',
                   borderRadius: '16px',
-                  border: '1px solid #ecdfe2',
-                  padding: '2.25rem 1.75rem',
+                  border: '1px solid var(--border-default, #ecdfe2)',
+                  padding: 'clamp(1.75rem, 3.5vw, 2.25rem) clamp(1.25rem, 3vw, 1.75rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
@@ -469,15 +495,15 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = 'translateY(-6px)';
-                  e.currentTarget.style.boxShadow = '0 16px 36px rgba(126,58,65,0.08)';
-                  e.currentTarget.style.borderColor = 'rgba(126, 58, 65, 0.35)';
-                  e.currentTarget.style.backgroundColor = '#ffffff';
+                  e.currentTarget.style.boxShadow = '0 16px 36px rgba(42, 16, 25, 0.08)';
+                  e.currentTarget.style.borderColor = 'rgba(242, 140, 40, 0.45)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-surface, #ffffff)';
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.borderColor = '#ecdfe2';
-                  e.currentTarget.style.backgroundColor = '#faf8f9';
+                  e.currentTarget.style.borderColor = 'var(--border-default, #ecdfe2)';
+                  e.currentTarget.style.backgroundColor = 'var(--bg-canvas, #faf8f9)';
                 }}
               >
                 <div>
@@ -491,8 +517,9 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
                       width: '48px',
                       height: '48px',
                       borderRadius: '12px',
-                      backgroundColor: 'rgba(126, 58, 65, 0.1)',
-                      color: '#7e3a41',
+                      backgroundColor: 'rgba(242, 140, 40, 0.1)',
+                      color: 'var(--accent-orange, #f28c28)',
+                      border: '1px solid rgba(242, 140, 40, 0.25)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
@@ -500,27 +527,27 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
                       <Icon size={24} />
                     </div>
                     <span style={{
-                      backgroundColor: '#ffffff',
-                      color: '#7e3a41',
-                      padding: '3px 10px',
+                      backgroundColor: 'var(--bg-surface, #ffffff)',
+                      color: 'var(--accent-orange, #f28c28)',
+                      padding: '4px 10px',
                       borderRadius: '20px',
                       fontSize: '0.75rem',
                       fontWeight: 700,
-                      border: '1px solid #ecd8db'
+                      border: '1px solid rgba(242, 140, 40, 0.3)'
                     }}>
                       {badgeText}
                     </span>
                   </div>
 
-                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#2d2d2d', marginBottom: '0.4rem', lineHeight: 1.3 }}>
+                  <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', marginBottom: '0.4rem', lineHeight: 1.3 }}>
                     {item.title}
                   </h3>
 
-                  <p style={{ color: '#7e3a41', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.75rem' }}>
+                  <p style={{ color: 'var(--brand-maroon, #6b2d3a)', fontSize: '0.85rem', fontWeight: 600, marginBottom: '0.75rem' }}>
                     {item.tagline}
                   </p>
 
-                  <p style={{ color: '#666', fontSize: '0.9rem', lineHeight: 1.55, marginBottom: '1.5rem' }}>
+                  <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '0.9rem', lineHeight: 1.55, marginBottom: '1.5rem' }}>
                     {item.description}
                   </p>
 
@@ -531,10 +558,10 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
                         alignItems: 'center',
                         gap: '0.4rem',
                         fontSize: '0.85rem',
-                        color: '#444',
+                        color: 'var(--text-primary, #334155)',
                         marginBottom: '0.4rem'
                       }}>
-                        <CheckCircle2 size={14} style={{ color: '#7e3a41', flexShrink: 0 }} />
+                        <CheckCircle2 size={14} style={{ color: 'var(--accent-orange, #f28c28)', flexShrink: 0 }} />
                         <span>{pt}</span>
                       </li>
                     ))}
@@ -542,16 +569,17 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
                 </div>
 
                 <div style={{
-                  borderTop: '1px solid #f0e6e8',
+                  borderTop: '1px solid var(--border-subtle, #f0e6e8)',
                   paddingTop: '1rem',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'space-between'
+                  justifyContent: 'space-between',
+                  marginTop: 'auto'
                 }}>
                   <Link
                     to="/services"
                     style={{
-                      color: '#7e3a41',
+                      color: 'var(--brand-maroon, #6b2d3a)',
                       textDecoration: 'none',
                       fontSize: '0.85rem',
                       fontWeight: 700,
@@ -568,16 +596,17 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
                     style={{
                       backgroundColor: 'transparent',
                       border: 'none',
-                      color: '#666',
+                      color: 'var(--text-muted, #64748b)',
                       fontSize: '0.85rem',
                       fontWeight: 600,
                       cursor: 'pointer',
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '0.2rem'
+                      gap: '0.2rem',
+                      transition: 'color 0.2s ease'
                     }}
-                    onMouseOver={(e) => { e.currentTarget.style.color = '#7e3a41'; }}
-                    onMouseOut={(e) => { e.currentTarget.style.color = '#666'; }}
+                    onMouseOver={(e) => { e.currentTarget.style.color = 'var(--accent-orange, #f28c28)'; }}
+                    onMouseOut={(e) => { e.currentTarget.style.color = 'var(--text-muted, #64748b)'; }}
                   >
                     Hire Team <ChevronRight size={14} />
                   </button>
@@ -651,16 +680,12 @@ const MainPage = () => {
 
   return (
     <div style={{ 
-      fontFamily: 'system-ui, -apple-system, sans-serif',
-      backgroundColor: '#f8f6f7',
-      minHeight: '100vh'
+      fontFamily: 'var(--font-family, "Plus Jakarta Sans", system-ui, sans-serif)',
+      backgroundColor: 'var(--bg-canvas, #f8f6f7)',
+      minHeight: '100vh',
+      color: 'var(--text-primary, #1e293b)'
     }}>
       <style>{`
-        :root {
-          --primary-red: #7e3a41;
-          --primary-red-hover: #60292f;
-        }
-        
         * {
           margin: 0;
           padding: 0;
@@ -669,28 +694,30 @@ const MainPage = () => {
 
         .triangle-shape {
           position: absolute;
-          top: 20%;
-          right: 10%;
+          top: 15%;
+          right: 8%;
           width: 0;
           height: 0;
-          border-left: 120px solid transparent;
-          border-right: 120px solid transparent;
-          border-bottom: 200px solid rgba(255, 255, 255, 0.08);
+          border-left: 140px solid transparent;
+          border-right: 140px solid transparent;
+          border-bottom: 240px solid rgba(242, 140, 40, 0.05);
           transform: rotate(-15deg);
           animation: float 8s ease-in-out infinite;
+          pointer-events: none;
         }
 
         .triangle-shape-2 {
           position: absolute;
-          bottom: 30%;
-          left: 8%;
+          bottom: 25%;
+          left: 6%;
           width: 0;
           height: 0;
-          border-left: 80px solid transparent;
-          border-right: 80px solid transparent;
-          border-bottom: 140px solid rgba(255, 255, 255, 0.05);
+          border-left: 90px solid transparent;
+          border-right: 90px solid transparent;
+          border-bottom: 160px solid rgba(107, 45, 58, 0.1);
           transform: rotate(25deg);
           animation: float 10s ease-in-out infinite reverse;
+          pointer-events: none;
         }
 
         @keyframes float {
@@ -704,7 +731,7 @@ const MainPage = () => {
           }
 
           .hero-content-container {
-            padding: clamp(1.75rem, 5vw, 2.5rem) 1rem 2rem !important;
+            padding: clamp(2rem, 6vw, 3rem) 1rem 2.25rem !important;
           }
 
           .hero-action-buttons {
@@ -719,6 +746,7 @@ const MainPage = () => {
             width: 100% !important;
             padding: 0.85rem 1.25rem !important;
             font-size: 0.95rem !important;
+            min-height: 44px !important;
           }
 
           .hero-trust-strip {
@@ -735,7 +763,7 @@ const MainPage = () => {
           }
 
           .hero-trust-strip .strip-val {
-            font-size: 0.86rem !important;
+            font-size: 0.85rem !important;
             line-height: 1.2 !important;
           }
 
@@ -754,40 +782,48 @@ const MainPage = () => {
 
       {/* ──────── Hero Section ──────── */}
       <header style={{
-        background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
-        color: 'white',
+        background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
+        color: '#ffffff',
         padding: '0',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
       }}>
         <div className="triangle-shape" />
         <div className="triangle-shape-2" />
 
-        <div className="hero-content-container" style={{ maxWidth: '960px', margin: '0 auto', padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1rem, 4vw, 2rem) clamp(2.5rem, 5vw, 3.5rem)', position: 'relative', zIndex: 10 }}>
+        <div className="hero-content-container" style={{ maxWidth: '960px', margin: '0 auto', padding: 'clamp(3rem, 6vw, 4.5rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 6vw, 4rem)', position: 'relative', zIndex: 10 }}>
           <div style={{
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(255, 255, 255, 0.15)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
+            background: 'rgba(242, 140, 40, 0.12)',
+            border: '1px solid rgba(242, 140, 40, 0.35)',
+            color: '#f28c28',
             padding: '0.4rem 1.1rem',
             borderRadius: '50px',
-            fontSize: '0.85rem',
+            fontSize: '0.82rem',
             fontWeight: 700,
+            letterSpacing: '0.6px',
             marginBottom: '1.25rem',
             backdropFilter: 'blur(8px)'
           }}>
             <Sparkles size={15} /> AGILE SOFTWARE &amp; AI SPRINT SQUADS
           </div>
 
-          <h1 className="hero-title" style={{ fontSize: 'clamp(1.9rem, 5.2vw, 3.2rem)', fontWeight: '800', marginBottom: '1.25rem', lineHeight: 1.15, letterSpacing: '-0.02em', textWrap: 'balance' }}>
+          <h1 className="hero-title" style={{ fontSize: 'clamp(2rem, 5.5vw, 3.4rem)', fontWeight: '800', marginBottom: '1.25rem', lineHeight: 1.15, letterSpacing: '-0.02em', textWrap: 'balance' }}>
             We Design, Build &amp; Scale<br />
-            <span style={{ color: '#ffebee' }}>High-Impact Software Solutions</span>
+            <span style={{
+              background: 'linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.95) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>High-Impact Software Solutions</span>
           </h1>
 
           <p className="hero-subtitle" style={{
-            fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', opacity: '0.94', maxWidth: '700px', margin: '0 auto 2.25rem auto', lineHeight: '1.65',
+            fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'rgba(255, 255, 255, 0.85)', maxWidth: '720px', margin: '0 auto 2.25rem auto', lineHeight: '1.65',
           }}>
             Zetawa Dark is a high-velocity technology partner. We engineer custom full-stack web &amp; mobile apps, autonomous AI agents, intuitive design systems, and resilient cloud architectures for modern companies and startups.
           </p>
@@ -795,42 +831,44 @@ const MainPage = () => {
           <div className="hero-action-buttons" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2.75rem' }}>
             <button
               style={{
-                backgroundColor: 'white',
-                color: '#7e3a41',
-                border: '2px solid white',
+                backgroundColor: 'var(--accent-orange, #f28c28)',
+                color: '#ffffff',
+                border: 'none',
                 padding: '0.85rem 2rem',
                 borderRadius: '50px',
                 fontSize: '1rem',
                 fontWeight: '700',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
-                boxShadow: '0 6px 20px rgba(0,0,0,0.18)'
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                boxShadow: '0 6px 20px rgba(242, 140, 40, 0.35)',
+                minHeight: '44px'
               }}
               onClick={() => handleGatedAction('/hireforms')}
-              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'white'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'white'; e.currentTarget.style.color = '#7e3a41'; e.currentTarget.style.transform = 'translateY(0)'; }}
+              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 26px rgba(242, 140, 40, 0.45)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(242, 140, 40, 0.35)'; }}
             >
               Start Project Consultation →
             </button>
             <button
               style={{
-                backgroundColor: 'rgba(255,255,255,0.12)',
-                color: 'white',
-                border: '1.5px solid rgba(255,255,255,0.4)',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                color: '#ffffff',
+                border: '1.5px solid rgba(255, 255, 255, 0.25)',
                 padding: '0.85rem 2rem',
                 borderRadius: '50px',
                 fontSize: '1rem',
                 fontWeight: '600',
                 cursor: 'pointer',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.25s ease',
                 backdropFilter: 'blur(8px)',
                 display: 'inline-flex',
                 alignItems: 'center',
-                gap: '0.5rem'
+                gap: '0.5rem',
+                minHeight: '44px'
               }}
               onClick={() => navigate('/services')}
-              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.22)'; e.currentTarget.style.borderColor = 'white'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.16)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.45)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               Explore Our Services <Layers size={18} />
             </button>
@@ -843,24 +881,25 @@ const MainPage = () => {
             justifyContent: 'center',
             gap: 'clamp(1rem, 2.5vw, 2.5rem)',
             padding: '1rem clamp(1.25rem, 3vw, 2.5rem)',
-            background: 'rgba(255, 255, 255, 0.1)',
-            backdropFilter: 'blur(12px)',
+            background: 'rgba(255, 255, 255, 0.07)',
+            backdropFilter: 'blur(16px)',
             borderRadius: '50px',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            border: '1px solid rgba(255, 255, 255, 0.15)',
             flexWrap: 'wrap',
             maxWidth: '100%',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
           }}>
             <div className="strip-item" style={{ textAlign: 'center' }}>
               <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>Fast Sprint Sprints</div>
               <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-4 Week Delivery</div>
             </div>
-            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.18)' }} />
             <div className="strip-item" style={{ textAlign: 'center' }}>
               <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>100% IP Ownership</div>
               <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Clean Production Code</div>
             </div>
-            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.18)' }} />
             <div className="strip-item" style={{ textAlign: 'center' }}>
               <div className="strip-val" style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'white' }}>AI &amp; Full-Stack</div>
               <div className="strip-lbl" style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Next.js, Node &amp; LLMs</div>
@@ -879,17 +918,18 @@ const MainPage = () => {
       <LatestUpdates />
 
       {/* ──────── Modern Frosted Glass Contact Section ──────── */}
-      <section id="contact" style={{ padding: 'clamp(3rem, 6vw, 6rem) 0', backgroundColor: '#f8f6f7' }}>
+      <section id="contact" style={{ padding: 'clamp(3rem, 6vw, 6rem) 0', backgroundColor: 'var(--bg-canvas, #f8f6f7)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
           
           <div style={{
-            background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+            background: 'linear-gradient(135deg, #1e0b12 0%, #2a1019 50%, #14080d 100%)',
             borderRadius: '28px',
             color: 'white',
-            boxShadow: '0 20px 50px rgba(126, 58, 65, 0.22)',
+            boxShadow: '0 24px 60px rgba(20, 8, 13, 0.45)',
             padding: 'clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem)',
             position: 'relative',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            border: '1px solid rgba(255, 255, 255, 0.12)'
           }}>
             {/* Ambient Background Glow */}
             <div style={{
@@ -898,7 +938,7 @@ const MainPage = () => {
               right: '-100px',
               width: '350px',
               height: '350px',
-              background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+              background: 'radial-gradient(circle, rgba(242, 140, 40, 0.15) 0%, transparent 70%)',
               borderRadius: '50%',
               pointerEvents: 'none'
             }} />
@@ -918,13 +958,14 @@ const MainPage = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.4rem',
-                  backgroundColor: 'rgba(255,255,255,0.15)',
+                  backgroundColor: 'rgba(242, 140, 40, 0.15)',
+                  color: 'var(--accent-orange, #f28c28)',
                   padding: '0.35rem 0.85rem',
                   borderRadius: '20px',
                   fontSize: '0.8rem',
                   fontWeight: 700,
                   marginBottom: '1rem',
-                  border: '1px solid rgba(255,255,255,0.25)'
+                  border: '1px solid rgba(242, 140, 40, 0.35)'
                 }}>
                   <Clock size={14} /> ⚡ Response within 24 Hours
                 </div>
@@ -933,21 +974,21 @@ const MainPage = () => {
                   Let&apos;s Build Something <br />Exceptional Together
                 </h2>
 
-                <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', opacity: 0.9, lineHeight: 1.6, marginBottom: '2rem' }}>
+                <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.05rem)', color: 'rgba(255, 255, 255, 0.82)', lineHeight: 1.6, marginBottom: '2rem' }}>
                   Have a product to build, an AI feature to integrate, or a technical architecture to review? Reach out to our core team for immediate engineering discovery.
                 </p>
 
                 {/* Direct Contact Cards */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '2rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', backgroundColor: 'rgba(255,255,255,0.1)', padding: '0.85rem 1.25rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.15)' }}>
-                    <Mail size={20} color="#fef08a" style={{ flexShrink: 0 }} />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', backgroundColor: 'rgba(255,255,255,0.06)', padding: '0.85rem 1.25rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.12)' }}>
+                    <Mail size={20} color="#f28c28" style={{ flexShrink: 0 }} />
                     <div style={{ minWidth: 0, overflow: 'hidden' }}>
                       <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>Direct Email</div>
                       <a href="mailto:support@zetawa.com" style={{ color: 'white', fontWeight: 700, textDecoration: 'none', fontSize: '0.92rem', wordBreak: 'break-all' }}>support@zetawa.com</a>
                     </div>
                   </div>
 
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', backgroundColor: 'rgba(255,255,255,0.1)', padding: '0.85rem 1.25rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.15)' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', backgroundColor: 'rgba(255,255,255,0.06)', padding: '0.85rem 1.25rem', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.12)' }}>
                     <Phone size={20} color="#86efac" style={{ flexShrink: 0 }} />
                     <div style={{ minWidth: 0, overflow: 'hidden' }}>
                       <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>WhatsApp &amp; Phone Line</div>
@@ -960,8 +1001,8 @@ const MainPage = () => {
                 <div style={{
                   padding: '1.25rem',
                   borderRadius: '14px',
-                  backgroundColor: 'rgba(0, 0, 0, 0.15)',
-                  border: '1px dashed rgba(255, 255, 255, 0.3)'
+                  backgroundColor: 'rgba(0, 0, 0, 0.25)',
+                  border: '1px dashed rgba(242, 140, 40, 0.4)'
                 }}>
                   <div style={{ fontSize: '0.9rem', fontWeight: 700, marginBottom: '0.35rem' }}>
                     Need a structured project sprint estimate?
@@ -972,18 +1013,23 @@ const MainPage = () => {
                   <button
                     onClick={() => handleGatedAction('/hireforms')}
                     style={{
-                      background: 'white',
-                      color: '#7e3a41',
+                      background: 'linear-gradient(135deg, #f28c28 0%, #e07b18 100%)',
+                      color: '#ffffff',
                       border: 'none',
-                      padding: '0.5rem 1rem',
+                      padding: '0.55rem 1.15rem',
                       borderRadius: '8px',
                       fontSize: '0.85rem',
                       fontWeight: 700,
                       cursor: 'pointer',
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '0.35rem'
-                    }}>
+                      gap: '0.35rem',
+                      boxShadow: '0 4px 14px rgba(242, 140, 40, 0.3)',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-1px)'; }}
+                    onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+                  >
                     Launch Scope Configurator <ArrowRight size={14} />
                   </button>
                 </div>
@@ -991,13 +1037,13 @@ const MainPage = () => {
 
               {/* Right Column: Glassmorphic Quick Contact Form */}
               <div style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(20px)',
-                WebkitBackdropFilter: 'blur(20px)',
+                backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                backdropFilter: 'blur(24px)',
+                WebkitBackdropFilter: 'blur(24px)',
                 borderRadius: '20px',
                 padding: 'clamp(1.25rem, 4vw, 2.5rem)',
-                border: '1.5px solid rgba(255, 255, 255, 0.25)',
-                boxShadow: '0 12px 30px rgba(0,0,0,0.1)'
+                border: '1.5px solid rgba(255, 255, 255, 0.16)',
+                boxShadow: '0 16px 40px rgba(0, 0, 0, 0.25)'
               }}>
                 <div style={{ marginBottom: '1.5rem' }}>
                   <h3 style={{ fontSize: '1.4rem', fontWeight: 800, margin: 0 }}>Send a Message</h3>
@@ -1036,14 +1082,17 @@ const MainPage = () => {
                           width: '100%',
                           padding: '0.85rem 1rem',
                           borderRadius: '10px',
-                          border: '1.5px solid rgba(255,255,255,0.3)',
-                          backgroundColor: 'rgba(255,255,255,0.12)',
+                          border: '1.5px solid rgba(255,255,255,0.25)',
+                          backgroundColor: 'rgba(255,255,255,0.08)',
                           color: 'white',
                           fontSize: '1rem',
                           outline: 'none',
-                          boxSizing: 'border-box'
+                          boxSizing: 'border-box',
+                          transition: 'border-color 0.2s ease'
                         }}
                         placeholder="e.g. Alex Johnson"
+                        onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--accent-orange, #f28c28)'; }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; }}
                       />
                     </div>
 
@@ -1061,14 +1110,17 @@ const MainPage = () => {
                           width: '100%',
                           padding: '0.85rem 1rem',
                           borderRadius: '10px',
-                          border: '1.5px solid rgba(255,255,255,0.3)',
-                          backgroundColor: 'rgba(255,255,255,0.12)',
+                          border: '1.5px solid rgba(255,255,255,0.25)',
+                          backgroundColor: 'rgba(255,255,255,0.08)',
                           color: 'white',
                           fontSize: '1rem',
                           outline: 'none',
-                          boxSizing: 'border-box'
+                          boxSizing: 'border-box',
+                          transition: 'border-color 0.2s ease'
                         }}
                         placeholder="alex@company.com"
+                        onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--accent-orange, #f28c28)'; }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; }}
                       />
                     </div>
 
@@ -1086,15 +1138,18 @@ const MainPage = () => {
                           width: '100%',
                           padding: '0.85rem 1rem',
                           borderRadius: '10px',
-                          border: '1.5px solid rgba(255,255,255,0.3)',
-                          backgroundColor: 'rgba(255,255,255,0.12)',
+                          border: '1.5px solid rgba(255,255,255,0.25)',
+                          backgroundColor: 'rgba(255,255,255,0.08)',
                           color: 'white',
                           fontSize: '1rem',
                           outline: 'none',
                           resize: 'vertical',
-                          boxSizing: 'border-box'
+                          boxSizing: 'border-box',
+                          transition: 'border-color 0.2s ease'
                         }}
                         placeholder="Tell us about your project goals, tech stack, or target launch date..."
+                        onFocus={(e) => { e.currentTarget.style.borderColor = 'var(--accent-orange, #f28c28)'; }}
+                        onBlur={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.25)'; }}
                       />
                     </div>
 
@@ -1102,8 +1157,8 @@ const MainPage = () => {
                       type="submit"
                       disabled={isSubmitting}
                       style={{
-                        backgroundColor: 'white',
-                        color: '#7e3a41',
+                        backgroundColor: 'var(--accent-orange, #f28c28)',
+                        color: '#ffffff',
                         border: 'none',
                         padding: '0.95rem 1.5rem',
                         borderRadius: '10px',
@@ -1111,16 +1166,17 @@ const MainPage = () => {
                         fontWeight: 800,
                         cursor: isSubmitting ? 'not-allowed' : 'pointer',
                         marginTop: '0.5rem',
-                        transition: 'all 0.2s ease',
-                        boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
+                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                        boxShadow: '0 6px 20px rgba(242, 140, 40, 0.35)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         gap: '0.5rem',
-                        opacity: isSubmitting ? 0.7 : 1
+                        opacity: isSubmitting ? 0.7 : 1,
+                        minHeight: '46px'
                       }}
-                      onMouseOver={(e) => { if (!isSubmitting) e.currentTarget.style.transform = 'translateY(-2px)' }}
-                      onMouseOut={(e) => { if (!isSubmitting) e.currentTarget.style.transform = 'translateY(0)' }}
+                      onMouseOver={(e) => { if (!isSubmitting) { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; } }}
+                      onMouseOut={(e) => { if (!isSubmitting) { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; } }}
                     >
                       {isSubmitting ? (
                         <>Sending...</>

@@ -204,13 +204,32 @@ const Services = () => {
 
   return (
     <div style={{
-      fontFamily: 'system-ui, -apple-system, sans-serif',
-      backgroundColor: '#f8f6f7',
+      fontFamily: 'var(--font-family, "Plus Jakarta Sans", system-ui, sans-serif)',
+      backgroundColor: 'var(--bg-canvas, #f8f6f7)',
       minHeight: '100vh',
-      color: '#1e293b'
+      color: 'var(--text-primary, #1e293b)'
     }}>
       <Nav />
       <style>{`
+        * {
+          box-sizing: border-box;
+        }
+
+        .services-filter-bar {
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 0.5rem;
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
+          padding-bottom: 0.25rem;
+        }
+
+        .services-filter-bar::-webkit-scrollbar {
+          display: none;
+        }
+
         @media (max-width: 640px) {
           .services-hero-actions {
             flex-direction: column !important;
@@ -232,12 +251,13 @@ const Services = () => {
 
       {/* ──────── Header / Hero Banner ──────── */}
       <section style={{
-        background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+        background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
         color: '#ffffff',
-        padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 5vw, 4.5rem)',
+        padding: 'clamp(3rem, 6vw, 5.5rem) clamp(1rem, 4vw, 1.5rem) clamp(3rem, 6vw, 5rem)',
         textAlign: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
       }}>
         <div style={{
           position: 'absolute',
@@ -245,8 +265,9 @@ const Services = () => {
           right: '-60px',
           width: '280px',
           height: '280px',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
-          borderRadius: '50%'
+          background: 'radial-gradient(circle, rgba(242, 140, 40, 0.15) 0%, transparent 70%)',
+          borderRadius: '50%',
+          pointerEvents: 'none'
         }} />
 
         <div style={{ maxWidth: '960px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
@@ -254,14 +275,15 @@ const Services = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(255, 255, 255, 0.15)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
+            background: 'rgba(242, 140, 40, 0.12)',
+            border: '1px solid rgba(242, 140, 40, 0.35)',
+            color: '#f28c28',
             padding: '0.4rem 1.25rem',
             borderRadius: '50px',
-            fontSize: '0.85rem',
+            fontSize: '0.82rem',
             fontWeight: 700,
             textTransform: 'uppercase',
-            letterSpacing: '1px',
+            letterSpacing: '0.8px',
             marginBottom: '1.5rem',
             backdropFilter: 'blur(8px)'
           }}>
@@ -269,7 +291,7 @@ const Services = () => {
           </div>
 
           <h1 style={{
-            fontSize: 'clamp(1.9rem, 5.2vw, 3.4rem)',
+            fontSize: 'clamp(2rem, 5.5vw, 3.4rem)',
             fontWeight: 800,
             marginBottom: '1.25rem',
             lineHeight: 1.15,
@@ -277,15 +299,20 @@ const Services = () => {
             textWrap: 'balance'
           }}>
             Engineering Services Built for <br />
-            <span style={{ color: '#ffebee' }}>Velocity, Quality &amp; Scale</span>
+            <span style={{
+              background: 'linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.95) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>Velocity, Quality &amp; Scale</span>
           </h1>
 
           <p style={{
             fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
-            opacity: 0.94,
+            color: 'rgba(255, 255, 255, 0.85)',
             maxWidth: '720px',
             margin: '0 auto 2.5rem',
-            lineHeight: 1.6
+            lineHeight: 1.65
           }}>
             We partner with ambitious startups and mid-market companies to build full-stack web and mobile applications, deploy custom AI workflows, craft beautiful design systems, and manage dependable cloud infrastructure.
           </p>
@@ -294,8 +321,8 @@ const Services = () => {
             <button
               onClick={() => handleGatedAction('/hireforms')}
               style={{
-                backgroundColor: '#ffffff',
-                color: '#7e3a41',
+                backgroundColor: 'var(--accent-orange, #f28c28)',
+                color: '#ffffff',
                 padding: '0.95rem 2.25rem',
                 borderRadius: '50px',
                 fontSize: '1rem',
@@ -305,20 +332,21 @@ const Services = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
-                transition: 'all 0.25s ease'
+                boxShadow: '0 8px 24px rgba(242, 140, 40, 0.35)',
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                minHeight: '44px'
               }}
-              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(0,0,0,0.25)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)'; }}
+              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(242, 140, 40, 0.45)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(242, 140, 40, 0.35)'; }}
             >
               Start a Project Sprint <ArrowRight size={18} />
             </button>
             <a
               href="#service-catalog"
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                backgroundColor: 'rgba(255, 255, 255, 0.08)',
                 color: '#ffffff',
-                border: '1.5px solid rgba(255, 255, 255, 0.4)',
+                border: '1.5px solid rgba(255, 255, 255, 0.25)',
                 padding: '0.95rem 2rem',
                 borderRadius: '50px',
                 fontSize: '1rem',
@@ -328,10 +356,11 @@ const Services = () => {
                 alignItems: 'center',
                 gap: '0.5rem',
                 backdropFilter: 'blur(8px)',
-                transition: 'all 0.25s ease'
+                transition: 'all 0.25s ease',
+                minHeight: '44px'
               }}
-              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.22)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.12)'; }}
+              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.16)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.45)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)'; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               Browse Disciplines <Layers size={18} />
             </a>
@@ -342,96 +371,97 @@ const Services = () => {
       {/* ──────── Category Navigation Tabs ──────── */}
       <section id="service-catalog" style={{
         position: 'sticky',
-        top: '60px',
+        top: '54px',
         zIndex: 90,
-        backgroundColor: '#ffffff',
-        borderBottom: '1px solid #e8e0e2',
-        boxShadow: '0 2px 10px rgba(0,0,0,0.03)',
-        padding: '0.85rem 1rem'
+        backgroundColor: 'var(--glass-bg, rgba(255, 255, 255, 0.94))',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: '1px solid var(--border-default, #e8e0e2)',
+        boxShadow: '0 4px 16px rgba(0,0,0,0.04)',
+        padding: '0.75rem 1rem'
       }}>
-        <div style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          display: 'flex',
-          gap: '0.5rem',
-          overflowX: 'auto',
-          paddingBottom: '0.2rem',
-          scrollbarWidth: 'none'
-        }}>
-          {categoryFilters.map(filter => (
-            <button
-              key={filter.id}
-              onClick={() => setActiveTab(filter.id)}
-              style={{
-                padding: '0.55rem 1.25rem',
-                borderRadius: '50px',
-                border: activeTab === filter.id ? '1.5px solid #7e3a41' : '1px solid #e2e8f0',
-                backgroundColor: activeTab === filter.id ? '#7e3a41' : '#f8fafc',
-                color: activeTab === filter.id ? '#ffffff' : '#475569',
-                fontSize: '0.88rem',
-                fontWeight: activeTab === filter.id ? 700 : 600,
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
-                transition: 'all 0.2s ease'
-              }}
-            >
-              {filter.label}
-            </button>
-          ))}
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="services-filter-bar">
+            {categoryFilters.map(filter => (
+              <button
+                key={filter.id}
+                onClick={() => setActiveTab(filter.id)}
+                style={{
+                  padding: '0.55rem 1.25rem',
+                  borderRadius: '50px',
+                  border: activeTab === filter.id ? '1.5px solid var(--accent-orange, #f28c28)' : '1px solid var(--border-default, #e2e8f0)',
+                  backgroundColor: activeTab === filter.id ? 'var(--brand-maroon, #6b2d3a)' : 'var(--bg-surface, #ffffff)',
+                  color: activeTab === filter.id ? '#ffffff' : 'var(--text-secondary, #475569)',
+                  fontSize: '0.88rem',
+                  fontWeight: activeTab === filter.id ? 700 : 600,
+                  cursor: 'pointer',
+                  whiteSpace: 'nowrap',
+                  transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                  boxShadow: activeTab === filter.id ? '0 4px 14px rgba(107, 45, 58, 0.25)' : 'none',
+                  minHeight: '40px',
+                  flexShrink: 0
+                }}
+              >
+                {filter.label}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ──────── Services Detailed Grid ──────── */}
-      <section style={{ padding: '4.5rem 1.5rem', maxWidth: '1240px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', gap: '2rem' }}>
+      <section style={{ padding: 'clamp(3rem, 6vw, 4.5rem) clamp(1rem, 3vw, 1.5rem)', maxWidth: '1240px', margin: '0 auto' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '2rem' }}>
           {filteredServices.map((service, index) => {
             const Icon = resolveIcon(service.icon);
             return (
               <div
                 key={service._id || service.id || index}
                 style={{
-                  backgroundColor: '#ffffff',
-                  borderRadius: '24px',
-                  border: '1px solid #e8e0e2',
-                  padding: 'clamp(1.5rem, 4vw, 2.5rem)',
+                  backgroundColor: 'var(--bg-surface, #ffffff)',
+                  borderRadius: '20px',
+                  border: '1px solid var(--border-default, #e8e0e2)',
+                  padding: 'clamp(1.5rem, 3.5vw, 2.25rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
+                  boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
                   transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  position: 'relative'
+                  position: 'relative',
+                  height: '100%'
                 }}
                 onMouseOver={(e) => {
                   e.currentTarget.style.transform = 'translateY(-6px)';
-                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(126,58,65,0.09)';
-                  e.currentTarget.style.borderColor = 'rgba(126, 58, 65, 0.4)';
+                  e.currentTarget.style.boxShadow = '0 20px 40px rgba(42, 16, 25, 0.09)';
+                  e.currentTarget.style.borderColor = 'rgba(242, 140, 40, 0.45)';
                 }}
                 onMouseOut={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)';
-                  e.currentTarget.style.borderColor = '#e8e0e2';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.03)';
+                  e.currentTarget.style.borderColor = 'var(--border-default, #e8e0e2)';
                 }}
               >
                 <div>
                   {/* Top Header Card */}
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                     <div style={{
-                      width: '56px',
-                      height: '56px',
+                      width: '54px',
+                      height: '54px',
                       borderRadius: '14px',
-                      backgroundColor: 'rgba(126, 58, 65, 0.08)',
-                      color: '#7e3a41',
+                      backgroundColor: 'rgba(242, 140, 40, 0.1)',
+                      color: 'var(--accent-orange, #f28c28)',
+                      border: '1px solid rgba(242, 140, 40, 0.25)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <Icon size={28} />
+                      <Icon size={26} />
                     </div>
                     {service.highlight && (
                       <span style={{
-                        backgroundColor: '#fbf4f5',
-                        color: '#7e3a41',
-                        border: '1px solid #ecd8db',
+                        backgroundColor: 'rgba(242, 140, 40, 0.08)',
+                        color: 'var(--accent-orange, #f28c28)',
+                        border: '1px solid rgba(242, 140, 40, 0.25)',
                         padding: '0.3rem 0.85rem',
                         borderRadius: '20px',
                         fontSize: '0.78rem',
@@ -445,13 +475,13 @@ const Services = () => {
                   </div>
 
                   {/* Title & Tagline */}
-                  <h3 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#1e293b', marginBottom: '0.5rem', lineHeight: 1.25 }}>
+                  <h3 style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', marginBottom: '0.5rem', lineHeight: 1.25 }}>
                     {service.title}
                   </h3>
-                  <p style={{ color: '#7e3a41', fontSize: '0.92rem', fontWeight: 600, marginBottom: '1rem' }}>
+                  <p style={{ color: 'var(--brand-maroon, #6b2d3a)', fontSize: '0.92rem', fontWeight: 600, marginBottom: '1rem' }}>
                     {service.tagline}
                   </p>
-                  <p style={{ color: '#64748b', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.75rem' }}>
+                  <p style={{ color: 'var(--text-secondary, #64748b)', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.75rem' }}>
                     {service.description}
                   </p>
 
@@ -460,7 +490,7 @@ const Services = () => {
                     <h4 style={{
                       fontSize: '0.8rem',
                       fontWeight: 700,
-                      color: '#94a3b8',
+                      color: 'var(--text-muted, #94a3b8)',
                       textTransform: 'uppercase',
                       letterSpacing: '1px',
                       marginBottom: '0.85rem'
@@ -469,8 +499,8 @@ const Services = () => {
                     </h4>
                     <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                       {(service.capabilities || []).map((cap, cIdx) => (
-                        <li key={cIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', fontSize: '0.9rem', color: '#334155' }}>
-                          <CheckCircle2 size={16} style={{ color: '#7e3a41', flexShrink: 0, marginTop: '2px' }} />
+                        <li key={cIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.6rem', fontSize: '0.9rem', color: 'var(--text-primary, #334155)' }}>
+                          <CheckCircle2 size={16} style={{ color: 'var(--accent-orange, #f28c28)', flexShrink: 0, marginTop: '2px' }} />
                           <span>{cap}</span>
                         </li>
                       ))}
@@ -483,7 +513,7 @@ const Services = () => {
                       <h4 style={{
                         fontSize: '0.8rem',
                         fontWeight: 700,
-                        color: '#94a3b8',
+                        color: 'var(--text-muted, #94a3b8)',
                         textTransform: 'uppercase',
                         letterSpacing: '1px',
                         marginBottom: '0.65rem'
@@ -495,8 +525,9 @@ const Services = () => {
                           <span
                             key={tIdx}
                             style={{
-                              backgroundColor: '#f1f5f9',
-                              color: '#475569',
+                              backgroundColor: 'var(--bg-canvas, #f1f5f9)',
+                              color: 'var(--text-secondary, #475569)',
+                              border: '1px solid var(--border-subtle, #e2e8f0)',
                               padding: '0.25rem 0.65rem',
                               borderRadius: '6px',
                               fontSize: '0.78rem',
@@ -512,14 +543,14 @@ const Services = () => {
                 </div>
 
                 {/* Card Bottom CTA */}
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ borderTop: '1px solid var(--border-subtle, #f1f5f9)', paddingTop: '1.25rem', marginTop: 'auto' }}>
                   <button
                     onClick={() => handleGatedAction('/hireforms')}
                     style={{
-                      backgroundColor: '#7e3a41',
+                      backgroundColor: 'var(--brand-maroon, #6b2d3a)',
                       color: '#ffffff',
                       border: 'none',
-                      padding: '0.75rem 1.4rem',
+                      padding: '0.75rem 1.25rem',
                       borderRadius: '10px',
                       fontSize: '0.9rem',
                       fontWeight: 700,
@@ -527,12 +558,25 @@ const Services = () => {
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.4rem',
-                      transition: 'background 0.2s ease',
+                      transition: 'all 0.25s ease',
                       width: '100%',
-                      justifyContent: 'center'
+                      justifyContent: 'center',
+                      minHeight: '44px',
+                      whiteSpace: 'normal',
+                      textAlign: 'center',
+                      lineHeight: 1.35,
+                      boxShadow: '0 4px 14px rgba(107, 45, 58, 0.2)'
                     }}
-                    onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#60292f'; }}
-                    onMouseOut={(e) => { e.currentTarget.style.backgroundColor = '#7e3a41'; }}
+                    onMouseOver={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 6px 18px rgba(242, 140, 40, 0.35)';
+                    }}
+                    onMouseOut={(e) => {
+                      e.currentTarget.style.backgroundColor = 'var(--brand-maroon, #6b2d3a)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 14px rgba(107, 45, 58, 0.2)';
+                    }}
                   >
                     Request Project Sprint for {service.title.split(' ')[0]} <ChevronRight size={16} />
                   </button>
@@ -545,47 +589,49 @@ const Services = () => {
 
       {/* ──────── Bottom Project Callout ──────── */}
       <section style={{
-        padding: '5rem 1.5rem',
-        backgroundColor: '#ffffff',
-        borderTop: '1px solid #e8e0e2'
+        padding: 'clamp(3.5rem, 6vw, 5.5rem) clamp(1rem, 3vw, 1.5rem)',
+        backgroundColor: 'var(--bg-surface, #ffffff)',
+        borderTop: '1px solid var(--border-subtle, #e8e0e2)'
       }}>
         <div style={{
           maxWidth: '1000px',
           margin: '0 auto',
-          background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+          background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
           borderRadius: '24px',
-          padding: '3.5rem 2.5rem',
+          padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem)',
           color: 'white',
           textAlign: 'center',
-          boxShadow: '0 16px 40px rgba(126, 58, 65, 0.2)',
+          boxShadow: '0 24px 60px rgba(20, 8, 13, 0.4)',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          border: '1px solid rgba(255, 255, 255, 0.12)'
         }}>
-          <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.01em' }}>
+          <h2 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em', textWrap: 'balance' }}>
             Ready to Build Your Next Product?
           </h2>
-          <p style={{ fontSize: '1.15rem', opacity: 0.92, maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'rgba(255, 255, 255, 0.85)', maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
             Share your requirements, select your preferred budget and timeline, and our senior engineers will deliver a comprehensive scope breakdown within 24 hours.
           </p>
           <button
             onClick={() => handleGatedAction('/hireforms')}
             style={{
-              backgroundColor: 'white',
-              color: '#7e3a41',
+              backgroundColor: 'var(--accent-orange, #f28c28)',
+              color: '#ffffff',
               padding: '1rem 2.5rem',
               borderRadius: '50px',
-              fontSize: '1.05rem',
+              fontSize: '1.02rem',
               fontWeight: 800,
               border: 'none',
               cursor: 'pointer',
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-              transition: 'transform 0.2s ease'
+              boxShadow: '0 8px 24px rgba(242, 140, 40, 0.4)',
+              transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+              minHeight: '48px'
             }}
-            onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
+            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(242, 140, 40, 0.5)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(242, 140, 40, 0.4)'; }}
           >
             Launch Project Scope Configurator <ArrowRight size={18} />
           </button>
