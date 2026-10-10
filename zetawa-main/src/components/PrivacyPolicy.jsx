@@ -120,22 +120,23 @@ We retain information only as long as necessary to fulfill the operational purpo
 
   return (
     <div style={{
-      fontFamily: 'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
-      backgroundColor: '#f8f6f7',
+      fontFamily: 'var(--font-family, system-ui, -apple-system, sans-serif)',
+      backgroundColor: 'var(--bg)',
       minHeight: '100vh',
-      color: '#1e293b',
-      overflowX: 'hidden'
+      color: 'var(--text)',
+      overflowX: 'clip'
     }}>
       <Nav />
 
       {/* Hero Header */}
       <header style={{
-        background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
-        color: 'white',
+        background: 'var(--bg-hero)',
+        color: 'var(--hero-text)',
         padding: 'clamp(3rem, 7vw, 5rem) 1.25rem clamp(2.5rem, 5vw, 4rem)',
         textAlign: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderBottom: '1px solid var(--border)'
       }}>
         {/* Ambient Glow */}
         <div style={{
@@ -144,7 +145,7 @@ We retain information only as long as necessary to fulfill the operational purpo
           right: '-80px',
           width: '320px',
           height: '320px',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(217, 107, 20, 0.12) 0%, transparent 70%)',
           borderRadius: '50%',
           pointerEvents: 'none'
         }} />
@@ -170,14 +171,14 @@ We retain information only as long as necessary to fulfill the operational purpo
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.4rem',
-                color: 'rgba(255,255,255,0.9)',
+                color: 'var(--text)',
                 textDecoration: 'none',
                 fontSize: '0.85rem',
                 fontWeight: 600,
-                backgroundColor: 'rgba(255,255,255,0.12)',
+                backgroundColor: 'var(--surface)',
                 padding: '0.35rem 0.85rem',
                 borderRadius: '20px',
-                border: '1px solid rgba(255,255,255,0.25)',
+                border: '1px solid var(--border)',
                 transition: 'all 0.2s ease'
               }}
             >
@@ -188,7 +189,9 @@ We retain information only as long as necessary to fulfill the operational purpo
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              backgroundColor: 'rgba(255,255,255,0.15)',
+              backgroundColor: 'var(--hero-badge-bg)',
+              color: 'var(--hero-badge-text)',
+              border: '1px solid var(--hero-badge-border)',
               padding: '0.35rem 0.95rem',
               borderRadius: '20px',
               fontSize: '0.82rem',
@@ -206,7 +209,7 @@ We retain information only as long as necessary to fulfill the operational purpo
             lineHeight: 1.15,
             letterSpacing: '-0.02em',
             marginBottom: '1rem',
-            color: 'white',
+            color: 'var(--hero-text)',
             textWrap: 'balance'
           }}>
             Privacy Policy &amp; Data Protection
@@ -214,11 +217,10 @@ We retain information only as long as necessary to fulfill the operational purpo
 
           <p style={{
             fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
-            opacity: 0.92,
             maxWidth: '680px',
             margin: '0 auto 1.5rem',
             lineHeight: 1.6,
-            color: '#fce7ea'
+            color: 'var(--hero-text-muted)'
           }}>
             How Zetawa Dark protects your intellectual property, handles sensitive project briefs, and safeguards personal information across our engineering operations.
           </p>
@@ -228,8 +230,9 @@ We retain information only as long as necessary to fulfill the operational purpo
             alignItems: 'center',
             gap: '0.5rem',
             fontSize: '0.82rem',
-            color: 'rgba(255,255,255,0.8)',
-            backgroundColor: 'rgba(0,0,0,0.15)',
+            color: 'var(--text-muted)',
+            backgroundColor: 'var(--surface)',
+            border: '1px solid var(--border)',
             padding: '0.35rem 0.85rem',
             borderRadius: '16px'
           }}>
@@ -249,7 +252,7 @@ We retain information only as long as necessary to fulfill the operational purpo
           <h2 id="principles-heading" style={{
             fontSize: 'clamp(1.3rem, 3vw, 1.85rem)',
             fontWeight: 800,
-            color: '#2d2d2d',
+            color: 'var(--text)',
             marginBottom: '1.5rem',
             textAlign: 'center'
           }}>
@@ -267,11 +270,11 @@ We retain information only as long as necessary to fulfill the operational purpo
                 <div
                   key={index}
                   style={{
-                    backgroundColor: 'white',
+                    backgroundColor: 'var(--surface)',
                     borderRadius: '16px',
                     padding: '1.5rem',
-                    border: '1px solid #f0e6e8',
-                    boxShadow: '0 4px 16px rgba(126,58,65,0.04)',
+                    border: '1px solid var(--border)',
+                    boxShadow: 'var(--shadow)',
                     transition: 'transform 0.25s ease, box-shadow 0.25s ease'
                   }}
                 >
@@ -279,8 +282,8 @@ We retain information only as long as necessary to fulfill the operational purpo
                     width: '42px',
                     height: '42px',
                     borderRadius: '12px',
-                    backgroundColor: 'rgba(126, 58, 65, 0.08)',
-                    color: '#7e3a41',
+                    backgroundColor: 'var(--bg-alt)',
+                    color: 'var(--primary)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -291,14 +294,14 @@ We retain information only as long as necessary to fulfill the operational purpo
                   <h3 style={{
                     fontSize: '1.1rem',
                     fontWeight: 700,
-                    color: '#2d2d2d',
+                    color: 'var(--text)',
                     marginBottom: '0.5rem'
                   }}>
                     {item.title}
                   </h3>
                   <p style={{
                     fontSize: '0.9rem',
-                    color: '#64748b',
+                    color: 'var(--text-muted)',
                     lineHeight: 1.55,
                     margin: 0
                   }}>
@@ -312,11 +315,11 @@ We retain information only as long as necessary to fulfill the operational purpo
 
         {/* Detailed Policy Sections */}
         <div style={{
-          backgroundColor: 'white',
+          backgroundColor: 'var(--surface)',
           borderRadius: '20px',
-          border: '1px solid #ede5e7',
+          border: '1px solid var(--border)',
           padding: 'clamp(1.5rem, 4vw, 3rem)',
-          boxShadow: '0 6px 24px rgba(0,0,0,0.03)'
+          boxShadow: 'var(--shadow)'
         }}>
           {sections.map((section, idx) => (
             <section
@@ -325,13 +328,13 @@ We retain information only as long as necessary to fulfill the operational purpo
               style={{
                 paddingBottom: idx === sections.length - 1 ? 0 : '2.25rem',
                 marginBottom: idx === sections.length - 1 ? 0 : '2.25rem',
-                borderBottom: idx === sections.length - 1 ? 'none' : '1px solid #f1ecee'
+                borderBottom: idx === sections.length - 1 ? 'none' : '1px solid var(--border)'
               }}
             >
               <h2 style={{
                 fontSize: 'clamp(1.2rem, 2.5vw, 1.5rem)',
                 fontWeight: 800,
-                color: '#2d2d2d',
+                color: 'var(--text)',
                 marginBottom: '1rem',
                 display: 'flex',
                 alignItems: 'center',
@@ -342,7 +345,7 @@ We retain information only as long as necessary to fulfill the operational purpo
 
               <p style={{
                 fontSize: '0.95rem',
-                color: '#475569',
+                color: 'var(--text)',
                 lineHeight: 1.7,
                 whiteSpace: 'pre-line',
                 marginBottom: section.bullets ? '1rem' : 0
@@ -367,14 +370,14 @@ We retain information only as long as necessary to fulfill the operational purpo
                         alignItems: 'flex-start',
                         gap: '0.65rem',
                         fontSize: '0.92rem',
-                        color: '#475569',
+                        color: 'var(--text)',
                         lineHeight: 1.6
                       }}
                     >
                       <CheckCircle2
                         size={17}
                         style={{
-                          color: '#7e3a41',
+                          color: 'var(--primary)',
                           marginTop: '3px',
                           flexShrink: 0
                         }}
@@ -396,15 +399,15 @@ We retain information only as long as necessary to fulfill the operational purpo
                   <div style={{
                     padding: '1.25rem',
                     borderRadius: '12px',
-                    backgroundColor: '#faf8f9',
-                    border: '1px solid #f0e6e8'
+                    backgroundColor: 'var(--bg-alt)',
+                    border: '1px solid var(--border)'
                   }}>
                     <div style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.6rem',
                       marginBottom: '0.4rem',
-                      color: '#7e3a41',
+                      color: 'var(--primary)',
                       fontWeight: 700,
                       fontSize: '0.9rem'
                     }}>
@@ -413,7 +416,7 @@ We retain information only as long as necessary to fulfill the operational purpo
                     <a
                       href="mailto:director@zetawa.com"
                       style={{
-                        color: '#2d2d2d',
+                        color: 'var(--text)',
                         textDecoration: 'none',
                         fontWeight: 600,
                         fontSize: '0.95rem',
@@ -427,15 +430,15 @@ We retain information only as long as necessary to fulfill the operational purpo
                   <div style={{
                     padding: '1.25rem',
                     borderRadius: '12px',
-                    backgroundColor: '#faf8f9',
-                    border: '1px solid #f0e6e8'
+                    backgroundColor: 'var(--bg-alt)',
+                    border: '1px solid var(--border)'
                   }}>
                     <div style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '0.6rem',
                       marginBottom: '0.4rem',
-                      color: '#7e3a41',
+                      color: 'var(--primary)',
                       fontWeight: 700,
                       fontSize: '0.9rem'
                     }}>
@@ -444,7 +447,7 @@ We retain information only as long as necessary to fulfill the operational purpo
                     <a
                       href="tel:7004265718"
                       style={{
-                        color: '#2d2d2d',
+                        color: 'var(--text)',
                         textDecoration: 'none',
                         fontWeight: 600,
                         fontSize: '0.95rem'
@@ -463,21 +466,22 @@ We retain information only as long as necessary to fulfill the operational purpo
         <div style={{
           marginTop: '3.5rem',
           textAlign: 'center',
-          backgroundColor: '#faf8f9',
-          border: '1px solid #f0e6e8',
+          backgroundColor: 'var(--surface)',
+          border: '1px solid var(--border)',
           borderRadius: '18px',
-          padding: 'clamp(2rem, 4vw, 3rem) 1.5rem'
+          padding: 'clamp(2rem, 4vw, 3rem) 1.5rem',
+          boxShadow: 'var(--shadow)'
         }}>
           <h2 style={{
             fontSize: 'clamp(1.3rem, 3vw, 1.8rem)',
             fontWeight: 800,
-            color: '#2d2d2d',
+            color: 'var(--text)',
             marginBottom: '0.75rem'
           }}>
             Ready to Build With Complete Confidence?
           </h2>
           <p style={{
-            color: '#64748b',
+            color: 'var(--text-muted)',
             maxWidth: '560px',
             margin: '0 auto 1.5rem',
             fontSize: '0.95rem',
@@ -494,8 +498,8 @@ We retain information only as long as necessary to fulfill the operational purpo
             <Link
               to="/hireforms"
               style={{
-                backgroundColor: '#7e3a41',
-                color: 'white',
+                backgroundColor: 'var(--primary)',
+                color: 'var(--primary-contrast)',
                 padding: '0.8rem 1.8rem',
                 borderRadius: '50px',
                 fontWeight: 700,
@@ -504,7 +508,7 @@ We retain information only as long as necessary to fulfill the operational purpo
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.4rem',
-                boxShadow: '0 4px 14px rgba(126,58,65,0.25)',
+                boxShadow: 'var(--shadow)',
                 transition: 'all 0.2s ease'
               }}
             >
@@ -513,9 +517,9 @@ We retain information only as long as necessary to fulfill the operational purpo
             <Link
               to="/"
               style={{
-                backgroundColor: 'white',
-                color: '#7e3a41',
-                border: '1.5px solid #7e3a41',
+                backgroundColor: 'transparent',
+                color: 'var(--text)',
+                border: '1.5px solid var(--border)',
                 padding: '0.8rem 1.8rem',
                 borderRadius: '50px',
                 fontWeight: 700,

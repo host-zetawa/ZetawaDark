@@ -155,9 +155,9 @@ function Footer() {
         .social-icon {
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: pointer;
-          background: rgba(255, 255, 255, 0.05);
-          border: 1px solid rgba(255, 255, 255, 0.12);
-          color: rgba(255, 255, 255, 0.85);
+          background: var(--surface-elevated);
+          border: 1px solid var(--border);
+          color: var(--text);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -165,22 +165,37 @@ function Footer() {
           height: 48px;
           border-radius: 12px;
           text-decoration: none;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+          box-shadow: var(--shadow);
           backdrop-filter: blur(8px);
         }
 
-        .social-icon:hover {
-          transform: translateY(-4px) scale(1.06);
-          background: linear-gradient(135deg, #6b2d3a 0%, #f28c28 100%);
-          border-color: rgba(242, 140, 40, 0.5);
-          color: #ffffff;
-          box-shadow: 0 8px 24px rgba(242, 140, 40, 0.35);
+        @media (hover: hover) {
+          .social-icon:hover {
+            transform: translateY(-4px) scale(1.06);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-color: var(--accent);
+            color: var(--primary-contrast);
+            box-shadow: 0 8px 24px rgba(242, 140, 40, 0.35);
+          }
+
+          .quick-link:hover {
+            color: var(--accent) !important;
+            transform: translateX(4px);
+          }
+
+          .scroll-top-btn:hover {
+            transform: translateY(-4px) scale(1.08);
+            box-shadow: 0 10px 28px rgba(242, 140, 40, 0.45);
+          }
         }
 
         .quick-link {
           position: relative;
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           cursor: pointer;
+          min-height: 28px;
+          display: inline-flex;
+          align-items: center;
         }
 
         .quick-link::after {
@@ -190,13 +205,8 @@ function Footer() {
           left: 0;
           width: 0;
           height: 2px;
-          background: linear-gradient(90deg, #f28c28, #6b2d3a);
+          background: linear-gradient(90deg, var(--accent), var(--primary));
           transition: width 0.3s ease;
-        }
-
-        .quick-link:hover {
-          color: #f28c28 !important;
-          transform: translateX(4px);
         }
 
         .quick-link:hover::after {
@@ -205,31 +215,29 @@ function Footer() {
 
         .scroll-top-btn {
           position: fixed;
-          bottom: calc(24px + env(safe-area-inset-bottom, 0px));
-          right: clamp(16px, 3.5vw, 28px);
+          bottom: max(20px, calc(16px + env(safe-area-inset-bottom, 0px)));
+          right: max(16px, calc(16px + env(safe-area-inset-right, 0px)));
           width: 46px;
           height: 46px;
+          min-width: 46px;
+          min-height: 46px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #6b2d3a 0%, #f28c28 100%);
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.25);
+          background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+          color: var(--primary-contrast);
+          border: 1px solid var(--border);
           cursor: pointer;
           display: flex;
           align-items: center;
           justify-content: center;
-          box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(242, 140, 40, 0.25);
+          box-shadow: var(--shadow);
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           z-index: 99;
           animation: float 3s ease-in-out infinite;
-        }
-
-        .scroll-top-btn:hover {
-          transform: translateY(-4px) scale(1.08);
-          box-shadow: 0 10px 28px rgba(242, 140, 40, 0.45);
+          touch-action: manipulation;
         }
 
         .gradient-text {
-          background: linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.9) 100%);
+          background: linear-gradient(135deg, var(--text) 60%, var(--accent) 100%);
           background-size: 200% 200%;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -239,39 +247,64 @@ function Footer() {
 
         .divider {
           height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.12), transparent);
+          background: linear-gradient(90deg, transparent, var(--border), transparent);
           margin: 2rem 0;
         }
 
-        @media (max-width: 768px) {
-          .scroll-top-btn {
-            width: 42px;
-            height: 42px;
+        .footer-top-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2rem;
+          margin-bottom: 2.5rem;
+        }
+
+        @media (min-width: 680px) {
+          .footer-top-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
           }
-          
+        }
+
+        @media (min-width: 1024px) {
+          .footer-top-grid {
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 3rem;
+          }
+        }
+
+        .footer-bottom-flex {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
           .footer-card {
-            padding: 1.25rem 0;
+            padding: 0.75rem 0;
+          }
+
+          .footer-bottom-flex {
+            flex-direction: column;
+            text-align: center;
+            align-items: center;
           }
         }
       `}</style>
 
       {/* Main Footer */}
       <div className="footer-animated" style={{ 
-        background: 'linear-gradient(180deg, #14080d 0%, #0e070a 100%)',
-        color: '#f8fafc', 
-        padding: isMobile ? '2.5rem 0 2rem 0' : '4rem 0 2.5rem 0',
+        background: 'var(--surface)',
+        color: 'var(--text)', 
+        padding: 'clamp(2.5rem, 5vw, 4rem) 0 clamp(2rem, 4vw, 2.75rem) 0',
         position: 'relative',
-        borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+        borderTop: '1px solid var(--border)'
       }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
           
           {/* Top Section */}
-          <div style={{ 
-            display: 'grid',
-            gridTemplateColumns: isMobile ? '1fr' : isTablet ? '1fr 1fr' : '2fr 1fr 1fr',
-            gap: isMobile ? '2rem' : '3rem',
-            marginBottom: '2.5rem'
-          }}>
+          <div className="footer-top-grid">
             
             {/* Company Info */}
             <div className="footer-section-left footer-card">
@@ -283,23 +316,23 @@ function Footer() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  background: 'linear-gradient(135deg, #6b2d3a 0%, #f28c28 100%)',
+                  background: 'linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)',
                   marginRight: '1rem',
                   boxShadow: '0 4px 16px rgba(242, 140, 40, 0.3)',
-                  border: '1px solid rgba(255, 255, 255, 0.2)'
+                  border: '1px solid var(--border)'
                 }}>
-                  <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: '#ffffff' }}>Z</span>
+                  <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'var(--primary-contrast)' }}>Z</span>
                 </div>
                 <div>
                   <div className="gradient-text" style={{ fontWeight: '800', fontSize: '1.2rem', letterSpacing: '0.6px' }}>
                     ZETAWA DARK
                   </div>
-                  <div style={{ fontSize: '0.78rem', color: '#94a3b8', letterSpacing: '0.8px' }}>
+                  <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', letterSpacing: '0.8px' }}>
                     PRIVATE LIMITED
                   </div>
                 </div>
               </div>
-              <p style={{ color: '#94a3b8', lineHeight: '1.65', fontSize: '0.94rem', maxWidth: '420px' }}>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.65', fontSize: '0.94rem', maxWidth: '420px' }}>
                 We design, build, and market intelligent software solutions and websites to help your business grow and thrive in the digital age.
               </p>
             </div>
@@ -309,7 +342,7 @@ function Footer() {
               <h3 style={{ 
                 fontSize: '1.15rem', 
                 marginBottom: '1.25rem',
-                color: '#ffffff',
+                color: 'var(--text)',
                 fontWeight: '700'
               }}>
                 Quick Links
@@ -325,7 +358,7 @@ function Footer() {
                     to={link.path}
                     className="quick-link"
                     style={{
-                      color: '#cbd5e1',
+                      color: 'var(--text-muted)',
                       textDecoration: 'none',
                       fontSize: '0.92rem',
                       display: 'inline-block'
@@ -341,7 +374,7 @@ function Footer() {
               <h3 style={{ 
                 fontSize: '1.15rem', 
                 marginBottom: '1.25rem',
-                color: '#ffffff',
+                color: 'var(--text)',
                 fontWeight: '700'
               }}>
                 Connect With Us
@@ -364,13 +397,13 @@ function Footer() {
                   </a>
                 ))}
               </div>
-              <div style={{ color: '#94a3b8', fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+              <div style={{ color: 'var(--text-muted)', fontSize: '0.9rem', display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <Phone size={16} style={{ display: 'inline', marginRight: '8px', color: '#f28c28' }} />
+                  <Phone size={16} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} />
                   7004265718
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <Mail size={16} style={{ display: 'inline', marginRight: '8px', color: '#f28c28' }} />
+                  <Mail size={16} style={{ display: 'inline', marginRight: '8px', color: 'var(--accent)' }} />
                   director@zetawa.com
                 </div>
               </div>
@@ -380,29 +413,21 @@ function Footer() {
           <div className="divider"></div>
 
           {/* Bottom Section */}
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: '1rem',
-            textAlign: isMobile ? 'center' : 'left'
-          }}>
+          <div className="footer-bottom-flex">
             <div style={{ 
               fontSize: '0.88rem', 
-              color: '#94a3b8', 
+              color: 'var(--text-muted)', 
               display: 'flex', 
               alignItems: 'center', 
               gap: '0.65rem', 
-              flexWrap: 'wrap',
-              justifyContent: isMobile ? 'center' : 'flex-start'
+              flexWrap: 'wrap'
             }}>
               <span>© 2026 ZETAWA DARK PRIVATE LIMITED. All rights reserved.</span>
               <span style={{ opacity: 0.4 }}>•</span>
               <Link 
                 to="/privacy-policy" 
                 style={{ 
-                  color: '#f28c28', 
+                  color: 'var(--accent)', 
                   textDecoration: 'underline', 
                   textUnderlineOffset: '3px',
                   fontWeight: 500
@@ -411,7 +436,7 @@ function Footer() {
                 Privacy Policy
               </Link>
             </div>
-            <div style={{ fontSize: '0.82rem', color: '#64748b' }}>
+            <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
               Equal opportunity employer committed to diversity and inclusion.
             </div>
           </div>

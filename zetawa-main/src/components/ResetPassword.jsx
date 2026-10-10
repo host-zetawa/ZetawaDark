@@ -4,6 +4,7 @@ import { Mail, Lock, KeyRound, ArrowLeft } from "lucide-react"
 import { useAppContext } from "../context/AppContext"
 import Nav from "./Nav"
 import Footer from "./Footer"
+import Background3D from "./Background3D"
 
 const ResetPassword = () => {
   const [email, setEmail] = useState("")
@@ -34,7 +35,8 @@ const ResetPassword = () => {
     display: "flex",
     alignItems: "center",
     gap: "0.6rem",
-    border: "1.5px solid #e0d9db",
+    border: "1.5px solid var(--input-border)",
+    background: "var(--input-bg)",
     borderRadius: "10px",
     padding: "0.8rem 1rem",
     marginBottom: "1.25rem",
@@ -46,51 +48,61 @@ const ResetPassword = () => {
     flex: 1,
     fontSize: "1rem",
     background: "transparent",
-    color: "#2d2d2d",
+    color: "var(--text)",
+    minWidth: 0,
   }
 
   const labelStyle = {
     display: "block",
     fontSize: "0.85rem",
     fontWeight: 600,
-    color: "#4a4a4a",
+    color: "var(--text)",
     marginBottom: "0.5rem",
   }
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f5f2f3" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--bg)", color: "var(--text)" }}>
       <Nav />
       <div style={{
         minHeight: "calc(100vh - 120px)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "3rem 1.5rem",
+        padding: "clamp(1.5rem, 4vw, 3rem) clamp(0.75rem, 3vw, 1.5rem)",
+        position: "relative",
+        overflow: "hidden"
       }}>
+        <Background3D />
         <form onSubmit={step === 1 ? handleSendOtp : handleReset} style={{
           width: "100%",
           maxWidth: "420px",
-          background: "white",
-          borderRadius: "16px",
-          padding: "3rem 2.5rem",
-          boxShadow: "0 20px 60px rgba(126,58,65,0.15)",
+          background: "var(--surface)",
+          borderRadius: "clamp(12px, 3vw, 16px)",
+          padding: "clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2.5rem)",
+          boxShadow: "var(--shadow-lg)",
+          border: "1px solid var(--border)",
+          position: "relative",
+          zIndex: 1,
+          boxSizing: "border-box"
         }}>
           <Link to="/login" style={{
-            color: "#7e3a41",
+            color: "var(--accent)",
             textDecoration: "none",
             display: "inline-flex",
             alignItems: "center",
             gap: "0.4rem",
             fontSize: "0.9rem",
             marginBottom: "1.5rem",
+            minHeight: "36px",
+            touchAction: "manipulation"
           }}>
             <ArrowLeft size={16} /> Back to login
           </Link>
 
-          <h1 style={{ color: "#2d2d2d", fontSize: "1.8rem", marginBottom: "0.25rem" }}>
+          <h1 style={{ color: "var(--text)", fontSize: "clamp(1.4rem, 4vw, 1.8rem)", marginBottom: "0.25rem" }}>
             {step === 1 ? "Reset Password" : "Enter OTP & New Password"}
           </h1>
-          <p style={{ color: "#777", marginBottom: "2rem" }}>
+          <p style={{ color: "var(--text-muted)", marginBottom: "2rem", fontSize: "0.95rem" }}>
             {step === 1 ? "Enter your email to receive OTP" : "Enter the OTP and your new password"}
           </p>
 
@@ -98,7 +110,7 @@ const ResetPassword = () => {
             <>
               <label style={labelStyle}>Email</label>
               <div style={{ ...fieldStyle, marginBottom: "1.5rem" }}>
-                <Mail size={18} color="#9a8f92" />
+                <Mail size={18} color="var(--text-muted)" />
                 <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" style={inputStyle} />
               </div>
             </>
@@ -106,13 +118,13 @@ const ResetPassword = () => {
             <>
               <label style={labelStyle}>OTP Code</label>
               <div style={fieldStyle}>
-                <KeyRound size={18} color="#9a8f92" />
+                <KeyRound size={18} color="var(--text-muted)" />
                 <input type="text" required value={otp} onChange={(e) => setOtp(e.target.value)} maxLength={6} placeholder="000000"
                   style={{ ...inputStyle, letterSpacing: "0.3em", textAlign: "center" }} />
               </div>
               <label style={labelStyle}>New Password</label>
               <div style={{ ...fieldStyle, marginBottom: "1.5rem" }}>
-                <Lock size={18} color="#9a8f92" />
+                <Lock size={18} color="var(--text-muted)" />
                 <input type="password" required value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="At least 6 characters" style={inputStyle} />
               </div>
             </>
@@ -120,7 +132,8 @@ const ResetPassword = () => {
 
           <button type="submit" disabled={submitting} style={{
             width: "100%",
-            background: "linear-gradient(135deg, #7e3a41 0%, #6a3139 100%)",
+            minHeight: "48px",
+            background: "var(--accent-orange, #f28c28)",
             color: "white",
             border: "none",
             borderRadius: "10px",
@@ -132,15 +145,17 @@ const ResetPassword = () => {
             alignItems: "center",
             justifyContent: "center",
             gap: "0.5rem",
+            boxShadow: "0 6px 20px rgba(242, 140, 40, 0.35)",
             opacity: submitting ? 0.7 : 1,
+            touchAction: "manipulation"
           }}>
             <KeyRound size={18} />
             {submitting ? "Processing..." : step === 1 ? "Send OTP" : "Reset Password"}
           </button>
 
-          <p style={{ textAlign: "center", color: "#777", marginTop: "1.5rem" }}>
+          <p style={{ textAlign: "center", color: "var(--text-muted)", marginTop: "1.5rem" }}>
             Remember your password?{" "}
-            <Link to="/login" style={{ color: "#7e3a41", fontWeight: 600, textDecoration: "none" }}>
+            <Link to="/login" style={{ color: "var(--accent)", fontWeight: 600, textDecoration: "none" }}>
               Sign in
             </Link>
           </p>

@@ -13,11 +13,11 @@ function ZetawaNav() {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [theme, setTheme] = useState(() => {
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('zetawa-theme');
+      const saved = localStorage.getItem('zetawa-theme') || localStorage.getItem('theme');
       if (saved) return saved;
-      return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    return 'dark';
+    return 'light';
   });
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
@@ -36,6 +36,7 @@ function ZetawaNav() {
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('zetawa-theme', theme);
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const toggleTheme = (e) => {
@@ -120,21 +121,79 @@ function ZetawaNav() {
           top: 0;
           left: 0;
           right: 0;
-          background: var(--nav-bg, rgba(20, 8, 13, 0.82));
+          background: var(--nav-bg) !important;
           backdrop-filter: blur(20px) saturate(180%);
           -webkit-backdrop-filter: blur(20px) saturate(180%);
           padding: 0.6rem 0;
-          border-bottom: 1px solid var(--nav-border, rgba(255, 255, 255, 0.09));
-          box-shadow: var(--shadow-sm, 0 4px 24px rgba(0, 0, 0, 0.15));
+          border-bottom: 1px solid var(--nav-border) !important;
+          box-shadow: var(--shadow) !important;
           z-index: 1000;
-          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+          transition: background 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      border-color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      color 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                      padding 0.35s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-header.scrolled {
           padding: 0.45rem 0;
-          background: var(--nav-scrolled-bg, rgba(14, 7, 10, 0.94));
-          border-bottom: 1px solid rgba(242, 140, 40, 0.28);
-          box-shadow: var(--shadow-md, 0 8px 32px rgba(0, 0, 0, 0.25));
+          background: var(--surface-elevated) !important;
+          border-bottom: 1px solid var(--border) !important;
+          box-shadow: var(--shadow) !important;
+        }
+
+        .brand-name {
+          color: var(--nav-text) !important;
+          font-weight: 800;
+          font-size: 1.1rem;
+          letter-spacing: 0.8px;
+          background: none !important;
+          -webkit-text-fill-color: var(--nav-text) !important;
+          transition: all 0.3s ease;
+        }
+
+        .nav-header.scrolled .brand-name {
+          font-size: 1.02rem;
+        }
+
+        .nav-link {
+          color: var(--nav-link) !important;
+        }
+
+        .nav-link:hover {
+          color: var(--nav-link-hover) !important;
+          background: rgba(242, 140, 40, 0.12) !important;
+          border-color: rgba(242, 140, 40, 0.3) !important;
+        }
+
+        .nav-link.active {
+          color: var(--accent) !important;
+          background: rgba(242, 140, 40, 0.16) !important;
+          border-color: rgba(242, 140, 40, 0.45) !important;
+        }
+
+        .nav-theme-btn {
+          background: var(--nav-theme-btn-bg) !important;
+          border-color: var(--nav-theme-btn-border) !important;
+          color: var(--nav-theme-btn-color) !important;
+        }
+
+        .nav-auth-btn {
+          background: var(--primary) !important;
+          color: var(--primary-contrast) !important;
+          border-color: var(--primary) !important;
+        }
+
+        .user-chip {
+          background: var(--nav-theme-btn-bg) !important;
+          border-color: var(--nav-theme-btn-border) !important;
+          color: var(--nav-text) !important;
+        }
+
+        .menu-button {
+          color: var(--nav-text) !important;
+          background: var(--nav-theme-btn-bg) !important;
+          border-color: var(--nav-theme-btn-border) !important;
         }
 
         .nav-container {
@@ -163,9 +222,10 @@ function ZetawaNav() {
           width: 36px;
           height: 36px;
           border-radius: 50%;
-          background: linear-gradient(135deg, #ffffff 0%, #f5eef0 100%);
+          background: var(--surface);
+          border: 1px solid var(--border);
           padding: 3px;
-          box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15), 0 0 12px rgba(242, 140, 40, 0.2);
+          box-shadow: var(--shadow-sm);
           transition: all 0.3s ease;
           display: flex;
           align-items: center;
@@ -337,7 +397,8 @@ function ZetawaNav() {
           -webkit-backdrop-filter: blur(20px);
           border-radius: 14px;
           box-shadow: var(--shadow-xl, 0 16px 48px rgba(0, 0, 0, 0.35));
-          min-width: 220px;
+          min-width: 230px;
+          max-width: min(320px, calc(100vw - 2rem));
           padding: 0.5rem 0;
           z-index: 1100;
           animation: dropdownSlideIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -347,6 +408,11 @@ function ZetawaNav() {
         @keyframes dropdownSlideIn {
           from { opacity: 0; transform: translateY(-8px) scale(0.98); }
           to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        @keyframes bottomSheetSlideUp {
+          from { opacity: 0; transform: translateY(100%); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         .dropdown-item {
@@ -365,11 +431,15 @@ function ZetawaNav() {
           width: 100%;
           font-family: inherit;
           text-align: left;
+          min-height: 44px;
+          box-sizing: border-box;
         }
 
-        .dropdown-item:hover {
-          background: rgba(242, 140, 40, 0.12);
-          color: var(--accent-orange, #f28c28);
+        @media (hover: hover) {
+          .dropdown-item:hover {
+            background: rgba(242, 140, 40, 0.12);
+            color: var(--accent-orange, #f28c28);
+          }
         }
 
         .dropdown-divider {
@@ -382,31 +452,82 @@ function ZetawaNav() {
           color: #e5484d;
         }
 
-        .dropdown-item.danger:hover {
-          background: rgba(229, 72, 77, 0.14);
-          color: #ff6b6b;
+        @media (hover: hover) {
+          .dropdown-item.danger:hover {
+            background: rgba(229, 72, 77, 0.14);
+            color: #ff6b6b;
+          }
+        }
+
+        /* Mobile Bottom Sheet Transformation for User Dropdown */
+        @media (max-width: 767px) {
+          .nav-dropdown-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--overlay, rgba(14, 7, 10, 0.75));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 2050;
+          }
+
+          .nav-dropdown {
+            position: fixed !important;
+            top: auto !important;
+            bottom: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            border-radius: 24px 24px 0 0 !important;
+            border-bottom: none !important;
+            padding: 1.25rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom, 0px)) 1.25rem !important;
+            box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.6) !important;
+            z-index: 2100 !important;
+            animation: bottomSheetSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+            box-sizing: border-box;
+          }
+
+          .dropdown-item {
+            padding: 0.9rem 1rem !important;
+            font-size: 0.98rem !important;
+            border-radius: 12px !important;
+            margin-bottom: 0.25rem !important;
+          }
         }
 
         .menu-button {
           background: var(--glass-card-bg, rgba(255, 255, 255, 0.08));
           border: 1px solid var(--border-default, rgba(255, 255, 255, 0.2));
           color: var(--text-primary, #ffffff);
-          width: 40px;
-          height: 40px;
-          border-radius: 10px;
+          width: 44px;
+          height: 44px;
+          min-width: 44px;
+          min-height: 44px;
+          border-radius: 12px;
           cursor: pointer;
           transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
           display: flex;
           align-items: center;
           justify-content: center;
           backdrop-filter: blur(8px);
+          touch-action: manipulation;
         }
 
-        .menu-button:hover, .menu-button:active {
-          background: rgba(242, 140, 40, 0.18);
-          border-color: rgba(242, 140, 40, 0.5);
-          color: var(--accent-orange, #f28c28);
-          transform: scale(1.05);
+        @media (hover: hover) {
+          .menu-button:hover {
+            background: rgba(242, 140, 40, 0.18);
+            border-color: rgba(242, 140, 40, 0.5);
+            color: var(--accent-orange, #f28c28);
+            transform: scale(1.05);
+          }
+        }
+
+        .menu-button:active {
+          transform: scale(0.96);
         }
 
         .menu-overlay {
@@ -428,7 +549,8 @@ function ZetawaNav() {
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
-          padding: 1.25rem 1rem calc(2rem + env(safe-area-inset-bottom, 0px));
+          padding: max(1.25rem, calc(1rem + env(safe-area-inset-top, 0px))) max(1rem, env(safe-area-inset-right, 0px)) max(2rem, calc(2rem + env(safe-area-inset-bottom, 0px))) max(1rem, env(safe-area-inset-left, 0px));
+          box-sizing: border-box;
         }
 
         .menu-overlay.active {
@@ -438,7 +560,7 @@ function ZetawaNav() {
 
         .menu-drawer-header {
           width: 100%;
-          max-width: 440px;
+          max-width: 460px;
           display: flex;
           align-items: center;
           justify-content: space-between;
@@ -451,53 +573,71 @@ function ZetawaNav() {
           background: var(--glass-card-bg, rgba(255, 255, 255, 0.08));
           border: 1px solid var(--border-default, rgba(255, 255, 255, 0.2));
           color: var(--text-primary, #ffffff);
-          width: 38px;
-          height: 38px;
+          width: 44px;
+          height: 44px;
+          min-width: 44px;
+          min-height: 44px;
           border-radius: 50%;
           cursor: pointer;
           transition: all 0.25s ease;
           display: flex;
           align-items: center;
           justify-content: center;
+          touch-action: manipulation;
         }
 
-        .close-button:hover, .close-button:active {
-          background: rgba(242, 140, 40, 0.2);
-          border-color: rgba(242, 140, 40, 0.5);
-          color: var(--accent-orange, #f28c28);
-          transform: rotate(90deg) scale(1.05);
+        @media (hover: hover) {
+          .close-button:hover {
+            background: rgba(242, 140, 40, 0.2);
+            border-color: rgba(242, 140, 40, 0.5);
+            color: var(--accent-orange, #f28c28);
+            transform: rotate(90deg) scale(1.05);
+          }
+        }
+
+        .close-button:active {
+          transform: rotate(90deg) scale(0.95);
         }
 
         .menu-content {
           display: flex;
           flex-direction: column;
-          gap: 0.45rem;
+          gap: 0.5rem;
           width: 100%;
-          max-width: 440px;
+          max-width: 460px;
         }
 
         .menu-item {
           width: 100%;
-          padding: 0.85rem 1.15rem;
+          padding: 0.95rem 1.25rem;
+          min-height: 48px;
           color: var(--text-primary, #e2e8f0);
           cursor: pointer;
           border-radius: 12px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          font-size: 0.95rem;
+          font-size: 0.98rem;
           font-weight: 600;
           transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
           background: var(--glass-card-bg, rgba(255, 255, 255, 0.04));
           border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.08));
           text-decoration: none;
+          box-sizing: border-box;
+          touch-action: manipulation;
         }
 
-        .menu-item:hover, .menu-item:active {
-          background: rgba(242, 140, 40, 0.12);
-          border-color: rgba(242, 140, 40, 0.35);
-          color: var(--accent-orange, #ffffff);
-          transform: translateX(3px);
+        @media (hover: hover) {
+          .menu-item:hover {
+            background: rgba(242, 140, 40, 0.12);
+            border-color: rgba(242, 140, 40, 0.35);
+            color: var(--accent-orange, #ffffff);
+            transform: translateX(3px);
+          }
+        }
+
+        .menu-item:active {
+          background: rgba(242, 140, 40, 0.2);
         }
 
         .menu-item.active {
@@ -508,7 +648,7 @@ function ZetawaNav() {
           box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
-        /* Desktop Navigation */
+        /* Desktop Navigation (>= 1024px) */
         @media (min-width: 1024px) {
           .nav-links {
             display: flex;
@@ -566,6 +706,44 @@ function ZetawaNav() {
             height: 54px !important;
           }
         }
+
+        @media (max-width: 480px) {
+          .nav-container {
+            padding: 0 0.65rem;
+          }
+
+          .brand-name {
+            font-size: clamp(0.78rem, 3.4vw, 0.92rem);
+          }
+
+          .logo-container {
+            width: 30px;
+            height: 30px;
+          }
+
+          .menu-button {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            min-height: 42px;
+          }
+        }
+
+        @media (max-width: 320px) {
+          .nav-container {
+            padding: 0 0.4rem;
+          }
+
+          .brand-name {
+            font-size: 0.74rem;
+            letter-spacing: 0.2px;
+          }
+
+          .logo-container {
+            width: 28px;
+            height: 28px;
+          }
+        }
       `}</style>
 
       {/* Auth Modal */}
@@ -594,7 +772,7 @@ function ZetawaNav() {
               <button
                 className="nav-theme-btn"
                 onClick={toggleTheme}
-                aria-label="Toggle color theme"
+                aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
               >
                 {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
               </button>
@@ -773,7 +951,7 @@ function ZetawaNav() {
             <button
               className="nav-theme-btn"
               onClick={toggleTheme}
-              aria-label="Toggle color theme"
+              aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
               style={{ marginLeft: '0.4rem' }}
             >
               {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
@@ -847,17 +1025,18 @@ function ZetawaNav() {
               <button
                 className="nav-theme-btn"
                 onClick={toggleTheme}
-                aria-label="Toggle color theme"
+                aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
                 style={{ width: '34px', height: '34px' }}
               >
                 {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
               </button>
               {isAuth ? (
-                <div ref={!showDropdown ? undefined : dropdownRef} style={{ position: 'relative' }}>
+                <div ref={dropdownRef} style={{ position: 'relative' }}>
                   <button
                     className="nav-user-btn"
                     onClick={() => setShowDropdown(!showDropdown)}
                     style={{ padding: '0.25rem 0.55rem 0.25rem 0.25rem', fontSize: '0.8rem' }}
+                    aria-label="User account menu"
                   >
                     <div className="nav-avatar" style={{ width: '26px', height: '26px', fontSize: '0.75rem' }}>{userInitial}</div>
                     <ChevronDown size={12} />
@@ -884,6 +1063,63 @@ function ZetawaNav() {
             </button>
           </div>
         </div>
+
+        {/* Mobile Bottom Sheet for User Menu */}
+        {isAuth && showDropdown && (
+          <div className="mobile-dropdown-sheet-wrapper">
+            <style>{`
+              @media (min-width: 768px) {
+                .mobile-dropdown-sheet-wrapper { display: none; }
+              }
+            `}</style>
+            <div
+              className="nav-dropdown-backdrop"
+              onClick={() => setShowDropdown(false)}
+            />
+            <div className="nav-dropdown" style={{ zIndex: 2100 }}>
+              <div style={{
+                width: '40px',
+                height: '4px',
+                borderRadius: '4px',
+                background: 'var(--border, rgba(255,255,255,0.2))',
+                margin: '0 auto 1rem auto'
+              }} />
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0.25rem 0.5rem 0.85rem', borderBottom: '1px solid var(--border)' }}>
+                <div className="nav-avatar" style={{ width: '32px', height: '32px', fontSize: '0.85rem' }}>{userInitial}</div>
+                <div>
+                  <div style={{ fontWeight: 700, fontSize: '0.92rem', color: 'var(--text)' }}>{user?.name || 'User'}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{user?.email}</div>
+                </div>
+              </div>
+              <button type="button" className="dropdown-item" onClick={() => { navigate('/profile'); setShowDropdown(false); }}>
+                <User size={18} />
+                My Project Portal
+              </button>
+              <button type="button" className="dropdown-item" onClick={() => { navigate('/hireforms'); setShowDropdown(false); }}>
+                <FileText size={18} />
+                Hire Us / Start Project
+              </button>
+              <button type="button" className="dropdown-item" onClick={() => { navigate('/careers'); setShowDropdown(false); }}>
+                <Briefcase size={18} />
+                Job Openings
+              </button>
+              {isAdmin && (
+                <>
+                  <div className="dropdown-divider" />
+                  <button type="button" className="dropdown-item" onClick={() => { navigate('/admin'); setShowDropdown(false); }}>
+                    <Shield size={18} style={{ color: '#f28c28' }} />
+                    Admin Command Center
+                  </button>
+                </>
+              )}
+              <div className="dropdown-divider" />
+              <button type="button" className="dropdown-item danger" onClick={handleLogout}>
+                <LogOut size={18} />
+                Logout
+              </button>
+            </div>
+          </div>
+        )}
       </header>
 
       {/* Spacer to prevent content from hiding behind fixed header */}
@@ -891,7 +1127,7 @@ function ZetawaNav() {
         className="nav-spacer"
         style={{
           height: isScrolled ? '54px' : '62px',
-          background: 'rgba(20, 8, 13, 0.94)',
+          background: 'var(--bg)',
           transition: 'height 0.3s ease'
         }}
       />

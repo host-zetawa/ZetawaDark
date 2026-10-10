@@ -21,6 +21,7 @@ import {
 import Nav from './Nav';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
+import Background3D from './Background3D';
 
 const PressRelease = () => {
   const [releases, setReleases] = useState([]);
@@ -134,20 +135,18 @@ const PressRelease = () => {
   return (
     <div style={{
       fontFamily: 'var(--font-family, "Plus Jakarta Sans", system-ui, sans-serif)',
-      backgroundColor: 'var(--bg-canvas, #f8f6f7)',
+      backgroundColor: 'var(--bg)',
       minHeight: '100vh',
-      color: 'var(--text-primary, #1e293b)'
+      color: 'var(--text)'
     }}>
       <Nav />
 
       {/* Global CSS for Animations and Responsiveness */}
       <style>{`
-        * {
-          box-sizing: border-box;
-        }
-
         .press-hero-gradient {
-          background: linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%);
+          background: var(--bg-hero);
+          color: var(--hero-text);
+          border-bottom: 1px solid var(--border);
         }
 
         .pr-card {
@@ -200,9 +199,15 @@ const PressRelease = () => {
           gap: 0.65rem;
           overflow-x: auto;
           -webkit-overflow-scrolling: touch;
+          scroll-snap-type: x mandatory;
           scrollbar-width: none;
           -ms-overflow-style: none;
           padding-bottom: 0.25rem;
+        }
+
+        .pr-filter-scroll-row > * {
+          scroll-snap-align: start;
+          flex-shrink: 0;
         }
 
         .pr-filter-scroll-row::-webkit-scrollbar {
@@ -339,12 +344,13 @@ const PressRelease = () => {
 
       {/* Hero Header */}
       <header className="press-hero-gradient" style={{
-        color: 'white',
+        color: 'var(--hero-text)',
         padding: 'clamp(2.5rem, 6vw, 5rem) 0 clamp(2rem, 5vw, 4rem) 0',
         position: 'relative',
         overflow: 'hidden',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+        borderBottom: '1px solid var(--border)'
       }}>
+        <Background3D />
         {/* Subtle geometric pattern overlay */}
         <div style={{
           position: 'absolute',
@@ -352,8 +358,8 @@ const PressRelease = () => {
           left: 0,
           right: 0,
           bottom: 0,
-          opacity: 0.07,
-          background: 'radial-gradient(circle at 20% 50%, white 1px, transparent 1px), radial-gradient(circle at 80% 80%, white 1px, transparent 1px)',
+          opacity: 0.04,
+          background: 'radial-gradient(circle at 20% 50%, var(--text) 1px, transparent 1px), radial-gradient(circle at 80% 80%, var(--text) 1px, transparent 1px)',
           backgroundSize: '30px 30px'
         }} />
 
@@ -363,16 +369,16 @@ const PressRelease = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(242, 140, 40, 0.12)',
+            background: 'var(--hero-badge-bg)',
             backdropFilter: 'blur(8px)',
-            color: 'var(--accent-orange, #f28c28)',
+            color: 'var(--hero-badge-text)',
             padding: '0.45rem 1.1rem',
             borderRadius: '50px',
             fontSize: '0.82rem',
             fontWeight: 700,
             letterSpacing: '0.8px',
             marginBottom: '1.25rem',
-            border: '1px solid rgba(242, 140, 40, 0.35)'
+            border: '1px solid var(--hero-badge-border)'
           }}>
             <Newspaper size={16} />
             ZETAWA DARK NEWSROOM & MEDIA CENTER
@@ -384,7 +390,8 @@ const PressRelease = () => {
             letterSpacing: '-0.02em',
             marginBottom: '1rem',
             lineHeight: 1.2,
-            textWrap: 'balance'
+            textWrap: 'balance',
+            color: 'var(--hero-text)'
           }}>
             Press Releases &amp; Corporate Announcements
           </h1>
@@ -392,7 +399,7 @@ const PressRelease = () => {
           <p className="hero-subtitle" style={{
             fontSize: 'clamp(0.95rem, 2vw, 1.2rem)',
             maxWidth: '750px',
-            opacity: 0.92,
+            color: 'var(--hero-text-muted)',
             lineHeight: 1.6,
             fontWeight: 400,
             marginBottom: '2rem'
@@ -434,8 +441,8 @@ const PressRelease = () => {
             <a
               href="mailto:vansh100101102@gmail.com?subject=Press%20Inquiry%20-%20Zetawa%20Dark"
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                color: 'white',
+                backgroundColor: 'var(--hero-btn-secondary-bg)',
+                color: 'var(--hero-btn-secondary-text)',
                 padding: '0.75rem 1.5rem',
                 borderRadius: '50px',
                 textDecoration: 'none',
@@ -444,7 +451,7 @@ const PressRelease = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                border: '1px solid rgba(255, 255, 255, 0.25)',
+                border: '1.5px solid var(--hero-btn-secondary-border)',
                 transition: 'all 0.25s ease',
                 backdropFilter: 'blur(8px)',
                 minHeight: '44px'
@@ -467,7 +474,7 @@ const PressRelease = () => {
         <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
           <div className="stats-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))',
             gap: '1.5rem'
           }}>
             {stats.map((stat, i) => {
@@ -554,7 +561,7 @@ const PressRelease = () => {
             <div style={{
               position: 'relative',
               flex: '1',
-              minWidth: '280px'
+              minWidth: 'min(100%, 220px)'
             }}>
               <Search
                 size={18}
@@ -563,7 +570,7 @@ const PressRelease = () => {
                   left: '14px',
                   top: '50%',
                   transform: 'translateY(-50%)',
-                  color: '#94a3b8'
+                  color: 'var(--text-muted)'
                 }}
               />
               <input
@@ -603,7 +610,7 @@ const PressRelease = () => {
                     transform: 'translateY(-50%)',
                     background: 'none',
                     border: 'none',
-                    color: '#94a3b8',
+                    color: 'var(--text-muted)',
                     cursor: 'pointer',
                     padding: '4px',
                     display: 'flex',
@@ -815,7 +822,7 @@ const PressRelease = () => {
           /* Announcements Grid */
           <div className="pr-grid" style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 320px), 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
             gap: '1.75rem'
           }}>
             {filteredReleases.map((release, index) => {
@@ -1020,26 +1027,26 @@ const PressRelease = () => {
           </div>
         )}
 
-        {/* Media Desk Contact & Resources Strip (Replaced beige panel with sleek dark glassmorphism) */}
+        {/* Media Desk Contact & Resources Strip */}
         <section className="media-desk-section" style={{
           marginTop: 'clamp(3rem, 6vw, 5rem)',
-          background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
+          background: 'var(--banner-cta-bg)',
           borderRadius: '24px',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
+          border: '1px solid var(--banner-cta-border)',
           padding: 'clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem)',
-          boxShadow: '0 24px 60px rgba(20, 8, 13, 0.45)',
+          boxShadow: 'var(--shadow-lg)',
           position: 'relative',
           overflow: 'hidden',
-          color: '#ffffff'
+          color: 'var(--banner-cta-text)'
         }}>
-          {/* Ambient Background Glow replacing the old beige block */}
+          {/* Ambient Background Glow */}
           <div style={{
             position: 'absolute',
             top: '-80px',
             right: '-80px',
             width: '320px',
             height: '320px',
-            background: 'radial-gradient(circle, rgba(242, 140, 40, 0.15) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(217, 107, 20, 0.15) 0%, transparent 70%)',
             borderRadius: '50%',
             pointerEvents: 'none'
           }} />
@@ -1055,19 +1062,19 @@ const PressRelease = () => {
               textTransform: 'uppercase',
               letterSpacing: '0.8px',
               marginBottom: '0.75rem',
-              backgroundColor: 'rgba(242, 140, 40, 0.12)',
-              border: '1px solid rgba(242, 140, 40, 0.3)',
+              backgroundColor: 'rgba(217, 107, 20, 0.12)',
+              border: '1px solid rgba(217, 107, 20, 0.3)',
               padding: '0.35rem 0.85rem',
               borderRadius: '20px'
             }}>
               <Mail size={16} /> Press & Media Relations Desk
             </div>
 
-            <h3 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 800, color: '#ffffff', marginBottom: '0.75rem', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
+            <h3 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.2rem)', fontWeight: 800, color: 'var(--banner-cta-text)', marginBottom: '0.75rem', letterSpacing: '-0.02em', lineHeight: 1.25 }}>
               Have a media inquiry or interview request?
             </h3>
 
-            <p style={{ color: 'rgba(255, 255, 255, 0.85)', fontSize: '1.02rem', lineHeight: 1.65, marginBottom: '2rem' }}>
+            <p style={{ color: 'var(--banner-cta-text-muted)', fontSize: '1.02rem', lineHeight: 1.65, marginBottom: '2rem' }}>
               Members of the press, industry analysts, and conference organizers are invited to connect directly with the Zetawa Dark communications team for official commentary, executive bios, and brand assets.
             </p>
 
@@ -1098,8 +1105,8 @@ const PressRelease = () => {
               <Link
                 to="/aboutus"
                 style={{
-                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  color: '#ffffff',
+                  backgroundColor: 'var(--banner-cta-btn-sec-bg)',
+                  color: 'var(--banner-cta-btn-sec-color)',
                   padding: '0.85rem 1.75rem',
                   borderRadius: '50px',
                   textDecoration: 'none',
@@ -1108,13 +1115,13 @@ const PressRelease = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  border: '1px solid rgba(255, 255, 255, 0.25)',
+                  border: '1.5px solid var(--banner-cta-btn-sec-border)',
                   backdropFilter: 'blur(8px)',
                   transition: 'all 0.25s ease',
                   minHeight: '44px'
                 }}
-                onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.16)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-                onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+                onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
               >
                 About Zetawa Dark <ChevronRight size={18} />
               </Link>

@@ -188,24 +188,21 @@ const Events = () => {
 
   return (
     <div style={{ 
-      fontFamily: 'system-ui, -apple-system, sans-serif',
-      backgroundColor: '#304356ff',
+      fontFamily: 'var(--font-family, system-ui, -apple-system, sans-serif)',
+      backgroundColor: 'var(--bg)',
+      color: 'var(--text)',
       minHeight: '100vh'
     }}>
       <style>{`
         :root {
-          --primary-red: #7e3a41ff;
-          --primary-red-hover: #884a51ff;
-          --dark-bg: #304356ff;
-          --dark-card: #2d2d2d;
-          --dark-border: #404040;
+          --primary-red: var(--primary);
+          --primary-red-hover: var(--accent);
+          --dark-bg: var(--bg);
+          --dark-card: var(--surface);
+          --dark-border: var(--border);
         }
 
-        * {
-          margin: 0;
-          padding: 0;
-          box-sizing: border-box;
-        }
+
 
         .container {
           max-width: 1200px;
@@ -214,8 +211,8 @@ const Events = () => {
         }
 
         .back-button {
-          background-color: var(--primary-red);
-          color: white;
+          background-color: var(--primary);
+          color: var(--primary-contrast);
           border: none;
           border-radius: 8px;
           padding: 0.75rem 1.5rem;
@@ -229,45 +226,44 @@ const Events = () => {
         }
         
         .back-button:hover {
-          background-color: var(--primary-red-hover);
+          background-color: var(--accent);
           transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+          box-shadow: var(--shadow);
         }
 
         .hero-section {
-          background-color: var(--primary-red);
-          color: white;
+          background: var(--bg-hero);
+          color: var(--hero-text);
           text-align: center;
           padding: 3rem 0;
           position: relative;
           overflow: hidden;
+          border-bottom: 1px solid var(--border);
         }
         
         .hero-title {
           font-size: clamp(1.85rem, 5vw, 2.8rem);
           font-weight: 700;
           margin-bottom: 1rem;
-          color: #ffebee;
+          color: var(--hero-text);
           text-wrap: balance;
         }
 
         .hero-subtitle {
           font-size: clamp(1.05rem, 2.5vw, 1.3rem);
           margin-bottom: 0.5rem;
-          opacity: 0.9;
-          color: white;
+          color: var(--hero-text-muted);
         }
 
         .hero-description {
           font-size: clamp(0.9rem, 2vw, 1rem);
-          opacity: 0.8;
-          color: #f5f5f5;
+          color: var(--hero-text-muted);
           margin: 0;
         }
 
         .notification-banner {
-          background: linear-gradient(45deg, var(--primary-red), #dc3545);
-          color: white;
+          background: linear-gradient(45deg, var(--primary), var(--accent));
+          color: #ffffff;
           padding: 10px 0;
           overflow: hidden;
           position: relative;
@@ -285,23 +281,24 @@ const Events = () => {
         }
 
         .card-custom {
-          background-color: white;
-          border: 1px solid #e9ecef;
+          background-color: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 15px;
           transition: all 0.3s ease;
-          box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+          box-shadow: var(--shadow);
           margin-bottom: 2rem;
+          color: var(--text);
         }
 
         .card-custom:hover {
           transform: translateY(-5px);
-          box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+          box-shadow: var(--shadow);
         }
 
         .tab-button {
           background-color: transparent;
-          color: #6c757d;
-          border: 2px solid #e9ecef;
+          color: var(--text-muted);
+          border: 2px solid var(--border);
           padding: 12px 24px;
           border-radius: 10px;
           margin: 0 5px;
@@ -311,66 +308,68 @@ const Events = () => {
         }
 
         .tab-button.active {
-          background-color: var(--primary-red);
-          color: white;
-          border-color: var(--primary-red);
+          background-color: var(--primary);
+          color: var(--primary-contrast);
+          border-color: var(--primary);
         }
 
         .tab-button:hover {
-          border-color: var(--primary-red);
-          color: var(--primary-red);
+          border-color: var(--primary);
+          color: var(--primary);
           transform: translateY(-2px);
         }
 
         .event-card {
-          background-color: white;
-          border: 1px solid #e9ecef;
+          background-color: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 15px;
           padding: 25px;
           margin-bottom: 20px;
           transition: all 0.3s ease;
           cursor: pointer;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+          box-shadow: var(--shadow);
+          color: var(--text);
         }
 
         .event-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-          border-color: var(--primary-red);
+          box-shadow: var(--shadow);
+          border-color: var(--primary);
         }
 
         .btn-primary-custom {
-          background-color: var(--primary-red);
-          border-color: var(--primary-red);
+          background-color: var(--primary);
+          border-color: var(--primary);
           padding: 12px 24px;
           font-weight: 600;
           transition: all 0.2s;
           border-radius: 8px;
           border: none;
-          color: white;
+          color: var(--primary-contrast);
           cursor: pointer;
           font-size: 1rem;
         }
         
         .btn-primary-custom:hover {
-          background-color: var(--primary-red-hover);
-          border-color: var(--primary-red-hover);
+          background-color: var(--accent);
+          border-color: var(--accent);
           transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+          box-shadow: var(--shadow);
         }
 
         .btn-primary-custom:disabled {
-          background-color: #6c757d;
-          border-color: #6c757d;
+          background-color: var(--border);
+          border-color: var(--border);
+          color: var(--text-muted);
           cursor: not-allowed;
           transform: none;
           box-shadow: none;
         }
 
         .form-control-custom {
-          background-color: white;
-          border: 2px solid #e9ecef;
-          color: #2d2d2d;
+          background-color: var(--input-bg);
+          border: 1.5px solid var(--input-border);
+          color: var(--text);
           padding: 12px;
           border-radius: 8px;
           transition: all 0.3s;
@@ -379,10 +378,10 @@ const Events = () => {
         }
         
         .form-control-custom:focus {
-          background-color: #f8f9fa;
-          border-color: var(--primary-red);
-          color: #2d2d2d;
-          box-shadow: 0 0 0 0.2rem rgba(126, 58, 65, 0.25);
+          background-color: var(--input-bg);
+          border-color: var(--primary);
+          color: var(--text);
+          box-shadow: 0 0 0 0.2rem var(--focus-ring);
           outline: none;
         }
 
@@ -398,14 +397,14 @@ const Events = () => {
         }
 
         .progress-bar-custom {
-          background-color: #e9ecef;
+          background-color: var(--border);
           border-radius: 10px;
           height: 8px;
           overflow: hidden;
         }
 
         .progress-fill {
-          background: linear-gradient(45deg, var(--primary-red), #ff6b7d);
+          background: linear-gradient(45deg, var(--primary), var(--accent));
           height: 100%;
           border-radius: 10px;
           transition: width 0.3s ease;
@@ -413,24 +412,25 @@ const Events = () => {
 
         .calendar-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
           gap: 20px;
           margin-top: 20px;
         }
 
         .calendar-item {
-          background-color: white;
-          border: 1px solid #e9ecef;
+          background-color: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 12px;
           padding: 20px;
           transition: all 0.3s ease;
-          box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+          box-shadow: var(--shadow);
+          color: var(--text);
         }
 
         .calendar-item:hover {
-          border-color: var(--primary-red);
+          border-color: var(--primary);
           transform: translateY(-3px);
-          box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+          box-shadow: var(--shadow);
         }
 
         .row {
@@ -508,8 +508,8 @@ const Events = () => {
         }
 
         .tag-badge {
-          background: rgba(126, 58, 65, 0.1);
-          color: var(--primary-red);
+          background: var(--bg-alt);
+          color: var(--primary);
           padding: 4px 10px;
           border-radius: 12px;
           font-size: 0.75rem;
@@ -517,25 +517,25 @@ const Events = () => {
         }
 
         .alert-success {
-          background: rgba(40, 167, 69, 0.1);
-          border: 2px solid #28a745;
-          color: #28a745;
+          background: color-mix(in srgb, var(--success) 12%, transparent);
+          border: 1px solid var(--success);
+          color: var(--success);
           border-radius: 10px;
           padding: 15px;
           margin-bottom: 20px;
         }
 
         .alert-danger {
-          background: rgba(220, 53, 69, 0.1);
-          border: 2px solid #dc3545;
-          color: #dc3545;
+          background: color-mix(in srgb, var(--danger) 12%, transparent);
+          border: 1px solid var(--danger);
+          color: var(--danger);
           border-radius: 10px;
           padding: 15px;
           margin-bottom: 20px;
         }
 
         .stats-section {
-          background-color: white;
+          background-color: transparent;
           padding: 2rem 0;
           margin: 2rem 0;
         }
@@ -547,31 +547,35 @@ const Events = () => {
         }
 
         .stat-card {
-          background-color: #f8f9fa;
-          border: 1px solid #e9ecef;
+          background-color: var(--surface);
+          border: 1px solid var(--border);
           border-radius: 15px;
           padding: 2rem;
           text-align: center;
           transition: all 0.3s ease;
+          color: var(--text);
+          box-shadow: var(--shadow);
         }
 
         .stat-card:hover {
           transform: translateY(-5px);
-          box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+          box-shadow: var(--shadow);
         }
 
         .cta-section {
-          background: linear-gradient(135deg, var(--primary-red), #ff6b7d);
-          color: white;
+          background: var(--banner-cta-bg);
+          color: var(--banner-cta-text);
           padding: 3rem;
           border-radius: 20px;
           text-align: center;
           margin: 2rem 0;
+          border: 1px solid var(--banner-cta-border);
+          box-shadow: var(--shadow-lg);
         }
 
         .cta-button {
-          background-color: white;
-          color: var(--primary-red);
+          background-color: var(--accent);
+          color: #ffffff;
           border: none;
           padding: 1rem 2rem;
           border-radius: 8px;
@@ -583,14 +587,15 @@ const Events = () => {
         }
 
         .cta-button:hover {
+          background-color: var(--primary);
           transform: translateY(-2px);
-          box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+          box-shadow: var(--shadow);
         }
 
         .cta-button-outline {
-          background-color: transparent;
-          color: white;
-          border: 2px solid white;
+          background-color: var(--banner-cta-btn-sec-bg);
+          color: var(--banner-cta-btn-sec-color);
+          border: 2px solid var(--banner-cta-btn-sec-border);
           padding: 1rem 2rem;
           border-radius: 8px;
           font-size: 1.1rem;
@@ -601,8 +606,8 @@ const Events = () => {
         }
 
         .cta-button-outline:hover {
-          background-color: white;
-          color: var(--primary-red);
+          background-color: var(--surface);
+          color: var(--text);
         }
 
         /* Responsive Styles */
@@ -742,10 +747,10 @@ const Events = () => {
         {activeTab === 'upcoming' && (
           <div>
             <div className="card-custom" style={{ padding: '30px' }}>
-              <h3 style={{ color: '#2d2d2d', marginBottom: '20px', textAlign: 'center' }}>
+              <h3 style={{ color: 'var(--text)', marginBottom: '20px', textAlign: 'center' }}>
                 🚀 Upcoming Events
               </h3>
-              <p style={{ color: '#6c757d', textAlign: 'center', marginBottom: '30px' }}>
+              <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '30px' }}>
                 Details about conferences, webinars, workshops, and other events
               </p>
           
@@ -765,27 +770,27 @@ const Events = () => {
                         </span>
                       </div>
 
-                      <h5 style={{ color: '#2d2d2d', marginBottom: '15px', fontWeight: '600' }}>{event.title}</h5>
+                      <h5 style={{ color: 'var(--text)', marginBottom: '15px', fontWeight: '600' }}>{event.title}</h5>
                       
                       <div className="mb-3">
-                        <div style={{ color: '#6c757d', marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
+                        <div style={{ color: 'var(--text-muted)', marginBottom: '8px', display: 'flex', alignItems: 'center' }}>
                           <MapPin size={16} style={{ marginRight: '8px', color: 'var(--primary-red)' }} />
                           {event.location}
                         </div>
-                        <div style={{ color: '#6c757d', marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
+                        <div style={{ color: 'var(--text-muted)', marginBottom: '15px', display: 'flex', alignItems: 'center' }}>
                           <Users size={16} style={{ marginRight: '8px', color: 'var(--primary-red)' }} />
                           {event.attendees} attendees
                         </div>
                       </div>
 
-                      <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '15px', lineHeight: '1.6' }}>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '15px', lineHeight: '1.6' }}>
                         {event.summary}
                       </p> */}
 
                       {/* <div className="mb-3">
-                        <h6 style={{ color: '#2d2d2d', marginBottom: '10px', fontWeight: '600' }}>Highlights:</h6>
+                        <h6 style={{ color: 'var(--text)', marginBottom: '10px', fontWeight: '600' }}>Highlights:</h6>
                         {event.highlights.map((highlight, index) => (
-                          <div key={index} style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '5px' }}>
+                          <div key={index} style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '5px' }}>
                             • {highlight}
                           </div>
                         ))}
@@ -793,11 +798,11 @@ const Events = () => {
 
                       {/* <div className="d-flex justify-content-between align-items-center">
                         <div className="d-flex gap-3">
-                          <span style={{ color: '#6c757d', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}>
+                          <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}>
                             <Image size={16} style={{ marginRight: '5px' }} />
                             {event.photos} Photos
                           </span>
-                          <span style={{ color: '#6c757d', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}>
+                          <span style={{ color: 'var(--text-muted)', fontSize: '0.9rem', display: 'flex', alignItems: 'center' }}>
                             <Play size={16} style={{ marginRight: '5px' }} />
                             {event.videos} Videos
                           </span>
@@ -818,10 +823,10 @@ const Events = () => {
         {activeTab === 'calendar' && (
           <div>
             <div className="card-custom" style={{ padding: '30px' }}>
-              <h3 style={{ color: '#2d2d2d', marginBottom: '20px', textAlign: 'center' }}>
+              <h3 style={{ color: 'var(--text)', marginBottom: '20px', textAlign: 'center' }}>
                 📅 Event Calendar
               </h3>
-              <p style={{ color: '#6c757d', textAlign: 'center', marginBottom: '30px' }}>
+              <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '30px' }}>
                 Calendar view of all events and important dates
               </p>
 
@@ -850,11 +855,11 @@ const Events = () => {
                         {item.type}
                       </span>
                     </div>
-                    <h6 style={{ color: '#2d2d2d', marginBottom: '8px', fontSize: '0.95rem', fontWeight: '600' }}>
+                    <h6 style={{ color: 'var(--text)', marginBottom: '8px', fontSize: '0.95rem', fontWeight: '600' }}>
                       {item.event}
                     </h6>
                     <div style={{ 
-                      color: '#6c757d', 
+                      color: 'var(--text-muted)', 
                       fontSize: '0.8rem',
                       display: 'flex',
                       alignItems: 'center'
@@ -873,10 +878,10 @@ const Events = () => {
         {activeTab === 'register' && (
           <div>
             <div className="card-custom" style={{ padding: '30px' }}>
-              <h3 style={{ color: '#2d2d2d', marginBottom: '20px', textAlign: 'center' }}>
+              <h3 style={{ color: 'var(--text)', marginBottom: '20px', textAlign: 'center' }}>
                 📝 Event Registration
               </h3>
-              <p style={{ color: '#6c757d', textAlign: 'center', marginBottom: '30px' }}>
+              <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginBottom: '30px' }}>
                 Option to sign up or register for upcoming events
               </p>
 
@@ -884,13 +889,13 @@ const Events = () => {
                 <div className="card-custom" style={{ 
                   padding: '20px', 
                   marginBottom: '30px', 
-                  background: 'rgba(126, 58, 65, 0.05)',
-                  border: '2px solid rgba(126, 58, 65, 0.2)'
+                  background: 'var(--bg-alt)',
+                  border: '2px solid var(--border)'
                 }}>
                   <h5 style={{ color: 'var(--primary-red)', marginBottom: '10px', fontWeight: '600' }}>
                     Selected Event: {selectedEvent.title}
                   </h5>
-                  <p style={{ color: '#6c757d', fontSize: '0.9rem' }}>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>
                     {selectedEvent.date} • {selectedEvent.time} • {selectedEvent.location}
                   </p>
                 </div>
@@ -900,7 +905,7 @@ const Events = () => {
                 <div className="col-lg-8">
                   <div className="row">
                     <div className="col-md-6 mb-3">
-                      <label style={{ color: '#2d2d2d', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
+                      <label style={{ color: 'var(--text)', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
                         <User size={16} style={{ marginRight: '8px' }} />
                         Full Name *
                       </label>
@@ -913,7 +918,7 @@ const Events = () => {
                       />
                     </div>
                     <div className="col-md-6 mb-3">
-                      <label style={{ color: '#2d2d2d', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
+                      <label style={{ color: 'var(--text)', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
                         <Mail size={16} style={{ marginRight: '8px' }} />
                         Email Address *
                       </label>
@@ -926,7 +931,7 @@ const Events = () => {
                       />
                     </div>
                     <div className="col-md-6 mb-3">
-                      <label style={{ color: '#2d2d2d', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
+                      <label style={{ color: 'var(--text)', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
                         <Phone size={16} style={{ marginRight: '8px' }} />
                         Phone Number *
                       </label>
@@ -939,7 +944,7 @@ const Events = () => {
                       />
                     </div>
                     <div className="col-md-6 mb-3">
-                      <label style={{ color: '#2d2d2d', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
+                      <label style={{ color: 'var(--text)', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
                         <Briefcase size={16} style={{ marginRight: '8px' }} />
                         Organization/Company
                       </label>
@@ -950,7 +955,7 @@ const Events = () => {
                       />
                     </div>
                     <div className="col-12 mb-3">
-                      <label style={{ color: '#2d2d2d', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
+                      <label style={{ color: 'var(--text)', marginBottom: '8px', fontWeight: '500', display: 'flex', alignItems: 'center' }}>
                         <FileText size={16} style={{ marginRight: '8px' }} />
                         Additional Comments
                       </label>
@@ -990,9 +995,9 @@ const Events = () => {
                   <div style={{ 
                     marginTop: '30px', 
                     padding: '20px', 
-                    background: '#f8f9fa', 
+                    background: 'var(--bg-alt)', 
                     borderRadius: '15px',
-                    border: '1px solid #e9ecef'
+                    border: '1px solid var(--border)'
                   }}>
                     <h6 style={{ color: 'var(--primary-red)', marginBottom: '15px', fontWeight: '600' }}>Available Events for Registration:</h6>
                     <div className="row">
@@ -1000,8 +1005,8 @@ const Events = () => {
                         <div key={event.id} className="col-md-6 mb-3">
                           <div 
                             style={{ 
-                              background: registrationData.eventId === event.id ? 'rgba(126, 58, 65, 0.1)' : 'white',
-                              border: `2px solid ${registrationData.eventId === event.id ? 'var(--primary-red)' : '#e9ecef'}`,
+                              background: registrationData.eventId === event.id ? 'var(--bg-alt)' : 'var(--surface)',
+                              border: `2px solid ${registrationData.eventId === event.id ? 'var(--primary-red)' : 'var(--border)'}`,
                               borderRadius: '10px',
                               padding: '15px',
                               cursor: 'pointer',
@@ -1015,8 +1020,8 @@ const Events = () => {
                             <div className="d-flex align-items-center mb-2">
                               <span style={{ fontSize: '1.5rem', marginRight: '10px' }}>{event.image}</span>
                               <div>
-                                <h6 style={{ color: '#2d2d2d', margin: '0', fontSize: '0.9rem', fontWeight: '600' }}>{event.title}</h6>
-                                <small style={{ color: '#6c757d' }}>{event.date}</small>
+                                <h6 style={{ color: 'var(--text)', margin: '0', fontSize: '0.9rem', fontWeight: '600' }}>{event.title}</h6>
+                                <small style={{ color: 'var(--text-muted)' }}>{event.date}</small>
                               </div>
                             </div>
                             <div className="d-flex justify-content-between align-items-center">
@@ -1030,7 +1035,7 @@ const Events = () => {
                               >
                                 {event.type}
                               </span>
-                              <small style={{ color: '#6c757d' }}>
+                              <small style={{ color: 'var(--text-muted)' }}>
                                 {event.capacity - event.registered} seats left
                               </small>
                             </div>
@@ -1051,35 +1056,35 @@ const Events = () => {
             <div className="stat-card">
               <div style={{ fontSize: '3rem', marginBottom: '15px' }}>🎯</div>
               <h5 style={{ color: 'var(--primary-red)', marginBottom: '15px', fontWeight: '600' }}>Upcoming Events</h5>
-              <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '15px', lineHeight: '1.6' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '15px', lineHeight: '1.6' }}>
                 Join our upcoming conferences, workshops, and webinars to enhance your skills and network with industry professionals.
               </p>
               <div style={{ color: 'var(--primary-red)', fontWeight: '700', fontSize: '2rem' }}>
                 {upcomingEvents.length}
               </div>
-              <small style={{ color: '#6c757d' }}>Events scheduled</small>
+              <small style={{ color: 'var(--text-muted)' }}>Events scheduled</small>
             </div>
             <div className="stat-card">
               <div style={{ fontSize: '3rem', marginBottom: '15px' }}>📊</div>
               <h5 style={{ color: 'var(--primary-red)', marginBottom: '15px', fontWeight: '600' }}>Past Events</h5>
-              <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '15px', lineHeight: '1.6' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '15px', lineHeight: '1.6' }}>
                 Explore highlights, photos, and summaries from our successful past events and get inspired for future participation.
               </p>
               <div style={{ color: 'var(--primary-red)', fontWeight: '700', fontSize: '2rem' }}>
                 {pastEvents.length}
               </div>
-              <small style={{ color: '#6c757d' }}>Events completed</small>
+              <small style={{ color: 'var(--text-muted)' }}>Events completed</small>
             </div>
             <div className="stat-card">
               <div style={{ fontSize: '3rem', marginBottom: '15px' }}>📅</div>
               <h5 style={{ color: 'var(--primary-red)', marginBottom: '15px', fontWeight: '600' }}>Event Calendar</h5>
-              <p style={{ color: '#6c757d', fontSize: '0.9rem', marginBottom: '15px', lineHeight: '1.6' }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '15px', lineHeight: '1.6' }}>
                 Stay updated with our comprehensive event calendar featuring all important dates and upcoming activities.
               </p>
               <div style={{ color: 'var(--primary-red)', fontWeight: '700', fontSize: '2rem' }}>
                 {eventCalendar.length}
               </div>
-              <small style={{ color: '#6c757d' }}>Calendar entries</small>
+              <small style={{ color: 'var(--text-muted)' }}>Calendar entries</small>
             </div>
           </div>
         </div>
@@ -1116,8 +1121,9 @@ const Events = () => {
 
       {/* Footer */}
       <footer style={{ 
-        backgroundColor: '#2d2d2d', 
-        color: 'white', 
+        backgroundColor: 'var(--surface-elevated)', 
+        color: 'var(--text)', 
+        borderTop: '1px solid var(--border)',
         padding: '3rem 0 2rem 0'
       }}>
         <div className="container">
@@ -1140,14 +1146,14 @@ const Events = () => {
               </div>
               <div>
                 <div style={{ fontWeight: 'bold', fontSize: '1.1rem' }}>ZETAWA DARK</div>
-                <div style={{ fontSize: '0.9rem', color: '#adb5bd' }}>PRIVATE LIMITED</div>
+                <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>PRIVATE LIMITED</div>
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
               <div style={{ marginBottom: '0.5rem' }}>
                 © 2026 ZETAWA DARK PRIVATE LIMITED. All rights reserved.
               </div>
-              <div style={{ fontSize: '0.9rem', color: '#adb5bd' }}>
+              <div style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>
                 Equal opportunity employer committed to diversity and inclusion.
               </div>
             </div>

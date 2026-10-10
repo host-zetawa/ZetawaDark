@@ -13,13 +13,13 @@ const AdminRoute = ({ children }) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#f5f2f3",
+        background: "var(--bg)",
       }}>
         <div style={{
           width: "40px",
           height: "40px",
-          border: "4px solid #e0d9db",
-          borderTop: "4px solid #7e3a41",
+          border: "4px solid var(--border)",
+          borderTop: "4px solid var(--primary)",
           borderRadius: "50%",
           animation: "spin 0.8s linear infinite",
         }} />

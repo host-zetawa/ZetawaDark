@@ -20,6 +20,7 @@ import {
 import Nav from './Nav';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
+import Background3D from './Background3D';
 
 const Certifications = () => {
   const [searchCertNumber, setSearchCertNumber] = useState('');
@@ -70,21 +71,49 @@ const Certifications = () => {
   return (
     <div style={{ 
       fontFamily: 'system-ui, -apple-system, sans-serif',
-      backgroundColor: '#f8f6f7',
+      backgroundColor: 'var(--bg)',
       minHeight: '100vh',
-      color: '#1e293b'
+      color: 'var(--text)'
     }}>
       <Nav />
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-trust-strip {
+            flex-direction: column !important;
+            border-radius: 20px !important;
+            padding: 1.25rem 1rem !important;
+            gap: 0.75rem !important;
+            width: 100% !important;
+            max-width: 480px !important;
+            margin: 0 auto !important;
+          }
+          .hero-trust-strip .strip-divider {
+            display: none !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .cert-cta-btn {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.85rem 1.25rem !important;
+            min-height: 48px !important;
+            box-sizing: border-box !important;
+          }
+        }
+      `}</style>
 
       {/* ──────── Hero Header ──────── */}
       <section style={{
-        background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
-        color: 'white',
+        background: 'var(--bg-hero)',
+        color: 'var(--hero-text)',
         padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 5vw, 4.5rem)',
         textAlign: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderBottom: '1px solid var(--border)'
       }}>
+        <Background3D />
         {/* Background glow orb */}
         <div style={{
           position: 'absolute',
@@ -92,7 +121,7 @@ const Certifications = () => {
           right: '-80px',
           width: '320px',
           height: '320px',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(217, 107, 20, 0.12) 0%, transparent 70%)',
           borderRadius: '50%',
           pointerEvents: 'none'
         }} />
@@ -102,8 +131,9 @@ const Certifications = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(255, 255, 255, 0.15)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
+            background: 'var(--hero-badge-bg)',
+            border: '1px solid var(--hero-badge-border)',
+            color: 'var(--hero-badge-text)',
             padding: '0.4rem 1.25rem',
             borderRadius: '50px',
             fontSize: '0.85rem',
@@ -122,15 +152,21 @@ const Certifications = () => {
             marginBottom: '1.25rem',
             lineHeight: 1.15,
             letterSpacing: '-0.02em',
-            textWrap: 'balance'
+            textWrap: 'balance',
+            color: 'var(--hero-text)'
           }}>
             Certificate Verification &amp; <br />
-            <span style={{ color: '#ffebee' }}>Credential Authenticity</span>
+            <span style={{
+              background: 'var(--hero-title-gradient)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>Credential Authenticity</span>
           </h1>
 
           <p style={{
             fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
-            opacity: 0.94,
+            color: 'var(--hero-text-muted)',
             maxWidth: '700px',
             margin: '0 auto 2.5rem',
             lineHeight: 1.6
@@ -145,27 +181,28 @@ const Certifications = () => {
             justifyContent: 'center',
             gap: 'clamp(1rem, 2.5vw, 2.5rem)',
             padding: '1rem clamp(1.25rem, 3vw, 2.5rem)',
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'var(--hero-trust-bg)',
             backdropFilter: 'blur(12px)',
             borderRadius: '50px',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            border: '1px solid var(--hero-trust-border)',
             flexWrap: 'wrap',
             maxWidth: '100%',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            boxShadow: 'var(--shadow-md)'
           }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>100% Tamper-Proof</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Official Database</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--hero-trust-val)' }}>100% Tamper-Proof</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Official Database</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'var(--border)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Instant Lookup</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Cryptographic Proof</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--hero-trust-val)' }}>Instant Lookup</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Cryptographic Proof</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'var(--border)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Direct Access</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Original Document</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--hero-trust-val)' }}>Direct Access</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Original Document</div>
             </div>
           </div>
         </div>
@@ -174,19 +211,19 @@ const Certifications = () => {
       {/* ──────── Verification Card Section ──────── */}
       <section style={{ padding: 'clamp(2rem, 5vw, 4rem) clamp(1rem, 4vw, 1.5rem)', maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 10 }}>
         <div style={{
-          backgroundColor: '#ffffff',
+          backgroundColor: 'var(--surface)',
           borderRadius: '24px',
           padding: 'clamp(1.5rem, 4vw, 2.75rem)',
-          boxShadow: '0 16px 40px rgba(126, 58, 65, 0.1)',
-          border: '1px solid #e8e0e2'
+          boxShadow: 'var(--shadow)',
+          border: '1px solid var(--border)'
         }}>
           <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
             <div style={{
               width: '56px',
               height: '56px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(126, 58, 65, 0.1)',
-              color: '#7e3a41',
+              backgroundColor: 'rgba(126, 58, 65, 0.12)',
+              color: 'var(--primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -194,10 +231,10 @@ const Certifications = () => {
             }}>
               <ShieldCheck size={30} />
             </div>
-            <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: 800, color: '#2d2d2d', margin: '0 0 0.5rem', textWrap: 'balance' }}>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2rem)', fontWeight: 800, color: 'var(--text)', margin: '0 0 0.5rem', textWrap: 'balance' }}>
               Verify Certificate Authenticity
             </h2>
-            <p style={{ color: '#666', fontSize: '1rem', maxWidth: '550px', margin: '0 auto' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '1rem', maxWidth: '550px', margin: '0 auto' }}>
               Enter the unique certificate identification number provided by Zetawa Dark to verify recipient credentials and download the original document.
             </p>
           </div>
@@ -208,13 +245,13 @@ const Certifications = () => {
               display: 'flex',
               gap: '0.75rem',
               flexWrap: 'wrap',
-              backgroundColor: '#faf8f9',
+              backgroundColor: 'var(--input-bg)',
               padding: '0.5rem',
               borderRadius: '16px',
-              border: '2px solid #ecd8db'
+              border: '1.5px solid var(--input-border)'
             }}>
-              <div style={{ flex: 1, minWidth: '240px', display: 'flex', alignItems: 'center', padding: '0 0.75rem' }}>
-                <Search size={20} color="#7e3a41" style={{ marginRight: '0.5rem', flexShrink: 0 }} />
+              <div style={{ flex: 1, minWidth: 'min(100%, 200px)', display: 'flex', alignItems: 'center', padding: '0 0.75rem' }}>
+                <Search size={20} color="var(--primary)" style={{ marginRight: '0.5rem', flexShrink: 0 }} />
                 <input
                   type="text"
                   placeholder="Enter Certificate No. (e.g. ZETA-2025-001)"
@@ -227,7 +264,7 @@ const Certifications = () => {
                     background: 'transparent',
                     fontSize: '1rem',
                     outline: 'none',
-                    color: '#2d2d2d',
+                    color: 'var(--text)',
                     fontWeight: 600
                   }}
                 />
@@ -237,7 +274,7 @@ const Certifications = () => {
                 onClick={handleValidation}
                 disabled={isVerifying}
                 style={{
-                  backgroundColor: '#7e3a41',
+                  backgroundColor: 'var(--primary)',
                   color: 'white',
                   border: 'none',
                   padding: '0.85rem 1.8rem',
@@ -254,8 +291,8 @@ const Certifications = () => {
                   transition: 'background 0.2s ease',
                   boxShadow: '0 4px 12px rgba(126,58,65,0.25)'
                 }}
-                onMouseOver={(e) => { if (!isVerifying) e.currentTarget.style.backgroundColor = '#60292f'; }}
-                onMouseOut={(e) => { if (!isVerifying) e.currentTarget.style.backgroundColor = '#7e3a41'; }}
+                onMouseOver={(e) => { if (!isVerifying) e.currentTarget.style.opacity = '0.9'; }}
+                onMouseOut={(e) => { if (!isVerifying) e.currentTarget.style.opacity = '1'; }}
               >
                 {isVerifying ? (
                   <>Verifying...</>
@@ -272,25 +309,25 @@ const Certifications = () => {
               marginTop: '2rem',
               padding: '2rem',
               borderRadius: '18px',
-              backgroundColor: validationResult.type === 'success' ? '#f0fdf4' : '#fef2f2',
-              border: `2px solid ${validationResult.type === 'success' ? '#bbf7d0' : '#fecaca'}`
+              backgroundColor: validationResult.type === 'success' ? 'color-mix(in srgb, var(--success) 12%, transparent)' : 'color-mix(in srgb, var(--danger) 12%, transparent)',
+              border: `2px solid ${validationResult.type === 'success' ? 'color-mix(in srgb, var(--success) 40%, transparent)' : 'color-mix(in srgb, var(--danger) 40%, transparent)'}`
             }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   {validationResult.type === 'success' ? (
-                    <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#22c55e', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--success)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <Check size={20} strokeWidth={3} />
                     </div>
                   ) : (
-                    <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: '#ef4444', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'var(--danger)', color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                       <AlertCircle size={20} />
                     </div>
                   )}
                   <div>
-                    <h4 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: validationResult.type === 'success' ? '#166534' : '#991b1b' }}>
+                    <h4 style={{ margin: 0, fontSize: '1.15rem', fontWeight: 800, color: validationResult.type === 'success' ? 'var(--success)' : 'var(--danger)' }}>
                       {validationResult.type === 'success' ? 'Official Verified Credential' : 'Verification Unsuccessful'}
                     </h4>
-                    <p style={{ margin: '0.2rem 0 0', fontSize: '0.88rem', color: validationResult.type === 'success' ? '#15803d' : '#b91c1c' }}>
+                    <p style={{ margin: '0.2rem 0 0', fontSize: '0.88rem', color: 'var(--text)' }}>
                       {validationResult.message}
                     </p>
                   </div>
@@ -298,7 +335,7 @@ const Certifications = () => {
 
                 <button
                   onClick={resetSearch}
-                  style={{ background: 'none', border: 'none', color: '#999', fontSize: '1.2rem', cursor: 'pointer', padding: '0.2rem' }}>
+                  style={{ background: 'none', border: 'none', color: 'var(--text-muted)', fontSize: '1.2rem', cursor: 'pointer', padding: '0.2rem' }}>
                   ✕
                 </button>
               </div>
@@ -306,11 +343,11 @@ const Certifications = () => {
               {/* Digital Certificate Seal Card */}
               {validationResult.type === 'success' && validationResult.data && (
                 <div style={{
-                  backgroundColor: '#ffffff',
+                  backgroundColor: 'var(--surface)',
                   borderRadius: '16px',
                   padding: '2rem',
-                  border: '2px solid #7e3a41',
-                  boxShadow: '0 10px 30px rgba(0,0,0,0.06)',
+                  border: '2px solid var(--primary)',
+                  boxShadow: 'var(--shadow)',
                   position: 'relative',
                   overflow: 'hidden'
                 }}>
@@ -321,7 +358,7 @@ const Certifications = () => {
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
                     fontSize: '12rem',
-                    color: 'rgba(126, 58, 65, 0.03)',
+                    color: 'rgba(126, 58, 65, 0.04)',
                     fontWeight: 900,
                     userSelect: 'none',
                     pointerEvents: 'none'
@@ -329,32 +366,32 @@ const Certifications = () => {
                     ZETAWA DARK
                   </div>
 
-                  <div style={{ textAlign: 'center', borderBottom: '2px solid #f3ecee', paddingBottom: '1.25rem', marginBottom: '1.5rem' }}>
-                    <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#7e3a41', letterSpacing: '2px', textTransform: 'uppercase' }}>
+                  <div style={{ textAlign: 'center', borderBottom: '2px solid var(--border)', paddingBottom: '1.25rem', marginBottom: '1.5rem' }}>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 800, color: 'var(--primary)', letterSpacing: '2px', textTransform: 'uppercase' }}>
                       ZETAWA DARK PRIVATE LIMITED
                     </div>
-                    <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#2d2d2d', margin: '0.4rem 0 0' }}>
+                    <h3 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text)', margin: '0.4rem 0 0' }}>
                       Certificate of Completion &amp; Excellence
                     </h3>
                   </div>
 
                   <div style={{ textAlign: 'center', marginBottom: '1.75rem' }}>
-                    <p style={{ color: '#777', fontSize: '0.9rem', margin: '0 0 0.4rem' }}>This certifies that</p>
-                    <h2 style={{ fontSize: '2rem', fontWeight: 800, color: '#7e3a41', margin: '0 0 0.5rem' }}>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: '0 0 0.4rem' }}>This certifies that</p>
+                    <h2 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--primary)', margin: '0 0 0.5rem' }}>
                       {validationResult.data.internName}
                     </h2>
-                    <p style={{ color: '#555', fontSize: '0.95rem', margin: '0 0 0.4rem' }}>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', margin: '0 0 0.4rem' }}>
                       has successfully completed the practical fellowship program in
                     </p>
                     <div style={{
                       display: 'inline-block',
-                      backgroundColor: '#faf4f5',
-                      color: '#7e3a41',
+                      backgroundColor: 'var(--bg-alt)',
+                      color: 'var(--primary)',
                       padding: '0.4rem 1.25rem',
                       borderRadius: '20px',
                       fontSize: '1.1rem',
                       fontWeight: 700,
-                      border: '1px solid #ecd8db'
+                      border: '1px solid var(--border)'
                     }}>
                       {validationResult.data.course}
                     </div>
@@ -365,22 +402,22 @@ const Certifications = () => {
                     gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
                     gap: '1rem',
                     padding: '1.25rem',
-                    backgroundColor: '#faf8f9',
+                    backgroundColor: 'var(--bg-alt)',
                     borderRadius: '12px',
-                    border: '1px solid #f0e6e8',
+                    border: '1px solid var(--border)',
                     marginBottom: '1.5rem'
                   }}>
                     <div>
-                      <div style={{ fontSize: '0.75rem', color: '#888', textTransform: 'uppercase', fontWeight: 700 }}>Certificate Number</div>
-                      <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2d2d2d', marginTop: '0.2rem' }}>{validationResult.data.certificateNumber}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Certificate Number</div>
+                      <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text)', marginTop: '0.2rem' }}>{validationResult.data.certificateNumber}</div>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.75rem', color: '#888', textTransform: 'uppercase', fontWeight: 700 }}>Issue Date</div>
-                      <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2d2d2d', marginTop: '0.2rem' }}>{validationResult.data.issueDate || validationResult.data.completionDate || 'Verified'}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Issue Date</div>
+                      <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text)', marginTop: '0.2rem' }}>{validationResult.data.issueDate || validationResult.data.completionDate || 'Verified'}</div>
                     </div>
                     <div>
-                      <div style={{ fontSize: '0.75rem', color: '#888', textTransform: 'uppercase', fontWeight: 700 }}>Program Duration</div>
-                      <div style={{ fontSize: '0.95rem', fontWeight: 700, color: '#2d2d2d', marginTop: '0.2rem' }}>{validationResult.data.duration || 'Completed'}</div>
+                      <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', textTransform: 'uppercase', fontWeight: 700 }}>Program Duration</div>
+                      <div style={{ fontSize: '0.95rem', fontWeight: 700, color: 'var(--text)', marginTop: '0.2rem' }}>{validationResult.data.duration || 'Completed'}</div>
                     </div>
                   </div>
 
@@ -391,7 +428,7 @@ const Certifications = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{
-                          backgroundColor: '#7e3a41',
+                          backgroundColor: 'var(--primary)',
                           color: 'white',
                           padding: '0.85rem 1.75rem',
                           borderRadius: '10px',
@@ -407,8 +444,8 @@ const Certifications = () => {
                       >
                         <ExternalLink size={16} /> View &amp; Download Official Certificate Document
                       </a>
-                      <div style={{ marginTop: '0.65rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', fontSize: '0.82rem', color: '#666' }}>
-                        <CheckCheck size={15} color="#16a34a" />
+                      <div style={{ marginTop: '0.65rem', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                        <CheckCheck size={15} color="var(--success)" />
                         {validationResult.data.certificateFile.startsWith('http')
                           ? 'Hosted directly on Cloudinary CDN'
                           : 'Verified digital credential'}
@@ -427,36 +464,36 @@ const Certifications = () => {
               display: 'grid',
               gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
               gap: '1.25rem',
-              borderTop: '1px solid #f0e6e8',
+              borderTop: '1px solid var(--border)',
               paddingTop: '2rem'
             }}>
               <div style={{ display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(126,58,65,0.1)', color: '#7e3a41', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0 }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(126,58,65,0.1)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0 }}>
                   1
                 </div>
                 <div>
-                  <h4 style={{ margin: '0 0 0.25rem', fontSize: '0.95rem', fontWeight: 700, color: '#2d2d2d' }}>Obtain Certificate ID</h4>
-                  <p style={{ margin: 0, fontSize: '0.82rem', color: '#666', lineHeight: 1.5 }}>Locate the unique identification number issued on your Zetawa Dark certificate document.</p>
+                  <h4 style={{ margin: '0 0 0.25rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--text)' }}>Obtain Certificate ID</h4>
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>Locate the unique identification number issued on your Zetawa Dark certificate document.</p>
                 </div>
               </div>
 
               <div style={{ display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(126,58,65,0.1)', color: '#7e3a41', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0 }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(126,58,65,0.1)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0 }}>
                   2
                 </div>
                 <div>
-                  <h4 style={{ margin: '0 0 0.25rem', fontSize: '0.95rem', fontWeight: 700, color: '#2d2d2d' }}>Enter Number Above</h4>
-                  <p style={{ margin: 0, fontSize: '0.82rem', color: '#666', lineHeight: 1.5 }}>Type the exact certificate identification number into the search field and click Verify.</p>
+                  <h4 style={{ margin: '0 0 0.25rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--text)' }}>Enter Number Above</h4>
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>Type the exact certificate identification number into the search field and click Verify.</p>
                 </div>
               </div>
 
               <div style={{ display: 'flex', gap: '0.85rem', alignItems: 'flex-start' }}>
-                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(126,58,65,0.1)', color: '#7e3a41', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0 }}>
+                <div style={{ width: '32px', height: '32px', borderRadius: '50%', backgroundColor: 'rgba(126,58,65,0.1)', color: 'var(--primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', flexShrink: 0 }}>
                   3
                 </div>
                 <div>
-                  <h4 style={{ margin: '0 0 0.25rem', fontSize: '0.95rem', fontWeight: 700, color: '#2d2d2d' }}>Instant Verification</h4>
-                  <p style={{ margin: 0, fontSize: '0.82rem', color: '#666', lineHeight: 1.5 }}>View authenticated recipient credentials and access the original uploaded certificate file.</p>
+                  <h4 style={{ margin: '0 0 0.25rem', fontSize: '0.95rem', fontWeight: 700, color: 'var(--text)' }}>Instant Verification</h4>
+                  <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>View authenticated recipient credentials and access the original uploaded certificate file.</p>
                 </div>
               </div>
             </div>
@@ -471,8 +508,8 @@ const Certifications = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.4rem',
-            backgroundColor: 'rgba(126, 58, 65, 0.08)',
-            color: '#7e3a41',
+            backgroundColor: 'rgba(126, 58, 65, 0.1)',
+            color: 'var(--primary)',
             padding: '0.35rem 0.9rem',
             borderRadius: '20px',
             fontSize: '0.8rem',
@@ -482,10 +519,10 @@ const Certifications = () => {
           }}>
             <ShieldCheck size={14} /> RIGOROUS CREDENTIALING
           </div>
-          <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2.4rem)', fontWeight: 800, color: '#2d2d2d', margin: '0 0 0.75rem', textWrap: 'balance' }}>
+          <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2.4rem)', fontWeight: 800, color: 'var(--text)', margin: '0 0 0.75rem', textWrap: 'balance' }}>
             Zetawa Dark Professional &amp; Industry Standards
           </h2>
-          <p style={{ color: '#666', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.05rem', maxWidth: '650px', margin: '0 auto' }}>
             Our certificates recognize rigorous engineering standards, ethical hacking assessments, and production-level software contributions.
           </p>
         </div>
@@ -516,30 +553,32 @@ const Certifications = () => {
             <div
               key={idx}
               style={{
-                backgroundColor: '#ffffff',
+                backgroundColor: 'var(--surface)',
                 borderRadius: '16px',
                 padding: '2rem',
-                border: '1px solid #e8e0e2',
-                boxShadow: '0 4px 14px rgba(0,0,0,0.02)',
+                border: '1px solid var(--border)',
+                boxShadow: 'var(--shadow)',
                 transition: 'all 0.25s ease'
               }}
               onMouseOver={(e) => {
                 e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = '0 12px 28px rgba(126,58,65,0.08)';
-                e.currentTarget.style.borderColor = 'rgba(126,58,65,0.3)';
+                e.currentTarget.style.boxShadow = '0 12px 28px rgba(126,58,65,0.12)';
+                e.currentTarget.style.borderColor = 'var(--primary)';
+                e.currentTarget.style.backgroundColor = 'var(--surface-elevated)';
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.02)';
-                e.currentTarget.style.borderColor = '#e8e0e2';
+                e.currentTarget.style.boxShadow = 'var(--shadow)';
+                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.backgroundColor = 'var(--surface)';
               }}
             >
               <div style={{
                 width: '50px',
                 height: '50px',
                 borderRadius: '12px',
-                backgroundColor: 'rgba(126, 58, 65, 0.08)',
-                color: '#7e3a41',
+                backgroundColor: 'rgba(126, 58, 65, 0.1)',
+                color: 'var(--primary)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -547,10 +586,10 @@ const Certifications = () => {
               }}>
                 {item.icon}
               </div>
-              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: '#2d2d2d', marginBottom: '0.6rem' }}>
+              <h3 style={{ fontSize: '1.2rem', fontWeight: 800, color: 'var(--text)', marginBottom: '0.6rem' }}>
                 {item.title}
               </h3>
-              <p style={{ color: '#666', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', lineHeight: 1.6, margin: 0 }}>
                 {item.desc}
               </p>
             </div>
@@ -560,31 +599,33 @@ const Certifications = () => {
 
       {/* ──────── Bottom Fellowship Callout ──────── */}
       <section style={{
-        padding: '5rem 1.5rem',
-        backgroundColor: '#ffffff',
-        borderTop: '1px solid #e8e0e2'
+        padding: 'clamp(3rem, 6vw, 5rem) clamp(1rem, 3.5vw, 1.5rem)',
+        backgroundColor: 'var(--bg)',
+        borderTop: '1px solid var(--border)'
       }}>
         <div style={{
           maxWidth: '960px',
           margin: '0 auto',
-          background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+          background: 'var(--banner-cta-bg)',
           borderRadius: '24px',
-          padding: '3.5rem 2.5rem',
-          color: 'white',
+          padding: 'clamp(2rem, 5vw, 3.5rem) clamp(1rem, 4vw, 2.5rem)',
+          color: 'var(--banner-cta-text)',
           textAlign: 'center',
-          boxShadow: '0 16px 40px rgba(126, 58, 65, 0.2)'
+          boxShadow: 'var(--shadow-lg)',
+          border: '1px solid var(--banner-cta-border)'
         }}>
-          <h2 style={{ fontSize: '2.4rem', fontWeight: 800, marginBottom: '1rem' }}>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 4.5vw, 2.4rem)', fontWeight: 800, marginBottom: '1rem', color: 'var(--banner-cta-text)', textWrap: 'balance' }}>
             Want to Join the Zetawa Dark Engineering Fellowship?
           </h2>
-          <p style={{ fontSize: '1.1rem', opacity: 0.92, maxWidth: '600px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'var(--banner-cta-text-muted)', maxWidth: '600px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
             Gain real-world experience building production web apps, autonomous AI agents, and scalable cloud systems under senior engineering mentorship.
           </p>
           <Link
+            className="cert-cta-btn"
             to="/careers"
             style={{
-              backgroundColor: 'white',
-              color: '#7e3a41',
+              backgroundColor: 'var(--accent-orange, #f28c28)',
+              color: '#ffffff',
               padding: '0.95rem 2.25rem',
               borderRadius: '50px',
               fontSize: '1rem',
@@ -592,8 +633,12 @@ const Certifications = () => {
               textDecoration: 'none',
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               gap: '0.5rem',
-              boxShadow: '0 8px 24px rgba(0,0,0,0.25)'
+              boxShadow: '0 6px 20px rgba(242, 140, 40, 0.35)',
+              transition: 'transform 0.2s ease',
+              minHeight: '48px',
+              boxSizing: 'border-box'
             }}
           >
             Explore Open Fellowship &amp; Career Roles <ArrowRight size={16} />

@@ -25,6 +25,7 @@ import Footer from './Footer';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import AuthModal from './AuthModal';
+import Background3D from './Background3D';
 
 const ICONS_MAP = {
   Code2,
@@ -205,22 +206,19 @@ const Services = () => {
   return (
     <div style={{
       fontFamily: 'var(--font-family, "Plus Jakarta Sans", system-ui, sans-serif)',
-      backgroundColor: 'var(--bg-canvas, #f8f6f7)',
+      backgroundColor: 'var(--bg)',
       minHeight: '100vh',
-      color: 'var(--text-primary, #1e293b)'
+      color: 'var(--text)'
     }}>
       <Nav />
       <style>{`
-        * {
-          box-sizing: border-box;
-        }
-
         .services-filter-bar {
           display: flex;
           flex-wrap: nowrap;
           gap: 0.5rem;
           overflow-x: auto;
           -webkit-overflow-scrolling: touch;
+          scroll-snap-type: x mandatory;
           scrollbar-width: none;
           -ms-overflow-style: none;
           padding-bottom: 0.25rem;
@@ -228,6 +226,13 @@ const Services = () => {
 
         .services-filter-bar::-webkit-scrollbar {
           display: none;
+        }
+
+        .services-filter-bar button {
+          scroll-snap-align: start;
+          flex-shrink: 0;
+          min-height: 44px !important;
+          touch-action: manipulation;
         }
 
         @media (max-width: 640px) {
@@ -242,7 +247,18 @@ const Services = () => {
             justify-content: center !important;
             padding: 0.85rem 1.25rem !important;
             font-size: 0.95rem !important;
-            min-height: 44px !important;
+            min-height: 48px !important;
+            box-sizing: border-box !important;
+            touch-action: manipulation !important;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .services-bottom-cta-btn {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.85rem 1.25rem !important;
+            min-height: 48px !important;
             box-sizing: border-box !important;
           }
         }
@@ -251,21 +267,22 @@ const Services = () => {
 
       {/* ──────── Header / Hero Banner ──────── */}
       <section style={{
-        background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
-        color: '#ffffff',
+        background: 'var(--bg-hero)',
+        color: 'var(--hero-text)',
         padding: 'clamp(3rem, 6vw, 5.5rem) clamp(1rem, 4vw, 1.5rem) clamp(3rem, 6vw, 5rem)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+        borderBottom: '1px solid var(--border)'
       }}>
+        <Background3D />
         <div style={{
           position: 'absolute',
           top: '-60px',
           right: '-60px',
           width: '280px',
           height: '280px',
-          background: 'radial-gradient(circle, rgba(242, 140, 40, 0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(217, 107, 20, 0.15) 0%, transparent 70%)',
           borderRadius: '50%',
           pointerEvents: 'none'
         }} />
@@ -275,9 +292,9 @@ const Services = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(242, 140, 40, 0.12)',
-            border: '1px solid rgba(242, 140, 40, 0.35)',
-            color: '#f28c28',
+            background: 'var(--hero-badge-bg)',
+            border: '1px solid var(--hero-badge-border)',
+            color: 'var(--hero-badge-text)',
             padding: '0.4rem 1.25rem',
             borderRadius: '50px',
             fontSize: '0.82rem',
@@ -296,11 +313,12 @@ const Services = () => {
             marginBottom: '1.25rem',
             lineHeight: 1.15,
             letterSpacing: '-0.02em',
-            textWrap: 'balance'
+            textWrap: 'balance',
+            color: 'var(--hero-text)'
           }}>
             Engineering Services Built for <br />
             <span style={{
-              background: 'linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.95) 100%)',
+              background: 'var(--hero-title-gradient)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -309,7 +327,7 @@ const Services = () => {
 
           <p style={{
             fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
-            color: 'rgba(255, 255, 255, 0.85)',
+            color: 'var(--hero-text-muted)',
             maxWidth: '720px',
             margin: '0 auto 2.5rem',
             lineHeight: 1.65
@@ -344,9 +362,9 @@ const Services = () => {
             <a
               href="#service-catalog"
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                color: '#ffffff',
-                border: '1.5px solid rgba(255, 255, 255, 0.25)',
+                backgroundColor: 'var(--hero-btn-secondary-bg)',
+                color: 'var(--hero-btn-secondary-text)',
+                border: '1.5px solid var(--hero-btn-secondary-border)',
                 padding: '0.95rem 2rem',
                 borderRadius: '50px',
                 fontSize: '1rem',
@@ -356,11 +374,11 @@ const Services = () => {
                 alignItems: 'center',
                 gap: '0.5rem',
                 backdropFilter: 'blur(8px)',
-                transition: 'all 0.25s ease',
-                minHeight: '44px'
+                minHeight: '44px',
+                transition: 'all 0.2s ease'
               }}
-              onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.16)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.45)'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
-              onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.08)'; e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.25)'; e.currentTarget.style.transform = 'translateY(0)'; }}
+              onMouseOver={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+              onMouseOut={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
             >
               Browse Disciplines <Layers size={18} />
             </a>
@@ -411,7 +429,7 @@ const Services = () => {
 
       {/* ──────── Services Detailed Grid ──────── */}
       <section style={{ padding: 'clamp(3rem, 6vw, 4.5rem) clamp(1rem, 3vw, 1.5rem)', maxWidth: '1240px', margin: '0 auto' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '2rem' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '2rem' }}>
           {filteredServices.map((service, index) => {
             const Icon = resolveIcon(service.icon);
             return (
@@ -590,29 +608,30 @@ const Services = () => {
       {/* ──────── Bottom Project Callout ──────── */}
       <section style={{
         padding: 'clamp(3.5rem, 6vw, 5.5rem) clamp(1rem, 3vw, 1.5rem)',
-        backgroundColor: 'var(--bg-surface, #ffffff)',
-        borderTop: '1px solid var(--border-subtle, #e8e0e2)'
+        backgroundColor: 'var(--bg)',
+        borderTop: '1px solid var(--border)'
       }}>
         <div style={{
           maxWidth: '1000px',
           margin: '0 auto',
-          background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
+          background: 'var(--banner-cta-bg)',
           borderRadius: '24px',
           padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem)',
-          color: 'white',
+          color: 'var(--banner-cta-text)',
           textAlign: 'center',
-          boxShadow: '0 24px 60px rgba(20, 8, 13, 0.4)',
+          boxShadow: 'var(--shadow-lg)',
           position: 'relative',
           overflow: 'hidden',
-          border: '1px solid rgba(255, 255, 255, 0.12)'
+          border: '1px solid var(--banner-cta-border)'
         }}>
-          <h2 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em', textWrap: 'balance' }}>
+          <h2 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em', textWrap: 'balance', color: 'var(--banner-cta-text)' }}>
             Ready to Build Your Next Product?
           </h2>
-          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'rgba(255, 255, 255, 0.85)', maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'var(--banner-cta-text-muted)', maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
             Share your requirements, select your preferred budget and timeline, and our senior engineers will deliver a comprehensive scope breakdown within 24 hours.
           </p>
           <button
+            className="services-bottom-cta-btn"
             onClick={() => handleGatedAction('/hireforms')}
             style={{
               backgroundColor: 'var(--accent-orange, #f28c28)',
@@ -626,12 +645,12 @@ const Services = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.5rem',
-              boxShadow: '0 8px 24px rgba(242, 140, 40, 0.4)',
+              boxShadow: '0 6px 20px rgba(242, 140, 40, 0.35)',
               transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
               minHeight: '48px'
             }}
-            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 30px rgba(242, 140, 40, 0.5)'; }}
-            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(242, 140, 40, 0.4)'; }}
+            onMouseOver={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)'; e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 26px rgba(242, 140, 40, 0.45)'; }}
+            onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(242, 140, 40, 0.35)'; }}
           >
             Launch Project Scope Configurator <ArrowRight size={18} />
           </button>

@@ -171,10 +171,10 @@ const Hireforms = () => {
 
   return (
     <div style={{
-      backgroundColor: "#0f172a",
+      backgroundColor: "var(--bg)",
       minHeight: "100vh",
-      color: "#f8fafc",
-      fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, sans-serif"
+      color: "var(--text)",
+      fontFamily: "var(--font-family, system-ui, -apple-system, sans-serif)"
     }}>
       <Nav />
 
@@ -189,31 +189,31 @@ const Hireforms = () => {
       <div style={{
         maxWidth: "1100px",
         margin: "0 auto",
-        padding: "7rem 1.5rem 5rem"
+        padding: "clamp(4.5rem, 8vw, 7rem) clamp(1rem, 3.5vw, 1.5rem) clamp(2.5rem, 5vw, 5rem)",
+        boxSizing: "border-box"
       }}>
 
         {isSubmitted ? (
           /* Success Screen */
           <div style={{
-            background: "rgba(255, 255, 255, 0.04)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
             borderRadius: "24px",
-            padding: "3.5rem 2rem",
+            padding: "clamp(2rem, 5vw, 3.5rem) clamp(1rem, 3.5vw, 2rem)",
             textAlign: "center",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
+            boxShadow: "var(--shadow)"
           }}>
             <div style={{
               width: "72px",
               height: "72px",
               borderRadius: "50%",
-              backgroundColor: "rgba(16, 185, 129, 0.15)",
-              color: "#10b981",
+              backgroundColor: "color-mix(in srgb, var(--success) 15%, transparent)",
+              color: "var(--success)",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               margin: "0 auto 1.5rem",
-              border: "1px solid rgba(16, 185, 129, 0.3)"
+              border: "1px solid color-mix(in srgb, var(--success) 30%, transparent)"
             }}>
               <CheckCircle2 size={40} />
             </div>
@@ -222,49 +222,50 @@ const Hireforms = () => {
               display: "inline-flex",
               alignItems: "center",
               gap: "0.4rem",
-              backgroundColor: "rgba(126, 58, 65, 0.25)",
-              color: "#fca5a5",
+              backgroundColor: "var(--bg-alt)",
+              color: "var(--primary)",
               padding: "4px 14px",
               borderRadius: "20px",
               fontSize: "0.8rem",
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "1px",
-              marginBottom: "1rem"
+              marginBottom: "1rem",
+              border: "1px solid var(--border)"
             }}>
               <Sparkles size={14} /> Discovery Request Received
             </div>
 
-            <h1 style={{ fontSize: "2.4rem", fontWeight: 800, color: "white", marginBottom: "1rem" }}>
+            <h1 style={{ fontSize: "2.4rem", fontWeight: 800, color: "var(--text)", marginBottom: "1rem" }}>
               We have Received Your Project Blueprint!
             </h1>
 
-            <p style={{ color: "#94a3b8", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto 2rem", lineHeight: 1.6 }}>
-              Thank you, <strong style={{ color: "white" }}>{formData.firstName || "Client"}</strong>. Our technical lead and sprint architects are reviewing your specifications. We will reach out to you at <strong style={{ color: "#fca5a5" }}>{formData.email}</strong> within 24 hours with an initial architectural roadmap and estimate.
+            <p style={{ color: "var(--text-muted)", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto 2rem", lineHeight: 1.6 }}>
+              Thank you, <strong style={{ color: "var(--text)" }}>{formData.firstName || "Client"}</strong>. Our technical lead and sprint architects are reviewing your specifications. We will reach out to you at <strong style={{ color: "var(--primary)" }}>{formData.email}</strong> within 24 hours with an initial architectural roadmap and estimate.
             </p>
 
             <div style={{
-              backgroundColor: "rgba(15, 23, 42, 0.6)",
+              backgroundColor: "var(--bg-alt)",
               borderRadius: "16px",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
+              border: "1px solid var(--border)",
               padding: "1.5rem",
               maxWidth: "520px",
               margin: "0 auto 2.5rem",
               textAlign: "left"
             }}>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                <span style={{ color: "#64748b", fontSize: "0.85rem" }}>Selected Disciplines:</span>
-                <span style={{ color: "#f8fafc", fontSize: "0.85rem", fontWeight: 600 }}>{selectedServices.join(", ")}</span>
+                <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Selected Disciplines:</span>
+                <span style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 600 }}>{selectedServices.join(", ")}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                <span style={{ color: "#64748b", fontSize: "0.85rem" }}>Estimated Budget:</span>
-                <span style={{ color: "#f8fafc", fontSize: "0.85rem", fontWeight: 600 }}>
+                <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Estimated Budget:</span>
+                <span style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 600 }}>
                   {budget.trim() ? (budget.trim().startsWith("₹") ? budget.trim() : `₹${budget.trim()}`) : "Flexible / Not specified"}
                 </span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
-                <span style={{ color: "#64748b", fontSize: "0.85rem" }}>Target Timeline:</span>
-                <span style={{ color: "#f8fafc", fontSize: "0.85rem", fontWeight: 600 }}>{selectedTimeline}</span>
+                <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Target Timeline:</span>
+                <span style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 600 }}>{selectedTimeline}</span>
               </div>
             </div>
 
@@ -272,17 +273,20 @@ const Hireforms = () => {
               <Link
                 to="/profile"
                 style={{
-                  backgroundColor: "#7e3a41",
-                  color: "white",
+                  backgroundColor: "var(--primary)",
+                  color: "var(--primary-contrast)",
                   padding: "0.9rem 2rem",
+                  minHeight: "48px",
                   borderRadius: "50px",
                   textDecoration: "none",
                   fontWeight: 700,
                   fontSize: "0.95rem",
                   display: "inline-flex",
                   alignItems: "center",
+                  justifyContent: "center",
                   gap: "0.5rem",
-                  boxShadow: "0 4px 15px rgba(126, 58, 65, 0.4)"
+                  boxShadow: "var(--shadow)",
+                  touchAction: "manipulation"
                 }}
               >
                 Track in Client Portal <ArrowRight size={16} />
@@ -299,14 +303,19 @@ const Hireforms = () => {
                   });
                 }}
                 style={{
-                  backgroundColor: "rgba(255, 255, 255, 0.08)",
-                  color: "#e2e8f0",
-                  border: "1px solid rgba(255, 255, 255, 0.15)",
+                  backgroundColor: "transparent",
+                  color: "var(--text)",
+                  border: "1px solid var(--border)",
                   padding: "0.9rem 1.8rem",
+                  minHeight: "48px",
                   borderRadius: "50px",
                   cursor: "pointer",
                   fontWeight: 600,
-                  fontSize: "0.95rem"
+                  fontSize: "0.95rem",
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  touchAction: "manipulation"
                 }}
               >
                 Submit Another Project
@@ -322,8 +331,8 @@ const Hireforms = () => {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.4rem",
-                backgroundColor: "rgba(126, 58, 65, 0.25)",
-                color: "#fca5a5",
+                backgroundColor: "var(--bg-alt)",
+                color: "var(--primary)",
                 padding: "4px 14px",
                 borderRadius: "20px",
                 fontSize: "0.8rem",
@@ -331,16 +340,16 @@ const Hireforms = () => {
                 textTransform: "uppercase",
                 letterSpacing: "1px",
                 marginBottom: "1rem",
-                border: "1px solid rgba(126, 58, 65, 0.4)"
+                border: "1px solid var(--border)"
               }}>
                 <Sparkles size={14} /> STARTUP &amp; PRODUCT DISCOVERY
               </div>
 
-              <h1 style={{ fontSize: "clamp(1.75rem, 5vw, 2.8rem)", fontWeight: 800, color: "white", marginBottom: "1rem", letterSpacing: "-0.02em", lineHeight: 1.15, textWrap: "balance" }}>
+              <h1 style={{ fontSize: "clamp(1.75rem, 5vw, 2.8rem)", fontWeight: 800, color: "var(--text)", marginBottom: "1rem", letterSpacing: "-0.02em", lineHeight: 1.15, textWrap: "balance" }}>
                 Let us Build Something High-Impact Together
               </h1>
 
-              <p style={{ color: "#94a3b8", fontSize: "clamp(0.95rem, 2vw, 1.15rem)", maxWidth: "700px", margin: "0 auto 2rem", lineHeight: 1.6 }}>
+              <p style={{ color: "var(--text-muted)", fontSize: "clamp(0.95rem, 2vw, 1.15rem)", maxWidth: "700px", margin: "0 auto 2rem", lineHeight: 1.6 }}>
                 Tell us about your startup, product vision, or technical requirements. We will analyze your scope and return with an architectural plan and sprint estimate within 24 hours.
               </p>
 
@@ -348,43 +357,42 @@ const Hireforms = () => {
               <div style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "1.5rem",
-                backgroundColor: "rgba(255, 255, 255, 0.04)",
-                backdropFilter: "blur(10px)",
-                border: "1px solid rgba(255, 255, 255, 0.08)",
-                padding: "0.75rem 1.5rem",
+                gap: "clamp(0.75rem, 2.5vw, 1.5rem)",
+                backgroundColor: "var(--surface)",
+                border: "1px solid var(--border)",
+                padding: "0.75rem clamp(1rem, 3vw, 1.5rem)",
                 borderRadius: "50px",
                 flexWrap: "wrap",
-                justifyContent: "center"
+                justifyContent: "center",
+                boxShadow: "var(--shadow)"
               }}>
-                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "#cbd5e1" }}>
-                  <Clock size={15} style={{ color: "#fca5a5" }} /> 24-Hour Response
+                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "var(--text)" }}>
+                  <Clock size={15} style={{ color: "var(--primary)" }} /> 24-Hour Response
                 </span>
-                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "#cbd5e1" }}>
-                  <ShieldCheck size={15} style={{ color: "#10b981" }} /> Strict NDA Protection
+                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "var(--text)" }}>
+                  <ShieldCheck size={15} style={{ color: "var(--success)" }} /> Strict NDA Protection
                 </span>
-                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "#cbd5e1" }}>
-                  <IndianRupee size={15} style={{ color: "#38bdf8" }} /> Milestone-Based Pricing
+                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "var(--text)" }}>
+                  <IndianRupee size={15} style={{ color: "var(--accent)" }} /> Milestone-Based Pricing
                 </span>
               </div>
             </div>
 
             {/* Form */}
             <form onSubmit={handleSubmit} style={{
-              background: "rgba(255, 255, 255, 0.03)",
-              backdropFilter: "blur(20px)",
-              border: "1px solid rgba(255, 255, 255, 0.08)",
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
               borderRadius: "24px",
               padding: "clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3.5vw, 2.5rem)",
-              boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.4)"
+              boxShadow: "var(--shadow)"
             }}>
 
               {/* Step 1: Select Disciplines */}
               <div style={{ marginBottom: "3rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
                   <span style={{
-                    backgroundColor: "#7e3a41",
-                    color: "white",
+                    backgroundColor: "var(--primary)",
+                    color: "var(--primary-contrast)",
                     width: "24px",
                     height: "24px",
                     borderRadius: "50%",
@@ -394,17 +402,17 @@ const Hireforms = () => {
                     fontSize: "0.75rem",
                     fontWeight: 700
                   }}>1</span>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "white", margin: 0 }}>
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
                     What disciplines or services do you need?
                   </h3>
                 </div>
-                <p style={{ color: "#64748b", fontSize: "0.9rem", margin: "0 0 1.25rem 2rem" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
                   Select all that apply to your product roadmap.
                 </p>
 
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))",
                   gap: "1rem"
                 }}>
                   {SERVICES_OPTIONS.map((srv) => {
@@ -415,38 +423,39 @@ const Hireforms = () => {
                         key={srv.id}
                         onClick={() => handleServiceToggle(srv.title)}
                         style={{
-                          backgroundColor: isSelected ? "rgba(126, 58, 65, 0.25)" : "rgba(255, 255, 255, 0.03)",
-                          border: isSelected ? "1.5px solid #7e3a41" : "1px solid rgba(255, 255, 255, 0.08)",
+                          backgroundColor: isSelected ? "var(--bg-alt)" : "var(--surface)",
+                          border: isSelected ? "1.5px solid var(--primary)" : "1px solid var(--border)",
                           borderRadius: "16px",
-                          padding: "1.25rem",
+                          padding: "clamp(1rem, 2.5vw, 1.25rem)",
                           cursor: "pointer",
                           transition: "all 0.2s ease",
                           display: "flex",
                           alignItems: "flex-start",
-                          gap: "1rem"
+                          gap: "1rem",
+                          touchAction: "manipulation"
                         }}
                       >
                         <div style={{
                           width: "42px",
                           height: "42px",
                           borderRadius: "10px",
-                          backgroundColor: isSelected ? "rgba(126, 58, 65, 0.4)" : "rgba(255, 255, 255, 0.05)",
+                          backgroundColor: isSelected ? "var(--primary)" : "var(--bg-alt)",
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
-                          color: isSelected ? "#fca5a5" : "#94a3b8",
+                          color: isSelected ? "var(--primary-contrast)" : "var(--text-muted)",
                           flexShrink: 0
                         }}>
                           <IconComp size={22} />
                         </div>
                         <div style={{ flex: 1 }}>
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                            <h4 style={{ margin: 0, fontSize: "0.98rem", fontWeight: 700, color: isSelected ? "white" : "#e2e8f0" }}>
+                            <h4 style={{ margin: 0, fontSize: "0.98rem", fontWeight: 700, color: isSelected ? "var(--primary)" : "var(--text)" }}>
                               {srv.title}
                             </h4>
-                            {isSelected && <CheckCircle2 size={16} style={{ color: "#10b981" }} />}
+                            {isSelected && <CheckCircle2 size={16} style={{ color: "var(--success)" }} />}
                           </div>
-                          <p style={{ margin: 0, fontSize: "0.82rem", color: "#94a3b8", lineHeight: 1.4 }}>
+                          <p style={{ margin: 0, fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.4 }}>
                             {srv.tagline}
                           </p>
                         </div>
@@ -460,8 +469,8 @@ const Hireforms = () => {
               <div style={{ marginBottom: "3rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
                   <span style={{
-                    backgroundColor: "#7e3a41",
-                    color: "white",
+                    backgroundColor: "var(--primary)",
+                    color: "var(--primary-contrast)",
                     width: "24px",
                     height: "24px",
                     borderRadius: "50%",
@@ -471,21 +480,21 @@ const Hireforms = () => {
                     fontSize: "0.75rem",
                     fontWeight: 700
                   }}>2</span>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "white", margin: 0 }}>
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
                     About you and your business
                   </h3>
                 </div>
-                <p style={{ color: "#64748b", fontSize: "0.9rem", margin: "0 0 1.25rem 2rem" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
                   Where should we send your project proposal and sprint timeline?
                 </p>
 
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))",
                   gap: "1.25rem"
                 }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>First Name *</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>First Name *</label>
                     <input
                       style={formInputGlass}
                       required
@@ -497,7 +506,7 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>Last Name</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Last Name</label>
                     <input
                       style={formInputGlass}
                       name="lastName"
@@ -508,7 +517,7 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>Work Email *</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Work Email *</label>
                     <input
                       style={formInputGlass}
                       type="email"
@@ -521,7 +530,7 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>Phone / WhatsApp</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Phone / WhatsApp</label>
                     <input
                       style={formInputGlass}
                       name="phone"
@@ -532,7 +541,7 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>Company / Startup Name</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Company / Startup Name</label>
                     <input
                       style={formInputGlass}
                       name="company"
@@ -543,7 +552,7 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>Existing Website / App Link</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Existing Website / App Link</label>
                     <input
                       style={formInputGlass}
                       name="website"
@@ -559,8 +568,8 @@ const Hireforms = () => {
               <div style={{ marginBottom: "3rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
                   <span style={{
-                    backgroundColor: "#7e3a41",
-                    color: "white",
+                    backgroundColor: "var(--primary)",
+                    color: "var(--primary-contrast)",
                     width: "24px",
                     height: "24px",
                     borderRadius: "50%",
@@ -570,17 +579,17 @@ const Hireforms = () => {
                     fontSize: "0.75rem",
                     fontWeight: 700
                   }}>3</span>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "white", margin: 0 }}>
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
                     Tell us about the project
                   </h3>
                 </div>
-                <p style={{ color: "#64748b", fontSize: "0.9rem", margin: "0 0 1.25rem 2rem" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
                   Give us as much context as possible to help us scope accurately.
                 </p>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>Project Title / Working Name</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Project Title / Working Name</label>
                     <input
                       style={formInputGlass}
                       name="projectTitle"
@@ -591,7 +600,7 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>Project Overview &amp; Key Goals *</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Project Overview &amp; Key Goals *</label>
                     <textarea
                       style={{ ...formInputGlass, minHeight: "110px", resize: "vertical" }}
                       required
@@ -603,7 +612,7 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "#cbd5e1", marginBottom: "6px" }}>Figma, Wireframes, or Reference URLs (Optional)</label>
+                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Figma, Wireframes, or Reference URLs (Optional)</label>
                     <input
                       style={formInputGlass}
                       name="reference"
@@ -619,8 +628,8 @@ const Hireforms = () => {
               <div style={{ marginBottom: "3rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
                   <span style={{
-                    backgroundColor: "#7e3a41",
-                    color: "white",
+                    backgroundColor: "var(--primary)",
+                    color: "var(--primary-contrast)",
                     width: "24px",
                     height: "24px",
                     borderRadius: "50%",
@@ -630,20 +639,20 @@ const Hireforms = () => {
                     fontSize: "0.75rem",
                     fontWeight: 700
                   }}>4</span>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "white", margin: 0 }}>
+                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
                     Estimated Budget &amp; Target Timeline
                   </h3>
                 </div>
-                <p style={{ color: "#64748b", fontSize: "0.9rem", margin: "0 0 1.25rem 2rem" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
                   This helps us architect the right scope, team size, and milestone schedule.
                 </p>
 
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1.5rem" }}>
                   {/* Budget Input in Rupees */}
                   <div>
-                    <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.85rem", fontWeight: 700, color: "#f8fafc", marginBottom: "8px" }}>
+                    <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.85rem", fontWeight: 700, color: "var(--text)", marginBottom: "8px" }}>
                       <span>Estimated Budget (₹ Rupees)</span>
-                      <span style={{ fontSize: "0.75rem", fontWeight: 500, color: "#94a3b8" }}>In Indian Rupees (INR)</span>
+                      <span style={{ fontSize: "0.75rem", fontWeight: 500, color: "var(--text-muted)" }}>In Indian Rupees (INR)</span>
                     </label>
                     <div style={{ position: "relative" }}>
                       <div style={{
@@ -651,7 +660,7 @@ const Hireforms = () => {
                         left: "14px",
                         top: "50%",
                         transform: "translateY(-50%)",
-                        color: "#fca5a5",
+                        color: "var(--primary)",
                         display: "flex",
                         alignItems: "center",
                         pointerEvents: "none",
@@ -671,7 +680,7 @@ const Hireforms = () => {
                         placeholder="e.g. 50,000 or 1,00,000 – 2,50,000"
                       />
                     </div>
-                    <p style={{ color: "#64748b", fontSize: "0.78rem", marginTop: "6px", marginBottom: "0.85rem" }}>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.78rem", marginTop: "6px", marginBottom: "0.85rem" }}>
                       Enter your estimated project budget or range in Indian Rupees (₹).
                     </p>
 
@@ -683,14 +692,18 @@ const Hireforms = () => {
                           type="button"
                           onClick={() => setBudget(preset)}
                           style={{
-                            background: budget === preset ? "rgba(126, 58, 65, 0.45)" : "rgba(255, 255, 255, 0.04)",
-                            border: budget === preset ? "1.5px solid #7e3a41" : "1px solid rgba(255, 255, 255, 0.08)",
+                            background: budget === preset ? "var(--primary)" : "var(--bg-alt)",
+                            border: budget === preset ? "1.5px solid var(--primary)" : "1px solid var(--border)",
                             borderRadius: "20px",
-                            padding: "4px 10px",
-                            color: budget === preset ? "#fca5a5" : "#94a3b8",
+                            padding: "6px 12px",
+                            minHeight: "36px",
+                            color: budget === preset ? "var(--primary-contrast)" : "var(--text-muted)",
                             fontSize: "0.75rem",
                             cursor: "pointer",
-                            transition: "all 0.2s ease"
+                            transition: "all 0.2s ease",
+                            touchAction: "manipulation",
+                            display: "inline-flex",
+                            alignItems: "center"
                           }}
                         >
                           {preset}
@@ -701,7 +714,7 @@ const Hireforms = () => {
 
                   {/* Timeline Options */}
                   <div>
-                    <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, color: "#f8fafc", marginBottom: "8px" }}>
+                    <label style={{ display: "block", fontSize: "0.85rem", fontWeight: 700, color: "var(--text)", marginBottom: "8px" }}>
                       Desired Launch Timeline
                     </label>
                     <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
@@ -712,21 +725,23 @@ const Hireforms = () => {
                             key={t.id}
                             onClick={() => setSelectedTimeline(t.label)}
                             style={{
-                              backgroundColor: isSelected ? "rgba(126, 58, 65, 0.25)" : "rgba(255, 255, 255, 0.03)",
-                              border: isSelected ? "1.5px solid #7e3a41" : "1px solid rgba(255, 255, 255, 0.08)",
-                              padding: "10px 14px",
+                              backgroundColor: isSelected ? "var(--bg-alt)" : "var(--surface)",
+                              border: isSelected ? "1.5px solid var(--primary)" : "1px solid var(--border)",
+                              padding: "12px 14px",
+                              minHeight: "44px",
                               borderRadius: "10px",
                               cursor: "pointer",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "space-between",
                               fontSize: "0.85rem",
-                              color: isSelected ? "white" : "#cbd5e1",
-                              fontWeight: isSelected ? 700 : 500
+                              color: isSelected ? "var(--primary)" : "var(--text)",
+                              fontWeight: isSelected ? 700 : 500,
+                              touchAction: "manipulation"
                             }}
                           >
                             <span>{t.label}</span>
-                            {isSelected && <CheckCircle2 size={16} style={{ color: "#10b981" }} />}
+                            {isSelected && <CheckCircle2 size={16} style={{ color: "var(--success)" }} />}
                           </div>
                         );
                       })}
@@ -736,35 +751,39 @@ const Hireforms = () => {
               </div>
 
               {/* Submit Button */}
-              <div style={{ textAlign: "center", paddingTop: "1.5rem", borderTop: "1px solid rgba(255, 255, 255, 0.08)" }}>
+              <div style={{ textAlign: "center", paddingTop: "1.5rem", borderTop: "1px solid var(--border)" }}>
                 <button
                   type="submit"
                   disabled={isSubmitting}
                   style={{
-                    backgroundColor: "#7e3a41",
-                    color: "white",
+                    backgroundColor: "var(--primary)",
+                    color: "var(--primary-contrast)",
                     border: "none",
                     padding: "1.1rem 3rem",
+                    width: "min(100%, 420px)",
+                    minHeight: "48px",
                     borderRadius: "50px",
                     fontSize: "1.05rem",
                     fontWeight: 700,
                     cursor: isSubmitting ? "not-allowed" : "pointer",
                     display: "inline-flex",
                     alignItems: "center",
+                    justifyContent: "center",
                     gap: "0.6rem",
-                    boxShadow: "0 8px 25px rgba(126, 58, 65, 0.4)",
+                    boxShadow: "var(--shadow)",
                     transition: "all 0.25s ease",
-                    opacity: isSubmitting ? 0.7 : 1
+                    opacity: isSubmitting ? 0.7 : 1,
+                    touchAction: "manipulation"
                   }}
                   onMouseOver={(e) => {
                     if (!isSubmitting) {
-                      e.currentTarget.style.backgroundColor = "#90424a";
+                      e.currentTarget.style.backgroundColor = "var(--accent)";
                       e.currentTarget.style.transform = "translateY(-2px)";
                     }
                   }}
                   onMouseOut={(e) => {
                     if (!isSubmitting) {
-                      e.currentTarget.style.backgroundColor = "#7e3a41";
+                      e.currentTarget.style.backgroundColor = "var(--primary)";
                       e.currentTarget.style.transform = "translateY(0)";
                     }
                   }}
@@ -778,7 +797,7 @@ const Hireforms = () => {
                   )}
                 </button>
 
-                <p style={{ color: "#64748b", fontSize: "0.82rem", marginTop: "1rem" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.82rem", marginTop: "1rem" }}>
                   🔒 Your information is confidential and protected by standard mutual NDA terms.
                 </p>
               </div>
@@ -797,13 +816,15 @@ const Hireforms = () => {
 const formInputGlass = {
   width: "100%",
   padding: "0.85rem 1rem",
-  backgroundColor: "rgba(255, 255, 255, 0.05)",
-  border: "1px solid rgba(255, 255, 255, 0.12)",
+  backgroundColor: "var(--input-bg)",
+  border: "1px solid var(--input-border)",
   borderRadius: "10px",
-  color: "white",
-  fontSize: "0.92rem",
+  color: "var(--text)",
+  fontSize: "1rem",
   outline: "none",
-  transition: "border-color 0.2s"
+  transition: "border-color 0.2s",
+  boxSizing: "border-box",
+  minWidth: 0,
 };
 
 export default Hireforms;

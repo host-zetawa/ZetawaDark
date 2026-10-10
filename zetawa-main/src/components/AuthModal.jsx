@@ -118,63 +118,72 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
-      background: "rgba(0,0,0,0.55)",
+      background: "var(--overlay)",
       backdropFilter: "blur(8px)",
       WebkitBackdropFilter: "blur(8px)",
       animation: "authFadeIn 0.25s ease",
     },
     card: {
-      width: "100%",
+      width: "min(100%, 440px)",
       maxWidth: "440px",
-      background: "white",
-      borderRadius: "20px",
-      padding: "2.5rem 2.25rem",
-      boxShadow: "0 25px 80px rgba(126,58,65,0.25)",
+      background: "var(--surface-elevated)",
+      color: "var(--text)",
+      borderRadius: "clamp(14px, 4vw, 20px)",
+      padding: "clamp(1.5rem, 5vw, 2.5rem) clamp(1rem, 4vw, 2.25rem)",
+      boxShadow: "var(--shadow)",
+      border: "1px solid var(--border)",
       position: "relative",
       animation: "authSlideUp 0.3s ease",
-      maxHeight: "90vh",
+      maxHeight: "min(92vh, 92dvh)",
       overflowY: "auto",
-      margin: "1rem",
+      margin: "clamp(0.5rem, 2.5vw, 1rem)",
+      boxSizing: "border-box",
     },
     closeBtn: {
       position: "absolute",
-      top: "1.25rem",
-      right: "1.25rem",
-      background: "rgba(126,58,65,0.08)",
-      border: "none",
+      top: "clamp(0.75rem, 3vw, 1.25rem)",
+      right: "clamp(0.75rem, 3vw, 1.25rem)",
+      background: "var(--bg-alt)",
+      border: "1px solid var(--border)",
       borderRadius: "50%",
-      width: "36px",
-      height: "36px",
+      width: "40px",
+      height: "40px",
+      minWidth: "40px",
+      minHeight: "40px",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       cursor: "pointer",
-      color: "#7e3a41",
+      color: "var(--text)",
       transition: "all 0.2s ease",
+      touchAction: "manipulation",
+      zIndex: 2,
     },
     title: {
-      fontSize: "1.65rem",
+      fontSize: "clamp(1.35rem, 4.5vw, 1.65rem)",
       fontWeight: 700,
-      color: "#2d2d2d",
+      color: "var(--text)",
       marginBottom: "0.3rem",
     },
     subtitle: {
-      color: "#888",
-      fontSize: "0.95rem",
+      color: "var(--text-muted)",
+      fontSize: "clamp(0.85rem, 2.5vw, 0.95rem)",
       marginBottom: "1.75rem",
+      wordBreak: "break-word",
     },
     label: {
       display: "block",
       fontSize: "0.85rem",
       fontWeight: 600,
-      color: "#4a4a4a",
+      color: "var(--text)",
       marginBottom: "0.4rem",
     },
     fieldWrap: {
       display: "flex",
       alignItems: "center",
       gap: "0.6rem",
-      border: "1.5px solid #e0d9db",
+      border: "1.5px solid var(--input-border)",
+      background: "var(--input-bg)",
       borderRadius: "10px",
       padding: "0.75rem 1rem",
       marginBottom: "1.1rem",
@@ -186,13 +195,15 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
       flex: 1,
       fontSize: "1rem",
       background: "transparent",
-      color: "#2d2d2d",
+      color: "var(--text)",
       fontFamily: "inherit",
+      minWidth: 0,
     },
     submitBtn: {
       width: "100%",
-      background: "linear-gradient(135deg, #7e3a41 0%, #6a3139 100%)",
-      color: "white",
+      minHeight: "48px",
+      background: "linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%)",
+      color: "var(--primary-contrast)",
       border: "none",
       borderRadius: "10px",
       padding: "0.85rem",
@@ -205,15 +216,16 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
       gap: "0.5rem",
       transition: "opacity 0.2s ease, transform 0.15s ease",
       marginTop: "0.5rem",
+      touchAction: "manipulation",
     },
     footerText: {
       textAlign: "center",
-      color: "#888",
+      color: "var(--text-muted)",
       fontSize: "0.9rem",
       marginTop: "1.5rem",
     },
     link: {
-      color: "#7e3a41",
+      color: "var(--accent)",
       fontWeight: 600,
       cursor: "pointer",
       textDecoration: "none",
@@ -221,13 +233,14 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
       border: "none",
       fontSize: "inherit",
       fontFamily: "inherit",
-      padding: 0,
+      padding: "4px 2px",
+      touchAction: "manipulation",
     },
     backBtn: {
       display: "inline-flex",
       alignItems: "center",
       gap: "0.3rem",
-      color: "#7e3a41",
+      color: "var(--accent)",
       fontSize: "0.85rem",
       fontWeight: 500,
       cursor: "pointer",
@@ -235,7 +248,9 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
       border: "none",
       marginBottom: "1.25rem",
       fontFamily: "inherit",
-      padding: 0,
+      padding: "4px 0",
+      minHeight: "36px",
+      touchAction: "manipulation",
     },
   }
 
@@ -246,13 +261,13 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
 
       <label style={styles.label}>Email</label>
       <div style={styles.fieldWrap}>
-        <Mail size={18} color="#9a8f92" />
+        <Mail size={18} color="var(--text-muted)" />
         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" style={styles.input} />
       </div>
 
       <label style={styles.label}>Password</label>
       <div style={styles.fieldWrap}>
-        <Lock size={18} color="#9a8f92" />
+        <Lock size={18} color="var(--text-muted)" />
         <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" style={styles.input} />
       </div>
 
@@ -281,19 +296,19 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
 
       <label style={styles.label}>Name</label>
       <div style={styles.fieldWrap}>
-        <UserIcon size={18} color="#9a8f92" />
+        <UserIcon size={18} color="var(--text-muted)" />
         <input type="text" required value={name} onChange={(e) => setName(e.target.value)} placeholder="Your full name" style={styles.input} />
       </div>
 
       <label style={styles.label}>Email</label>
       <div style={styles.fieldWrap}>
-        <Mail size={18} color="#9a8f92" />
+        <Mail size={18} color="var(--text-muted)" />
         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" style={styles.input} />
       </div>
 
       <label style={styles.label}>Password</label>
       <div style={{ ...styles.fieldWrap, marginBottom: "1.5rem" }}>
-        <Lock size={18} color="#9a8f92" />
+        <Lock size={18} color="var(--text-muted)" />
         <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)} placeholder="At least 6 characters" style={styles.input} />
       </div>
 
@@ -319,7 +334,7 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
 
       <label style={styles.label}>Verification OTP</label>
       <div style={styles.fieldWrap}>
-        <ShieldCheck size={18} color="#9a8f92" />
+        <ShieldCheck size={18} color="var(--text-muted)" />
         <input
           type="text"
           required
@@ -349,7 +364,7 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
 
       <label style={styles.label}>Email</label>
       <div style={styles.fieldWrap}>
-        <Mail size={18} color="#9a8f92" />
+        <Mail size={18} color="var(--text-muted)" />
         <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="you@example.com" style={styles.input} />
       </div>
 
@@ -370,7 +385,7 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
 
       <label style={styles.label}>OTP</label>
       <div style={styles.fieldWrap}>
-        <ShieldCheck size={18} color="#9a8f92" />
+        <ShieldCheck size={18} color="var(--text-muted)" />
         <input
           type="text"
           required
@@ -399,7 +414,7 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
 
       <label style={styles.label}>New Password</label>
       <div style={{ ...styles.fieldWrap, marginBottom: "1.5rem" }}>
-        <Lock size={18} color="#9a8f92" />
+        <Lock size={18} color="var(--text-muted)" />
         <input type="password" required value={newPassword} onChange={(e) => setNewPassword(e.target.value)} placeholder="At least 6 characters" style={styles.input} />
       </div>
 
@@ -427,8 +442,8 @@ const AuthModal = ({ isOpen, onClose, onSuccess, initialView = "login" }) => {
           <button
             onClick={onClose}
             style={styles.closeBtn}
-            onMouseOver={(e) => { e.currentTarget.style.background = "#7e3a41"; e.currentTarget.style.color = "white" }}
-            onMouseOut={(e) => { e.currentTarget.style.background = "rgba(126,58,65,0.08)"; e.currentTarget.style.color = "#7e3a41" }}
+            onMouseOver={(e) => { e.currentTarget.style.background = "var(--primary)"; e.currentTarget.style.color = "var(--primary-contrast)" }}
+            onMouseOut={(e) => { e.currentTarget.style.background = "var(--bg-alt)"; e.currentTarget.style.color = "var(--text)" }}
             aria-label="Close"
           >
             <X size={18} />

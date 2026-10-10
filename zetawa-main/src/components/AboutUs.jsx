@@ -31,14 +31,15 @@ import {
 import Nav from './Nav';
 import Footer from './Footer';
 import { Link } from 'react-router-dom';
+import Background3D from './Background3D';
 
 const AboutUs = () => {
   return (
     <div style={{ 
       fontFamily: 'system-ui, -apple-system, sans-serif',
-      backgroundColor: '#f8f6f7',
+      backgroundColor: 'var(--bg)',
       minHeight: '100vh',
-      color: '#1e293b'
+      color: 'var(--text)'
     }}>
       <style>{`
         .founder-header-grid {
@@ -58,15 +59,16 @@ const AboutUs = () => {
           display: inline-flex;
           align-items: center;
           gap: 0.4rem;
-          background: rgba(255, 255, 255, 0.14);
+          background: var(--surface);
           border-radius: 50px;
           padding: 0.4rem 0.95rem;
-          font-size: 0.85rem;
+          font-size: clamp(0.75rem, 2.8vw, 0.85rem);
           font-weight: 600;
+          color: var(--text);
           backdrop-filter: blur(6px);
-          border: 1px solid rgba(255, 255, 255, 0.2);
+          border: 1px solid var(--border);
           max-width: 100%;
-          word-break: break-word;
+          word-break: break-all;
           overflow-wrap: anywhere;
           box-sizing: border-box;
         }
@@ -78,8 +80,11 @@ const AboutUs = () => {
             padding: 1.25rem 1rem !important;
             gap: 0.75rem !important;
             width: 100% !important;
+            max-width: 480px !important;
+            margin: 0 auto !important;
           }
 
+          .hero-trust-strip .strip-divider,
           .hero-trust-strip > div[style*="width: '1px'"],
           .hero-trust-strip > div[style*="width: 1px"] {
             display: none !important;
@@ -90,7 +95,7 @@ const AboutUs = () => {
           }
 
           .vision-card, .mission-card {
-            padding: 1.5rem 1.15rem !important;
+            padding: clamp(1.25rem, 4vw, 1.75rem) clamp(1rem, 3.5vw, 1.5rem) !important;
             border-radius: 18px !important;
           }
 
@@ -99,13 +104,13 @@ const AboutUs = () => {
           }
 
           .differentiators-section {
-            padding: 2rem 1rem !important;
+            padding: clamp(1.5rem, 4vw, 2rem) clamp(0.85rem, 3vw, 1.5rem) !important;
             border-radius: 20px !important;
             margin-bottom: 3rem !important;
           }
 
           .differentiators-section h2 {
-            font-size: 1.75rem !important;
+            font-size: clamp(1.4rem, 5vw, 1.75rem) !important;
           }
 
           .features-grid {
@@ -130,18 +135,18 @@ const AboutUs = () => {
             grid-template-columns: 1fr !important;
             text-align: center;
             gap: 1.5rem !important;
-            padding: 2rem 1rem !important;
+            padding: clamp(1.5rem, 4vw, 2rem) clamp(0.85rem, 3vw, 1.5rem) !important;
           }
 
           .founder-photo-container {
-            width: 140px !important;
-            height: 140px !important;
+            width: clamp(130px, 35vw, 150px) !important;
+            height: clamp(130px, 35vw, 150px) !important;
             margin: 0 auto !important;
             border-radius: 20px !important;
           }
 
           .founder-name-heading {
-            font-size: 1.85rem !important;
+            font-size: clamp(1.5rem, 5vw, 1.85rem) !important;
           }
 
           .founder-contact-row-flex {
@@ -156,10 +161,7 @@ const AboutUs = () => {
             width: 100% !important;
             max-width: 100% !important;
             justify-content: center !important;
-            font-size: 0.82rem !important;
             padding: 0.5rem 0.85rem !important;
-            word-break: break-word !important;
-            overflow-wrap: anywhere !important;
             box-sizing: border-box !important;
           }
 
@@ -169,12 +171,14 @@ const AboutUs = () => {
           }
 
           .founder-social-link {
-            width: 42px !important;
-            height: 42px !important;
+            width: 44px !important;
+            height: 44px !important;
+            min-width: 44px !important;
+            min-height: 44px !important;
           }
 
           .founder-body-container {
-            padding: 1.5rem 1rem !important;
+            padding: clamp(1.25rem, 4vw, 1.75rem) clamp(0.85rem, 3vw, 1.5rem) !important;
           }
 
           .founder-summary-box {
@@ -229,7 +233,7 @@ const AboutUs = () => {
           }
 
           .bottom-cta-banner-wrap {
-            padding: 2.25rem 1.25rem !important;
+            padding: clamp(1.75rem, 5vw, 2.5rem) clamp(1rem, 4vw, 1.5rem) !important;
             border-radius: 18px !important;
           }
 
@@ -244,8 +248,9 @@ const AboutUs = () => {
             justify-content: center !important;
             padding: 0.85rem 1.25rem !important;
             font-size: 0.92rem !important;
-            min-height: 44px !important;
+            min-height: 48px !important;
             box-sizing: border-box !important;
+            touch-action: manipulation !important;
           }
         }
       `}</style>
@@ -253,13 +258,15 @@ const AboutUs = () => {
       
       {/* ──────── Hero Section ──────── */}
       <section className="hero-section" style={{
-        background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
-        color: 'white',
+        background: 'var(--bg-hero)',
+        color: 'var(--hero-text)',
         padding: 'clamp(2.5rem, 6vw, 5rem) clamp(1rem, 4vw, 1.5rem) clamp(2.5rem, 5vw, 4.5rem)',
         textAlign: 'center',
         position: 'relative',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        borderBottom: '1px solid var(--border)'
       }}>
+        <Background3D />
         {/* Ambient Glow Orb */}
         <div style={{
           position: 'absolute',
@@ -267,7 +274,7 @@ const AboutUs = () => {
           right: '-80px',
           width: '320px',
           height: '320px',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(217, 107, 20, 0.12) 0%, transparent 70%)',
           borderRadius: '50%',
           pointerEvents: 'none'
         }} />
@@ -277,8 +284,9 @@ const AboutUs = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(255, 255, 255, 0.15)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
+            background: 'var(--hero-badge-bg)',
+            border: '1px solid var(--hero-badge-border)',
+            color: 'var(--hero-badge-text)',
             padding: '0.4rem 1.25rem',
             borderRadius: '50px',
             fontSize: '0.85rem',
@@ -297,15 +305,21 @@ const AboutUs = () => {
             marginBottom: '1.25rem',
             lineHeight: 1.15,
             letterSpacing: '-0.02em',
-            textWrap: 'balance'
+            textWrap: 'balance',
+            color: 'var(--hero-text)'
           }}>
             Transforming Businesses with <br />
-            <span style={{ color: '#ffebee' }}>Intelligent Software Solutions</span>
+            <span style={{
+              background: 'var(--hero-title-gradient)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>Intelligent Software Solutions</span>
           </h1>
 
           <p style={{ 
             fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', 
-            opacity: 0.94,
+            color: 'var(--hero-text-muted)',
             maxWidth: '720px',
             margin: '0 auto 2.5rem',
             lineHeight: 1.6
@@ -321,49 +335,50 @@ const AboutUs = () => {
             justifyContent: 'center',
             gap: 'clamp(1rem, 2.5vw, 2.5rem)',
             padding: '1rem clamp(1.25rem, 3vw, 2.5rem)',
-            background: 'rgba(255, 255, 255, 0.1)',
+            background: 'var(--hero-trust-bg)',
             backdropFilter: 'blur(12px)',
             borderRadius: '50px',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            border: '1px solid var(--hero-trust-border)',
             flexWrap: 'wrap',
             maxWidth: '100%',
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            boxShadow: 'var(--shadow-md)'
           }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800 }}>Founded Nov 2024</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Zetawa Dark Pvt Ltd</div>
+              <div style={{ fontSize: 'clamp(1.1rem, 2vw, 1.3rem)', fontWeight: 800, color: 'var(--hero-trust-val)' }}>Founded Nov 2024</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Zetawa Dark Pvt Ltd</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'var(--border)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>NIT Srinagar Roots</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Engineering Foundation</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--hero-trust-val)' }}>NIT Srinagar Roots</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Engineering Foundation</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.25)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'var(--border)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800 }}>Security &amp; AI First</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Ethical &amp; Proven</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--hero-trust-val)' }}>Security &amp; AI First</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Ethical &amp; Proven</div>
             </div>
           </div>
         </div>
       </section>
 
-      <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 1.5rem' }}>
+      <div style={{ maxWidth: '1240px', margin: '0 auto', padding: '0 clamp(0.75rem, 3.5vw, 1.5rem)' }}>
         
         {/* ──────────── 1. Vision & Mission ──────────── */}
         <section className="mission-vision-section" style={{ padding: '4.5rem 0' }}>
           <div style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
             gap: '2.5rem',
             alignItems: 'stretch'
           }}>
             {/* Vision Card */}
             <div className="vision-card" style={{
-              background: '#ffffff',
+              background: 'var(--surface)',
               borderRadius: '24px',
               padding: '3rem 2.5rem',
-              boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
-              border: '1px solid #e8e0e2',
+              boxShadow: 'var(--shadow)',
+              border: '1px solid var(--border)',
               position: 'relative',
               overflow: 'hidden',
               display: 'flex',
@@ -373,13 +388,13 @@ const AboutUs = () => {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-6px)';
-              e.currentTarget.style.boxShadow = '0 18px 40px rgba(126,58,65,0.1)';
-              e.currentTarget.style.borderColor = 'rgba(126,58,65,0.4)';
+              e.currentTarget.style.boxShadow = 'var(--shadow)';
+              e.currentTarget.style.borderColor = 'var(--primary)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.04)';
-              e.currentTarget.style.borderColor = '#e8e0e2';
+              e.currentTarget.style.boxShadow = 'var(--shadow)';
+              e.currentTarget.style.borderColor = 'var(--border)';
             }}
             >
               <div style={{
@@ -394,8 +409,8 @@ const AboutUs = () => {
               
               <div>
                 <div style={{ 
-                  background: 'rgba(126, 58, 65, 0.1)',
-                  color: '#7e3a41',
+                  background: 'rgba(126, 58, 65, 0.12)',
+                  color: 'var(--primary)',
                   borderRadius: '16px',
                   width: '64px',
                   height: '64px',
@@ -411,14 +426,14 @@ const AboutUs = () => {
                   fontSize: '2rem', 
                   fontWeight: 800, 
                   marginBottom: '1rem',
-                  color: '#2d2d2d'
+                  color: 'var(--text)'
                 }}>
                   Our Vision
                 </h2>
                 <p style={{ 
                   fontSize: '1.05rem', 
                   lineHeight: '1.75', 
-                  color: '#666',
+                  color: 'var(--text-muted)',
                   margin: 0
                 }}>
                   To be a leading technology partner that transforms how businesses operate, 
@@ -427,18 +442,18 @@ const AboutUs = () => {
                 </p>
               </div>
 
-              <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid #f3ecee', display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#7e3a41', fontWeight: 700, fontSize: '0.9rem' }}>
+              <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary)', fontWeight: 700, fontSize: '0.9rem' }}>
                 <Sparkles size={16} /> Pioneering Intelligent Scale
               </div>
             </div>
 
             {/* Mission Card */}
             <div className="mission-card" style={{
-              background: '#ffffff',
+              background: 'var(--surface)',
               borderRadius: '24px',
               padding: '3rem 2.5rem',
-              boxShadow: '0 8px 30px rgba(0,0,0,0.04)',
-              border: '1px solid #e8e0e2',
+              boxShadow: 'var(--shadow)',
+              border: '1px solid var(--border)',
               position: 'relative',
               overflow: 'hidden',
               display: 'flex',
@@ -448,13 +463,13 @@ const AboutUs = () => {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.transform = 'translateY(-6px)';
-              e.currentTarget.style.boxShadow = '0 18px 40px rgba(126,58,65,0.1)';
-              e.currentTarget.style.borderColor = 'rgba(126,58,65,0.4)';
+              e.currentTarget.style.boxShadow = 'var(--shadow)';
+              e.currentTarget.style.borderColor = 'var(--primary)';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 8px 30px rgba(0,0,0,0.04)';
-              e.currentTarget.style.borderColor = '#e8e0e2';
+              e.currentTarget.style.boxShadow = 'var(--shadow)';
+              e.currentTarget.style.borderColor = 'var(--border)';
             }}
             >
               <div style={{
@@ -469,8 +484,8 @@ const AboutUs = () => {
               
               <div>
                 <div style={{ 
-                  background: 'rgba(126, 58, 65, 0.1)',
-                  color: '#7e3a41',
+                  background: 'rgba(126, 58, 65, 0.12)',
+                  color: 'var(--primary)',
                   borderRadius: '16px',
                   width: '64px',
                   height: '64px',
@@ -486,14 +501,14 @@ const AboutUs = () => {
                   fontSize: '2rem', 
                   fontWeight: 800, 
                   marginBottom: '1rem',
-                  color: '#2d2d2d'
+                  color: 'var(--text)'
                 }}>
                   Our Mission
                 </h2>
                 <p style={{ 
                   fontSize: '1.05rem', 
                   lineHeight: '1.75', 
-                  color: '#666',
+                  color: 'var(--text-muted)',
                   margin: 0
                 }}>
                   We empower businesses of all sizes with innovative, user-friendly software 
@@ -502,7 +517,7 @@ const AboutUs = () => {
                 </p>
               </div>
 
-              <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid #f3ecee', display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#7e3a41', fontWeight: 700, fontSize: '0.9rem' }}>
+              <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--primary)', fontWeight: 700, fontSize: '0.9rem' }}>
                 <CheckCircle size={16} /> Value &amp; Velocity Driven
               </div>
             </div>
@@ -512,10 +527,10 @@ const AboutUs = () => {
         {/* ──────────── 2. What Sets Us Apart ──────────── */}
         <section className="differentiators-section" style={{ 
           padding: '4.5rem 2rem',
-          background: '#ffffff',
+          background: 'var(--surface)',
           borderRadius: '28px',
-          border: '1px solid #e8e0e2',
-          boxShadow: '0 6px 24px rgba(0,0,0,0.02)',
+          border: '1px solid var(--border)',
+          boxShadow: 'var(--shadow)',
           marginBottom: '4.5rem'
         }}>
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
@@ -523,8 +538,8 @@ const AboutUs = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              backgroundColor: 'rgba(126, 58, 65, 0.08)',
-              color: '#7e3a41',
+              backgroundColor: 'var(--bg-alt)',
+              color: 'var(--primary)',
               padding: '0.35rem 0.9rem',
               borderRadius: '20px',
               fontSize: '0.8rem',
@@ -538,13 +553,13 @@ const AboutUs = () => {
               fontSize: '2.6rem', 
               fontWeight: 800, 
               marginBottom: '0.75rem',
-              color: '#2d2d2d'
+              color: 'var(--text)'
             }}>
               What Sets Us Apart
             </h2>
             <p style={{ 
               fontSize: '1.1rem', 
-              color: '#666',
+              color: 'var(--text-muted)',
               maxWidth: '650px',
               margin: '0 auto'
             }}>
@@ -555,7 +570,7 @@ const AboutUs = () => {
 
           <div className="features-grid" style={{ 
             display: 'grid', 
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', 
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
             gap: '2rem'
           }}>
             {[
@@ -591,32 +606,32 @@ const AboutUs = () => {
               }
             ].map((feature, index) => (
               <div key={index} className="feature-card" style={{
-                background: '#faf8f9',
+                background: 'var(--surface)',
                 padding: '2.25rem 2rem',
                 borderRadius: '18px',
-                boxShadow: '0 4px 14px rgba(0,0,0,0.02)',
-                border: '1px solid #ecdfe2',
+                boxShadow: 'var(--shadow)',
+                border: '1px solid var(--border)',
                 transition: 'all 0.3s ease',
                 cursor: 'pointer'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-5px)';
-                e.currentTarget.style.boxShadow = '0 14px 32px rgba(126,58,65,0.08)';
-                e.currentTarget.style.borderColor = '#7e3a41';
-                e.currentTarget.style.backgroundColor = '#ffffff';
+                e.currentTarget.style.boxShadow = '0 14px 32px rgba(126,58,65,0.12)';
+                e.currentTarget.style.borderColor = 'var(--primary)';
+                e.currentTarget.style.backgroundColor = 'var(--surface-elevated)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = '0 4px 14px rgba(0,0,0,0.02)';
-                e.currentTarget.style.borderColor = '#ecdfe2';
-                e.currentTarget.style.backgroundColor = '#faf8f9';
+                e.currentTarget.style.boxShadow = 'var(--shadow)';
+                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.backgroundColor = 'var(--surface)';
               }}>
                 <div style={{ 
                   width: '52px',
                   height: '52px',
                   borderRadius: '12px',
                   backgroundColor: 'rgba(126, 58, 65, 0.1)',
-                  color: '#7e3a41',
+                  color: 'var(--primary)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -628,12 +643,12 @@ const AboutUs = () => {
                   fontSize: '1.25rem', 
                   fontWeight: 800, 
                   marginBottom: '0.65rem',
-                  color: '#2d2d2d'
+                  color: 'var(--text)'
                 }}>
                   {feature.title}
                 </h3>
                 <p style={{ 
-                  color: '#666', 
+                  color: 'var(--text-muted)', 
                   lineHeight: '1.65',
                   fontSize: '0.92rem',
                   margin: 0
@@ -652,8 +667,8 @@ const AboutUs = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              backgroundColor: 'rgba(126, 58, 65, 0.08)',
-              color: '#7e3a41',
+              backgroundColor: 'rgba(126, 58, 65, 0.1)',
+              color: 'var(--primary)',
               padding: '0.35rem 0.9rem',
               borderRadius: '20px',
               fontSize: '0.8rem',
@@ -667,13 +682,13 @@ const AboutUs = () => {
               fontSize: '2.6rem', 
               fontWeight: 800, 
               marginBottom: '0.75rem',
-              color: '#2d2d2d'
+              color: 'var(--text)'
             }}>
               Meet the Founder
             </h2>
             <p style={{ 
               fontSize: '1.1rem', 
-              color: '#666',
+              color: 'var(--text-muted)',
               maxWidth: '550px',
               margin: '0 auto'
             }}>
@@ -682,18 +697,19 @@ const AboutUs = () => {
           </div>
 
           <div className="founder-card" style={{
-            background: '#ffffff',
+            background: 'var(--surface)',
             borderRadius: '28px',
             overflow: 'hidden',
-            boxShadow: '0 16px 40px rgba(126, 58, 65, 0.08)',
-            border: '1px solid #e8e0e2',
+            boxShadow: 'var(--shadow)',
+            border: '1px solid var(--border)',
           }}>
             {/* Founder banner + photo row */}
             <div className="founder-header founder-header-grid" style={{
-              background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
-              color: 'white',
+              background: 'var(--banner-cta-bg)',
+              color: 'var(--banner-cta-text)',
               position: 'relative',
               overflow: 'hidden',
+              borderBottom: '1px solid var(--banner-cta-border)'
             }}>
               <div style={{
                 position: 'absolute',
@@ -701,7 +717,7 @@ const AboutUs = () => {
                 right: '-50px',
                 width: '240px',
                 height: '240px',
-                background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+                background: 'radial-gradient(circle, rgba(217, 107, 20, 0.12) 0%, transparent 70%)',
                 borderRadius: '50%',
                 pointerEvents: 'none'
               }} />
@@ -709,10 +725,10 @@ const AboutUs = () => {
               {/* Photo */}
               <div className="founder-photo-wrap founder-photo-container" style={{
                 borderRadius: '24px',
-                border: '4px solid rgba(255,255,255,0.35)',
+                border: '4px solid var(--border)',
                 overflow: 'hidden',
                 flexShrink: 0,
-                boxShadow: '0 12px 30px rgba(0,0,0,0.3)',
+                boxShadow: 'var(--shadow-md)',
                 position: 'relative',
                 zIndex: 1,
               }}>
@@ -730,11 +746,12 @@ const AboutUs = () => {
                   fontWeight: 800,
                   marginBottom: '0.25rem',
                   letterSpacing: '-0.01em',
-                  textWrap: 'balance'
+                  textWrap: 'balance',
+                  color: 'var(--banner-cta-text)'
                 }}>
                   Tabrez Alam
                 </h3>
-                <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', opacity: 0.94, marginBottom: '1.25rem', fontWeight: 600, color: '#ffebee', lineHeight: 1.4 }}>
+                <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', marginBottom: '1.25rem', fontWeight: 600, color: 'var(--banner-cta-text-muted)', lineHeight: 1.4 }}>
                   Founder &amp; Director, ZETAWA DARK PRIVATE LIMITED
                 </p>
 
@@ -769,20 +786,20 @@ const AboutUs = () => {
                       className="founder-social-link"
                       style={{
                         width: '40px', height: '40px', borderRadius: '50%',
-                        background: 'rgba(255,255,255,0.15)',
+                        background: 'var(--surface)',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        color: 'white', textDecoration: 'none',
+                        color: 'var(--text)', textDecoration: 'none',
                         transition: 'all 0.25s ease',
-                        border: '1px solid rgba(255,255,255,0.25)'
+                        border: '1px solid var(--border)'
                       }}
                       onMouseOver={(e) => {
-                        e.currentTarget.style.background = 'white';
-                        e.currentTarget.style.color = '#7e3a41';
+                        e.currentTarget.style.background = 'var(--primary)';
+                        e.currentTarget.style.color = '#ffffff';
                         e.currentTarget.style.transform = 'translateY(-2px)';
                       }}
                       onMouseOut={(e) => {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.15)';
-                        e.currentTarget.style.color = 'white';
+                        e.currentTarget.style.background = 'var(--surface)';
+                        e.currentTarget.style.color = 'var(--text)';
                         e.currentTarget.style.transform = 'translateY(0)';
                       }}
                     >
@@ -797,46 +814,46 @@ const AboutUs = () => {
             <div className="founder-body founder-body-container" style={{ padding: 'clamp(1.5rem, 4vw, 3rem)' }}>
               {/* Executive Lead Summary */}
               <div className="founder-summary-box" style={{
-                background: 'linear-gradient(135deg, rgba(126, 58, 65, 0.05) 0%, rgba(255, 255, 255, 0.95) 100%)',
-                border: '1px solid #ebd9dc',
-                borderLeft: '5px solid #7e3a41',
+                background: 'var(--bg-alt)',
+                border: '1px solid var(--border)',
+                borderLeft: '5px solid var(--primary)',
                 borderRadius: '18px',
                 padding: '2rem 2.25rem',
                 marginBottom: '2.5rem',
-                boxShadow: '0 4px 20px rgba(126, 58, 65, 0.04)'
+                boxShadow: 'var(--shadow)'
               }}>
                 <p style={{
                   fontSize: '1.16rem',
                   lineHeight: '1.9',
-                  color: '#334155',
+                  color: 'var(--text)',
                   margin: 0
                 }}>
-                  <strong style={{ color: '#7e3a41', fontWeight: 800 }}>Tabrez Alam</strong> is a <strong style={{ color: '#0f172a' }}>technology entrepreneur</strong>, <strong style={{ color: '#0f172a' }}>cybersecurity enthusiast</strong> and the <strong style={{ color: '#7e3a41', fontWeight: 700 }}>Founder &amp; Director</strong> of <strong style={{ color: '#0f172a' }}>ZETAWA DARK PRIVATE LIMITED</strong>, founded in <strong style={{ color: '#0f172a' }}>November 2024</strong>. Hailing from <strong style={{ color: '#0f172a' }}>Dhaka, East Champaran, Bihar</strong>, he holds a <strong style={{ color: '#0f172a' }}>B.Tech in Information Technology</strong> from <strong style={{ color: '#7e3a41', fontWeight: 700 }}>NIT Srinagar</strong>.
+                  <strong style={{ color: 'var(--primary)', fontWeight: 800 }}>Tabrez Alam</strong> is a <strong style={{ color: 'var(--text)' }}>technology entrepreneur</strong>, <strong style={{ color: 'var(--text)' }}>cybersecurity enthusiast</strong> and the <strong style={{ color: 'var(--primary)', fontWeight: 700 }}>Founder &amp; Director</strong> of <strong style={{ color: 'var(--text)' }}>ZETAWA DARK PRIVATE LIMITED</strong>, founded in <strong style={{ color: 'var(--text)' }}>November 2024</strong>. Hailing from <strong style={{ color: 'var(--text)' }}>Dhaka, East Champaran, Bihar</strong>, he holds a <strong style={{ color: 'var(--text)' }}>B.Tech in Information Technology</strong> from <strong style={{ color: 'var(--primary)', fontWeight: 700 }}>NIT Srinagar</strong>.
                 </p>
               </div>
 
               {/* 4 Themed Journey & Achievement Cards */}
               <div className="highlights-grid" style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
                 gap: '1.75rem',
               }}>
                 {/* 1. Cybersecurity Recognition */}
                 <div className="highlight-card" style={{
                   padding: '2rem',
-                  background: '#faf8f9',
+                  background: 'var(--surface)',
                   borderRadius: '16px',
-                  border: '1px solid #ecdfe2',
-                  borderLeft: '5px solid #7e3a41',
+                  border: '1px solid var(--border)',
+                  borderLeft: '5px solid var(--primary)',
                   transition: 'all 0.3s ease',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.85rem'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.08)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.12)'; e.currentTarget.style.backgroundColor = 'var(--surface-elevated)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.backgroundColor = 'var(--surface)'; }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#7e3a41' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: 'var(--primary)' }}>
                     <div style={{
                       width: '38px',
                       height: '38px',
@@ -848,31 +865,31 @@ const AboutUs = () => {
                     }}>
                       <ShieldCheck size={20} />
                     </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#2d2d2d' }}>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: 'var(--text)' }}>
                       Cybersecurity Recognition
                     </h4>
                   </div>
-                  <p style={{ color: '#475569', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
-                    His early work in <strong style={{ color: '#0f172a' }}>cybersecurity</strong> gained recognition when he identified and responsibly disclosed a vulnerability in the <strong style={{ color: '#7e3a41' }}>MobiKwik digital payment application</strong>, earning a <span style={{ backgroundColor: 'rgba(126, 58, 65, 0.08)', color: '#7e3a41', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>₹1 lakh award</span> and <strong style={{ color: '#0f172a' }}>Certificate of Appreciation</strong> under MobiKwik&apos;s <strong style={{ color: '#0f172a' }}>Responsible Disclosure Program</strong>.
+                  <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
+                    His early work in <strong style={{ color: 'var(--text)' }}>cybersecurity</strong> gained recognition when he identified and responsibly disclosed a vulnerability in the <strong style={{ color: 'var(--primary)' }}>MobiKwik digital payment application</strong>, earning a <span style={{ backgroundColor: 'rgba(126, 58, 65, 0.12)', color: 'var(--primary)', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>₹1 lakh award</span> and <strong style={{ color: 'var(--text)' }}>Certificate of Appreciation</strong> under MobiKwik&apos;s <strong style={{ color: 'var(--text)' }}>Responsible Disclosure Program</strong>.
                   </p>
                 </div>
 
                 {/* 2. Equity Investing & Philanthropy */}
                 <div className="highlight-card" style={{
                   padding: '2rem',
-                  background: '#faf8f9',
+                  background: 'var(--surface)',
                   borderRadius: '16px',
-                  border: '1px solid #ecdfe2',
-                  borderLeft: '5px solid #7e3a41',
+                  border: '1px solid var(--border)',
+                  borderLeft: '5px solid var(--primary)',
                   transition: 'all 0.3s ease',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.85rem'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.08)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.12)'; e.currentTarget.style.backgroundColor = 'var(--surface-elevated)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.backgroundColor = 'var(--surface)'; }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#7e3a41' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: 'var(--primary)' }}>
                     <div style={{
                       width: '38px',
                       height: '38px',
@@ -884,31 +901,31 @@ const AboutUs = () => {
                     }}>
                       <TrendingUp size={20} />
                     </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#2d2d2d' }}>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: 'var(--text)' }}>
                       Equity Investing &amp; Giving Back
                     </h4>
                   </div>
-                  <p style={{ color: '#475569', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
-                    With a strong interest in <strong style={{ color: '#0f172a' }}>technology, cybersecurity, entrepreneurship, innovation and financial markets</strong>, Tabrez has also developed an interest in <strong style={{ color: '#0f172a' }}>equity-market investing</strong>. During his student years, he reported earning a <span style={{ backgroundColor: 'rgba(126, 58, 65, 0.08)', color: '#7e3a41', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>₹1.23 lakh profit</span> from a stock-market investment and chose to <strong style={{ color: '#7e3a41' }}>contribute the profit toward supporting students and marginalized sections of society</strong>.
+                  <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
+                    With a strong interest in <strong style={{ color: 'var(--text)' }}>technology, cybersecurity, entrepreneurship, innovation and financial markets</strong>, Tabrez has also developed an interest in <strong style={{ color: 'var(--text)' }}>equity-market investing</strong>. During his student years, he reported earning a <span style={{ backgroundColor: 'rgba(126, 58, 65, 0.12)', color: 'var(--primary)', padding: '0.15rem 0.45rem', borderRadius: '4px', fontWeight: 700 }}>₹1.23 lakh profit</span> from a stock-market investment and chose to <strong style={{ color: 'var(--primary)' }}>contribute the profit toward supporting students and marginalized sections of society</strong>.
                   </p>
                 </div>
 
                 {/* 3. Startup Ecosystem Exposure */}
                 <div className="highlight-card" style={{
                   padding: '2rem',
-                  background: '#faf8f9',
+                  background: 'var(--surface)',
                   borderRadius: '16px',
-                  border: '1px solid #ecdfe2',
-                  borderLeft: '5px solid #7e3a41',
+                  border: '1px solid var(--border)',
+                  borderLeft: '5px solid var(--primary)',
                   transition: 'all 0.3s ease',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.85rem'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.08)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.12)'; e.currentTarget.style.backgroundColor = 'var(--surface-elevated)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.backgroundColor = 'var(--surface)'; }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#7e3a41' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: 'var(--primary)' }}>
                     <div style={{
                       width: '38px',
                       height: '38px',
@@ -920,31 +937,31 @@ const AboutUs = () => {
                     }}>
                       <Rocket size={20} />
                     </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#2d2d2d' }}>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: 'var(--text)' }}>
                       Startup Ecosystem Exposure
                     </h4>
                   </div>
-                  <p style={{ color: '#475569', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
-                    His entrepreneurial journey includes participation in <strong style={{ color: '#7e3a41' }}>IIT Bombay&apos;s E-Summit</strong> and mentorship associated with <strong style={{ color: '#7e3a41' }}>Startup Mahakumbh at Bharat Mandapam, New Delhi</strong>, providing exposure to India&apos;s wider <strong style={{ color: '#0f172a' }}>startup and innovation ecosystem</strong>.
+                  <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
+                    His entrepreneurial journey includes participation in <strong style={{ color: 'var(--primary)' }}>IIT Bombay&apos;s E-Summit</strong> and mentorship associated with <strong style={{ color: 'var(--primary)' }}>Startup Mahakumbh at Bharat Mandapam, New Delhi</strong>, providing exposure to India&apos;s wider <strong style={{ color: 'var(--text)' }}>startup and innovation ecosystem</strong>.
                   </p>
                 </div>
 
                 {/* 4. Leadership at ZETAWA DARK */}
                 <div className="highlight-card" style={{
                   padding: '2rem',
-                  background: '#faf8f9',
+                  background: 'var(--surface)',
                   borderRadius: '16px',
-                  border: '1px solid #ecdfe2',
-                  borderLeft: '5px solid #7e3a41',
+                  border: '1px solid var(--border)',
+                  borderLeft: '5px solid var(--primary)',
                   transition: 'all 0.3s ease',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '0.85rem'
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.08)'; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 10px 25px rgba(126,58,65,0.12)'; e.currentTarget.style.backgroundColor = 'var(--surface-elevated)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.backgroundColor = 'var(--surface)'; }}
                 >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: '#7e3a41' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', color: 'var(--primary)' }}>
                     <div style={{
                       width: '38px',
                       height: '38px',
@@ -956,12 +973,12 @@ const AboutUs = () => {
                     }}>
                       <Briefcase size={20} />
                     </div>
-                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: '#2d2d2d' }}>
+                    <h4 style={{ fontSize: '1.15rem', fontWeight: 800, margin: 0, color: 'var(--text)' }}>
                       Leadership at ZETAWA DARK
                     </h4>
                   </div>
-                  <p style={{ color: '#475569', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
-                    As the <strong style={{ color: '#7e3a41' }}>Founder &amp; Director of ZETAWA DARK</strong>, he leads the company&apos;s <strong style={{ color: '#0f172a' }}>strategic vision, business development, team leadership and innovation initiatives</strong>, with a focus on <strong style={{ color: '#0f172a' }}>building practical technology solutions and nurturing emerging talent</strong>.
+                  <p style={{ color: 'var(--text-muted)', lineHeight: '1.8', margin: 0, fontSize: '0.98rem' }}>
+                    As the <strong style={{ color: 'var(--primary)' }}>Founder &amp; Director of ZETAWA DARK</strong>, he leads the company&apos;s <strong style={{ color: 'var(--text)' }}>strategic vision, business development, team leadership and innovation initiatives</strong>, with a focus on <strong style={{ color: 'var(--text)' }}>building practical technology solutions and nurturing emerging talent</strong>.
                   </p>
                 </div>
               </div>
@@ -970,14 +987,14 @@ const AboutUs = () => {
               <div className="founder-impact-banner" style={{
                 marginTop: '1.75rem',
                 padding: '1.75rem 2.25rem',
-                background: 'linear-gradient(135deg, #fdfbfb 0%, #faf6f7 100%)',
+                background: 'var(--bg-alt)',
                 borderRadius: '16px',
-                border: '1px solid #ecdfe2',
-                borderLeft: '5px solid #7e3a41',
+                border: '1px solid var(--border)',
+                borderLeft: '5px solid var(--primary)',
                 display: 'flex',
                 alignItems: 'flex-start',
                 gap: '1.25rem',
-                boxShadow: '0 4px 15px rgba(126, 58, 65, 0.03)'
+                boxShadow: 'var(--shadow)'
               }}>
                 <div style={{
                   width: '42px',
@@ -987,22 +1004,22 @@ const AboutUs = () => {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: '#7e3a41',
+                  color: 'var(--primary)',
                   flexShrink: 0
                 }}>
                   <Heart size={22} />
                 </div>
                 <div>
-                  <h4 style={{ fontSize: '1.12rem', fontWeight: 800, margin: '0 0 0.45rem', color: '#2d2d2d' }}>
+                  <h4 style={{ fontSize: '1.12rem', fontWeight: 800, margin: '0 0 0.45rem', color: 'var(--text)' }}>
                     Social &amp; Environmental Impact
                   </h4>
                   <p style={{
                     fontSize: '1rem',
                     lineHeight: '1.8',
-                    color: '#475569',
+                    color: 'var(--text-muted)',
                     margin: 0
                   }}>
-                    Beyond technology and business, Tabrez is also interested in <strong style={{ color: '#7e3a41' }}>social and environmental initiatives</strong>, reflecting his belief that <strong style={{ color: '#0f172a' }}>entrepreneurship should create value for both society and the wider community</strong>.
+                    Beyond technology and business, Tabrez is also interested in <strong style={{ color: 'var(--primary)' }}>social and environmental initiatives</strong>, reflecting his belief that <strong style={{ color: 'var(--text)' }}>entrepreneurship should create value for both society and the wider community</strong>.
                   </p>
                 </div>
               </div>
@@ -1010,13 +1027,14 @@ const AboutUs = () => {
               {/* Founder's Core Philosophy */}
               <div className="founder-philosophy-banner" style={{
                 marginTop: '2.5rem',
-                background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+                background: 'var(--banner-cta-bg)',
                 borderRadius: '22px',
                 padding: '2.5rem 2rem',
-                color: 'white',
+                color: 'var(--banner-cta-text)',
                 position: 'relative',
                 overflow: 'hidden',
-                boxShadow: '0 14px 36px rgba(126, 58, 65, 0.22)',
+                border: '1px solid var(--banner-cta-border)',
+                boxShadow: 'var(--shadow-md)',
                 textAlign: 'center'
               }}>
                 {/* Decorative background glow */}
@@ -1026,7 +1044,7 @@ const AboutUs = () => {
                   right: '-40px',
                   width: '200px',
                   height: '200px',
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+                  background: 'radial-gradient(circle, rgba(217, 107, 20, 0.12) 0%, transparent 70%)',
                   borderRadius: '50%',
                   pointerEvents: 'none'
                 }} />
@@ -1035,7 +1053,7 @@ const AboutUs = () => {
                   <p style={{
                     fontSize: '1.1rem',
                     fontWeight: 600,
-                    color: '#ffebee',
+                    color: 'var(--banner-cta-text-muted)',
                     marginBottom: '1.25rem',
                     letterSpacing: '0.02em',
                     textTransform: 'uppercase',
@@ -1053,19 +1071,19 @@ const AboutUs = () => {
                   }}>
                     {['LEARN', 'INNOVATE', 'BUILD', 'GIVE BACK'].map((item, idx) => (
                       <div key={idx} className="philosophy-pill-badge" style={{
-                        background: 'rgba(255, 255, 255, 0.16)',
+                        background: 'var(--surface)',
                         backdropFilter: 'blur(10px)',
-                        border: '1.5px solid rgba(255, 255, 255, 0.3)',
+                        border: '1.5px solid var(--border)',
                         borderRadius: '14px',
                         padding: '0.9rem 1.8rem',
-                        boxShadow: '0 6px 18px rgba(0, 0, 0, 0.15)',
+                        boxShadow: 'var(--shadow-sm)',
                         transition: 'all 0.25s ease'
                       }}>
                         <span style={{
                           fontSize: '1.35rem',
                           fontWeight: 900,
                           letterSpacing: '0.08em',
-                          color: '#ffffff'
+                          color: 'var(--text)'
                         }}>
                           {item}
                         </span>
@@ -1083,27 +1101,28 @@ const AboutUs = () => {
           padding: '0 0 5rem'
         }}>
           <div className="bottom-cta-banner-wrap" style={{
-            background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+            background: 'var(--banner-cta-bg)',
             borderRadius: '24px',
             padding: '3.5rem 2.5rem',
-            color: 'white',
+            color: 'var(--banner-cta-text)',
             textAlign: 'center',
-            boxShadow: '0 16px 40px rgba(126, 58, 65, 0.2)',
+            boxShadow: 'var(--shadow-lg)',
+            border: '1px solid var(--banner-cta-border)',
             position: 'relative',
             overflow: 'hidden'
           }}>
-            <h2 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.01em', textWrap: 'balance' }}>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.01em', textWrap: 'balance', color: 'var(--banner-cta-text)' }}>
               Partner with Zetawa Dark Today
             </h2>
-            <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', opacity: 0.92, maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
+            <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', color: 'var(--banner-cta-text-muted)', maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
               Let&apos;s collaborate to design, develop, and scale intelligent software solutions that elevate your business.
             </p>
             <div className="bottom-cta-actions-wrap" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link
                 to="/hireforms"
                 style={{
-                  backgroundColor: 'white',
-                  color: '#7e3a41',
+                  backgroundColor: 'var(--accent-orange, #f28c28)',
+                  color: '#ffffff',
                   padding: '0.85rem 1.85rem',
                   borderRadius: '50px',
                   fontSize: '0.95rem',
@@ -1112,7 +1131,7 @@ const AboutUs = () => {
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
-                  boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
+                  boxShadow: '0 6px 20px rgba(242, 140, 40, 0.35)',
                   transition: 'transform 0.2s ease',
                   minHeight: '46px'
                 }}
@@ -1122,9 +1141,9 @@ const AboutUs = () => {
               <Link
                 to="/services"
                 style={{
-                  backgroundColor: 'rgba(255,255,255,0.15)',
-                  color: 'white',
-                  border: '1.5px solid rgba(255,255,255,0.4)',
+                  backgroundColor: 'var(--banner-cta-btn-sec-bg)',
+                  color: 'var(--banner-cta-btn-sec-color)',
+                  border: '1.5px solid var(--banner-cta-btn-sec-border)',
                   padding: '0.85rem 1.75rem',
                   borderRadius: '50px',
                   fontSize: '0.95rem',

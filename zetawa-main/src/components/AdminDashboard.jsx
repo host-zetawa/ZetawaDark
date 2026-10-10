@@ -592,21 +592,22 @@ const AdminDashboard = () => {
     width: "100%",
     padding: "0.8rem 1rem",
     borderRadius: "10px",
-    border: "1.5px solid #e2d9dc",
-    backgroundColor: "#ffffff",
-    fontSize: "0.92rem",
-    color: "#2d2d2d",
+    border: "1.5px solid var(--input-border)",
+    backgroundColor: "var(--input-bg)",
+    fontSize: "1rem",
+    color: "var(--text)",
     boxSizing: "border-box",
     outline: "none",
     transition: "all 0.2s ease",
-    fontFamily: "inherit"
+    fontFamily: "inherit",
+    minWidth: 0
   }
 
   const labelStyle = {
     display: "block",
     fontSize: "0.78rem",
     fontWeight: 700,
-    color: "#522026",
+    color: "var(--primary)",
     marginBottom: "0.4rem",
     textTransform: "uppercase",
     letterSpacing: "0.6px"
@@ -616,31 +617,37 @@ const AdminDashboard = () => {
     padding: "0.75rem 1.4rem",
     borderRadius: "10px",
     border: "none",
-    background: "linear-gradient(135deg, #7e3a41 0%, #522026 100%)",
-    color: "white",
+    background: "var(--primary)",
+    color: "var(--primary-contrast)",
     fontWeight: 700,
     cursor: "pointer",
     fontSize: "0.9rem",
     display: "inline-flex",
     alignItems: "center",
+    justifyContent: "center",
     gap: "0.5rem",
-    boxShadow: "0 4px 12px rgba(126, 58, 65, 0.25)",
-    transition: "all 0.2s ease"
+    boxShadow: "var(--shadow)",
+    transition: "all 0.2s ease",
+    minHeight: "44px",
+    touchAction: "manipulation"
   }
 
   const btnSecondary = {
     padding: "0.75rem 1.4rem",
     borderRadius: "10px",
-    border: "1.5px solid #e0d0d3",
-    backgroundColor: "#ffffff",
-    color: "#522026",
+    border: "1.5px solid var(--border)",
+    backgroundColor: "var(--surface)",
+    color: "var(--text)",
     fontWeight: 700,
     cursor: "pointer",
     fontSize: "0.9rem",
     display: "inline-flex",
     alignItems: "center",
+    justifyContent: "center",
     gap: "0.5rem",
-    transition: "all 0.2s ease"
+    transition: "all 0.2s ease",
+    minHeight: "44px",
+    touchAction: "manipulation"
   }
 
   const getStatusBadge = (status) => {
@@ -666,41 +673,41 @@ const AdminDashboard = () => {
   }
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "#f8f6f7", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--bg)", color: "var(--text)", fontFamily: "system-ui, -apple-system, sans-serif" }}>
       <Nav />
 
       {/* Global CSS enhancements */}
       <style>{`
         .admin-stat-card:hover {
           transform: translateY(-3px);
-          box-shadow: 0 10px 25px rgba(126, 58, 65, 0.08) !important;
+          box-shadow: var(--shadow) !important;
         }
         .admin-nav-tab:hover {
-          background-color: rgba(126, 58, 65, 0.06);
+          background-color: var(--bg-alt);
         }
         .table-row-hover:hover {
-          background-color: #faf6f7 !important;
+          background-color: var(--bg-alt) !important;
         }
         .action-icon-btn:hover {
           transform: scale(1.1);
         }
         input:focus, textarea:focus, select:focus {
-          border-color: #7e3a41 !important;
-          box-shadow: 0 0 0 3px rgba(126, 58, 65, 0.12) !important;
+          border-color: var(--focus-ring) !important;
+          box-shadow: 0 0 0 3px var(--focus-ring) !important;
         }
       `}</style>
 
-      <div style={{ maxWidth: "1360px", margin: "0 auto", padding: "2rem 1.5rem 4rem" }}>
+      <div style={{ maxWidth: "1360px", margin: "0 auto", padding: "clamp(1.5rem, 4vw, 2rem) clamp(1rem, 3.5vw, 1.5rem) 4rem", boxSizing: "border-box" }}>
         
         {/* ============ 1. HEADER EXECUTIVE HERO ============ */}
         <div style={{
-          background: "linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 248, 249, 0.95) 100%)",
+          background: "var(--surface)",
           backdropFilter: "blur(16px)",
-          border: "1px solid rgba(126, 58, 65, 0.15)",
+          border: "1px solid var(--border)",
           borderRadius: "20px",
-          padding: "2rem 2.25rem",
+          padding: "clamp(1.25rem, 3.5vw, 2rem) clamp(1rem, 3vw, 2.25rem)",
           marginBottom: "2rem",
-          boxShadow: "0 8px 30px rgba(126, 58, 65, 0.06)",
+          boxShadow: "var(--shadow)",
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
@@ -712,26 +719,26 @@ const AdminDashboard = () => {
               display: "inline-flex",
               alignItems: "center",
               gap: "0.5rem",
-              backgroundColor: "rgba(126, 58, 65, 0.09)",
-              color: "#7e3a41",
+              backgroundColor: "var(--bg-alt)",
+              color: "var(--primary)",
               padding: "0.35rem 0.9rem",
               borderRadius: "20px",
               fontSize: "0.8rem",
               fontWeight: 800,
               letterSpacing: "0.5px",
               marginBottom: "0.65rem",
-              border: "1px solid rgba(126, 58, 65, 0.15)"
+              border: "1px solid var(--border)"
             }}>
               <Shield size={14} /> ZETAWA DARK EXECUTIVE CONSOLE
             </div>
-            <h1 style={{ color: "#2d2d2d", fontSize: "2.2rem", fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>
+            <h1 style={{ color: "var(--text)", fontSize: "clamp(1.5rem, 4vw, 2.2rem)", fontWeight: 800, margin: 0, letterSpacing: "-0.02em" }}>
               Admin Command Suite
             </h1>
-            <p style={{ color: "#666", fontSize: "0.95rem", marginTop: "0.35rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", marginTop: "0.35rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
               <span>Authenticated Officer:</span>
-              <strong style={{ color: "#7e3a41" }}>{user?.name || "Executive Admin"}</strong>
-              <span style={{ color: "#aaa" }}>•</span>
-              <span style={{ color: "#777" }}>{user?.email}</span>
+              <strong style={{ color: "var(--primary)" }}>{user?.name || "Executive Admin"}</strong>
+              <span style={{ color: "var(--text-muted)" }}>•</span>
+              <span style={{ color: "var(--text-muted)" }}>{user?.email}</span>
             </p>
           </div>
 
@@ -743,7 +750,7 @@ const AdminDashboard = () => {
                 ...btnSecondary,
                 padding: "0.65rem 1.25rem",
                 fontSize: "0.85rem",
-                boxShadow: "0 2px 6px rgba(0,0,0,0.03)"
+                boxShadow: "var(--shadow)"
               }}>
               <RefreshCw size={15} style={{ transition: "transform 0.5s ease" }} /> Refresh Live Data
             </button>
@@ -751,7 +758,7 @@ const AdminDashboard = () => {
         </div>
 
         {/* ============ 2. EXECUTIVE KPI OVERVIEW ============ */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.1rem", marginBottom: "2rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 180px), 1fr))", gap: "1.1rem", marginBottom: "2rem" }}>
           {[
             { label: "Consultation Inquiries", val: inquiries.length, sub: "Client project requests", icon: Inbox, color: "#7e3a41", bg: "rgba(126, 58, 65, 0.06)", border: "rgba(126, 58, 65, 0.16)" },
             { label: "Pending Response", val: pendingInquiriesCount, sub: "Requires officer review", icon: AlertCircle, color: "#b45309", bg: "#fffdfa", border: "#fef3c7" },
@@ -764,11 +771,11 @@ const AdminDashboard = () => {
               key={idx}
               className="admin-stat-card"
               style={{
-                background: "white",
+                background: "var(--surface)",
                 padding: "1.35rem 1.25rem",
                 borderRadius: "16px",
                 border: `1px solid ${kpi.border}`,
-                boxShadow: "0 2px 10px rgba(0,0,0,0.02)",
+                boxShadow: "var(--shadow)",
                 transition: "all 0.25s ease",
                 position: "relative",
                 overflow: "hidden"
@@ -783,13 +790,13 @@ const AdminDashboard = () => {
               }} />
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
                 <div>
-                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "#777", textTransform: "uppercase", letterSpacing: "0.5px" }}>
+                  <div style={{ fontSize: "0.75rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px" }}>
                     {kpi.label}
                   </div>
                   <div style={{ fontSize: "1.85rem", fontWeight: 800, color: kpi.color, marginTop: "0.3rem" }}>
                     {kpi.val}
                   </div>
-                  <div style={{ fontSize: "0.78rem", color: "#888", marginTop: "0.2rem" }}>
+                  <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", marginTop: "0.2rem" }}>
                     {kpi.sub}
                   </div>
                 </div>
@@ -816,11 +823,14 @@ const AdminDashboard = () => {
           gap: "0.5rem",
           marginBottom: "2rem",
           flexWrap: "wrap",
-          background: "white",
+          background: "var(--surface)",
           padding: "0.6rem",
           borderRadius: "16px",
-          border: "1px solid #e8e0e2",
-          boxShadow: "0 4px 16px rgba(0,0,0,0.03)"
+          border: "1px solid var(--border)",
+          boxShadow: "var(--shadow)",
+          overflowX: "auto",
+          maxWidth: "100%",
+          WebkitOverflowScrolling: "touch"
         }}>
           {[
             { id: "inquiries", label: "Project Consultations", icon: Inbox, badge: inquiries.length, pendingBadge: pendingInquiriesCount },
@@ -842,21 +852,24 @@ const AdminDashboard = () => {
                   border: "none", 
                   fontWeight: 700, 
                   cursor: "pointer",
-                  background: isActive ? "linear-gradient(135deg, #7e3a41 0%, #522026 100%)" : "transparent",
-                  color: isActive ? "white" : "#603036",
+                  background: isActive ? "var(--primary)" : "transparent",
+                  color: isActive ? "var(--primary-contrast)" : "var(--text-muted)",
                   display: "flex", 
                   alignItems: "center", 
                   gap: "0.55rem",
                   transition: "all 0.2s ease",
                   fontSize: "0.92rem",
-                  boxShadow: isActive ? "0 4px 14px rgba(126, 58, 65, 0.25)" : "none"
+                  boxShadow: isActive ? "var(--shadow)" : "none",
+                  whiteSpace: "nowrap",
+                  minHeight: "44px",
+                  touchAction: "manipulation"
                 }}>
                 <tab.icon size={17} /> 
                 <span>{tab.label}</span>
                 {tab.badge !== undefined && (
                   <span style={{
-                    backgroundColor: isActive ? "rgba(255,255,255,0.22)" : "#f0e6e8",
-                    color: isActive ? "#ffffff" : "#7e3a41",
+                    backgroundColor: isActive ? "rgba(255,255,255,0.22)" : "var(--bg-alt)",
+                    color: isActive ? "var(--primary-contrast)" : "var(--primary)",
                     fontSize: "0.75rem",
                     fontWeight: 800,
                     padding: "0.15rem 0.55rem",
@@ -870,8 +883,8 @@ const AdminDashboard = () => {
                   <span 
                     title={`${tab.pendingBadge} pending review`}
                     style={{
-                      backgroundColor: "#dc2626",
-                      color: "#ffffff",
+                      backgroundColor: "var(--danger)",
+                      color: "var(--primary-contrast)",
                       fontSize: "0.7rem",
                       fontWeight: 800,
                       padding: "0.12rem 0.48rem",
@@ -888,9 +901,9 @@ const AdminDashboard = () => {
 
         {/* Loading Spinner */}
         {loading ? (
-          <div style={{ textAlign: "center", padding: "6rem 2rem", background: "white", borderRadius: "20px", border: "1px solid #eee", boxShadow: "0 4px 20px rgba(0,0,0,0.03)" }}>
-            <div style={{ display: "inline-block", width: "45px", height: "45px", border: "3px solid #f3e8e9", borderTop: "3px solid #7e3a41", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
-            <p style={{ color: "#777", marginTop: "1.25rem", fontWeight: 700, fontSize: "1rem" }}>Connecting to Zetawa Dark CMS...</p>
+          <div style={{ textAlign: "center", padding: "6rem 2rem", background: "var(--surface)", borderRadius: "20px", border: "1px solid var(--border)", boxShadow: "var(--shadow)" }}>
+            <div style={{ display: "inline-block", width: "45px", height: "45px", border: "3px solid var(--border)", borderTop: "3px solid var(--primary)", borderRadius: "50%", animation: "spin 1s linear infinite" }} />
+            <p style={{ color: "var(--text-muted)", marginTop: "1.25rem", fontWeight: 700, fontSize: "1rem" }}>Connecting to Zetawa Dark CMS...</p>
             <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
           </div>
         ) : (
@@ -902,17 +915,17 @@ const AdminDashboard = () => {
               <div>
                 {/* Filter and Search Bar */}
                 <div style={{
-                  background: "white",
+                  background: "var(--surface)",
                   padding: "1.25rem 1.5rem",
                   borderRadius: "16px",
-                  border: "1px solid #e8e0e2",
+                  border: "1px solid var(--border)",
                   marginBottom: "1.5rem",
                   display: "flex",
                   flexWrap: "wrap",
                   gap: "1rem",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.02)"
+                  boxShadow: "var(--shadow)"
                 }}>
                   <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
                     {[
@@ -934,8 +947,8 @@ const AdminDashboard = () => {
                           fontSize: "0.82rem",
                           fontWeight: 700,
                           cursor: "pointer",
-                          backgroundColor: inquiryFilter === f.id ? "#7e3a41" : "#f1eaeb",
-                          color: inquiryFilter === f.id ? "white" : "#603036",
+                          backgroundColor: inquiryFilter === f.id ? "var(--primary)" : "var(--bg-alt)",
+                          color: inquiryFilter === f.id ? "var(--primary-contrast)" : "var(--text-muted)",
                           transition: "all 0.2s ease"
                         }}>
                         {f.label}
@@ -943,26 +956,26 @@ const AdminDashboard = () => {
                     ))}
                   </div>
 
-                  <div style={{ position: "relative", minWidth: "280px" }}>
-                    <Search size={16} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#999" }} />
+                  <div style={{ position: "relative", minWidth: "min(100%, 260px)", flex: 1 }}>
+                    <Search size={16} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
                     <input
                       type="text"
                       placeholder="Search client, email, company, scope..."
                       value={inquirySearch}
                       onChange={(e) => setInquirySearch(e.target.value)}
-                      style={{ ...inputStyle, paddingLeft: "2.4rem", backgroundColor: "#faf8f9" }}
+                      style={{ ...inputStyle, paddingLeft: "2.4rem", backgroundColor: "var(--input-bg)" }}
                     />
                   </div>
                 </div>
 
                 {/* Inquiries Cards List */}
                 {filteredInquiries.length === 0 ? (
-                  <div style={{ background: "white", padding: "5rem 2rem", borderRadius: "18px", textAlign: "center", border: "1px dashed #d5c8ca" }}>
-                    <Inbox size={54} color="#c0b0b2" style={{ margin: "0 auto 1.25rem" }} />
-                    <h3 style={{ color: "#2d2d2d", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.5rem" }}>
+                  <div style={{ background: "var(--surface)", padding: "5rem 2rem", borderRadius: "18px", textAlign: "center", border: "1px dashed var(--border)" }}>
+                    <Inbox size={54} color="var(--border)" style={{ margin: "0 auto 1.25rem" }} />
+                    <h3 style={{ color: "var(--text)", fontSize: "1.3rem", fontWeight: 800, marginBottom: "0.5rem" }}>
                       No Consultation Requests Found
                     </h3>
-                    <p style={{ color: "#777", fontSize: "0.95rem", maxWidth: "440px", margin: "0 auto" }}>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", maxWidth: "440px", margin: "0 auto" }}>
                       {inquirySearch ? "No inquiries match your current search query." : "When clients submit project proposals via the Hire Us portal, they will populate here in real time."}
                     </p>
                   </div>
@@ -972,30 +985,30 @@ const AdminDashboard = () => {
                       <div 
                         key={inq._id}
                         style={{
-                          background: "white",
+                          background: "var(--surface)",
                           borderRadius: "18px",
-                          border: "1px solid #e8e0e2",
-                          padding: "1.75rem 2rem",
-                          boxShadow: "0 4px 16px rgba(0,0,0,0.04)",
+                          border: "1px solid var(--border)",
+                          padding: "clamp(1.1rem, 3vw, 1.75rem) clamp(0.9rem, 2.5vw, 2rem)",
+                          boxShadow: "var(--shadow)",
                           transition: "all 0.2s ease"
                         }}>
                         {/* Card Top Row */}
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", borderBottom: "1px solid #f3ecee", paddingBottom: "1.25rem", marginBottom: "1.25rem" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", borderBottom: "1px solid var(--border)", paddingBottom: "1.25rem", marginBottom: "1.25rem" }}>
                           <div>
                             <div style={{ display: "flex", alignItems: "center", gap: "0.85rem", flexWrap: "wrap", marginBottom: "0.5rem" }}>
-                              <h3 style={{ fontSize: "1.35rem", fontWeight: 800, color: "#2d2d2d", margin: 0 }}>
+                              <h3 style={{ fontSize: "1.35rem", fontWeight: 800, color: "var(--text)", margin: 0 }}>
                                 {inq.projectTitle || inq.company || "Project Consultation"}
                               </h3>
                               {getStatusBadge(inq.status)}
                               {inq.projectType && (
-                                <span style={{ fontSize: "0.78rem", fontWeight: 700, padding: "0.25rem 0.75rem", borderRadius: "8px", backgroundColor: "#f3f4f6", color: "#555", border: "1px solid #e5e7eb" }}>
+                                <span style={{ fontSize: "0.78rem", fontWeight: 700, padding: "0.25rem 0.75rem", borderRadius: "8px", backgroundColor: "var(--bg-alt)", color: "var(--text-muted)", border: "1px solid var(--border)" }}>
                                   {inq.projectType}
                                 </span>
                               )}
                             </div>
 
-                            <div style={{ display: "flex", alignItems: "center", gap: "1.35rem", flexWrap: "wrap", fontSize: "0.88rem", color: "#666" }}>
-                              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontWeight: 700, color: "#7e3a41" }}>
+                            <div style={{ display: "flex", alignItems: "center", gap: "1.35rem", flexWrap: "wrap", fontSize: "0.88rem", color: "var(--text-muted)" }}>
+                              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", fontWeight: 700, color: "var(--primary)" }}>
                                 <User size={15} /> {inq.clientName}
                               </span>
                               {inq.company && (
@@ -1003,28 +1016,29 @@ const AdminDashboard = () => {
                                   <Building size={15} /> {inq.company}
                                 </span>
                               )}
-                              <a href={`mailto:${inq.email}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "#0284c7", fontWeight: 600, textDecoration: "none" }}>
+                              <a href={`mailto:${inq.email}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "var(--accent-2)", fontWeight: 600, textDecoration: "none" }}>
                                 <Mail size={15} /> {inq.email}
                               </a>
                               {inq.phone && (
-                                <a href={`tel:${inq.phone}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "#555", textDecoration: "none" }}>
+                                <a href={`tel:${inq.phone}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "var(--text-muted)", textDecoration: "none" }}>
                                   <Phone size={15} /> {inq.phone}
                                 </a>
                               )}
-                              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "#999" }}>
+                              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", color: "var(--text-muted)" }}>
                                 <Calendar size={15} /> {new Date(inq.createdAt).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                               </span>
                             </div>
                           </div>
 
                           {/* Action Buttons */}
-                          <div style={{ display: "flex", gap: "0.6rem" }}>
+                          <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
                             <button
                               onClick={() => handleOpenStatusModal(inq)}
                               style={{
                                 ...btnPrimary,
                                 padding: "0.55rem 1.15rem",
-                                fontSize: "0.85rem"
+                                fontSize: "0.85rem",
+                                minHeight: "40px"
                               }}>
                               <Edit3 size={14} /> Update Status & Milestones
                             </button>
@@ -1033,14 +1047,16 @@ const AdminDashboard = () => {
                               style={{
                                 padding: "0.55rem 0.85rem",
                                 borderRadius: "10px",
-                                border: "1px solid #fee2e2",
-                                backgroundColor: "#fef2f2",
-                                color: "#dc2626",
+                                border: "1px solid var(--danger)",
+                                backgroundColor: "rgba(239, 68, 68, 0.1)",
+                                color: "var(--danger)",
                                 fontSize: "0.85rem",
                                 fontWeight: 700,
                                 cursor: "pointer",
                                 display: "inline-flex",
-                                alignItems: "center"
+                                alignItems: "center",
+                                minHeight: "40px",
+                                touchAction: "manipulation"
                               }}
                               title="Delete Inquiry">
                               <Trash2 size={16} />
@@ -1051,17 +1067,17 @@ const AdminDashboard = () => {
                         {/* Services & Financials Badges */}
                         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1.1rem" }}>
                           {Array.isArray(inq.services) && inq.services.map((svc, i) => (
-                            <span key={i} style={{ padding: "0.3rem 0.75rem", borderRadius: "20px", fontSize: "0.8rem", fontWeight: 700, backgroundColor: "#f6eef0", color: "#7e3a41", border: "1px solid #ecd8db" }}>
+                            <span key={i} style={{ padding: "0.3rem 0.75rem", borderRadius: "20px", fontSize: "0.8rem", fontWeight: 700, backgroundColor: "var(--bg-alt)", color: "var(--primary)", border: "1px solid var(--border)" }}>
                               {svc}
                             </span>
                           ))}
                           {inq.budget && (
-                            <span style={{ padding: "0.3rem 0.75rem", borderRadius: "20px", fontSize: "0.8rem", fontWeight: 700, backgroundColor: "#ecfdf5", color: "#047857", border: "1px solid #a7f3d0", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
+                            <span style={{ padding: "0.3rem 0.75rem", borderRadius: "20px", fontSize: "0.8rem", fontWeight: 700, backgroundColor: "rgba(16, 185, 129, 0.12)", color: "var(--success)", border: "1px solid rgba(16, 185, 129, 0.25)", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
                               <DollarSign size={14} /> Budget: {inq.budget}
                             </span>
                           )}
                           {inq.timeline && (
-                            <span style={{ padding: "0.3rem 0.75rem", borderRadius: "20px", fontSize: "0.8rem", fontWeight: 700, backgroundColor: "#eff6ff", color: "#1d4ed8", border: "1px solid #bfdbfe", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
+                            <span style={{ padding: "0.3rem 0.75rem", borderRadius: "20px", fontSize: "0.8rem", fontWeight: 700, backgroundColor: "rgba(59, 130, 246, 0.12)", color: "var(--accent-2)", border: "1px solid rgba(59, 130, 246, 0.25)", display: "inline-flex", alignItems: "center", gap: "0.3rem" }}>
                               <Clock size={14} /> Target Timeline: {inq.timeline}
                             </span>
                           )}
@@ -1069,11 +1085,11 @@ const AdminDashboard = () => {
 
                         {/* Project Description / Scope */}
                         {inq.projectDescription && (
-                          <div style={{ backgroundColor: "#faf8f9", padding: "1.1rem 1.4rem", borderRadius: "12px", border: "1px solid #f0e6e8", marginBottom: "1rem" }}>
-                            <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "#7e3a41", textTransform: "uppercase", marginBottom: "0.4rem", letterSpacing: "0.6px" }}>
+                          <div style={{ backgroundColor: "var(--bg-alt)", padding: "1.1rem 1.4rem", borderRadius: "12px", border: "1px solid var(--border)", marginBottom: "1rem" }}>
+                            <div style={{ fontSize: "0.75rem", fontWeight: 800, color: "var(--primary)", textTransform: "uppercase", marginBottom: "0.4rem", letterSpacing: "0.6px" }}>
                               Client Project Scope & Deliverables:
                             </div>
-                            <p style={{ margin: 0, fontSize: "0.92rem", color: "#3d3d3d", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
+                            <p style={{ margin: 0, fontSize: "0.92rem", color: "var(--text)", lineHeight: 1.6, whiteSpace: "pre-wrap" }}>
                               {inq.projectDescription}
                             </p>
                           </div>
@@ -1081,21 +1097,21 @@ const AdminDashboard = () => {
 
                         {/* Admin Notes / Milestones Callout */}
                         {inq.adminNotes ? (
-                          <div style={{ backgroundColor: "#f0f9ff", borderLeft: "4px solid #0284c7", padding: "1rem 1.35rem", borderRadius: "0 10px 10px 0" }}>
+                          <div style={{ backgroundColor: "var(--bg-alt)", borderLeft: "4px solid var(--accent-2)", padding: "1rem 1.35rem", borderRadius: "0 10px 10px 0" }}>
                             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.3rem" }}>
-                              <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "#0369a1", textTransform: "uppercase" }}>
+                              <span style={{ fontSize: "0.78rem", fontWeight: 800, color: "var(--accent-2)", textTransform: "uppercase" }}>
                                 Zetawa Dark Admin Notes & Pipeline Updates:
                               </span>
                               {inq.estimatedCompletion && (
-                                <span style={{ fontSize: "0.78rem", color: "#0284c7", fontWeight: 700 }}>
+                                <span style={{ fontSize: "0.78rem", color: "var(--accent-2)", fontWeight: 700 }}>
                                   Target Window: {inq.estimatedCompletion}
                                 </span>
                               )}
                             </div>
-                            <p style={{ margin: 0, fontSize: "0.9rem", color: "#0c4a6e" }}>{inq.adminNotes}</p>
+                            <p style={{ margin: 0, fontSize: "0.9rem", color: "var(--text)" }}>{inq.adminNotes}</p>
                           </div>
                         ) : (
-                          <div style={{ fontSize: "0.82rem", color: "#999", fontStyle: "italic", padding: "0.4rem 0" }}>
+                          <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", fontStyle: "italic", padding: "0.4rem 0" }}>
                             No officer milestone notes entered yet. Click &quot;Update Status & Milestones&quot; to push progress updates to the client portal.
                           </div>
                         )}
@@ -1109,7 +1125,7 @@ const AdminDashboard = () => {
                   <div style={{
                     position: "fixed",
                     top: 0, left: 0, right: 0, bottom: 0,
-                    backgroundColor: "rgba(0,0,0,0.65)",
+                    backgroundColor: "var(--overlay)",
                     backdropFilter: "blur(8px)",
                     zIndex: 2000,
                     display: "flex",
@@ -1118,24 +1134,27 @@ const AdminDashboard = () => {
                     padding: "1rem"
                   }}>
                     <div style={{
-                      backgroundColor: "white",
-                      borderRadius: "20px",
+                      backgroundColor: "var(--surface-elevated)",
+                      borderRadius: "clamp(14px, 4vw, 20px)",
                       maxWidth: "580px",
                       width: "100%",
-                      padding: "2.25rem",
-                      boxShadow: "0 25px 60px rgba(0,0,0,0.3)",
-                      border: "1px solid #eee"
+                      padding: "clamp(1.25rem, 4vw, 2.25rem)",
+                      maxHeight: "min(90vh, 90dvh)",
+                      overflowY: "auto",
+                      boxShadow: "var(--shadow)",
+                      border: "1px solid var(--border)",
+                      boxSizing: "border-box"
                     }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                         <div>
-                          <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: "#2d2d2d", margin: 0 }}>
+                          <h3 style={{ fontSize: "1.4rem", fontWeight: 800, color: "var(--text)", margin: 0 }}>
                             Update Consultation Lifecycle
                           </h3>
-                          <p style={{ fontSize: "0.88rem", color: "#666", margin: "0.25rem 0 0" }}>
+                          <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", margin: "0.25rem 0 0" }}>
                             Client: <strong>{selectedInquiry.clientName}</strong> ({selectedInquiry.email})
                           </p>
                         </div>
-                        <button onClick={() => setSelectedInquiry(null)} style={{ background: "none", border: "none", cursor: "pointer", color: "#999" }}>
+                        <button onClick={() => setSelectedInquiry(null)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
                           <X size={22} />
                         </button>
                       </div>
@@ -1174,7 +1193,7 @@ const AdminDashboard = () => {
                             value={statusUpdateForm.adminNotes}
                             onChange={(e) => setStatusUpdateForm(prev => ({ ...prev, adminNotes: e.target.value }))}
                           />
-                          <span style={{ fontSize: "0.75rem", color: "#7e3a41", marginTop: "0.4rem", display: "block", fontWeight: 600 }}>
+                          <span style={{ fontSize: "0.75rem", color: "var(--primary)", marginTop: "0.4rem", display: "block", fontWeight: 600 }}>
                             💡 Client will see these progress updates in their authenticated User Profile portal.
                           </span>
                         </div>
@@ -1213,17 +1232,17 @@ const AdminDashboard = () => {
                   marginBottom: "1.75rem",
                   flexWrap: "wrap",
                   gap: "1rem",
-                  backgroundColor: "white",
+                  backgroundColor: "var(--surface)",
                   padding: "1.5rem 1.75rem",
                   borderRadius: "18px",
-                  border: "1px solid #e8e0e2",
-                  boxShadow: "0 2px 10px rgba(0,0,0,0.03)"
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow)"
                 }}>
                   <div>
-                    <h2 style={{ color: "#2d2d2d", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
+                    <h2 style={{ color: "var(--text)", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
                       Services & Engineering Offerings CMS
                     </h2>
-                    <p style={{ color: "#666", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
                       Manage public service offerings, technology stacks, bullet capabilities, and featured badges.
                     </p>
                   </div>
@@ -1260,13 +1279,13 @@ const AdminDashboard = () => {
                   marginBottom: "1.5rem",
                   flexWrap: "wrap",
                   gap: "1rem",
-                  backgroundColor: "white",
+                  backgroundColor: "var(--surface)",
                   padding: "1.1rem 1.4rem",
                   borderRadius: "16px",
-                  border: "1px solid #f0e6e8"
+                  border: "1px solid var(--border)"
                 }}>
                   <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center" }}>
-                    <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#777" }}>Filter:</span>
+                    <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--text-muted)" }}>Filter:</span>
                     <button
                       onClick={() => setServiceCategoryFilter("all")}
                       style={{
@@ -1276,8 +1295,8 @@ const AdminDashboard = () => {
                         fontSize: "0.82rem",
                         fontWeight: 700,
                         cursor: "pointer",
-                        backgroundColor: serviceCategoryFilter === "all" ? "#7e3a41" : "#f1eaeb",
-                        color: serviceCategoryFilter === "all" ? "white" : "#603036"
+                        backgroundColor: serviceCategoryFilter === "all" ? "var(--primary)" : "var(--bg-alt)",
+                        color: serviceCategoryFilter === "all" ? "var(--primary-contrast)" : "var(--text-muted)"
                       }}>
                       All ({services.length})
                     </button>
@@ -1294,8 +1313,8 @@ const AdminDashboard = () => {
                             fontSize: "0.82rem",
                             fontWeight: 700,
                             cursor: "pointer",
-                            backgroundColor: serviceCategoryFilter === cat.id ? "#7e3a41" : "#f1eaeb",
-                            color: serviceCategoryFilter === cat.id ? "white" : "#603036"
+                            backgroundColor: serviceCategoryFilter === cat.id ? "var(--primary)" : "var(--bg-alt)",
+                            color: serviceCategoryFilter === cat.id ? "var(--primary-contrast)" : "var(--text-muted)"
                           }}>
                           {cat.label} ({count})
                         </button>
@@ -1303,14 +1322,14 @@ const AdminDashboard = () => {
                     })}
                   </div>
 
-                  <div style={{ position: "relative", minWidth: "260px" }}>
-                    <Search size={16} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#999" }} />
+                  <div style={{ position: "relative", minWidth: "min(100%, 250px)", flex: 1 }}>
+                    <Search size={16} style={{ position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-muted)" }} />
                     <input
                       type="text"
                       placeholder="Search services, tech, capabilities..."
                       value={serviceSearchQuery}
                       onChange={(e) => setServiceSearchQuery(e.target.value)}
-                      style={{ ...inputStyle, paddingLeft: "2.4rem", backgroundColor: "#faf8f9" }}
+                      style={{ ...inputStyle, paddingLeft: "2.4rem", backgroundColor: "var(--input-bg)" }}
                     />
                   </div>
                 </div>
@@ -1318,31 +1337,32 @@ const AdminDashboard = () => {
                 {/* Form Section */}
                 {showAddForm && (
                   <form onSubmit={handleServiceSubmit} style={{
-                    backgroundColor: "white",
-                    borderRadius: "20px",
-                    padding: "2.25rem",
+                    backgroundColor: "var(--surface)",
+                    borderRadius: "clamp(14px, 4vw, 20px)",
+                    padding: "clamp(1.25rem, 4vw, 2.25rem)",
                     marginBottom: "2.5rem",
-                    boxShadow: "0 12px 35px rgba(126, 58, 65, 0.09)",
-                    border: "2px solid #7e3a41"
+                    boxShadow: "var(--shadow)",
+                    border: "2px solid var(--primary)",
+                    boxSizing: "border-box"
                   }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.75rem", borderBottom: "1px solid #f0e6e8", paddingBottom: "1.25rem" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.75rem", borderBottom: "1px solid var(--border)", paddingBottom: "1.25rem" }}>
                       <div>
-                        <h3 style={{ margin: 0, color: "#7e3a41", fontSize: "1.4rem", fontWeight: 800 }}>
+                        <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.4rem", fontWeight: 800 }}>
                           {editingId ? "Edit Service Offering" : "Add New Service Offering"}
                         </h3>
-                        <p style={{ margin: "0.25rem 0 0", color: "#777", fontSize: "0.88rem" }}>
+                        <p style={{ margin: "0.25rem 0 0", color: "var(--text-muted)", fontSize: "0.88rem" }}>
                           Fill out the comprehensive service profile to showcase on the services portal.
                         </p>
                       </div>
                       <button
                         type="button"
                         onClick={() => { setShowAddForm(false); setEditingId(null); setServiceForm({ ...DEFAULT_SERVICE_FORM }); }}
-                        style={{ background: "none", border: "none", cursor: "pointer", color: "#888", padding: "0.5rem" }}>
+                        style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: "0.5rem" }}>
                         <X size={22} />
                       </button>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
                       <div>
                         <label style={labelStyle}>Service Title *</label>
                         <input
@@ -1379,7 +1399,7 @@ const AdminDashboard = () => {
                             <span
                               key={i}
                               onClick={() => handleChange("service", "highlight", bp)}
-                              style={{ fontSize: "0.72rem", padding: "0.15rem 0.5rem", background: "#f5eff0", color: "#7e3a41", borderRadius: "4px", cursor: "pointer", fontWeight: 600 }}>
+                              style={{ fontSize: "0.72rem", padding: "0.15rem 0.5rem", background: "var(--bg-alt)", color: "var(--primary)", borderRadius: "4px", cursor: "pointer", fontWeight: 600 }}>
                               + {bp}
                             </span>
                           ))}
@@ -1419,7 +1439,7 @@ const AdminDashboard = () => {
                     </div>
 
                     {/* Icon Selection */}
-                    <div style={{ marginBottom: "1.5rem", padding: "1.35rem", background: "#faf8f9", borderRadius: "14px", border: "1px solid #f0e6e8" }}>
+                    <div style={{ marginBottom: "1.5rem", padding: "1.35rem", background: "var(--bg-alt)", borderRadius: "14px", border: "1px solid var(--border)" }}>
                       <label style={{ ...labelStyle, marginBottom: "0.75rem" }}>Select Service Icon</label>
                       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "0.65rem" }}>
                         {ICON_PICKER_OPTIONS.map(opt => {
@@ -1436,9 +1456,9 @@ const AdminDashboard = () => {
                                 gap: "0.55rem",
                                 padding: "0.65rem 0.85rem",
                                 borderRadius: "10px",
-                                border: isSelected ? "2px solid #7e3a41" : "1px solid #ddd",
-                                backgroundColor: isSelected ? "#7e3a41" : "white",
-                                color: isSelected ? "white" : "#444",
+                                border: isSelected ? "2px solid var(--primary)" : "1px solid var(--border)",
+                                backgroundColor: isSelected ? "var(--primary)" : "var(--surface)",
+                                color: isSelected ? "var(--primary-contrast)" : "var(--text)",
                                 cursor: "pointer",
                                 fontSize: "0.82rem",
                                 fontWeight: isSelected ? 700 : 600,
@@ -1454,13 +1474,13 @@ const AdminDashboard = () => {
                     </div>
 
                     {/* Capabilities Builder */}
-                    <div style={{ marginBottom: "1.5rem", padding: "1.35rem", background: "#faf8f9", borderRadius: "14px", border: "1px solid #f0e6e8" }}>
+                    <div style={{ marginBottom: "1.5rem", padding: "1.35rem", background: "var(--bg-alt)", borderRadius: "14px", border: "1px solid var(--border)" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem" }}>
                         <label style={{ ...labelStyle, margin: 0 }}>Core Capabilities & Deliverables ({serviceForm.capabilities?.length || 0})</label>
                         <button
                           type="button"
                           onClick={() => setIsBulkCapMode(!isBulkCapMode)}
-                          style={{ fontSize: "0.78rem", background: "none", border: "none", color: "#7e3a41", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}>
+                          style={{ fontSize: "0.78rem", background: "none", border: "none", color: "var(--primary)", fontWeight: 700, cursor: "pointer", textDecoration: "underline" }}>
                           {isBulkCapMode ? "Switch to single input" : "Bulk Paste Multi-line"}
                         </button>
                       </div>
@@ -1501,7 +1521,7 @@ const AdminDashboard = () => {
                       <div style={{ display: "flex", flexDirection: "column", gap: "0.55rem", marginTop: "0.85rem" }}>
                         {(serviceForm.capabilities || []).map((cap, idx) => (
                           <div key={idx} style={{ display: "flex", gap: "0.6rem", alignItems: "center" }}>
-                            <span style={{ color: "#7e3a41", fontWeight: 800, fontSize: "0.85rem", width: "20px" }}>{idx + 1}.</span>
+                            <span style={{ color: "var(--primary)", fontWeight: 800, fontSize: "0.85rem", width: "20px" }}>{idx + 1}.</span>
                             <input
                               style={{ ...inputStyle, padding: "0.55rem 0.85rem" }}
                               value={cap}
@@ -1510,7 +1530,7 @@ const AdminDashboard = () => {
                             <button
                               type="button"
                               onClick={() => handleDeleteCapability(idx)}
-                              style={{ background: "none", border: "none", color: "#dc3545", cursor: "pointer", padding: "0.4rem" }}>
+                              style={{ background: "none", border: "none", color: "var(--danger)", cursor: "pointer", padding: "0.4rem" }}>
                               <Trash2 size={16} />
                             </button>
                           </div>
@@ -1519,7 +1539,7 @@ const AdminDashboard = () => {
                     </div>
 
                     {/* Tech Stack Chips */}
-                    <div style={{ marginBottom: "1.5rem", padding: "1.35rem", background: "#faf8f9", borderRadius: "14px", border: "1px solid #f0e6e8" }}>
+                    <div style={{ marginBottom: "1.5rem", padding: "1.35rem", background: "var(--bg-alt)", borderRadius: "14px", border: "1px solid var(--border)" }}>
                       <label style={labelStyle}>Technologies & Frameworks</label>
                       <div style={{ display: "flex", gap: "0.6rem", marginBottom: "0.75rem" }}>
                         <input
@@ -1538,7 +1558,7 @@ const AdminDashboard = () => {
                       </div>
 
                       <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap", marginBottom: "0.85rem" }}>
-                        <span style={{ fontSize: "0.75rem", color: "#777", alignSelf: "center", marginRight: "0.25rem", fontWeight: 600 }}>Quick Presets:</span>
+                        <span style={{ fontSize: "0.75rem", color: "var(--text-muted)", alignSelf: "center", marginRight: "0.25rem", fontWeight: 600 }}>Quick Presets:</span>
                         {TECH_PRESETS.map((t, idx) => (
                           <span
                             key={idx}
@@ -1546,10 +1566,10 @@ const AdminDashboard = () => {
                             style={{
                               padding: "0.2rem 0.55rem",
                               borderRadius: "6px",
-                              backgroundColor: "#fff",
-                              border: "1px solid #e0d0d2",
+                              backgroundColor: "var(--surface)",
+                              border: "1px solid var(--border)",
                               fontSize: "0.75rem",
-                              color: "#603036",
+                              color: "var(--text)",
                               cursor: "pointer",
                               fontWeight: 600
                             }}>
@@ -1565,8 +1585,8 @@ const AdminDashboard = () => {
                             style={{
                               padding: "0.35rem 0.75rem",
                               borderRadius: "20px",
-                              backgroundColor: "#7e3a41",
-                              color: "white",
+                              backgroundColor: "var(--primary)",
+                              color: "var(--primary-contrast)",
                               fontSize: "0.82rem",
                               fontWeight: 700,
                               display: "inline-flex",
@@ -1595,17 +1615,17 @@ const AdminDashboard = () => {
                 )}
 
                 {/* Service Cards Grid */}
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: "1.5rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: "1.5rem" }}>
                   {filteredServices.map(svc => {
                     const IconComponent = resolveIcon(svc.icon)
                     const isExpanded = expandedServiceIds.includes(svc._id)
                     return (
                       <div key={svc._id} style={{
-                        backgroundColor: "white",
+                        backgroundColor: "var(--surface)",
                         borderRadius: "18px",
-                        border: "1px solid #e8e0e2",
-                        padding: "1.75rem",
-                        boxShadow: "0 4px 14px rgba(0,0,0,0.03)",
+                        border: "1px solid var(--border)",
+                        padding: "clamp(1.1rem, 3vw, 1.75rem)",
+                        boxShadow: "var(--shadow)",
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "space-between"
@@ -1616,8 +1636,8 @@ const AdminDashboard = () => {
                               width: "48px",
                               height: "48px",
                               borderRadius: "12px",
-                              backgroundColor: "rgba(126, 58, 65, 0.09)",
-                              color: "#7e3a41",
+                              backgroundColor: "rgba(126, 58, 65, 0.12)",
+                              color: "var(--primary)",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "center"
@@ -1629,14 +1649,14 @@ const AdminDashboard = () => {
                               <button
                                 onClick={() => handleServiceEdit(svc)}
                                 className="action-icon-btn"
-                                style={{ background: "none", border: "none", cursor: "pointer", color: "#0066cc", padding: "0.4rem" }}
+                                style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)", padding: "0.4rem" }}
                                 title="Edit Service">
                                 <Edit3 size={18} />
                               </button>
                               <button
                                 onClick={() => handleServiceDelete(svc._id)}
                                 className="action-icon-btn"
-                                style={{ background: "none", border: "none", cursor: "pointer", color: "#dc3545", padding: "0.4rem" }}
+                                style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)", padding: "0.4rem" }}
                                 title="Delete Service">
                                 <Trash2 size={18} />
                               </button>
@@ -1650,23 +1670,23 @@ const AdminDashboard = () => {
                               borderRadius: "20px",
                               fontSize: "0.75rem",
                               fontWeight: 800,
-                              backgroundColor: "#f5eff0",
-                              color: "#7e3a41",
+                              backgroundColor: "var(--bg-alt)",
+                              color: "var(--primary)",
                               marginBottom: "0.6rem"
                             }}>
                               {svc.highlight}
                             </span>
                           )}
 
-                          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "#2d2d2d", marginBottom: "0.4rem" }}>
+                          <h3 style={{ fontSize: "1.25rem", fontWeight: 800, color: "var(--text)", marginBottom: "0.4rem" }}>
                             {svc.title}
                           </h3>
 
-                          <p style={{ fontSize: "0.88rem", color: "#777", marginBottom: "0.85rem", fontStyle: "italic" }}>
+                          <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", marginBottom: "0.85rem", fontStyle: "italic" }}>
                             {svc.tagline}
                           </p>
 
-                          <p style={{ fontSize: "0.88rem", color: "#555", lineHeight: 1.55, marginBottom: "1.1rem" }}>
+                          <p style={{ fontSize: "0.88rem", color: "var(--text)", lineHeight: 1.55, marginBottom: "1.1rem" }}>
                             {svc.description}
                           </p>
 
@@ -1674,15 +1694,15 @@ const AdminDashboard = () => {
                           <div style={{ marginBottom: "1rem" }}>
                             <div
                               onClick={() => handleToggleExpandService(svc._id)}
-                              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "0.5rem 0", borderTop: "1px solid #f0f0f0", borderBottom: "1px solid #f0f0f0", marginBottom: "0.5rem" }}>
-                              <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "#7e3a41" }}>
+                              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", cursor: "pointer", padding: "0.5rem 0", borderTop: "1px solid var(--border)", borderBottom: "1px solid var(--border)", marginBottom: "0.5rem" }}>
+                              <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--primary)" }}>
                                 {svc.capabilities?.length || 0} Core Capabilities & Deliverables
                               </span>
-                              {isExpanded ? <ChevronUp size={16} color="#7e3a41" /> : <ChevronDown size={16} color="#7e3a41" />}
+                              {isExpanded ? <ChevronUp size={16} color="var(--primary)" /> : <ChevronDown size={16} color="var(--primary)" />}
                             </div>
 
                             {isExpanded && (
-                              <ul style={{ margin: "0.65rem 0", paddingLeft: "1.2rem", fontSize: "0.82rem", color: "#444" }}>
+                              <ul style={{ margin: "0.65rem 0", paddingLeft: "1.2rem", fontSize: "0.82rem", color: "var(--text-muted)" }}>
                                 {(svc.capabilities || []).map((c, i) => (
                                   <li key={i} style={{ marginBottom: "0.35rem", lineHeight: 1.45 }}>{c}</li>
                                 ))}
@@ -1698,8 +1718,8 @@ const AdminDashboard = () => {
                               <span key={i} style={{
                                 padding: "0.2rem 0.55rem",
                                 borderRadius: "6px",
-                                backgroundColor: "#f3f4f6",
-                                color: "#4b5563",
+                                backgroundColor: "var(--bg-alt)",
+                                color: "var(--text-muted)",
                                 fontSize: "0.75rem",
                                 fontWeight: 600
                               }}>
@@ -1727,17 +1747,17 @@ const AdminDashboard = () => {
                   marginBottom: "1.5rem",
                   flexWrap: "wrap",
                   gap: "1rem",
-                  backgroundColor: "white",
+                  backgroundColor: "var(--surface)",
                   padding: "1.5rem 1.75rem",
                   borderRadius: "18px",
-                  border: "1px solid #e8e0e2",
-                  boxShadow: "0 2px 10px rgba(0,0,0,0.03)"
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow)"
                 }}>
                   <div>
-                    <h2 style={{ color: "#2d2d2d", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
+                    <h2 style={{ color: "var(--text)", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
                       Career Openings & Fellowships
                     </h2>
-                    <p style={{ color: "#666", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
                       Manage open engineering, design, AI and internship listings visible on the Careers portal.
                     </p>
                   </div>
@@ -1750,46 +1770,46 @@ const AdminDashboard = () => {
                 </div>
 
                 {/* Careers Table */}
-                <div style={{ background: "white", borderRadius: "18px", overflow: "hidden", boxShadow: "0 4px 16px rgba(0,0,0,0.04)", border: "1px solid #e8e0e2" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
+                  <table style={{ width: "100%", minWidth: "680px", borderCollapse: "collapse" }}>
                     <thead>
-                      <tr style={{ background: "#faf8f9", borderBottom: "1.5px solid #ece4e6" }}>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Job Role</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Department</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Location</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Type</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Experience</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Apply Link</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
+                      <tr style={{ background: "var(--bg-alt)", borderBottom: "1.5px solid var(--border)" }}>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Job Role</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Department</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Location</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Type</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Experience</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Apply Link</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {careers.length === 0 ? (
-                        <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "#999" }}>No career opportunities posted yet</td></tr>
+                        <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No career opportunities posted yet</td></tr>
                       ) : careers.map(c => (
-                        <tr key={c._id} className="table-row-hover" style={{ borderTop: "1px solid #f2ebed", transition: "background 0.2s" }}>
-                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "#7e3a41" }}>{c.title}</td>
+                        <tr key={c._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
+                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>{c.title}</td>
                           <td style={{ padding: "1.1rem 1.25rem" }}>
-                            <span style={{ padding: "0.25rem 0.65rem", borderRadius: "6px", backgroundColor: "#f3f4f6", fontSize: "0.78rem", fontWeight: 600, color: "#444" }}>
+                            <span style={{ padding: "0.25rem 0.65rem", borderRadius: "6px", backgroundColor: "var(--bg-alt)", fontSize: "0.78rem", fontWeight: 600, color: "var(--text)" }}>
                               {c.department || "General"}
                             </span>
                           </td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#555", fontSize: "0.88rem" }}>{c.location || "Remote"}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#555", fontSize: "0.88rem" }}>{c.type || "Full-time"}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#666", fontSize: "0.88rem" }}>{c.experience || "Any"}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{c.location || "Remote"}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{c.type || "Full-time"}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{c.experience || "Any"}</td>
                           <td style={{ padding: "1.1rem 1.25rem" }}>
                             {c.applyLink ? (
-                              <a href={c.applyLink} target="_blank" rel="noopener noreferrer" style={{ color: "#0284c7", display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 600, textDecoration: "none" }}>
+                              <a href={c.applyLink} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-2)", display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 600, textDecoration: "none" }}>
                                 <ExternalLink size={14} /> Open Form
                               </a>
                             ) : (
-                              <span style={{ color: "#aaa", fontSize: "0.82rem" }}>Official Form</span>
+                              <span style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>Official Form</span>
                             )}
                           </td>
                           <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
                             <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center" }}>
-                              <button onClick={() => handleCareerEdit(c)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "#0284c7" }} title="Edit"><Edit3 size={17} /></button>
-                              <button onClick={() => handleCareerDelete(c._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "#dc3545" }} title="Delete"><Trash2 size={17} /></button>
+                              <button onClick={() => handleCareerEdit(c)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }} title="Edit"><Edit3 size={17} /></button>
+                              <button onClick={() => handleCareerDelete(c._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)" }} title="Delete"><Trash2 size={17} /></button>
                             </div>
                           </td>
                         </tr>
@@ -1801,23 +1821,24 @@ const AdminDashboard = () => {
                 {/* Add / Edit Career Form */}
                 {showAddForm && (
                   <form onSubmit={handleCareerSubmit} style={{
-                    background: "white",
-                    borderRadius: "20px",
-                    padding: "2.25rem",
+                    background: "var(--surface)",
+                    borderRadius: "clamp(14px, 4vw, 20px)",
+                    padding: "clamp(1.25rem, 4vw, 2.25rem)",
                     marginTop: "2rem",
-                    boxShadow: "0 12px 35px rgba(126, 58, 65, 0.09)",
-                    border: "2px solid #7e3a41"
+                    boxShadow: "var(--shadow)",
+                    border: "2px solid var(--primary)",
+                    boxSizing: "border-box"
                   }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-                      <h3 style={{ margin: 0, color: "#2d2d2d", fontSize: "1.35rem", fontWeight: 800 }}>
+                      <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.35rem", fontWeight: 800 }}>
                         {editingId ? "Edit Career Opportunity" : "Create New Opportunity"}
                       </h3>
-                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "#999" }}>
+                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
                         <X size={20} />
                       </button>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
                       <div>
                         <label style={labelStyle}>Job Role Title *</label>
                         <input style={inputStyle} placeholder="e.g. Senior Full-Stack Engineer" required
@@ -1881,17 +1902,17 @@ const AdminDashboard = () => {
                   marginBottom: "1.5rem",
                   flexWrap: "wrap",
                   gap: "1rem",
-                  backgroundColor: "white",
+                  backgroundColor: "var(--surface)",
                   padding: "1.5rem 1.75rem",
                   borderRadius: "18px",
-                  border: "1px solid #e8e0e2",
-                  boxShadow: "0 2px 10px rgba(0,0,0,0.03)"
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow)"
                 }}>
                   <div>
-                    <h2 style={{ color: "#2d2d2d", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
+                    <h2 style={{ color: "var(--text)", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
                       Press Releases & Corporate Disclosures
                     </h2>
-                    <p style={{ color: "#666", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
                       Publish official news, strategic announcements, and media statements.
                     </p>
                   </div>
@@ -1903,40 +1924,40 @@ const AdminDashboard = () => {
                   )}
                 </div>
 
-                <div style={{ background: "white", borderRadius: "18px", overflow: "hidden", boxShadow: "0 4px 16px rgba(0,0,0,0.04)", border: "1px solid #e8e0e2" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
+                  <table style={{ width: "100%", minWidth: "680px", borderCollapse: "collapse" }}>
                     <thead>
-                      <tr style={{ background: "#faf8f9", borderBottom: "1.5px solid #ece4e6" }}>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Title</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Date</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Category / Type</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Source</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Fiscal Year</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Link</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
+                      <tr style={{ background: "var(--bg-alt)", borderBottom: "1.5px solid var(--border)" }}>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Title</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Date</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Category / Type</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Source</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Fiscal Year</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Link</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {pressReleases.length === 0 ? (
-                        <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "#999" }}>No press releases published yet</td></tr>
+                        <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No press releases published yet</td></tr>
                       ) : pressReleases.map(pr => (
-                        <tr key={pr._id} className="table-row-hover" style={{ borderTop: "1px solid #f2ebed", transition: "background 0.2s" }}>
-                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "#7e3a41" }}>{pr.title}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#666", fontSize: "0.88rem" }}>{pr.date}</td>
-                          <td style={{ padding: "1.1rem 1.25rem" }}><span style={{ padding: "0.25rem 0.65rem", borderRadius: "6px", backgroundColor: "#f3f4f6", fontSize: "0.78rem", fontWeight: 600, color: "#444" }}>{pr.type}</span></td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#666", fontSize: "0.88rem" }}>{pr.source}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#666", fontSize: "0.88rem" }}>{pr.year}</td>
+                        <tr key={pr._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
+                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>{pr.title}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.date}</td>
+                          <td style={{ padding: "1.1rem 1.25rem" }}><span style={{ padding: "0.25rem 0.65rem", borderRadius: "6px", backgroundColor: "var(--bg-alt)", fontSize: "0.78rem", fontWeight: 600, color: "var(--text)" }}>{pr.type}</span></td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.source}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.year}</td>
                           <td style={{ padding: "1.1rem 1.25rem" }}>
                             {pr.linkedinUrl && (
-                              <a href={pr.linkedinUrl} target="_blank" rel="noopener noreferrer" style={{ color: "#0284c7", display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 600, textDecoration: "none" }}>
+                              <a href={pr.linkedinUrl} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-2)", display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 600, textDecoration: "none" }}>
                                 <ExternalLink size={14} /> View
                               </a>
                             )}
                           </td>
                           <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
                             <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center" }}>
-                              <button onClick={() => handlePrEdit(pr)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "#0284c7" }} title="Edit"><Edit3 size={17} /></button>
-                              <button onClick={() => handlePrDelete(pr._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "#dc3545" }} title="Delete"><Trash2 size={17} /></button>
+                              <button onClick={() => handlePrEdit(pr)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }} title="Edit"><Edit3 size={17} /></button>
+                              <button onClick={() => handlePrDelete(pr._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)" }} title="Delete"><Trash2 size={17} /></button>
                             </div>
                           </td>
                         </tr>
@@ -1947,23 +1968,24 @@ const AdminDashboard = () => {
 
                 {showAddForm && (
                   <form onSubmit={handlePrSubmit} style={{
-                    background: "white",
-                    borderRadius: "20px",
-                    padding: "2.25rem",
+                    background: "var(--surface)",
+                    borderRadius: "clamp(14px, 4vw, 20px)",
+                    padding: "clamp(1.25rem, 4vw, 2.25rem)",
                     marginTop: "2rem",
-                    boxShadow: "0 12px 35px rgba(126, 58, 65, 0.09)",
-                    border: "2px solid #7e3a41"
+                    boxShadow: "var(--shadow)",
+                    border: "2px solid var(--primary)",
+                    boxSizing: "border-box"
                   }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-                      <h3 style={{ margin: 0, color: "#2d2d2d", fontSize: "1.35rem", fontWeight: 800 }}>
+                      <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.35rem", fontWeight: 800 }}>
                         {editingId ? "Edit Press Release" : "Add Press Release"}
                       </h3>
-                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "#999" }}>
+                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
                         <X size={20} />
                       </button>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
                       <div>
                         <label style={labelStyle}>Announcement Title *</label>
                         <input style={inputStyle} placeholder="e.g. Zetawa Dark Announces Next-Gen AI Solutions" required
@@ -2027,17 +2049,17 @@ const AdminDashboard = () => {
                   marginBottom: "1.5rem",
                   flexWrap: "wrap",
                   gap: "1rem",
-                  backgroundColor: "white",
+                  backgroundColor: "var(--surface)",
                   padding: "1.5rem 1.75rem",
                   borderRadius: "18px",
-                  border: "1px solid #e8e0e2",
-                  boxShadow: "0 2px 10px rgba(0,0,0,0.03)"
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow)"
                 }}>
                   <div>
-                    <h2 style={{ color: "#2d2d2d", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
+                    <h2 style={{ color: "var(--text)", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
                       Certificate & Credential Registry
                     </h2>
-                    <p style={{ color: "#666", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
                       Issue, track, and validate official certificates issued by Zetawa Dark Private Limited.
                     </p>
                   </div>
@@ -2051,9 +2073,9 @@ const AdminDashboard = () => {
                         display: "inline-flex",
                         alignItems: "center",
                         gap: "0.45rem",
-                        backgroundColor: "#f0fdf4",
-                        color: "#166534",
-                        borderColor: "#bbf7d0",
+                        backgroundColor: "var(--bg-alt)",
+                        color: "var(--primary)",
+                        borderColor: "var(--border)",
                         fontWeight: 700
                       }}
                       title="Sync all local staged certificates directly to Cloudinary"
@@ -2069,39 +2091,39 @@ const AdminDashboard = () => {
                   </div>
                 </div>
 
-                <div style={{ background: "white", borderRadius: "18px", overflow: "hidden", boxShadow: "0 4px 16px rgba(0,0,0,0.04)", border: "1px solid #e8e0e2" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
+                  <table style={{ width: "100%", minWidth: "720px", borderCollapse: "collapse" }}>
                     <thead>
-                      <tr style={{ background: "#faf8f9", borderBottom: "1.5px solid #ece4e6" }}>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Certificate No.</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Recipient / Intern</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Domain / Course</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Issue Date</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Duration</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Cloudinary Document</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
+                      <tr style={{ background: "var(--bg-alt)", borderBottom: "1.5px solid var(--border)" }}>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Certificate No.</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Recipient / Intern</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Domain / Course</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Issue Date</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Duration</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Cloudinary Document</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {certificates.length === 0 ? (
-                        <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "#999" }}>No certificates issued yet</td></tr>
+                        <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No certificates issued yet</td></tr>
                       ) : certificates.map(c => (
-                        <tr key={c._id} className="table-row-hover" style={{ borderTop: "1px solid #f2ebed", transition: "background 0.2s" }}>
+                        <tr key={c._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
                           <td style={{ padding: "1.1rem 1.25rem" }}>
                             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                              <span style={{ fontWeight: 800, color: "#7e3a41", fontFamily: "monospace", fontSize: "0.95rem" }}>{c.certificateNumber}</span>
+                              <span style={{ fontWeight: 800, color: "var(--primary)", fontFamily: "monospace", fontSize: "0.95rem" }}>{c.certificateNumber}</span>
                               <button
                                 onClick={() => handleCopy(c.certificateNumber, c._id)}
-                                style={{ background: "none", border: "none", cursor: "pointer", color: copiedId === c._id ? "#16a34a" : "#999", padding: "0.2rem" }}
+                                style={{ background: "none", border: "none", cursor: "pointer", color: copiedId === c._id ? "var(--success)" : "var(--text-muted)", padding: "0.2rem" }}
                                 title="Copy ID">
                                 {copiedId === c._id ? <CheckCheck size={14} /> : <Copy size={14} />}
                               </button>
                             </div>
                           </td>
-                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "#2d2d2d" }}>{c.internName}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#555", fontSize: "0.88rem" }}>{c.course}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#666", fontSize: "0.88rem" }}>{c.issueDate}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#666", fontSize: "0.88rem" }}>{c.duration || "N/A"}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--text)" }}>{c.internName}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{c.course}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{c.issueDate}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{c.duration || "N/A"}</td>
                           <td style={{ padding: "1.1rem 1.25rem" }}>
                             {c.certificateFile ? (
                               <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", flexWrap: "wrap" }}>
@@ -2115,9 +2137,9 @@ const AdminDashboard = () => {
                                     gap: "0.35rem",
                                     padding: "0.35rem 0.75rem",
                                     borderRadius: "8px",
-                                    backgroundColor: c.certificateFile.startsWith('http') ? "#ecfdf5" : "#fdf2f4",
-                                    color: c.certificateFile.startsWith('http') ? "#065f46" : "#7e3a41",
-                                    border: c.certificateFile.startsWith('http') ? "1px solid #a7f3d0" : "1px solid #ecc9ce",
+                                    backgroundColor: c.certificateFile.startsWith('http') ? "rgba(16, 185, 129, 0.12)" : "var(--bg-alt)",
+                                    color: c.certificateFile.startsWith('http') ? "var(--success)" : "var(--primary)",
+                                    border: c.certificateFile.startsWith('http') ? "1px solid rgba(16, 185, 129, 0.25)" : "1px solid var(--border)",
                                     fontSize: "0.82rem",
                                     fontWeight: 700,
                                     textDecoration: "none"
@@ -2130,14 +2152,14 @@ const AdminDashboard = () => {
                                 {c.certificateFile.startsWith('http') && (
                                   <button
                                     onClick={() => handleCopy(c.certificateFile, `link-${c._id}`)}
-                                    style={{ background: "none", border: "none", cursor: "pointer", color: copiedId === `link-${c._id}` ? "#16a34a" : "#999", padding: "0.2rem" }}
+                                    style={{ background: "none", border: "none", cursor: "pointer", color: copiedId === `link-${c._id}` ? "var(--success)" : "var(--text-muted)", padding: "0.2rem" }}
                                     title="Copy Direct Cloudinary Link">
                                     {copiedId === `link-${c._id}` ? <CheckCheck size={14} /> : <Copy size={14} />}
                                   </button>
                                 )}
                               </div>
                             ) : (
-                              <span style={{ color: "#aaa", fontSize: "0.82rem", fontStyle: "italic" }}>No document</span>
+                              <span style={{ color: "var(--text-muted)", fontSize: "0.82rem", fontStyle: "italic" }}>No document</span>
                             )}
                           </td>
                           <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
@@ -2157,11 +2179,11 @@ const AdminDashboard = () => {
                                   setShowAddForm(true)
                                 }}
                                 className="action-icon-btn"
-                                style={{ background: "none", border: "none", cursor: "pointer", color: "#0284c7" }}
+                                style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }}
                                 title="Edit Certificate">
                                 <Edit3 size={17} />
                               </button>
-                              <button onClick={() => handleCertDelete(c._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "#dc3545" }} title="Delete">
+                              <button onClick={() => handleCertDelete(c._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)" }} title="Delete">
                                 <Trash2 size={17} />
                               </button>
                             </div>
@@ -2174,23 +2196,24 @@ const AdminDashboard = () => {
 
                 {showAddForm && (
                   <form onSubmit={handleCertSubmit} style={{
-                    background: "white",
-                    borderRadius: "20px",
-                    padding: "2.25rem",
+                    background: "var(--surface)",
+                    borderRadius: "clamp(14px, 4vw, 20px)",
+                    padding: "clamp(1.25rem, 4vw, 2.25rem)",
                     marginTop: "2rem",
-                    boxShadow: "0 12px 35px rgba(126, 58, 65, 0.09)",
-                    border: "2px solid #7e3a41"
+                    boxShadow: "var(--shadow)",
+                    border: "2px solid var(--primary)",
+                    boxSizing: "border-box"
                   }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-                      <h3 style={{ margin: 0, color: "#2d2d2d", fontSize: "1.35rem", fontWeight: 800 }}>
+                      <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.35rem", fontWeight: 800 }}>
                         {editingId ? "Edit Certificate Credential" : "Issue Official Certificate"}
                       </h3>
-                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "#999" }}>
+                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
                         <X size={20} />
                       </button>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
                       <div>
                         <label style={labelStyle}>Unique Certificate ID *</label>
                         <input style={inputStyle} placeholder="e.g. ZD-2025-ENG-088" required
@@ -2257,17 +2280,17 @@ const AdminDashboard = () => {
                   marginBottom: "1.5rem",
                   flexWrap: "wrap",
                   gap: "1rem",
-                  backgroundColor: "white",
+                  backgroundColor: "var(--surface)",
                   padding: "1.5rem 1.75rem",
                   borderRadius: "18px",
-                  border: "1px solid #e8e0e2",
-                  boxShadow: "0 2px 10px rgba(0,0,0,0.03)"
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow)"
                 }}>
                   <div>
-                    <h2 style={{ color: "#2d2d2d", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
+                    <h2 style={{ color: "var(--text)", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
                       Latest Announcements & Notices
                     </h2>
-                    <p style={{ color: "#666", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
                       Manage quick notifications, service advisories, and system updates.
                     </p>
                   </div>
@@ -2279,22 +2302,22 @@ const AdminDashboard = () => {
                   )}
                 </div>
 
-                <div style={{ background: "white", borderRadius: "18px", overflow: "hidden", boxShadow: "0 4px 16px rgba(0,0,0,0.04)", border: "1px solid #e8e0e2" }}>
-                  <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
+                  <table style={{ width: "100%", minWidth: "600px", borderCollapse: "collapse" }}>
                     <thead>
-                      <tr style={{ background: "#faf8f9", borderBottom: "1.5px solid #ece4e6" }}>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Notice Title</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Date</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Description</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "#522026", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
+                      <tr style={{ background: "var(--bg-alt)", borderBottom: "1.5px solid var(--border)" }}>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Notice Title</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Date</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Description</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {latestUpdates.length === 0 ? (
-                        <tr><td colSpan={4} style={{ padding: "4rem 2rem", textAlign: "center", color: "#999" }}>No notices posted yet</td></tr>
+                        <tr><td colSpan={4} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No notices posted yet</td></tr>
                       ) : latestUpdates.map(lu => (
-                        <tr key={lu._id} className="table-row-hover" style={{ borderTop: "1px solid #f2ebed", transition: "background 0.2s" }}>
-                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "#7e3a41" }}>
+                        <tr key={lu._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
+                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>
                             <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                               <span>{lu.title}</span>
                               {lu.file && (
@@ -2302,7 +2325,7 @@ const AdminDashboard = () => {
                                   href={lu.file.startsWith('http') ? lu.file : `/${lu.file}`}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  style={{ color: "#7e3a41", display: "inline-flex", alignItems: "center" }}
+                                  style={{ color: "var(--primary)", display: "inline-flex", alignItems: "center" }}
                                   title="View Attachment">
                                   <ExternalLink size={14} />
                                 </a>
@@ -2310,12 +2333,12 @@ const AdminDashboard = () => {
                             </div>
                           </td>
 
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#666", fontSize: "0.88rem" }}>{lu.date}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "#555", fontSize: "0.88rem", maxWidth: "420px" }}>{lu.description}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{lu.date}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem", maxWidth: "420px" }}>{lu.description}</td>
                           <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
                             <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center" }}>
-                              <button onClick={() => handleLuEdit(lu)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "#0284c7" }} title="Edit"><Edit3 size={17} /></button>
-                              <button onClick={() => handleLuDelete(lu._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "#dc3545" }} title="Delete"><Trash2 size={17} /></button>
+                              <button onClick={() => handleLuEdit(lu)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }} title="Edit"><Edit3 size={17} /></button>
+                              <button onClick={() => handleLuDelete(lu._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)" }} title="Delete"><Trash2 size={17} /></button>
                             </div>
                           </td>
                         </tr>
@@ -2326,23 +2349,24 @@ const AdminDashboard = () => {
 
                 {showAddForm && (
                   <form onSubmit={handleLuSubmit} style={{
-                    background: "white",
-                    borderRadius: "20px",
-                    padding: "2.25rem",
+                    background: "var(--surface)",
+                    borderRadius: "clamp(14px, 4vw, 20px)",
+                    padding: "clamp(1.25rem, 4vw, 2.25rem)",
                     marginTop: "2rem",
-                    boxShadow: "0 12px 35px rgba(126, 58, 65, 0.09)",
-                    border: "2px solid #7e3a41"
+                    boxShadow: "var(--shadow)",
+                    border: "2px solid var(--primary)",
+                    boxSizing: "border-box"
                   }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-                      <h3 style={{ margin: 0, color: "#2d2d2d", fontSize: "1.35rem", fontWeight: 800 }}>
+                      <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.35rem", fontWeight: 800 }}>
                         {editingId ? "Edit Notice" : "Post Notice"}
                       </h3>
-                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "#999" }}>
+                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
                         <X size={20} />
                       </button>
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
                       <div>
                         <label style={labelStyle}>Notice Title *</label>
                         <input style={inputStyle} placeholder="e.g. Scheduled Infrastructure Maintenance" required

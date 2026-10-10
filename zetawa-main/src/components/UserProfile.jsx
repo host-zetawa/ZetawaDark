@@ -105,8 +105,9 @@ const UserProfile = () => {
 
   return (
     <div style={{ 
-      fontFamily: 'system-ui, -apple-system, sans-serif',
-      backgroundColor: '#f8f6f7',
+      fontFamily: 'var(--font-family, system-ui, -apple-system, sans-serif)',
+      backgroundColor: 'var(--bg)',
+      color: 'var(--text)',
       minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column'
@@ -117,14 +118,15 @@ const UserProfile = () => {
         
         {/* User Hero Banner */}
         <div style={{
-          background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
+          background: 'var(--banner-cta-bg)',
           borderRadius: '24px',
           padding: 'clamp(1.5rem, 4vw, 2.5rem)',
-          color: 'white',
-          boxShadow: '0 12px 36px rgba(126, 58, 65, 0.18)',
+          color: 'var(--banner-cta-text)',
+          boxShadow: 'var(--shadow-lg)',
           marginBottom: '2.5rem',
           position: 'relative',
-          overflow: 'hidden'
+          overflow: 'hidden',
+          border: '1px solid var(--banner-cta-border)'
         }}>
           <div style={{
             position: 'absolute',
@@ -132,7 +134,7 @@ const UserProfile = () => {
             right: '-50px',
             width: '200px',
             height: '200px',
-            background: 'radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%)',
+            background: 'radial-gradient(circle, rgba(217, 107, 20, 0.12) 0%, transparent 70%)',
             borderRadius: '50%'
           }} />
 
@@ -142,31 +144,31 @@ const UserProfile = () => {
                 width: '64px',
                 height: '64px',
                 borderRadius: '50%',
-                background: 'linear-gradient(135deg, #ffffff 0%, #f0e1e3 100%)',
-                color: '#7e3a41',
+                background: 'var(--surface)',
+                color: 'var(--primary)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 fontSize: '1.75rem',
                 fontWeight: 800,
-                boxShadow: '0 6px 20px rgba(0,0,0,0.2)',
-                border: '3px solid rgba(255,255,255,0.4)',
+                boxShadow: 'var(--shadow-md)',
+                border: '3px solid var(--border)',
                 flexShrink: 0
               }}>
                 {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
               </div>
               <div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.3rem', flexWrap: 'wrap' }}>
-                  <h1 style={{ fontSize: 'clamp(1.3rem, 3.5vw, 1.8rem)', fontWeight: 800, margin: 0 }}>
+                  <h1 style={{ fontSize: 'clamp(1.3rem, 3.5vw, 1.8rem)', fontWeight: 800, margin: 0, color: 'var(--banner-cta-text)' }}>
                     {user?.name || 'Client Portal'}
                   </h1>
                   {isAdmin && (
-                    <span style={{ backgroundColor: 'rgba(255,255,255,0.2)', border: '1px solid rgba(255,255,255,0.4)', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 700 }}>
+                    <span style={{ backgroundColor: 'var(--surface)', border: '1px solid var(--border)', padding: '0.2rem 0.6rem', borderRadius: '12px', fontSize: '0.75rem', fontWeight: 700, color: 'var(--text)' }}>
                       Admin
                     </span>
                   )}
                 </div>
-                <p style={{ margin: 0, opacity: 0.9, fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                <p style={{ margin: 0, opacity: 0.9, fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--banner-cta-text-muted)' }}>
                   <Mail size={15} /> {user?.email || 'N/A'}
                 </p>
               </div>
@@ -176,18 +178,21 @@ const UserProfile = () => {
               <Link
                 to="/hireforms"
                 style={{
-                  backgroundColor: 'white',
-                  color: '#7e3a41',
+                  backgroundColor: 'var(--accent-orange, #f28c28)',
+                  color: '#ffffff',
                   padding: '0.75rem 1.4rem',
+                  minHeight: '44px',
                   borderRadius: '12px',
                   fontWeight: 700,
                   fontSize: '0.9rem',
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: '0.4rem',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.15)',
-                  transition: 'transform 0.2s ease'
+                  boxShadow: '0 4px 14px rgba(242, 140, 40, 0.3)',
+                  transition: 'transform 0.2s ease',
+                  touchAction: 'manipulation'
                 }}>
                 <Plus size={16} /> Start New Project Consultation
               </Link>
@@ -196,17 +201,20 @@ const UserProfile = () => {
                 <button
                   onClick={() => navigate('/admin')}
                   style={{
-                    backgroundColor: 'rgba(255,255,255,0.15)',
-                    color: 'white',
-                    border: '1.5px solid rgba(255,255,255,0.4)',
+                    backgroundColor: 'var(--banner-cta-btn-sec-bg)',
+                    color: 'var(--banner-cta-btn-sec-color)',
+                    border: '1.5px solid var(--banner-cta-btn-sec-border)',
                     padding: '0.75rem 1.2rem',
+                    minHeight: '44px',
                     borderRadius: '12px',
                     fontWeight: 700,
                     fontSize: '0.9rem',
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.4rem'
+                    justifyContent: 'center',
+                    gap: '0.4rem',
+                    touchAction: 'manipulation'
                   }}>
                   <Shield size={16} /> Admin Command Center
                 </button>
@@ -217,26 +225,26 @@ const UserProfile = () => {
           {/* Quick Metrics Bar */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 140px), 1fr))',
             gap: '1rem',
             marginTop: '2rem',
             paddingTop: '1.5rem',
-            borderTop: '1px solid rgba(255,255,255,0.18)'
+            borderTop: '1px solid var(--banner-cta-border)'
           }}>
             <div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>Total Projects</div>
-              <div style={{ fontSize: '1.6rem', fontWeight: 800 }}>{inquiries.length}</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600, color: 'var(--banner-cta-text-muted)' }}>Total Projects</div>
+              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--banner-cta-text)' }}>{inquiries.length}</div>
             </div>
             <div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>Active Pipelines</div>
-              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#fef08a' }}>{activeCount}</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600, color: 'var(--banner-cta-text-muted)' }}>Active Pipelines</div>
+              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--accent)' }}>{activeCount}</div>
             </div>
             <div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>Completed & Shipped</div>
-              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: '#86efac' }}>{completedCount}</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600, color: 'var(--banner-cta-text-muted)' }}>Completed & Shipped</div>
+              <div style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--success, #16a34a)' }}>{completedCount}</div>
             </div>
             <div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600 }}>Engineering Squad</div>
+              <div style={{ fontSize: '0.75rem', opacity: 0.8, textTransform: 'uppercase', fontWeight: 600, color: 'var(--banner-cta-text-muted)' }}>Engineering Squad</div>
               <div style={{ fontSize: '1rem', fontWeight: 700, marginTop: '0.4rem' }}>Zetawa Dark Sprint Squad</div>
             </div>
           </div>
@@ -245,26 +253,39 @@ const UserProfile = () => {
         {/* Section Header & Tabs */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
           <div>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: '#2d2d2d', margin: 0 }}>
+            <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--text)', margin: 0 }}>
               My Projects & Service Inquiries
             </h2>
-            <p style={{ color: '#666', fontSize: '0.9rem', margin: '0.2rem 0 0' }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', margin: '0.2rem 0 0' }}>
               Track real-time sprint milestones, status updates, and engineer feedback.
             </p>
           </div>
 
-          <div style={{ display: 'flex', gap: '0.4rem', background: 'white', padding: '0.35rem', borderRadius: '10px', border: '1px solid #e8e0e2' }}>
+          <div style={{
+            display: 'flex',
+            gap: '0.4rem',
+            background: 'var(--surface)',
+            padding: '0.35rem',
+            borderRadius: '10px',
+            border: '1px solid var(--border)',
+            overflowX: 'auto',
+            maxWidth: '100%',
+            WebkitOverflowScrolling: 'touch'
+          }}>
             <button
               onClick={() => setActiveTab('all')}
               style={{
                 padding: '0.4rem 0.85rem',
+                minHeight: '36px',
+                whiteSpace: 'nowrap',
                 borderRadius: '8px',
                 border: 'none',
                 fontSize: '0.82rem',
                 fontWeight: 700,
                 cursor: 'pointer',
-                backgroundColor: activeTab === 'all' ? '#7e3a41' : 'transparent',
-                color: activeTab === 'all' ? 'white' : '#666'
+                backgroundColor: activeTab === 'all' ? 'var(--primary)' : 'transparent',
+                color: activeTab === 'all' ? 'var(--primary-contrast)' : 'var(--text-muted)',
+                touchAction: 'manipulation'
               }}>
               All ({inquiries.length})
             </button>
@@ -272,13 +293,16 @@ const UserProfile = () => {
               onClick={() => setActiveTab('active')}
               style={{
                 padding: '0.4rem 0.85rem',
+                minHeight: '36px',
+                whiteSpace: 'nowrap',
                 borderRadius: '8px',
                 border: 'none',
                 fontSize: '0.82rem',
                 fontWeight: 700,
                 cursor: 'pointer',
-                backgroundColor: activeTab === 'active' ? '#7e3a41' : 'transparent',
-                color: activeTab === 'active' ? 'white' : '#666'
+                backgroundColor: activeTab === 'active' ? 'var(--primary)' : 'transparent',
+                color: activeTab === 'active' ? 'var(--primary-contrast)' : 'var(--text-muted)',
+                touchAction: 'manipulation'
               }}>
               Active ({activeCount})
             </button>
@@ -286,13 +310,16 @@ const UserProfile = () => {
               onClick={() => setActiveTab('completed')}
               style={{
                 padding: '0.4rem 0.85rem',
+                minHeight: '36px',
+                whiteSpace: 'nowrap',
                 borderRadius: '8px',
                 border: 'none',
                 fontSize: '0.82rem',
                 fontWeight: 700,
                 cursor: 'pointer',
-                backgroundColor: activeTab === 'completed' ? '#7e3a41' : 'transparent',
-                color: activeTab === 'completed' ? 'white' : '#666'
+                backgroundColor: activeTab === 'completed' ? 'var(--primary)' : 'transparent',
+                color: activeTab === 'completed' ? 'var(--primary-contrast)' : 'var(--text-muted)',
+                touchAction: 'manipulation'
               }}>
               Completed ({completedCount})
             </button>
@@ -300,11 +327,16 @@ const UserProfile = () => {
               onClick={fetchMyInquiries}
               style={{
                 padding: '0.4rem 0.6rem',
+                minHeight: '36px',
                 borderRadius: '8px',
                 border: 'none',
                 background: 'transparent',
-                color: '#7e3a41',
-                cursor: 'pointer'
+                color: 'var(--primary)',
+                cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                touchAction: 'manipulation'
               }}
               title="Refresh Inquiries">
               <RefreshCw size={14} />
@@ -314,26 +346,26 @@ const UserProfile = () => {
 
         {/* Inquiries Content */}
         {loading ? (
-          <div style={{ background: 'white', borderRadius: '16px', padding: '4rem 2rem', textAlign: 'center', border: '1px solid #eee' }}>
-            <div style={{ display: 'inline-block', width: '36px', height: '36px', border: '3px solid #f3e8e9', borderTop: '3px solid #7e3a41', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
-            <p style={{ color: '#777', marginTop: '1rem', fontWeight: 600 }}>Loading project inquiries...</p>
+          <div style={{ background: 'var(--surface)', borderRadius: '16px', padding: '4rem 2rem', textAlign: 'center', border: '1px solid var(--border)' }}>
+            <div style={{ display: 'inline-block', width: '36px', height: '36px', border: '3px solid var(--border)', borderTop: '3px solid var(--primary)', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+            <p style={{ color: 'var(--text-muted)', marginTop: '1rem', fontWeight: 600 }}>Loading project inquiries...</p>
             <style>{`@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`}</style>
           </div>
         ) : filteredInquiries.length === 0 ? (
           <div style={{
-            background: 'white',
+            background: 'var(--surface)',
             borderRadius: '20px',
             padding: '4rem 2rem',
             textAlign: 'center',
-            border: '1px dashed #d5c8ca',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.02)'
+            border: '1px dashed var(--border)',
+            boxShadow: 'var(--shadow)'
           }}>
             <div style={{
               width: '64px',
               height: '64px',
               borderRadius: '50%',
-              backgroundColor: 'rgba(126, 58, 65, 0.08)',
-              color: '#7e3a41',
+              backgroundColor: 'var(--bg-alt)',
+              color: 'var(--primary)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -341,17 +373,17 @@ const UserProfile = () => {
             }}>
               <Sparkles size={30} />
             </div>
-            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: '#2d2d2d', marginBottom: '0.5rem' }}>
+            <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text)', marginBottom: '0.5rem' }}>
               No Consultation Requests Found
             </h3>
-            <p style={{ color: '#666', fontSize: '0.95rem', maxWidth: '480px', margin: '0 auto 1.75rem', lineHeight: 1.6 }}>
+            <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', maxWidth: '480px', margin: '0 auto 1.75rem', lineHeight: 1.6 }}>
               Looking to build a custom web app, integrate autonomous AI tools, revamp your UI/UX, or scale your cloud infrastructure?
             </p>
             <Link
               to="/hireforms"
               style={{
-                backgroundColor: '#7e3a41',
-                color: 'white',
+                backgroundColor: 'var(--primary)',
+                color: 'var(--primary-contrast)',
                 padding: '0.85rem 1.75rem',
                 borderRadius: '12px',
                 fontWeight: 700,
@@ -360,7 +392,7 @@ const UserProfile = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
-                boxShadow: '0 6px 18px rgba(126, 58, 65, 0.25)'
+                boxShadow: 'var(--shadow)'
               }}>
               Launch Project Sprint Form <ArrowRight size={16} />
             </Link>
@@ -375,19 +407,19 @@ const UserProfile = () => {
                 <div
                   key={inq._id}
                   style={{
-                    backgroundColor: 'white',
+                    backgroundColor: 'var(--surface)',
                     borderRadius: '20px',
-                    border: '1px solid #e8e0e2',
-                    padding: '2rem',
-                    boxShadow: '0 6px 20px rgba(0,0,0,0.03)',
+                    border: '1px solid var(--border)',
+                    padding: 'clamp(1rem, 3.5vw, 2rem)',
+                    boxShadow: 'var(--shadow)',
                     transition: 'transform 0.2s ease'
                   }}>
                   
                   {/* Top Bar: Title, Status Pill, Meta */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', borderBottom: '1px solid #f3ecee', paddingBottom: '1.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem', borderBottom: '1px solid var(--border)', paddingBottom: '1.25rem' }}>
                     <div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', marginBottom: '0.4rem' }}>
-                        <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#2d2d2d', margin: 0 }}>
+                        <h3 style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--text)', margin: 0 }}>
                           {inq.projectTitle || inq.company || 'Technology Consultation'}
                         </h3>
                         <span style={{
@@ -407,9 +439,9 @@ const UserProfile = () => {
                         </span>
                       </div>
 
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.85rem', color: '#666' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', flexWrap: 'wrap', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                         {inq.company && (
-                          <span style={{ fontWeight: 600, color: '#7e3a41' }}>
+                          <span style={{ fontWeight: 600, color: 'var(--primary)' }}>
                             {inq.company}
                           </span>
                         )}
@@ -438,13 +470,15 @@ const UserProfile = () => {
                           backgroundColor: '#25D366',
                           color: 'white',
                           padding: '0.45rem 0.85rem',
+                          minHeight: '38px',
                           borderRadius: '8px',
                           fontSize: '0.8rem',
                           fontWeight: 700,
                           textDecoration: 'none',
                           display: 'inline-flex',
                           alignItems: 'center',
-                          gap: '0.35rem'
+                          gap: '0.35rem',
+                          touchAction: 'manipulation'
                         }}>
                         <Phone size={14} /> Fast Support
                       </a>
@@ -452,12 +486,12 @@ const UserProfile = () => {
                   </div>
 
                   {/* Visual Milestone Progress Tracker */}
-                  <div style={{ marginBottom: '1.75rem', padding: '1rem', backgroundColor: '#faf8f9', borderRadius: '12px', border: '1px solid #f0e6e8' }}>
-                    <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#7e3a41', textTransform: 'uppercase', marginBottom: '0.75rem', letterSpacing: '0.5px' }}>
+                  <div style={{ marginBottom: '1.75rem', padding: '1rem', backgroundColor: 'var(--bg-alt)', borderRadius: '12px', border: '1px solid var(--border)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                    <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', marginBottom: '0.75rem', letterSpacing: '0.5px' }}>
                       Sprint Milestone Journey:
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: '0.5rem', position: 'relative' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(60px, 1fr))', minWidth: '320px', gap: '0.5rem', position: 'relative' }}>
                       {[
                         { stepNum: 1, title: '1. Submitted' },
                         { stepNum: 2, title: '2. Discovery' },
@@ -474,20 +508,20 @@ const UserProfile = () => {
                               width: '28px',
                               height: '28px',
                               borderRadius: '50%',
-                              backgroundColor: isDone ? '#7e3a41' : '#e5e7eb',
-                              color: isDone ? 'white' : '#9ca3af',
+                              backgroundColor: isDone ? 'var(--primary)' : 'var(--border)',
+                              color: isDone ? 'var(--primary-contrast)' : 'var(--text-muted)',
                               display: 'flex',
                               alignItems: 'center',
                               justifyContent: 'center',
                               fontSize: '0.8rem',
                               fontWeight: 700,
                               margin: '0 auto 0.4rem',
-                              border: isCurrent ? '3px solid #ecd8db' : 'none',
+                              border: isCurrent ? '3px solid var(--primary)' : 'none',
                               boxShadow: isCurrent ? '0 0 0 3px rgba(126, 58, 65, 0.2)' : 'none'
                             }}>
                               {isDone ? <Check size={14} /> : s.stepNum}
                             </div>
-                            <span style={{ fontSize: '0.75rem', fontWeight: isDone ? 700 : 500, color: isDone ? '#2d2d2d' : '#888' }}>
+                            <span style={{ fontSize: '0.75rem', fontWeight: isDone ? 700 : 500, color: isDone ? 'var(--text)' : 'var(--text-muted)' }}>
                               {s.title}
                             </span>
                           </div>
@@ -504,9 +538,9 @@ const UserProfile = () => {
                         borderRadius: '20px',
                         fontSize: '0.78rem',
                         fontWeight: 600,
-                        backgroundColor: '#f6eef0',
-                        color: '#7e3a41',
-                        border: '1px solid #ecd8db'
+                        backgroundColor: 'var(--bg-alt)',
+                        color: 'var(--primary)',
+                        border: '1px solid var(--border)'
                       }}>
                         {svc}
                       </span>
@@ -515,11 +549,11 @@ const UserProfile = () => {
 
                   {/* Project Scope Description */}
                   {inq.projectDescription && (
-                    <div style={{ marginBottom: '1.25rem', backgroundColor: '#ffffff', padding: '1rem', borderRadius: '10px', border: '1px solid #eee' }}>
-                      <div style={{ fontSize: '0.75rem', fontWeight: 700, color: '#888', textTransform: 'uppercase', marginBottom: '0.3rem' }}>
+                    <div style={{ marginBottom: '1.25rem', backgroundColor: 'var(--surface-elevated)', padding: '1rem', borderRadius: '10px', border: '1px solid var(--border)' }}>
+                      <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: '0.3rem' }}>
                         Your Submitted Scope:
                       </div>
-                      <p style={{ margin: 0, fontSize: '0.88rem', color: '#444', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+                      <p style={{ margin: 0, fontSize: '0.88rem', color: 'var(--text)', lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
                         {inq.projectDescription}
                       </p>
                     </div>
@@ -528,13 +562,13 @@ const UserProfile = () => {
                   {/* Admin Notes & Direct Feedback Callout */}
                   {inq.adminNotes ? (
                     <div style={{
-                      backgroundColor: '#f0f9ff',
+                      backgroundColor: 'rgba(2, 132, 199, 0.1)',
                       borderLeft: '4px solid #0284c7',
                       padding: '1rem 1.25rem',
                       borderRadius: '0 10px 10px 0'
                     }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.3rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0369a1', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+                        <span style={{ fontSize: '0.8rem', fontWeight: 800, color: '#0284c7', textTransform: 'uppercase', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
                           <MessageSquare size={14} /> Zetawa Dark Team Update & Next Steps:
                         </span>
                         {inq.estimatedCompletion && (
@@ -543,18 +577,18 @@ const UserProfile = () => {
                           </span>
                         )}
                       </div>
-                      <p style={{ margin: 0, fontSize: '0.9rem', color: '#0c4a6e', lineHeight: 1.5 }}>
+                      <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--text)', lineHeight: 1.5 }}>
                         {inq.adminNotes}
                       </p>
                     </div>
                   ) : (
                     <div style={{
-                      backgroundColor: '#fffdf5',
+                      backgroundColor: 'rgba(217, 119, 6, 0.1)',
                       borderLeft: '4px solid #d97706',
                       padding: '0.85rem 1.25rem',
                       borderRadius: '0 10px 10px 0',
                       fontSize: '0.85rem',
-                      color: '#92400e'
+                      color: 'var(--text)'
                     }}>
                       {statusInfo.desc}
                     </div>

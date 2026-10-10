@@ -26,6 +26,7 @@ import Nav from './Nav';
 import Footer from './Footer';
 import { useAppContext } from '../context/AppContext';
 import AuthModal from './AuthModal';
+import Background3D from './Background3D';
 
 const DEFAULT_APPLY_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSfzUllRkATkN6e9uRR25Fa2JoUgkcorcGOAJYzTtzMNOpYv7g/viewform';
 
@@ -209,21 +210,18 @@ const Careers = () => {
   return (
     <div style={{
       fontFamily: 'var(--font-family, "Plus Jakarta Sans", system-ui, sans-serif)',
-      backgroundColor: 'var(--bg-canvas, #f8f6f7)',
+      backgroundColor: 'var(--bg)',
       minHeight: '100vh',
-      color: 'var(--text-primary, #1e293b)'
+      color: 'var(--text)'
     }}>
       <Nav />
       <style>{`
-        * {
-          box-sizing: border-box;
-        }
-
         .careers-category-scroll {
           display: flex;
           gap: 0.5rem;
           overflow-x: auto;
           -webkit-overflow-scrolling: touch;
+          scroll-snap-type: x mandatory;
           scrollbar-width: none;
           -ms-overflow-style: none;
           padding-bottom: 0.35rem;
@@ -231,6 +229,28 @@ const Careers = () => {
 
         .careers-category-scroll::-webkit-scrollbar {
           display: none;
+        }
+
+        .careers-category-scroll button {
+          scroll-snap-align: start;
+          flex-shrink: 0;
+          min-height: 40px;
+          touch-action: manipulation;
+        }
+
+        @media (max-width: 768px) {
+          .hero-trust-strip {
+            flex-direction: column !important;
+            border-radius: 20px !important;
+            padding: 1.25rem 1rem !important;
+            gap: 0.75rem !important;
+            width: 100% !important;
+            max-width: 480px !important;
+            margin: 0 auto !important;
+          }
+          .hero-trust-strip .strip-divider {
+            display: none !important;
+          }
         }
 
         @media (max-width: 640px) {
@@ -242,6 +262,8 @@ const Careers = () => {
             justify-content: center !important;
             white-space: normal !important;
             line-height: 1.35 !important;
+            box-sizing: border-box !important;
+            touch-action: manipulation !important;
           }
         }
       `}</style>
@@ -254,14 +276,15 @@ const Careers = () => {
 
       {/* ──────── Hero Header ──────── */}
       <section style={{
-        background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
-        color: '#ffffff',
+        background: 'var(--bg-hero)',
+        color: 'var(--hero-text)',
         padding: 'clamp(3rem, 6vw, 5.5rem) clamp(1rem, 4vw, 1.5rem) clamp(3rem, 6vw, 5rem)',
         textAlign: 'center',
         position: 'relative',
         overflow: 'hidden',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.08)'
+        borderBottom: '1px solid var(--border)'
       }}>
+        <Background3D />
         {/* Glow ambient background */}
         <div style={{
           position: 'absolute',
@@ -269,7 +292,7 @@ const Careers = () => {
           right: '-80px',
           width: '320px',
           height: '320px',
-          background: 'radial-gradient(circle, rgba(242, 140, 40, 0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(217, 107, 20, 0.15) 0%, transparent 70%)',
           borderRadius: '50%',
           pointerEvents: 'none'
         }} />
@@ -279,9 +302,9 @@ const Careers = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '0.5rem',
-            background: 'rgba(242, 140, 40, 0.12)',
-            border: '1px solid rgba(242, 140, 40, 0.35)',
-            color: '#f28c28',
+            background: 'var(--hero-badge-bg)',
+            border: '1px solid var(--hero-badge-border)',
+            color: 'var(--hero-badge-text)',
             padding: '0.4rem 1.25rem',
             borderRadius: '50px',
             fontSize: '0.82rem',
@@ -300,11 +323,12 @@ const Careers = () => {
             marginBottom: '1.25rem',
             lineHeight: 1.15,
             letterSpacing: '-0.02em',
-            textWrap: 'balance'
+            textWrap: 'balance',
+            color: 'var(--hero-text)'
           }}>
             Build Exceptional Software. <br />
             <span style={{
-              background: 'linear-gradient(135deg, #ffffff 60%, rgba(242, 140, 40, 0.95) 100%)',
+              background: 'var(--hero-title-gradient)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text'
@@ -313,7 +337,7 @@ const Careers = () => {
 
           <p style={{
             fontSize: 'clamp(0.95rem, 2vw, 1.15rem)',
-            color: 'rgba(255, 255, 255, 0.85)',
+            color: 'var(--hero-text-muted)',
             maxWidth: '720px',
             margin: '0 auto 2.5rem',
             lineHeight: 1.65
@@ -328,28 +352,28 @@ const Careers = () => {
             justifyContent: 'center',
             gap: 'clamp(1rem, 2.5vw, 2.5rem)',
             padding: '1rem clamp(1.25rem, 3vw, 2.5rem)',
-            background: 'rgba(255, 255, 255, 0.07)',
+            background: 'var(--hero-trust-bg)',
             backdropFilter: 'blur(16px)',
             borderRadius: '50px',
-            border: '1px solid rgba(255, 255, 255, 0.15)',
+            border: '1px solid var(--hero-trust-border)',
             flexWrap: 'wrap',
             maxWidth: '100%',
             boxSizing: 'border-box',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)'
+            boxShadow: 'var(--shadow-md)'
           }}>
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>100% Remote</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Async &amp; Flexible</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--hero-trust-val)' }}>100% Remote</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Async &amp; Flexible</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.18)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'var(--border)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>Fast Sprints</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-Week Iterations</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--hero-trust-val)' }}>Fast Sprints</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>2-Week Iterations</div>
             </div>
-            <div style={{ width: '1px', height: '24px', backgroundColor: 'rgba(255,255,255,0.18)' }} />
+            <div className="strip-divider" style={{ width: '1px', height: '24px', backgroundColor: 'var(--border)' }} />
             <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'white' }}>Real Ownership</div>
-              <div style={{ fontSize: '0.75rem', opacity: 0.85, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Direct Production Code</div>
+              <div style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--hero-trust-val)' }}>Real Ownership</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--hero-trust-lbl)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Direct Production Code</div>
             </div>
           </div>
         </div>
@@ -391,8 +415,8 @@ const Careers = () => {
           </div>
 
           {/* Search Input */}
-          <div style={{ position: 'relative', minWidth: '280px', flex: '1', maxWidth: '400px' }}>
-            <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} />
+          <div style={{ position: 'relative', minWidth: 'min(100%, 220px)', flex: '1', maxWidth: '400px' }}>
+            <Search size={18} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
             <input
               type="text"
               placeholder="Search by role title or skill..."
@@ -463,7 +487,7 @@ const Careers = () => {
             textAlign: 'center',
             border: '1px dashed var(--border-default, #d5c8ca)'
           }}>
-            <Briefcase size={48} color="#b0a0a2" style={{ margin: '0 auto 1rem' }} />
+            <Briefcase size={48} color="var(--text-muted)" style={{ margin: '0 auto 1rem' }} />
             <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', marginBottom: '0.5rem' }}>
               No Openings Found
             </h3>
@@ -493,7 +517,7 @@ const Careers = () => {
             </a>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 320px), 1fr))', gap: '1.75rem' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.75rem' }}>
             {filteredJobs.map((job) => {
               const requirements = Array.isArray(job.requirements) ? job.requirements : [];
 
@@ -621,7 +645,8 @@ const Careers = () => {
                         gap: '0.5rem',
                         transition: 'all 0.25s ease',
                         boxShadow: '0 4px 14px rgba(107, 45, 58, 0.2)',
-                        minHeight: '44px'
+                        minHeight: '48px',
+                        touchAction: 'manipulation'
                       }}
                       onMouseOver={(e) => {
                         e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)';
@@ -750,20 +775,20 @@ const Careers = () => {
       {/* ──────── Direct Resume Drop Banner ──────── */}
       <section style={{ padding: 'clamp(3.5rem, 6vw, 5rem) clamp(1rem, 3vw, 1.5rem)', maxWidth: '1000px', margin: '0 auto' }}>
         <div style={{
-          background: 'linear-gradient(135deg, #14080d 0%, #2a1019 50%, #1e0b12 100%)',
+          background: 'var(--banner-cta-bg)',
           borderRadius: '24px',
           padding: 'clamp(2.5rem, 5vw, 4rem) clamp(1.25rem, 4vw, 2.5rem)',
-          color: 'white',
+          color: 'var(--banner-cta-text)',
           textAlign: 'center',
-          boxShadow: '0 24px 60px rgba(20, 8, 13, 0.4)',
+          boxShadow: 'var(--shadow-lg)',
           position: 'relative',
           overflow: 'hidden',
-          border: '1px solid rgba(255, 255, 255, 0.12)'
+          border: '1px solid var(--banner-cta-border)'
         }}>
-          <h2 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.4rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em', textWrap: 'balance' }}>
+          <h2 style={{ fontSize: 'clamp(1.75rem, 4.5vw, 2.4rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.02em', textWrap: 'balance', color: 'var(--banner-cta-text)' }}>
             Don&apos;t See Your Exact Role?
           </h2>
-          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'rgba(255, 255, 255, 0.85)', maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'var(--banner-cta-text-muted)', maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
             We are always looking for exceptional software engineers, designers, and AI creators. Send your resume, GitHub profile, and portfolio directly to our leadership team.
           </p>
           <a
