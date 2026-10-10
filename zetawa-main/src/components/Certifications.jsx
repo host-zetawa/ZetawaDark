@@ -247,7 +247,10 @@ const Certifications = () => {
                   cursor: isVerifying ? 'not-allowed' : 'pointer',
                   display: 'flex',
                   alignItems: 'center',
+                  justifyContent: 'center',
                   gap: '0.4rem',
+                  flex: '1 1 140px',
+                  minHeight: '44px',
                   transition: 'background 0.2s ease',
                   boxShadow: '0 4px 12px rgba(126,58,65,0.25)'
                 }}

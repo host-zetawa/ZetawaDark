@@ -252,23 +252,81 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   6. Button & Action Groups (Clean Stacking on Mobile)
+   6. Button & Link Normalization for Mobile & Multi-Device
+   Normalize oversized buttons and boost undersized touch targets
    -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* Normalize buttons with bulky desktop padding */
+  button[style*="2.25rem"],
+  button[style*="2.5rem"],
+  button[style*="2rem"],
+  a[style*="2.25rem"],
+  a[style*="2.5rem"],
+  a[style*="2rem"] {
+    padding: 0.8rem 1.35rem !important;
+    font-size: 0.92rem !important;
+    min-height: 44px !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Prevent oversized rounded pill buttons */
+  button[style*="borderRadius: '50px'"],
+  button[style*="border-radius: 50px"],
+  a[style*="borderRadius: '50px'"],
+  a[style*="border-radius: 50px"] {
+    padding-top: 0.72rem !important;
+    padding-bottom: 0.72rem !important;
+    font-size: 0.92rem !important;
+  }
+
+  /* Ensure small action chips and pills have accessible touch targets */
+  button[style*="fontSize: '0.75rem'"],
+  button[style*="font-size: 0.75rem"],
+  button[style*="fontSize: '0.78rem'"],
+  button[style*="font-size: 0.78rem"],
+  button[style*="fontSize: '0.8rem'"],
+  button[style*="font-size: 0.8rem"],
+  a[style*="fontSize: '0.75rem'"],
+  a[style*="font-size: 0.75rem"],
+  a[style*="fontSize: '0.8rem'"],
+  a[style*="font-size: 0.8rem"] {
+    font-size: 0.84rem !important;
+    padding: 0.45rem 0.85rem !important;
+    min-height: 38px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+  }
+
+  /* Card action rows wrap cleanly without cutting off links */
+  div[style*="justifyContent: 'space-between'"][style*="borderTop"],
+  div[style*="justify-content: space-between"][style*="border-top"] {
+    flex-wrap: wrap !important;
+    gap: 0.65rem !important;
+  }
+}
+
 @media (max-width: 540px) {
-  /* Hero CTA button cluster */
+  /* Hero and Banner CTA button clusters stack cleanly */
   header div[style*="display: 'flex'"][style*="justifyContent: 'center'"][style*="flexWrap: 'wrap'"],
-  section.hero-section div[style*="display: 'flex'"][style*="justifyContent: 'center'"][style*="flexWrap: 'wrap'"] {
+  section.hero-section div[style*="display: 'flex'"][style*="justifyContent: 'center'"][style*="flexWrap: 'wrap'"],
+  div[style*="display: 'flex'"][style*="justifyContent: 'center'"][style*="flexWrap: 'wrap'"][style*="gap: '1rem'"] {
     flex-direction: column !important;
     width: 100% !important;
     gap: 0.75rem !important;
   }
 
   header div[style*="justifyContent: 'center'"] button,
+  header div[style*="justifyContent: 'center'"] a,
   section.hero-section div[style*="justifyContent: 'center'"] button,
-  header div[style*="justify-content: center"] button {
+  section.hero-section div[style*="justifyContent: 'center'"] a,
+  header div[style*="justify-content: center"] button,
+  header div[style*="justify-content: center"] a {
     width: 100% !important;
     justify-content: center !important;
     padding: 0.85rem 1.25rem !important;
+    box-sizing: border-box !important;
   }
 }
 

@@ -40,6 +40,215 @@ const AboutUs = () => {
       minHeight: '100vh',
       color: '#1e293b'
     }}>
+      <style>{`
+        .founder-header-grid {
+          display: grid;
+          grid-template-columns: auto 1fr;
+          gap: 2.5rem;
+          align-items: center;
+          padding: 3rem;
+        }
+
+        .founder-photo-container {
+          width: 180px;
+          height: 180px;
+        }
+
+        .founder-contact-chip {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          background: rgba(255, 255, 255, 0.14);
+          border-radius: 50px;
+          padding: 0.4rem 0.95rem;
+          font-size: 0.85rem;
+          font-weight: 600;
+          backdrop-filter: blur(6px);
+          border: 1px solid rgba(255, 255, 255, 0.2);
+          max-width: 100%;
+          word-break: break-word;
+          overflow-wrap: anywhere;
+          box-sizing: border-box;
+        }
+
+        @media (max-width: 768px) {
+          .hero-trust-strip {
+            flex-direction: column !important;
+            border-radius: 20px !important;
+            padding: 1.25rem 1rem !important;
+            gap: 0.75rem !important;
+            width: 100% !important;
+          }
+
+          .hero-trust-strip > div[style*="width: '1px'"],
+          .hero-trust-strip > div[style*="width: 1px"] {
+            display: none !important;
+          }
+
+          .mission-vision-section {
+            padding: 2.5rem 0 !important;
+          }
+
+          .vision-card, .mission-card {
+            padding: 1.5rem 1.15rem !important;
+            border-radius: 18px !important;
+          }
+
+          .vision-card h2, .mission-card h2 {
+            font-size: 1.5rem !important;
+          }
+
+          .differentiators-section {
+            padding: 2rem 1rem !important;
+            border-radius: 20px !important;
+            margin-bottom: 3rem !important;
+          }
+
+          .differentiators-section h2 {
+            font-size: 1.75rem !important;
+          }
+
+          .features-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.15rem !important;
+          }
+
+          .feature-card {
+            padding: 1.25rem 1rem !important;
+            border-radius: 14px !important;
+          }
+
+          .founder-section {
+            padding: 0 0 3.5rem !important;
+          }
+
+          .founder-card {
+            border-radius: 20px !important;
+          }
+
+          .founder-header-grid {
+            grid-template-columns: 1fr !important;
+            text-align: center;
+            gap: 1.5rem !important;
+            padding: 2rem 1rem !important;
+          }
+
+          .founder-photo-container {
+            width: 140px !important;
+            height: 140px !important;
+            margin: 0 auto !important;
+            border-radius: 20px !important;
+          }
+
+          .founder-name-heading {
+            font-size: 1.85rem !important;
+          }
+
+          .founder-contact-row-flex {
+            justify-content: center !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            width: 100% !important;
+          }
+
+          .founder-contact-chip {
+            width: 100% !important;
+            max-width: 100% !important;
+            justify-content: center !important;
+            font-size: 0.82rem !important;
+            padding: 0.5rem 0.85rem !important;
+            word-break: break-word !important;
+            overflow-wrap: anywhere !important;
+            box-sizing: border-box !important;
+          }
+
+          .founder-social-row-flex {
+            justify-content: center !important;
+            gap: 0.75rem !important;
+          }
+
+          .founder-social-link {
+            width: 42px !important;
+            height: 42px !important;
+          }
+
+          .founder-body-container {
+            padding: 1.5rem 1rem !important;
+          }
+
+          .founder-summary-box {
+            padding: 1.25rem 1rem !important;
+            margin-bottom: 1.5rem !important;
+            border-radius: 14px !important;
+          }
+
+          .founder-summary-box p {
+            font-size: 0.98rem !important;
+            line-height: 1.7 !important;
+          }
+
+          .highlights-grid {
+            grid-template-columns: 1fr !important;
+            gap: 1.25rem !important;
+          }
+
+          .highlight-card {
+            padding: 1.25rem 1rem !important;
+            border-radius: 14px !important;
+          }
+
+          .founder-impact-banner {
+            padding: 1.25rem 1rem !important;
+            flex-direction: column !important;
+            gap: 0.85rem !important;
+            align-items: flex-start !important;
+            border-radius: 14px !important;
+          }
+
+          .founder-philosophy-banner {
+            padding: 1.75rem 1rem !important;
+            border-radius: 16px !important;
+            margin-top: 2rem !important;
+          }
+
+          .philosophy-grid-flex {
+            gap: 0.65rem !important;
+            justify-content: center !important;
+          }
+
+          .philosophy-pill-badge {
+            padding: 0.55rem 0.9rem !important;
+            border-radius: 10px !important;
+            box-sizing: border-box !important;
+          }
+
+          .philosophy-pill-badge span {
+            font-size: 0.95rem !important;
+            letter-spacing: 0.04em !important;
+          }
+
+          .bottom-cta-banner-wrap {
+            padding: 2.25rem 1.25rem !important;
+            border-radius: 18px !important;
+          }
+
+          .bottom-cta-actions-wrap {
+            flex-direction: column !important;
+            width: 100% !important;
+            gap: 0.75rem !important;
+          }
+
+          .bottom-cta-actions-wrap a {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.85rem 1.25rem !important;
+            font-size: 0.92rem !important;
+            min-height: 44px !important;
+            box-sizing: border-box !important;
+          }
+        }
+      `}</style>
       <Nav />
       
       {/* ──────── Hero Section ──────── */}
@@ -480,13 +689,8 @@ const AboutUs = () => {
             border: '1px solid #e8e0e2',
           }}>
             {/* Founder banner + photo row */}
-            <div className="founder-header" style={{
+            <div className="founder-header founder-header-grid" style={{
               background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
-              padding: '3rem',
-              display: 'grid',
-              gridTemplateColumns: 'auto 1fr',
-              gap: '2.5rem',
-              alignItems: 'center',
               color: 'white',
               position: 'relative',
               overflow: 'hidden',
@@ -503,9 +707,7 @@ const AboutUs = () => {
               }} />
 
               {/* Photo */}
-              <div className="founder-photo-wrap" style={{
-                width: '180px',
-                height: '180px',
+              <div className="founder-photo-wrap founder-photo-container" style={{
                 borderRadius: '24px',
                 border: '4px solid rgba(255,255,255,0.35)',
                 overflow: 'hidden',
@@ -522,21 +724,22 @@ const AboutUs = () => {
               </div>
 
               {/* Name + title + socials */}
-              <div style={{ position: 'relative', zIndex: 1 }}>
-                <h3 className="founder-name" style={{
-                  fontSize: '2.4rem',
+              <div style={{ position: 'relative', zIndex: 1, minWidth: 0, overflow: 'hidden' }}>
+                <h3 className="founder-name founder-name-heading" style={{
+                  fontSize: 'clamp(1.75rem, 4vw, 2.4rem)',
                   fontWeight: 800,
                   marginBottom: '0.25rem',
-                  letterSpacing: '-0.01em'
+                  letterSpacing: '-0.01em',
+                  textWrap: 'balance'
                 }}>
                   Tabrez Alam
                 </h3>
-                <p style={{ fontSize: '1.15rem', opacity: 0.94, marginBottom: '1.25rem', fontWeight: 600, color: '#ffebee' }}>
+                <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', opacity: 0.94, marginBottom: '1.25rem', fontWeight: 600, color: '#ffebee', lineHeight: 1.4 }}>
                   Founder &amp; Director, ZETAWA DARK PRIVATE LIMITED
                 </p>
 
                 {/* Contact chips */}
-                <div className="founder-contact-row" style={{
+                <div className="founder-contact-row founder-contact-row-flex" style={{
                   display: 'flex', flexWrap: 'wrap', gap: '0.65rem', marginBottom: '1.25rem'
                 }}>
                   {[
@@ -544,21 +747,14 @@ const AboutUs = () => {
                     { icon: <Phone size={14} />, text: '+91 70042 65718' },
                     { icon: <MapPin size={14} />, text: 'Dhaka, East Champaran, Bihar' },
                   ].map((item, i) => (
-                    <span key={i} style={{
-                      display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
-                      background: 'rgba(255,255,255,0.14)', borderRadius: '50px',
-                      padding: '0.4rem 0.95rem', fontSize: '0.85rem',
-                      fontWeight: 600,
-                      backdropFilter: 'blur(6px)',
-                      border: '1px solid rgba(255,255,255,0.2)'
-                    }}>
-                      {item.icon} {item.text}
+                    <span key={i} className="founder-contact-chip">
+                      {item.icon} <span style={{ wordBreak: 'break-word' }}>{item.text}</span>
                     </span>
                   ))}
                 </div>
 
                 {/* Social icons */}
-                <div style={{ display: 'flex', gap: '0.65rem' }}>
+                <div className="founder-social-row founder-social-row-flex" style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap' }}>
                   {[
                     { icon: <Linkedin size={18} />, href: 'https://www.linkedin.com/in/tabrez-alam-59b6b61b3/' },
                     { icon: <Instagram size={18} />, href: 'https://www.instagram.com/tabrez_zeta?igsh=aXZveDRxend3NGpv' },
@@ -598,9 +794,9 @@ const AboutUs = () => {
             </div>
 
             {/* Bio + Highlights + Philosophy body */}
-            <div className="founder-body" style={{ padding: '3rem' }}>
+            <div className="founder-body founder-body-container" style={{ padding: 'clamp(1.5rem, 4vw, 3rem)' }}>
               {/* Executive Lead Summary */}
-              <div style={{
+              <div className="founder-summary-box" style={{
                 background: 'linear-gradient(135deg, rgba(126, 58, 65, 0.05) 0%, rgba(255, 255, 255, 0.95) 100%)',
                 border: '1px solid #ebd9dc',
                 borderLeft: '5px solid #7e3a41',
@@ -771,7 +967,7 @@ const AboutUs = () => {
               </div>
 
               {/* Social and Environmental Initiatives Banner */}
-              <div style={{
+              <div className="founder-impact-banner" style={{
                 marginTop: '1.75rem',
                 padding: '1.75rem 2.25rem',
                 background: 'linear-gradient(135deg, #fdfbfb 0%, #faf6f7 100%)',
@@ -812,7 +1008,7 @@ const AboutUs = () => {
               </div>
 
               {/* Founder's Core Philosophy */}
-              <div style={{
+              <div className="founder-philosophy-banner" style={{
                 marginTop: '2.5rem',
                 background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
                 borderRadius: '22px',
@@ -848,7 +1044,7 @@ const AboutUs = () => {
                     His philosophy is simple:
                   </p>
 
-                  <div style={{
+                  <div className="philosophy-grid-flex" style={{
                     display: 'flex',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
@@ -856,7 +1052,7 @@ const AboutUs = () => {
                     gap: '1rem',
                   }}>
                     {['LEARN', 'INNOVATE', 'BUILD', 'GIVE BACK'].map((item, idx) => (
-                      <div key={idx} style={{
+                      <div key={idx} className="philosophy-pill-badge" style={{
                         background: 'rgba(255, 255, 255, 0.16)',
                         backdropFilter: 'blur(10px)',
                         border: '1.5px solid rgba(255, 255, 255, 0.3)',
@@ -886,7 +1082,7 @@ const AboutUs = () => {
         <section style={{
           padding: '0 0 5rem'
         }}>
-          <div style={{
+          <div className="bottom-cta-banner-wrap" style={{
             background: 'linear-gradient(135deg, #7e3a41 0%, #522026 100%)',
             borderRadius: '24px',
             padding: '3.5rem 2.5rem',
@@ -896,28 +1092,29 @@ const AboutUs = () => {
             position: 'relative',
             overflow: 'hidden'
           }}>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.01em' }}>
+            <h2 style={{ fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', fontWeight: 800, marginBottom: '1rem', letterSpacing: '-0.01em', textWrap: 'balance' }}>
               Partner with Zetawa Dark Today
             </h2>
-            <p style={{ fontSize: '1.15rem', opacity: 0.92, maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
+            <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.15rem)', opacity: 0.92, maxWidth: '640px', margin: '0 auto 2.25rem', lineHeight: 1.6 }}>
               Let&apos;s collaborate to design, develop, and scale intelligent software solutions that elevate your business.
             </p>
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+            <div className="bottom-cta-actions-wrap" style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link
                 to="/hireforms"
                 style={{
                   backgroundColor: 'white',
                   color: '#7e3a41',
-                  padding: '1rem 2.25rem',
+                  padding: '0.85rem 1.85rem',
                   borderRadius: '50px',
-                  fontSize: '1rem',
+                  fontSize: '0.95rem',
                   fontWeight: 800,
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: '0.5rem',
                   boxShadow: '0 8px 24px rgba(0,0,0,0.25)',
-                  transition: 'transform 0.2s ease'
+                  transition: 'transform 0.2s ease',
+                  minHeight: '46px'
                 }}
               >
                 Start a Project Consultation <ArrowRight size={18} />
@@ -928,14 +1125,15 @@ const AboutUs = () => {
                   backgroundColor: 'rgba(255,255,255,0.15)',
                   color: 'white',
                   border: '1.5px solid rgba(255,255,255,0.4)',
-                  padding: '1rem 2rem',
+                  padding: '0.85rem 1.75rem',
                   borderRadius: '50px',
-                  fontSize: '1rem',
+                  fontSize: '0.95rem',
                   fontWeight: 700,
                   textDecoration: 'none',
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem'
+                  gap: '0.5rem',
+                  minHeight: '46px'
                 }}
               >
                 Explore Services <Code2 size={18} />

@@ -208,25 +208,117 @@ const PressRelease = () => {
 
         @media (max-width: 768px) {
           .hero-title {
-            font-size: 2.25rem !important;
+            font-size: clamp(1.8rem, 5vw, 2.25rem) !important;
           }
           .hero-subtitle {
-            font-size: 1.05rem !important;
+            font-size: clamp(0.95rem, 2vw, 1.05rem) !important;
+          }
+          .hero-action-buttons-wrap {
+            flex-direction: column !important;
+            width: 100% !important;
+            gap: 0.75rem !important;
+          }
+          .hero-action-buttons-wrap button,
+          .hero-action-buttons-wrap a {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.85rem 1.25rem !important;
+            box-sizing: border-box !important;
+            font-size: 0.92rem !important;
+            min-height: 44px !important;
+          }
+          .filter-btn {
+            min-height: 38px !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            padding: 0.45rem 0.85rem !important;
+            font-size: 0.84rem !important;
           }
           .search-filter-row {
             flex-direction: column !important;
             align-items: stretch !important;
           }
           .stats-grid {
-            grid-template-columns: repeat(2, 1fr) !important;
-            gap: 1rem !important;
+            grid-template-columns: 1fr !important;
+            gap: 0.85rem !important;
+          }
+          .pr-main-container {
+            padding: clamp(1.5rem, 4vw, 2.5rem) 1rem 3.5rem 1rem !important;
+          }
+          .filter-toolbar-box {
+            padding: 1.25rem 1rem !important;
+            margin-bottom: 1.75rem !important;
           }
           .pr-grid {
             grid-template-columns: 1fr !important;
+            gap: 1.25rem !important;
+          }
+          .pr-card {
+            padding: 1.35rem 1.15rem !important;
+          }
+          .pr-card-actions {
+            flex-wrap: wrap !important;
+            gap: 0.6rem !important;
+          }
+          .pr-card-actions button,
+          .pr-card-actions a {
+            flex: 1 1 130px !important;
+            justify-content: center !important;
+            padding: 0.7rem 0.85rem !important;
+            font-size: 0.85rem !important;
+            min-height: 42px !important;
+            box-sizing: border-box !important;
+          }
+          .modal-backdrop {
+            padding: 0.5rem !important;
           }
           .modal-panel {
-            margin: 1rem !important;
-            max-height: 90vh !important;
+            margin: 0 !important;
+            width: 100% !important;
+            max-height: 92vh !important;
+            border-radius: 16px !important;
+          }
+          .modal-header-section {
+            padding: 1.25rem 1rem 1rem 1rem !important;
+          }
+          .modal-header-section h2 {
+            font-size: 1.35rem !important;
+            word-break: break-word !important;
+          }
+          .modal-body-section {
+            padding: 1.25rem 1rem !important;
+          }
+          .modal-footer-section {
+            padding: 1rem !important;
+            flex-direction: column !important;
+            gap: 0.65rem !important;
+          }
+          .modal-footer-section > div,
+          .modal-footer-section a,
+          .modal-footer-section button {
+            width: 100% !important;
+            justify-content: center !important;
+            text-align: center !important;
+            min-height: 44px !important;
+            box-sizing: border-box !important;
+            font-size: 0.92rem !important;
+          }
+          .media-desk-section {
+            padding: 2rem 1.25rem !important;
+            margin-top: 3rem !important;
+          }
+          .media-desk-actions {
+            flex-direction: column !important;
+            width: 100% !important;
+            gap: 0.75rem !important;
+          }
+          .media-desk-actions a {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.85rem 1.25rem !important;
+            min-height: 44px !important;
+            box-sizing: border-box !important;
           }
         }
       `}</style>
@@ -293,7 +385,7 @@ const PressRelease = () => {
             Official press disclosures, corporate milestones, leadership updates, and strategic technology developments from Zetawa Dark.
           </p>
 
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div className="hero-action-buttons-wrap" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
             <button
               type="button"
               onClick={() => {
@@ -354,7 +446,7 @@ const PressRelease = () => {
         borderBottom: '1px solid #e2e8f0',
         padding: '2.5rem 0'
       }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 2rem' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
           <div className="stats-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
@@ -407,14 +499,14 @@ const PressRelease = () => {
       </section>
 
       {/* Main Content Section */}
-      <main id="releases-archive" style={{ maxWidth: '1200px', margin: '0 auto', padding: '3.5rem 2rem 5rem 2rem' }}>
+      <main id="releases-archive" className="pr-main-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: 'clamp(2rem, 5vw, 3.5rem) clamp(1rem, 3.5vw, 2rem) 4rem' }}>
         
         {/* Search & Filter Toolbar */}
-        <div style={{
+        <div className="filter-toolbar-box" style={{
           backgroundColor: '#ffffff',
           borderRadius: '16px',
           border: '1px solid #e2e8f0',
-          padding: '1.75rem',
+          padding: 'clamp(1.25rem, 3vw, 1.75rem)',
           boxShadow: '0 4px 20px rgba(0, 0, 0, 0.03)',
           marginBottom: '2.5rem'
         }}>
@@ -809,14 +901,15 @@ const PressRelease = () => {
                   </div>
 
                   {/* Card Bottom / Action Row */}
-                  <div style={{
+                  <div className="pr-card-actions" style={{
                     borderTop: '1px solid #f1f5f9',
                     paddingTop: '1.25rem',
                     marginTop: 'auto',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    gap: '0.75rem'
+                    gap: '0.75rem',
+                    flexWrap: 'wrap'
                   }}>
                     {/* Read Full Release Button */}
                     <button
@@ -879,12 +972,12 @@ const PressRelease = () => {
         )}
 
         {/* Media Desk Contact & Resources Strip */}
-        <section style={{
-          marginTop: '5rem',
+        <section className="media-desk-section" style={{
+          marginTop: 'clamp(3rem, 6vw, 5rem)',
           backgroundColor: '#ffffff',
           borderRadius: '20px',
           border: '1px solid #e2e8f0',
-          padding: '3rem 2.5rem',
+          padding: 'clamp(2rem, 4vw, 3rem) clamp(1.25rem, 3.5vw, 2.5rem)',
           boxShadow: '0 10px 30px rgba(0, 0, 0, 0.04)',
           position: 'relative',
           overflow: 'hidden'
@@ -924,7 +1017,7 @@ const PressRelease = () => {
               Members of the press, industry analysts, and conference organizers are invited to connect directly with the Zetawa Dark communications team for official commentary, executive bios, and brand assets.
             </p>
 
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <div className="media-desk-actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <a
                 href="mailto:vansh100101102@gmail.com?subject=Press%20Inquiry%20-%20Zetawa%20Dark"
                 style={{
@@ -1016,7 +1109,7 @@ const PressRelease = () => {
             }} />
 
             {/* Modal Header */}
-            <div style={{
+            <div className="modal-header-section" style={{
               padding: '1.75rem 2rem 1.25rem 2rem',
               borderBottom: '1px solid #f1f5f9',
               display: 'flex',
@@ -1102,7 +1195,7 @@ const PressRelease = () => {
             </div>
 
             {/* Modal Body / Scrollable Content */}
-            <div style={{
+            <div className="modal-body-section" style={{
               padding: '2rem',
               overflowY: 'auto',
               flex: 1
@@ -1177,7 +1270,7 @@ const PressRelease = () => {
             </div>
 
             {/* Modal Footer */}
-            <div style={{
+            <div className="modal-footer-section" style={{
               padding: '1.25rem 2rem',
               borderTop: '1px solid #f1f5f9',
               backgroundColor: '#f8fafc',

@@ -665,8 +665,9 @@ const Events = () => {
           }
           
           .tab-button {
-            padding: 6px 12px;
-            font-size: 0.8rem;
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            min-height: 38px;
           }
           
           .event-card {

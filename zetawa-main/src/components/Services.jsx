@@ -210,6 +210,24 @@ const Services = () => {
       color: '#1e293b'
     }}>
       <Nav />
+      <style>{`
+        @media (max-width: 640px) {
+          .services-hero-actions {
+            flex-direction: column !important;
+            width: 100% !important;
+            gap: 0.75rem !important;
+          }
+          .services-hero-actions button,
+          .services-hero-actions a {
+            width: 100% !important;
+            justify-content: center !important;
+            padding: 0.85rem 1.25rem !important;
+            font-size: 0.95rem !important;
+            min-height: 44px !important;
+            box-sizing: border-box !important;
+          }
+        }
+      `}</style>
       <AuthModal isOpen={showAuthModal} onClose={() => { setShowAuthModal(false); setPendingRedirect(null); }} onSuccess={handleAuthSuccess} />
 
       {/* ──────── Header / Hero Banner ──────── */}
@@ -272,7 +290,7 @@ const Services = () => {
             We partner with ambitious startups and mid-market companies to build full-stack web and mobile applications, deploy custom AI workflows, craft beautiful design systems, and manage dependable cloud infrastructure.
           </p>
 
-          <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+          <div className="services-hero-actions" style={{ display: 'flex', justifyContent: 'center', gap: '1rem', flexWrap: 'wrap' }}>
             <button
               onClick={() => handleGatedAction('/hireforms')}
               style={{

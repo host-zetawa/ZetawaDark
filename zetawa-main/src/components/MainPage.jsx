@@ -199,7 +199,8 @@ const PressReleasesSection = () => {
               display: 'inline-flex',
               alignItems: 'center',
               gap: '0.4rem',
-              transition: 'all 0.2s ease'
+              transition: 'all 0.2s ease',
+              minHeight: '44px'
             }}
             onMouseOver={(e) => {
               e.currentTarget.style.backgroundColor = '#7e3a41';
@@ -227,7 +228,7 @@ const PressReleasesSection = () => {
                 backgroundColor: 'white',
                 borderRadius: '16px',
                 border: '1px solid #e8e0e2',
-                padding: '2rem',
+                padding: 'clamp(1.25rem, 3.5vw, 1.75rem)',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
@@ -249,7 +250,9 @@ const PressReleasesSection = () => {
                   display: 'flex',
                   justifyContent: 'space-between',
                   alignItems: 'center',
-                  marginBottom: '1rem'
+                  marginBottom: '1rem',
+                  flexWrap: 'wrap',
+                  gap: '0.5rem'
                 }}>
                   <span style={{
                     padding: '0.25rem 0.65rem',
@@ -266,7 +269,7 @@ const PressReleasesSection = () => {
                   </span>
                 </div>
 
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#2d2d2d', marginBottom: '0.75rem', lineHeight: 1.4 }}>
+                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: '#2d2d2d', marginBottom: '0.75rem', lineHeight: 1.4, wordBreak: 'break-word' }}>
                   {release.title}
                 </h3>
 
@@ -282,12 +285,13 @@ const PressReleasesSection = () => {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 paddingTop: '1rem',
-                borderTop: '1px solid #f4f1f2'
+                borderTop: '1px solid #f4f1f2',
+                flexWrap: 'wrap',
+                gap: '0.65rem'
               }}>
                 <span style={{ color: '#7e3a41', fontWeight: 700, fontSize: '0.88rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
                   Read Announcement <ChevronRight size={15} />
                 </span>
-
 
                 {release.linkedinUrl && (
                   <span
@@ -298,10 +302,14 @@ const PressReleasesSection = () => {
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: '0.3rem',
+                      gap: '0.35rem',
                       color: '#0077b5',
+                      backgroundColor: 'rgba(0, 119, 181, 0.08)',
+                      padding: '0.35rem 0.75rem',
+                      borderRadius: '8px',
                       fontSize: '0.82rem',
-                      fontWeight: 600
+                      fontWeight: 600,
+                      cursor: 'pointer'
                     }}>
                     <ExternalLink size={13} /> Source
                   </span>
