@@ -665,7 +665,7 @@ function ZetawaNav() {
                 }}
               >
                 <LogIn size={18} strokeWidth={2.2} />
-                <span>Client Login / Register</span>
+                <span>Login</span>
               </button>
             )}
           </div>

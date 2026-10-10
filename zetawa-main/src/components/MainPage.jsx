@@ -1031,7 +1031,7 @@ const MainPage = () => {
                           border: '1.5px solid rgba(255,255,255,0.3)',
                           backgroundColor: 'rgba(255,255,255,0.12)',
                           color: 'white',
-                          fontSize: '0.95rem',
+                          fontSize: '1rem',
                           outline: 'none',
                           boxSizing: 'border-box'
                         }}
@@ -1056,7 +1056,7 @@ const MainPage = () => {
                           border: '1.5px solid rgba(255,255,255,0.3)',
                           backgroundColor: 'rgba(255,255,255,0.12)',
                           color: 'white',
-                          fontSize: '0.95rem',
+                          fontSize: '1rem',
                           outline: 'none',
                           boxSizing: 'border-box'
                         }}
@@ -1081,7 +1081,7 @@ const MainPage = () => {
                           border: '1.5px solid rgba(255,255,255,0.3)',
                           backgroundColor: 'rgba(255,255,255,0.12)',
                           color: 'white',
-                          fontSize: '0.95rem',
+                          fontSize: '1rem',
                           outline: 'none',
                           resize: 'vertical',
                           boxSizing: 'border-box'
