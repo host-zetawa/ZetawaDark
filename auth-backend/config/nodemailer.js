@@ -5,9 +5,9 @@ const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 465,
   secure: true,
-  connectionTimeout: 5000,
-  greetingTimeout: 5000,
-  socketTimeout: 5000,
+  connectionTimeout: 4000,
+  greetingTimeout: 4000,
+  socketTimeout: 4000,
   auth: {
     user: process.env.EMAIL || process.env.EMAIL_USER,
     pass: process.env.PASSWORD || process.env.EMAIL_PASS
@@ -16,12 +16,13 @@ const transporter = nodemailer.createTransport({
 
 /**
  * Universal safe email dispatcher:
- * 1. Uses Resend HTTP API (port 443) if RESEND_API_KEY is configured (bypasses Render Free SMTP block).
- * 2. Falls back to Nodemailer SMTP with 5-second timeout (never causes 502 Bad Gateway).
- * 3. Never throws unhandled exceptions that cause requests to hang or crash.
+ * 1. Resend API via HTTPS port 443 (Render Free Tier 100% bypasses SMTP blocks).
+ * 2. Brevo API via HTTPS port 443.
+ * 3. Direct SMTP fallback with 4-second timeout.
+ * Never throws unhandled errors or blocks server requests.
  */
 export const sendEmail = async ({ to, subject, text, html }) => {
-  // Option 1: HTTP-based Resend API (Render Free Tier safe - port 443)
+  // Option 1A: HTTP-based Resend API (Render Free Tier safe - port 443)
   if (process.env.RESEND_API_KEY) {
     try {
       const res = await fetch('https://api.resend.com/emails', {
@@ -46,6 +47,34 @@ export const sendEmail = async ({ to, subject, text, html }) => {
       console.warn(`[Email] Resend API error:`, data)
     } catch (err) {
       console.warn(`[Email] Resend API failed:`, err.message)
+    }
+  }
+
+  // Option 1B: HTTP-based Brevo API (Render Free Tier safe - port 443)
+  if (process.env.BREVO_API_KEY) {
+    try {
+      const res = await fetch('https://api.brevo.com/v3/smtp/email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'api-key': process.env.BREVO_API_KEY
+        },
+        body: JSON.stringify({
+          sender: { name: 'Zetawa Dark', email: process.env.EMAIL || 'vansh100101102@gmail.com' },
+          to: [{ email: to }],
+          subject,
+          htmlContent: html || `<p>${text}</p>`,
+          textContent: text
+        })
+      })
+      const data = await res.json()
+      if (res.ok) {
+        console.log(`[Email] Successfully delivered via Brevo API to ${to}`)
+        return { success: true, provider: 'brevo', data }
+      }
+      console.warn(`[Email] Brevo API error:`, data)
+    } catch (err) {
+      console.warn(`[Email] Brevo API failed:`, err.message)
     }
   }
 
