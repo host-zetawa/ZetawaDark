@@ -16,24 +16,31 @@ const transporter = nodemailer.createTransport({
 
 /**
  * Universal safe email dispatcher:
- * 1. Resend API via HTTPS port 443 (Render Free Tier 100% bypasses SMTP blocks).
- * 2. Brevo API via HTTPS port 443.
+ * 1. Resend API via HTTPS port 443 (Render Free Tier safe).
+ * 2. Brevo API via HTTPS port 443 (Can send to ANY recipient without domain verification).
  * 3. Direct SMTP fallback with 4-second timeout.
  * Never throws unhandled errors or blocks server requests.
  */
 export const sendEmail = async ({ to, subject, text, html }) => {
+  const recipients = Array.isArray(to) 
+    ? to.map(e => String(e).trim().toLowerCase()) 
+    : [String(to).trim().toLowerCase()]
+
   // Option 1A: HTTP-based Resend API (Render Free Tier safe - port 443)
   if (process.env.RESEND_API_KEY) {
+    const apiKey = process.env.RESEND_API_KEY.trim().replace(/^['"]|['"]$/g, '')
+    const sender = process.env.RESEND_FROM || 'onboarding@resend.dev'
+
     try {
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`
+          'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-          from: process.env.RESEND_FROM || 'Zetawa Dark <onboarding@resend.dev>',
-          to: Array.isArray(to) ? to : [to],
+          from: sender,
+          to: recipients,
           subject,
           text,
           html: html || `<p>${text}</p>`
@@ -41,27 +48,30 @@ export const sendEmail = async ({ to, subject, text, html }) => {
       })
       const data = await res.json()
       if (res.ok) {
-        console.log(`[Email] Successfully delivered via Resend API to ${to}`)
+        console.log(`[Email] Successfully delivered via Resend API to: ${recipients.join(', ')}`)
         return { success: true, provider: 'resend', data }
       }
-      console.warn(`[Email] Resend API error:`, data)
+      console.error(`[Email] Resend API error (${res.status}):`, JSON.stringify(data))
     } catch (err) {
-      console.warn(`[Email] Resend API failed:`, err.message)
+      console.error(`[Email] Resend API request failed:`, err.message)
     }
   }
 
   // Option 1B: HTTP-based Brevo API (Render Free Tier safe - port 443)
   if (process.env.BREVO_API_KEY) {
+    const brevoKey = process.env.BREVO_API_KEY.trim().replace(/^['"]|['"]$/g, '')
+    const senderEmail = (process.env.BREVO_SENDER || process.env.EMAIL || 'vansh100101102@gmail.com').trim()
+
     try {
       const res = await fetch('https://api.brevo.com/v3/smtp/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'api-key': process.env.BREVO_API_KEY
+          'api-key': brevoKey
         },
         body: JSON.stringify({
-          sender: { name: 'Zetawa Dark', email: process.env.EMAIL || 'vansh100101102@gmail.com' },
-          to: [{ email: to }],
+          sender: { name: 'Zetawa Dark', email: senderEmail },
+          to: recipients.map(email => ({ email })),
           subject,
           htmlContent: html || `<p>${text}</p>`,
           textContent: text
@@ -69,12 +79,12 @@ export const sendEmail = async ({ to, subject, text, html }) => {
       })
       const data = await res.json()
       if (res.ok) {
-        console.log(`[Email] Successfully delivered via Brevo API to ${to}`)
+        console.log(`[Email] Successfully delivered via Brevo API to: ${recipients.join(', ')}`)
         return { success: true, provider: 'brevo', data }
       }
-      console.warn(`[Email] Brevo API error:`, data)
+      console.error(`[Email] Brevo API error (${res.status}):`, JSON.stringify(data))
     } catch (err) {
-      console.warn(`[Email] Brevo API failed:`, err.message)
+      console.error(`[Email] Brevo API request failed:`, err.message)
     }
   }
 
@@ -89,15 +99,15 @@ export const sendEmail = async ({ to, subject, text, html }) => {
   try {
     const info = await transporter.sendMail({
       from: fromEmail,
-      to,
+      to: recipients.join(', '),
       subject,
       text,
       html: html || text
     })
-    console.log(`[Email] Successfully delivered via SMTP to ${to}`)
+    console.log(`[Email] Successfully delivered via SMTP to: ${recipients.join(', ')}`)
     return { success: true, provider: 'smtp', info }
   } catch (err) {
-    console.error(`[Email] SMTP delivery failed to ${to}: ${err.message}`)
+    console.error(`[Email] SMTP delivery failed to ${recipients.join(', ')}: ${err.message}`)
     return { success: false, error: err.message }
   }
 }

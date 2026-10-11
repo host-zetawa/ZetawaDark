@@ -26,7 +26,11 @@ export const register = async (req, res) => {
     user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
     await user.save()
 
-    console.log(`[AUTH] Registration OTP generated for ${email}: ${otp}`)
+    console.log(`\n========================================`)
+    console.log(`🔑 [AUTH-OTP] Action: Registration`)
+    console.log(`📧 [AUTH-OTP] Target: ${email}`)
+    console.log(`🔢 [AUTH-OTP] Code:   ${otp}`)
+    console.log(`========================================\n`)
     sendEmail({
       to: email,
       subject: 'Verify your Zetawa account',
@@ -122,7 +126,11 @@ export const sendVerifyOtp = async (req, res) => {
 
     await user.save()
 
-    console.log(`[AUTH] Verification OTP generated for ${user.email}: ${otp}`)
+    console.log(`\n========================================`)
+    console.log(`🔑 [AUTH-OTP] Action: Verification`)
+    console.log(`📧 [AUTH-OTP] Target: ${user.email}`)
+    console.log(`🔢 [AUTH-OTP] Code:   ${otp}`)
+    console.log(`========================================\n`)
 
     sendEmail({
       to: user.email,
@@ -207,7 +215,11 @@ export const sendResetOtp = async (req, res) => {
     user.resetOtpExpireAt = Date.now() + 15 * 60 * 1000
     await user.save()
 
-    console.log(`[AUTH] Reset OTP generated for ${user.email}: ${otp}`)
+    console.log(`\n========================================`)
+    console.log(`🔑 [AUTH-OTP] Action: Password Reset`)
+    console.log(`📧 [AUTH-OTP] Target: ${user.email}`)
+    console.log(`🔢 [AUTH-OTP] Code:   ${otp}`)
+    console.log(`========================================\n`)
 
     sendEmail({
       to: user.email,
