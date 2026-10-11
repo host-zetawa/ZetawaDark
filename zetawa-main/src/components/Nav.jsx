@@ -697,14 +697,22 @@ function ZetawaNav() {
           }
 
           .nav-container {
-            padding: 0 0.85rem;
+            padding: 0 0.75rem;
             height: 56px;
+            gap: 0.5rem;
+          }
+
+          .nav-brand {
+            gap: 0.55rem !important;
+            flex-shrink: 0 !important;
+            min-width: max-content !important;
           }
 
           .brand-name {
             font-size: 0.92rem;
-            letter-spacing: 0.6px;
-            white-space: nowrap;
+            letter-spacing: 0.5px;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
           }
 
           .nav-spacer {
@@ -718,34 +726,55 @@ function ZetawaNav() {
           }
 
           .nav-container {
-            padding: 0 0.65rem;
+            padding: 0 0.5rem !important;
             height: 56px;
+            gap: 0.35rem !important;
           }
 
           .nav-brand {
-            min-width: 0;
-            flex-shrink: 1;
+            gap: 0.45rem !important;
+            flex-shrink: 0 !important;
+            min-width: max-content !important;
           }
 
           .brand-name {
-            font-size: clamp(0.75rem, 3.2vw, 0.88rem);
-            white-space: nowrap;
+            font-size: clamp(0.76rem, 2.9vw, 0.86rem) !important;
+            letter-spacing: 0.35px !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
           }
 
           .logo-container {
-            width: 30px;
-            height: 30px;
-            flex-shrink: 0;
+            width: 28px !important;
+            height: 28px !important;
+            min-width: 28px !important;
+            min-height: 28px !important;
+            padding: 2px !important;
+            flex-shrink: 0 !important;
+          }
+
+          .nav-actions-mobile {
+            gap: 0.3rem !important;
+            flex-shrink: 0 !important;
           }
 
           .mobile-auth-area {
             flex-shrink: 0 !important;
-            gap: 0.35rem !important;
+            gap: 0.3rem !important;
+          }
+
+          .nav-theme-btn {
+            width: 32px !important;
+            height: 32px !important;
+            min-width: 32px !important;
+            min-height: 32px !important;
+            flex-shrink: 0 !important;
           }
 
           .nav-auth-btn {
-            padding: 0.35rem 0.7rem !important;
-            font-size: 0.8rem !important;
+            padding: 0.32rem 0.62rem !important;
+            font-size: 0.78rem !important;
+            gap: 0.25rem !important;
             white-space: nowrap !important;
             word-break: normal !important;
             flex-shrink: 0 !important;
@@ -753,11 +782,11 @@ function ZetawaNav() {
           }
 
           .menu-button {
-            width: 40px;
-            height: 40px;
-            min-width: 40px;
-            min-height: 40px;
-            flex-shrink: 0;
+            width: 36px !important;
+            height: 36px !important;
+            min-width: 36px !important;
+            min-height: 36px !important;
+            flex-shrink: 0 !important;
           }
 
           .nav-spacer {
@@ -1052,7 +1081,7 @@ function ZetawaNav() {
           </nav>
 
           {/* Mobile: Theme + Auth + Hamburger */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+          <div className="nav-actions-mobile" style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', flexShrink: 0 }}>
             <style>{`
               .mobile-auth-area { display: flex; align-items: center; gap: 0.35rem; flex-shrink: 0; }
               @media (min-width: 1024px) { .mobile-auth-area { display: none; } }
