@@ -82,6 +82,9 @@ function ZetawaNav() {
   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (e) => {
+      if (e.target.closest && e.target.closest('.mobile-user-sheet')) {
+        return;
+      }
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
         setShowDropdown(false);
       }
@@ -459,43 +462,70 @@ function ZetawaNav() {
           }
         }
 
-        /* Mobile Bottom Sheet Transformation for User Dropdown */
-        @media (max-width: 767px) {
-          .nav-dropdown-backdrop {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--overlay, rgba(14, 7, 10, 0.75));
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            z-index: 2050;
+        /* Mobile User Bottom Sheet */
+        .mobile-user-sheet-wrapper {
+          display: none;
+        }
+
+        @media (max-width: 1023px) {
+          .mobile-user-sheet-wrapper {
+            display: block;
           }
 
-          .nav-dropdown {
+          .mobile-user-sheet-backdrop {
             position: fixed !important;
-            top: auto !important;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            background: rgba(0, 0, 0, 0.65) !important;
+            backdrop-filter: blur(8px) !important;
+            -webkit-backdrop-filter: blur(8px) !important;
+            z-index: 9998 !important;
+          }
+
+          .mobile-user-sheet {
+            position: fixed !important;
             bottom: 0 !important;
             left: 0 !important;
             right: 0 !important;
             width: 100% !important;
-            min-width: 100% !important;
             max-width: 100% !important;
-            border-radius: 24px 24px 0 0 !important;
+            background: var(--surface-elevated, #1a0f14) !important;
+            border: 1px solid var(--border, rgba(255, 255, 255, 0.15)) !important;
             border-bottom: none !important;
+            border-radius: 24px 24px 0 0 !important;
             padding: 1.25rem 1.25rem calc(1.75rem + env(safe-area-inset-bottom, 0px)) 1.25rem !important;
             box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.6) !important;
-            z-index: 2100 !important;
+            z-index: 9999 !important;
             animation: bottomSheetSlideUp 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
-            box-sizing: border-box;
+            box-sizing: border-box !important;
           }
 
-          .dropdown-item {
+          .mobile-user-sheet .dropdown-item {
             padding: 0.9rem 1rem !important;
             font-size: 0.98rem !important;
             border-radius: 12px !important;
             margin-bottom: 0.25rem !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.75rem !important;
+            color: var(--text, #ffffff) !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+          }
+
+          .mobile-user-sheet .dropdown-item:hover {
+            background: rgba(242, 140, 40, 0.12) !important;
+            color: #f28c28 !important;
+          }
+
+          .mobile-user-sheet .dropdown-item.danger {
+            color: #ff6b6b !important;
+          }
+
+          .mobile-user-sheet .dropdown-item.danger:hover {
+            background: rgba(229, 72, 77, 0.14) !important;
           }
         }
 
@@ -1139,63 +1169,61 @@ function ZetawaNav() {
           </div>
         </div>
 
-        {/* Mobile Bottom Sheet for User Menu */}
-        {isAuth && showDropdown && (
-          <div className="mobile-dropdown-sheet-wrapper">
-            <style>{`
-              @media (min-width: 768px) {
-                .mobile-dropdown-sheet-wrapper { display: none; }
-              }
-            `}</style>
-            <div
-              className="nav-dropdown-backdrop"
-              onClick={() => setShowDropdown(false)}
-            />
-            <div className="nav-dropdown" style={{ zIndex: 2100 }}>
-              <div style={{
-                width: '40px',
-                height: '4px',
-                borderRadius: '4px',
-                background: 'var(--border, rgba(255,255,255,0.2))',
-                margin: '0 auto 1rem auto'
-              }} />
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', padding: '0.25rem 0.5rem 0.85rem', borderBottom: '1px solid var(--border)' }}>
-                <div className="nav-avatar" style={{ width: '32px', height: '32px', fontSize: '0.85rem' }}>{userInitial}</div>
-                <div>
-                  <div style={{ fontWeight: 700, fontSize: '0.92rem', color: 'var(--text)' }}>{user?.name || 'User'}</div>
-                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{user?.email}</div>
-                </div>
+      </header>
+
+      {/* Mobile Bottom Sheet for User Menu */}
+      {isAuth && showDropdown && (
+        <div className="mobile-user-sheet-wrapper">
+          <div
+            className="mobile-user-sheet-backdrop"
+            onClick={() => setShowDropdown(false)}
+          />
+          <div className="mobile-user-sheet">
+            <div style={{
+              width: '40px',
+              height: '4px',
+              borderRadius: '4px',
+              background: 'var(--border, rgba(255,255,255,0.2))',
+              margin: '0 auto 1.25rem auto'
+            }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.25rem 0.5rem 1rem', borderBottom: '1px solid var(--border)' }}>
+              <div className="nav-avatar" style={{ width: '38px', height: '38px', fontSize: '0.95rem', flexShrink: 0 }}>{userInitial}</div>
+              <div style={{ minWidth: 0, flex: 1 }}>
+                <div style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name || 'User'}</div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.email}</div>
               </div>
+            </div>
+            <div style={{ padding: '0.75rem 0 0.25rem' }}>
               <button type="button" className="dropdown-item" onClick={() => { navigate('/profile'); setShowDropdown(false); }}>
                 <User size={18} />
-                My Project Portal
+                <span>My Project Portal</span>
               </button>
               <button type="button" className="dropdown-item" onClick={() => { navigate('/hireforms'); setShowDropdown(false); }}>
                 <FileText size={18} />
-                Hire Us / Start Project
+                <span>Hire Us / Start Project</span>
               </button>
               <button type="button" className="dropdown-item" onClick={() => { navigate('/careers'); setShowDropdown(false); }}>
                 <Briefcase size={18} />
-                Job Openings
+                <span>Job Openings</span>
               </button>
               {isAdmin && (
                 <>
                   <div className="dropdown-divider" />
                   <button type="button" className="dropdown-item" onClick={() => { navigate('/admin'); setShowDropdown(false); }}>
                     <Shield size={18} style={{ color: '#f28c28' }} />
-                    Admin Command Center
+                    <span>Admin Command Center</span>
                   </button>
                 </>
               )}
               <div className="dropdown-divider" />
               <button type="button" className="dropdown-item danger" onClick={handleLogout}>
                 <LogOut size={18} />
-                Logout
+                <span>Logout</span>
               </button>
             </div>
           </div>
-        )}
-      </header>
+        </div>
+      )}
 
       {/* Spacer to prevent content from hiding behind fixed header */}
       <div
