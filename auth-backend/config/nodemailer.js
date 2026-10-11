@@ -50,9 +50,16 @@ export const sendEmail = async ({ to, subject, text, html }) => {
   }
 
   // Option 2: Direct SMTP with strict timeout
+  const fromEmail = process.env.EMAIL || process.env.EMAIL_USER
+  const pass = process.env.PASSWORD || process.env.EMAIL_PASS
+  if (!fromEmail || !pass) {
+    console.warn(`[Email] No EMAIL / PASSWORD configured in environment variables.`)
+    return { success: false, error: 'Email credentials not configured' }
+  }
+
   try {
     const info = await transporter.sendMail({
-      from: process.env.EMAIL || process.env.EMAIL_USER,
+      from: fromEmail,
       to,
       subject,
       text,

@@ -26,13 +26,12 @@ export const register = async (req, res) => {
     user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
     await user.save()
 
-    // Send OTP email (no cookie set — user must verify then login)
     console.log(`[AUTH] Registration OTP generated for ${email}: ${otp}`)
-    await sendEmail({
+    sendEmail({
       to: email,
       subject: 'Verify your Zetawa account',
       text: `Welcome to Zetawa! Your verification OTP is ${otp}. Enter this OTP to verify your account.`
-    })
+    }).catch(err => console.error('[AUTH] Email dispatch error:', err.message))
 
     return res.json({ success: true, message: 'OTP sent to your email. Please verify your account.' })
   } catch (error) {
@@ -125,17 +124,15 @@ export const sendVerifyOtp = async (req, res) => {
 
     console.log(`[AUTH] Verification OTP generated for ${user.email}: ${otp}`)
 
-    const emailResult = await sendEmail({
+    sendEmail({
       to: user.email,
       subject: 'Account verification otp',
       text: `Your OTP is ${otp}. Verify your account using this OTP`
-    })
+    }).catch(err => console.error('[AUTH] Email dispatch error:', err.message))
 
     return res.json({
       success: true,
-      message: emailResult.success
-        ? 'Verification OTP sent on the Email'
-        : 'Verification OTP generated. Please check your inbox or spam folder.'
+      message: 'Verification OTP sent on the Email'
     })
   } catch (error) {
     return res.json({ success: false, message: error.message })
@@ -212,17 +209,15 @@ export const sendResetOtp = async (req, res) => {
 
     console.log(`[AUTH] Reset OTP generated for ${user.email}: ${otp}`)
 
-    const emailResult = await sendEmail({
+    sendEmail({
       to: user.email,
       subject: 'Password Reset OTP',
       text: `Your OTP for resetting your password is ${otp}. Use this OTP to proceed with resetting your password.`
-    })
+    }).catch(err => console.error('[AUTH] Email dispatch error:', err.message))
 
     return res.json({
       success: true,
-      message: emailResult.success
-        ? 'OTP sent to your email'
-        : 'Password Reset OTP generated. Please check your inbox or spam folder.'
+      message: 'OTP sent to your email'
     })
   } catch (error) {
     return res.json({ success: false, message: error.message })
