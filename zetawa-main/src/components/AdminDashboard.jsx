@@ -685,6 +685,24 @@ const AdminDashboard = () => {
         .admin-nav-tab:hover {
           background-color: var(--bg-alt);
         }
+        .admin-nav-tab {
+          white-space: nowrap !important;
+          word-break: normal !important;
+          flex-shrink: 0 !important;
+          min-width: max-content !important;
+          display: inline-flex !important;
+          align-items: center !important;
+        }
+        .admin-nav-tab-container {
+          display: flex !important;
+          flex-wrap: nowrap !important;
+          overflow-x: auto !important;
+          -webkit-overflow-scrolling: touch !important;
+          scrollbar-width: none !important;
+        }
+        .admin-nav-tab-container::-webkit-scrollbar {
+          display: none !important;
+        }
         .table-row-hover:hover {
           background-color: var(--bg-alt) !important;
         }
@@ -818,20 +836,24 @@ const AdminDashboard = () => {
         </div>
 
         {/* ============ 3. NAVIGATION TABS BAR ============ */}
-        <div style={{
-          display: "flex",
-          gap: "0.5rem",
-          marginBottom: "2rem",
-          flexWrap: "wrap",
-          background: "var(--surface)",
-          padding: "0.6rem",
-          borderRadius: "16px",
-          border: "1px solid var(--border)",
-          boxShadow: "var(--shadow)",
-          overflowX: "auto",
-          maxWidth: "100%",
-          WebkitOverflowScrolling: "touch"
-        }}>
+        <div 
+          className="admin-nav-tab-container"
+          style={{
+            display: "flex",
+            gap: "0.5rem",
+            marginBottom: "2rem",
+            flexWrap: "nowrap",
+            background: "var(--surface)",
+            padding: "0.6rem",
+            borderRadius: "16px",
+            border: "1px solid var(--border)",
+            boxShadow: "var(--shadow)",
+            overflowX: "auto",
+            maxWidth: "100%",
+            WebkitOverflowScrolling: "touch",
+            scrollbarWidth: "none"
+          }}
+        >
           {[
             { id: "inquiries", label: "Project Consultations", icon: Inbox, badge: inquiries.length, pendingBadge: pendingInquiriesCount },
             { id: "services", label: "Services CMS", icon: Layers, badge: services.length },
@@ -854,18 +876,21 @@ const AdminDashboard = () => {
                   cursor: "pointer",
                   background: isActive ? "var(--primary)" : "transparent",
                   color: isActive ? "var(--primary-contrast)" : "var(--text-muted)",
-                  display: "flex", 
+                  display: "inline-flex", 
                   alignItems: "center", 
                   gap: "0.55rem",
                   transition: "all 0.2s ease",
                   fontSize: "0.92rem",
                   boxShadow: isActive ? "var(--shadow)" : "none",
                   whiteSpace: "nowrap",
+                  wordBreak: "normal",
+                  minWidth: "max-content",
+                  flexShrink: 0,
                   minHeight: "44px",
                   touchAction: "manipulation"
                 }}>
-                <tab.icon size={17} /> 
-                <span>{tab.label}</span>
+                <tab.icon size={17} style={{ flexShrink: 0 }} /> 
+                <span style={{ whiteSpace: "nowrap", flexShrink: 0 }}>{tab.label}</span>
                 {tab.badge !== undefined && (
                   <span style={{
                     backgroundColor: isActive ? "rgba(255,255,255,0.22)" : "var(--bg-alt)",
@@ -874,7 +899,9 @@ const AdminDashboard = () => {
                     fontWeight: 800,
                     padding: "0.15rem 0.55rem",
                     borderRadius: "20px",
-                    marginLeft: "0.2rem"
+                    marginLeft: "0.2rem",
+                    whiteSpace: "nowrap",
+                    flexShrink: 0
                   }}>
                     {tab.badge}
                   </span>
@@ -889,7 +916,9 @@ const AdminDashboard = () => {
                       fontWeight: 800,
                       padding: "0.12rem 0.48rem",
                       borderRadius: "20px",
-                      marginLeft: "0.1rem"
+                      marginLeft: "0.1rem",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0
                     }}>
                     {tab.pendingBadge} new
                   </span>
@@ -927,7 +956,7 @@ const AdminDashboard = () => {
                   alignItems: "center",
                   boxShadow: "var(--shadow)"
                 }}>
-                  <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+                  <div className="scrollable-filter-row" style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap", overflowX: "auto" }}>
                     {[
                       { id: "all", label: `All (${inquiries.length})` },
                       { id: "Pending Review", label: `Pending Review (${inquiries.filter(i => i.status === "Pending Review").length})` },
@@ -949,7 +978,12 @@ const AdminDashboard = () => {
                           cursor: "pointer",
                           backgroundColor: inquiryFilter === f.id ? "var(--primary)" : "var(--bg-alt)",
                           color: inquiryFilter === f.id ? "var(--primary-contrast)" : "var(--text-muted)",
-                          transition: "all 0.2s ease"
+                          transition: "all 0.2s ease",
+                          whiteSpace: "nowrap",
+                          wordBreak: "normal",
+                          flexShrink: 0,
+                          minWidth: "max-content",
+                          touchAction: "manipulation"
                         }}>
                         {f.label}
                       </button>

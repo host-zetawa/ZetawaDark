@@ -692,40 +692,76 @@ function ZetawaNav() {
         }
 
         @media (max-width: 768px) {
+          .nav-header {
+            padding: 0.35rem 0 !important;
+          }
+
           .nav-container {
             padding: 0 0.85rem;
-            height: 54px;
+            height: 56px;
           }
 
           .brand-name {
             font-size: 0.92rem;
             letter-spacing: 0.6px;
+            white-space: nowrap;
           }
 
           .nav-spacer {
-            height: 54px !important;
+            height: 68px !important;
           }
         }
 
         @media (max-width: 480px) {
+          .nav-header {
+            padding: 0.35rem 0 !important;
+          }
+
           .nav-container {
             padding: 0 0.65rem;
+            height: 56px;
+          }
+
+          .nav-brand {
+            min-width: 0;
+            flex-shrink: 1;
           }
 
           .brand-name {
-            font-size: clamp(0.78rem, 3.4vw, 0.92rem);
+            font-size: clamp(0.75rem, 3.2vw, 0.88rem);
+            white-space: nowrap;
           }
 
           .logo-container {
             width: 30px;
             height: 30px;
+            flex-shrink: 0;
+          }
+
+          .mobile-auth-area {
+            flex-shrink: 0 !important;
+            gap: 0.35rem !important;
+          }
+
+          .nav-auth-btn {
+            padding: 0.35rem 0.7rem !important;
+            font-size: 0.8rem !important;
+            white-space: nowrap !important;
+            word-break: normal !important;
+            flex-shrink: 0 !important;
+            min-width: max-content !important;
           }
 
           .menu-button {
-            width: 42px;
-            height: 42px;
-            min-width: 42px;
-            min-height: 42px;
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            min-height: 40px;
+            flex-shrink: 0;
+          }
+
+          .nav-spacer {
+            height: 68px !important;
           }
         }
 
@@ -1018,7 +1054,7 @@ function ZetawaNav() {
           {/* Mobile: Theme + Auth + Hamburger */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
             <style>{`
-              .mobile-auth-area { display: flex; align-items: center; gap: 0.5rem; }
+              .mobile-auth-area { display: flex; align-items: center; gap: 0.35rem; flex-shrink: 0; }
               @media (min-width: 1024px) { .mobile-auth-area { display: none; } }
             `}</style>
             <div className="mobile-auth-area">
@@ -1026,19 +1062,19 @@ function ZetawaNav() {
                 className="nav-theme-btn"
                 onClick={toggleTheme}
                 aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
-                style={{ width: '34px', height: '34px' }}
+                style={{ width: '34px', height: '34px', flexShrink: 0 }}
               >
                 {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
               </button>
               {isAuth ? (
-                <div ref={dropdownRef} style={{ position: 'relative' }}>
+                <div ref={dropdownRef} style={{ position: 'relative', flexShrink: 0 }}>
                   <button
                     className="nav-user-btn"
                     onClick={() => setShowDropdown(!showDropdown)}
-                    style={{ padding: '0.25rem 0.55rem 0.25rem 0.25rem', fontSize: '0.8rem' }}
+                    style={{ padding: '0.25rem 0.55rem 0.25rem 0.25rem', fontSize: '0.8rem', whiteSpace: 'nowrap', flexShrink: 0 }}
                     aria-label="User account menu"
                   >
-                    <div className="nav-avatar" style={{ width: '26px', height: '26px', fontSize: '0.75rem' }}>{userInitial}</div>
+                    <div className="nav-avatar" style={{ width: '26px', height: '26px', fontSize: '0.75rem', flexShrink: 0 }}>{userInitial}</div>
                     <ChevronDown size={12} />
                   </button>
                 </div>
@@ -1046,10 +1082,20 @@ function ZetawaNav() {
                 <button
                   className="nav-auth-btn"
                   onClick={() => setShowAuthModal(true)}
-                  style={{ padding: '0.35rem 0.8rem', fontSize: '0.8rem' }}
+                  style={{
+                    padding: '0.35rem 0.75rem',
+                    fontSize: '0.8rem',
+                    whiteSpace: 'nowrap',
+                    wordBreak: 'normal',
+                    flexShrink: 0,
+                    minWidth: 'max-content',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.35rem'
+                  }}
                 >
-                  <LogIn size={14} />
-                  Login
+                  <LogIn size={13} style={{ flexShrink: 0 }} />
+                  <span>Login</span>
                 </button>
               )}
             </div>
@@ -1126,7 +1172,7 @@ function ZetawaNav() {
       <div
         className="nav-spacer"
         style={{
-          height: isScrolled ? '54px' : '62px',
+          height: '68px',
           background: 'var(--bg)',
           transition: 'height 0.3s ease'
         }}

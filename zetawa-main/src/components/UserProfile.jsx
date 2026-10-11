@@ -114,6 +114,36 @@ const UserProfile = () => {
     }}>
       <Nav />
       
+      <style>{`
+        .user-tab-btn {
+          white-space: nowrap !important;
+          word-break: normal !important;
+          flex-shrink: 0 !important;
+          min-width: max-content !important;
+          display: inline-flex !important;
+          align-items: center !important;
+          justify-content: center !important;
+        }
+        .user-profile-tabs {
+          display: flex !important;
+          flex-wrap: nowrap !important;
+          overflow-x: auto !important;
+          -webkit-overflow-scrolling: touch !important;
+          scrollbar-width: none !important;
+        }
+        .user-profile-tabs::-webkit-scrollbar {
+          display: none !important;
+        }
+        .milestone-container {
+          overflow-x: auto !important;
+          -webkit-overflow-scrolling: touch !important;
+          scrollbar-width: none !important;
+        }
+        .milestone-container::-webkit-scrollbar {
+          display: none !important;
+        }
+      `}</style>
+      
       <div style={{ flex: 1, padding: 'clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 1.5rem) 3rem', maxWidth: '1200px', margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         
         {/* User Hero Banner */}
@@ -261,28 +291,39 @@ const UserProfile = () => {
             </p>
           </div>
 
-          <div style={{
-            display: 'flex',
-            gap: '0.4rem',
-            background: 'var(--surface)',
-            padding: '0.35rem',
-            borderRadius: '10px',
-            border: '1px solid var(--border)',
-            overflowX: 'auto',
-            maxWidth: '100%',
-            WebkitOverflowScrolling: 'touch'
-          }}>
+          <div 
+            className="user-profile-tabs"
+            style={{
+              display: 'flex',
+              gap: '0.4rem',
+              background: 'var(--surface)',
+              padding: '0.35rem',
+              borderRadius: '10px',
+              border: '1px solid var(--border)',
+              overflowX: 'auto',
+              maxWidth: '100%',
+              flexWrap: 'nowrap',
+              WebkitOverflowScrolling: 'touch',
+              scrollbarWidth: 'none'
+            }}
+          >
             <button
+              className="user-tab-btn"
               onClick={() => setActiveTab('all')}
               style={{
-                padding: '0.4rem 0.85rem',
-                minHeight: '36px',
+                padding: '0.45rem 0.95rem',
+                minHeight: '38px',
                 whiteSpace: 'nowrap',
+                wordBreak: 'normal',
+                flexShrink: 0,
+                minWidth: 'max-content',
                 borderRadius: '8px',
                 border: 'none',
-                fontSize: '0.82rem',
+                fontSize: '0.85rem',
                 fontWeight: 700,
                 cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
                 backgroundColor: activeTab === 'all' ? 'var(--primary)' : 'transparent',
                 color: activeTab === 'all' ? 'var(--primary-contrast)' : 'var(--text-muted)',
                 touchAction: 'manipulation'
@@ -290,16 +331,22 @@ const UserProfile = () => {
               All ({inquiries.length})
             </button>
             <button
+              className="user-tab-btn"
               onClick={() => setActiveTab('active')}
               style={{
-                padding: '0.4rem 0.85rem',
-                minHeight: '36px',
+                padding: '0.45rem 0.95rem',
+                minHeight: '38px',
                 whiteSpace: 'nowrap',
+                wordBreak: 'normal',
+                flexShrink: 0,
+                minWidth: 'max-content',
                 borderRadius: '8px',
                 border: 'none',
-                fontSize: '0.82rem',
+                fontSize: '0.85rem',
                 fontWeight: 700,
                 cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
                 backgroundColor: activeTab === 'active' ? 'var(--primary)' : 'transparent',
                 color: activeTab === 'active' ? 'var(--primary-contrast)' : 'var(--text-muted)',
                 touchAction: 'manipulation'
@@ -307,16 +354,22 @@ const UserProfile = () => {
               Active ({activeCount})
             </button>
             <button
+              className="user-tab-btn"
               onClick={() => setActiveTab('completed')}
               style={{
-                padding: '0.4rem 0.85rem',
-                minHeight: '36px',
+                padding: '0.45rem 0.95rem',
+                minHeight: '38px',
                 whiteSpace: 'nowrap',
+                wordBreak: 'normal',
+                flexShrink: 0,
+                minWidth: 'max-content',
                 borderRadius: '8px',
                 border: 'none',
-                fontSize: '0.82rem',
+                fontSize: '0.85rem',
                 fontWeight: 700,
                 cursor: 'pointer',
+                display: 'inline-flex',
+                alignItems: 'center',
                 backgroundColor: activeTab === 'completed' ? 'var(--primary)' : 'transparent',
                 color: activeTab === 'completed' ? 'var(--primary-contrast)' : 'var(--text-muted)',
                 touchAction: 'manipulation'
@@ -327,7 +380,7 @@ const UserProfile = () => {
               onClick={fetchMyInquiries}
               style={{
                 padding: '0.4rem 0.6rem',
-                minHeight: '36px',
+                minHeight: '38px',
                 borderRadius: '8px',
                 border: 'none',
                 background: 'transparent',
@@ -336,6 +389,7 @@ const UserProfile = () => {
                 display: 'inline-flex',
                 alignItems: 'center',
                 justifyContent: 'center',
+                flexShrink: 0,
                 touchAction: 'manipulation'
               }}
               title="Refresh Inquiries">
@@ -486,12 +540,12 @@ const UserProfile = () => {
                   </div>
 
                   {/* Visual Milestone Progress Tracker */}
-                  <div style={{ marginBottom: '1.75rem', padding: '1rem', backgroundColor: 'var(--bg-alt)', borderRadius: '12px', border: '1px solid var(--border)', overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+                  <div className="milestone-container" style={{ marginBottom: '1.75rem', padding: '1rem', backgroundColor: 'var(--bg-alt)', borderRadius: '12px', border: '1px solid var(--border)', overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none' }}>
                     <div style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary)', textTransform: 'uppercase', marginBottom: '0.75rem', letterSpacing: '0.5px' }}>
                       Sprint Milestone Journey:
                     </div>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, minmax(60px, 1fr))', minWidth: '320px', gap: '0.5rem', position: 'relative' }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', minWidth: '460px', gap: '0.5rem', position: 'relative' }}>
                       {[
                         { stepNum: 1, title: '1. Submitted' },
                         { stepNum: 2, title: '2. Discovery' },
@@ -521,7 +575,14 @@ const UserProfile = () => {
                             }}>
                               {isDone ? <Check size={14} /> : s.stepNum}
                             </div>
-                            <span style={{ fontSize: '0.75rem', fontWeight: isDone ? 700 : 500, color: isDone ? 'var(--text)' : 'var(--text-muted)' }}>
+                            <span style={{
+                              fontSize: '0.75rem',
+                              fontWeight: isDone ? 700 : 500,
+                              color: isDone ? 'var(--text)' : 'var(--text-muted)',
+                              whiteSpace: 'nowrap',
+                              wordBreak: 'normal',
+                              display: 'block'
+                            }}>
                               {s.title}
                             </span>
                           </div>

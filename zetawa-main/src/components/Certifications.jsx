@@ -77,6 +77,75 @@ const Certifications = () => {
     }}>
       <Nav />
       <style>{`
+        .cert-search-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 0.75rem;
+          background: var(--input-bg);
+          padding: 0.5rem;
+          border-radius: 16px;
+          border: 1.5px solid var(--input-border);
+          transition: all 0.2s ease;
+        }
+
+        .cert-search-input-box {
+          flex: 1;
+          display: flex;
+          align-items: center;
+          padding: 0 0.75rem;
+          min-width: 0;
+        }
+
+        .cert-verify-btn {
+          background-color: var(--primary);
+          color: white;
+          border: none;
+          padding: 0.85rem 1.8rem;
+          border-radius: 12px;
+          font-size: 0.95rem;
+          font-weight: 700;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.45rem;
+          min-height: 46px;
+          flex-shrink: 0;
+          white-space: nowrap !important;
+          word-break: normal !important;
+          box-shadow: 0 4px 12px rgba(126, 58, 65, 0.25);
+          transition: all 0.2s ease;
+          touch-action: manipulation;
+        }
+
+        @media (max-width: 640px) {
+          .cert-search-wrapper {
+            flex-direction: column !important;
+            background: transparent !important;
+            border: none !important;
+            padding: 0 !important;
+            gap: 0.75rem !important;
+          }
+
+          .cert-search-input-box {
+            background: var(--input-bg) !important;
+            border: 1.5px solid var(--input-border) !important;
+            border-radius: 14px !important;
+            padding: 0.85rem 1rem !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
+            min-height: 50px !important;
+          }
+
+          .cert-verify-btn {
+            width: 100% !important;
+            min-height: 48px !important;
+            border-radius: 14px !important;
+            font-size: 1rem !important;
+            padding: 0.9rem 1.5rem !important;
+          }
+        }
+
         @media (max-width: 768px) {
           .hero-trust-strip {
             flex-direction: column !important;
@@ -241,23 +310,16 @@ const Certifications = () => {
 
           {/* Search Box */}
           <div style={{ maxWidth: '640px', margin: '0 auto 1.5rem' }}>
-            <div style={{
-              display: 'flex',
-              gap: '0.75rem',
-              flexWrap: 'wrap',
-              backgroundColor: 'var(--input-bg)',
-              padding: '0.5rem',
-              borderRadius: '16px',
-              border: '1.5px solid var(--input-border)'
-            }}>
-              <div style={{ flex: 1, minWidth: 'min(100%, 200px)', display: 'flex', alignItems: 'center', padding: '0 0.75rem' }}>
-                <Search size={20} color="var(--primary)" style={{ marginRight: '0.5rem', flexShrink: 0 }} />
+            <div className="cert-search-wrapper">
+              <div className="cert-search-input-box">
+                <Search size={20} color="var(--primary)" style={{ marginRight: '0.65rem', flexShrink: 0 }} />
                 <input
                   type="text"
                   placeholder="Enter Certificate No. (e.g. ZETA-2025-001)"
                   value={searchCertNumber}
                   onChange={(e) => setSearchCertNumber(e.target.value)}
                   onKeyDown={(e) => e.key === 'Enter' && handleValidation()}
+                  aria-label="Certificate Identification Number"
                   style={{
                     width: '100%',
                     border: 'none',
@@ -271,25 +333,12 @@ const Certifications = () => {
               </div>
 
               <button
+                className="cert-verify-btn"
                 onClick={handleValidation}
                 disabled={isVerifying}
                 style={{
-                  backgroundColor: 'var(--primary)',
-                  color: 'white',
-                  border: 'none',
-                  padding: '0.85rem 1.8rem',
-                  borderRadius: '12px',
-                  fontSize: '0.95rem',
-                  fontWeight: 700,
                   cursor: isVerifying ? 'not-allowed' : 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.4rem',
-                  flex: '1 1 140px',
-                  minHeight: '44px',
-                  transition: 'background 0.2s ease',
-                  boxShadow: '0 4px 12px rgba(126,58,65,0.25)'
+                  opacity: isVerifying ? 0.8 : 1
                 }}
                 onMouseOver={(e) => { if (!isVerifying) e.currentTarget.style.opacity = '0.9'; }}
                 onMouseOut={(e) => { if (!isVerifying) e.currentTarget.style.opacity = '1'; }}
@@ -297,7 +346,7 @@ const Certifications = () => {
                 {isVerifying ? (
                   <>Verifying...</>
                 ) : (
-                  <><Shield size={18} /> Verify Credential</>
+                  <><Shield size={18} style={{ flexShrink: 0 }} /> <span>Verify Credential</span></>
                 )}
               </button>
             </div>

@@ -228,9 +228,24 @@ const Services = () => {
           display: none;
         }
 
+        .service-catalog-sticky {
+          position: sticky;
+          top: 72px;
+          z-index: 90;
+        }
+
+        @media (max-width: 768px) {
+          .service-catalog-sticky {
+            top: 68px !important;
+          }
+        }
+
         .services-filter-bar button {
           scroll-snap-align: start;
-          flex-shrink: 0;
+          flex-shrink: 0 !important;
+          min-width: max-content !important;
+          white-space: nowrap !important;
+          word-break: normal !important;
           min-height: 44px !important;
           touch-action: manipulation;
         }
@@ -387,10 +402,7 @@ const Services = () => {
       </section>
 
       {/* ──────── Category Navigation Tabs ──────── */}
-      <section id="service-catalog" style={{
-        position: 'sticky',
-        top: '54px',
-        zIndex: 90,
+      <section id="service-catalog" className="service-catalog-sticky" style={{
         backgroundColor: 'var(--glass-bg, rgba(255, 255, 255, 0.94))',
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
