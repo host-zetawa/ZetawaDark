@@ -1,5 +1,5 @@
 import express from "express";
-import nodemailer from "nodemailer";
+import { sendEmail } from "../config/nodemailer.js";
 
 const router = express.Router();
 
@@ -29,22 +29,10 @@ const handleContactForm = async (req, res) => {
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER || process.env.EMAIL,
-        pass: process.env.EMAIL_PASS || process.env.PASSWORD
-      }
-    });
-
-    const adminEmail = process.env.ADMIN_EMAIL || process.env.EMAIL;
     const targetEmail = getTargetEmail(inquiryType);
 
-    await transporter.sendMail({
-      from: process.env.EMAIL_USER || process.env.EMAIL,
+    await sendEmail({
       to: targetEmail,
-      bcc: adminEmail && adminEmail !== targetEmail ? adminEmail : undefined,
-      replyTo: email,
       subject: `New ${inquiryType} from ${name}`,
       html: `
         <h2>Contact Form Submission</h2>
@@ -56,7 +44,8 @@ const handleContactForm = async (req, res) => {
         <div style="background-color: #f4f4f5; padding: 12px; border-radius: 8px; margin-top: 8px;">
           ${message.replace(/\n/g, "<br>")}
         </div>
-      `
+      `,
+      text: `New ${inquiryType} from ${name} (${email}):\n\n${message}`
     });
 
     res.status(200).json({

@@ -2,7 +2,7 @@ import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
 import userModel from "../models/userModel.js"
 import "dotenv/config"
-import transporter from "../config/nodemailer.js"
+import transporter, { sendEmail } from "../config/nodemailer.js"
 
 export const register = async (req, res) => {
   const { name, email, password } = req.body
@@ -27,13 +27,12 @@ export const register = async (req, res) => {
     await user.save()
 
     // Send OTP email (no cookie set — user must verify then login)
-    const mailOptions = {
-      from: process.env.EMAIL,
+    console.log(`[AUTH] Registration OTP generated for ${email}: ${otp}`)
+    await sendEmail({
       to: email,
       subject: 'Verify your Zetawa account',
       text: `Welcome to Zetawa! Your verification OTP is ${otp}. Enter this OTP to verify your account.`
-    }
-    await transporter.sendMail(mailOptions)
+    })
 
     return res.json({ success: true, message: 'OTP sent to your email. Please verify your account.' })
   } catch (error) {
@@ -111,6 +110,9 @@ export const sendVerifyOtp = async (req, res) => {
   try {
     const userId = req.userId || req.body?.userId
     const user = await userModel.findById(userId)
+    if (!user) {
+      return res.json({ success: false, message: "User not found" })
+    }
     if (user.isAccountVerified) {
       return res.json({ success: false, message: "Account Already verified" })
     }
@@ -120,16 +122,23 @@ export const sendVerifyOtp = async (req, res) => {
     user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
 
     await user.save()
-    const mailOption = {
-      from: process.env.EMAIL,
+
+    console.log(`[AUTH] Verification OTP generated for ${user.email}: ${otp}`)
+
+    const emailResult = await sendEmail({
       to: user.email,
       subject: 'Account verification otp',
       text: `Your OTP is ${otp}. Verify your account using this OTP`
-    }
-    await transporter.sendMail(mailOption)
-    res.json({ success: true, message: 'Verification OTP sent on the Email' })
+    })
+
+    return res.json({
+      success: true,
+      message: emailResult.success
+        ? 'Verification OTP sent on the Email'
+        : 'Verification OTP generated. Please check your inbox or spam folder.'
+    })
   } catch (error) {
-    res.json({ success: false, message: error.message })
+    return res.json({ success: false, message: error.message })
   }
 }
 
@@ -164,14 +173,12 @@ export const verifyEmail = async (req, res) => {
       maxAge: 7 * 24 * 60 * 60 * 1000
     })
 
-    // Send welcome email after successful verification
-    const welcomeMail = {
-      from: process.env.EMAIL,
+    // Send welcome email after successful verification (background/non-blocking)
+    sendEmail({
       to: user.email,
-      subject: 'Welcome to Zetawa Dark Privated Limited',
+      subject: 'Welcome to Zetawa Dark Private Limited',
       text: `Welcome to Zetawa! Your account has been verified successfully. Your account is now fully active with email: ${user.email}`
-    }
-    await transporter.sendMail(welcomeMail)
+    }).catch(err => console.error('[AUTH] Welcome mail delivery notice:', err.message))
 
     return res.json({ success: true, message: 'Email verified successfully' })
   } catch (error) {
@@ -202,15 +209,21 @@ export const sendResetOtp = async (req, res) => {
     user.resetOtp = otp
     user.resetOtpExpireAt = Date.now() + 15 * 60 * 1000
     await user.save()
-    const mailOption = {
-      from: process.env.EMAIL,
+
+    console.log(`[AUTH] Reset OTP generated for ${user.email}: ${otp}`)
+
+    const emailResult = await sendEmail({
       to: user.email,
       subject: 'Password Reset OTP',
       text: `Your OTP for resetting your password is ${otp}. Use this OTP to proceed with resetting your password.`
-    }
-    await transporter.sendMail(mailOption)
+    })
 
-    return res.json({ success: true, message: 'OTP sent to your email' })
+    return res.json({
+      success: true,
+      message: emailResult.success
+        ? 'OTP sent to your email'
+        : 'Password Reset OTP generated. Please check your inbox or spam folder.'
+    })
   } catch (error) {
     return res.json({ success: false, message: error.message })
   }
