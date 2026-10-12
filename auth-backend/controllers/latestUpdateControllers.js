@@ -19,9 +19,8 @@ export const getLatestUpdates = async (req, res) => {
 // Create latest update (admin only)
 export const createLatestUpdate = async (req, res) => {
   const { title, date, description } = req.body
-  const directFileLink = req.body.file
   const uploadedFile = req.file || (Array.isArray(req.files) ? req.files[0] : null)
-  let file = (typeof directFileLink === 'string') ? directFileLink.trim() : ''
+  let file = ''
 
   if (!title || !date) {
     return res.json({ success: false, message: 'Title and date are required' })
@@ -46,8 +45,7 @@ export const createLatestUpdate = async (req, res) => {
 // Update latest update (admin only)
 export const updateLatestUpdate = async (req, res) => {
   const { id } = req.params
-  const { title, date, description, removeFile } = req.body
-  const directFileLink = req.body.file
+  const { title, date, description } = req.body
   const uploadedFile = req.file || (Array.isArray(req.files) ? req.files[0] : null)
 
   try {
@@ -58,18 +56,7 @@ export const updateLatestUpdate = async (req, res) => {
 
     let file = existingUpdate.file
 
-    // Check if admin explicitly removed the file or passed removeFile: 'true'
-    const shouldRemove =
-      removeFile === 'true' ||
-      removeFile === true ||
-      (directFileLink === '' && !uploadedFile && req.body.hasExplicitFileAction === 'true')
-
-    if (shouldRemove) {
-      if (existingUpdate.file) {
-        await deleteFileFromStorage(existingUpdate.file)
-      }
-      file = ''
-    } else if (uploadedFile) {
+    if (uploadedFile) {
       // Remove old file from Cloudinary or local disk
       if (existingUpdate.file) {
         await deleteFileFromStorage(existingUpdate.file)
@@ -77,19 +64,6 @@ export const updateLatestUpdate = async (req, res) => {
       const localFilePath = path.join(__dirname, '..', 'uploads', uploadedFile.filename)
       const uploadRes = await uploadFileToCloudinary(localFilePath, 'zetawa_updates')
       file = uploadRes.url || `uploads/${uploadedFile.filename}`
-    } else if (directFileLink !== undefined && directFileLink !== null) {
-      const trimmed = directFileLink.trim()
-      if (trimmed === '') {
-        if (existingUpdate.file) {
-          await deleteFileFromStorage(existingUpdate.file)
-        }
-        file = ''
-      } else if (trimmed !== existingUpdate.file) {
-        if (existingUpdate.file) {
-          await deleteFileFromStorage(existingUpdate.file)
-        }
-        file = trimmed
-      }
     }
 
     const update = await latestUpdateModel.findByIdAndUpdate(

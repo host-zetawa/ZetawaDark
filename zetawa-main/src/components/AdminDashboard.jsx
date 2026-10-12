@@ -6,7 +6,7 @@ import {
   Tag, Eye, Search, Check, ListChecks, ArrowUp, ArrowDown, ChevronDown, 
   ChevronUp, Wrench, Inbox, MessageSquare, Clock, DollarSign, Calendar,
   User, Mail, Phone, Building, FileText, Send, AlertCircle, RefreshCw,
-  Copy, CheckCheck, Compass, CheckSquare, Shield, Paperclip
+  Copy, CheckCheck, Compass, CheckSquare, Shield
 } from "lucide-react"
 import { useAppContext } from "../context/AppContext"
 import Nav from "./Nav"
@@ -123,7 +123,6 @@ const AdminDashboard = () => {
   })
   const [certFile, setCertFile] = useState(null)
   const [luFile, setLuFile] = useState(null)
-  const [removeLuFile, setRemoveLuFile] = useState(false)
   const [syncingCloudinary, setSyncingCloudinary] = useState(false)
 
   const DEFAULT_PR_FORM = { title: "", date: "", type: "Official Announcement", source: "LinkedIn", linkedinUrl: "", year: "FY2025", content: "" }
@@ -480,16 +479,7 @@ const AdminDashboard = () => {
     formData.append("title", luForm.title)
     formData.append("date", luForm.date)
     formData.append("description", luForm.description)
-    formData.append("hasExplicitFileAction", "true")
-
-    if (removeLuFile) {
-      formData.append("removeFile", "true")
-      formData.append("file", "")
-    } else if (luFile) {
-      formData.append("file", luFile)
-    } else {
-      formData.append("file", luForm.file ? luForm.file.trim() : "")
-    }
+    if (luFile) formData.append("file", luFile)
 
     try {
       if (editingId) {
@@ -501,7 +491,6 @@ const AdminDashboard = () => {
       setShowAddForm(false)
       setLuForm(DEFAULT_LU_FORM)
       setLuFile(null)
-      setRemoveLuFile(false)
       fetchData()
     } catch (err) {
       alert(err.response?.data?.message || "Error saving update")
@@ -511,8 +500,6 @@ const AdminDashboard = () => {
   const handleLuEdit = (lu) => {
     setEditingId(lu._id)
     setLuForm({ title: lu.title, date: lu.date, description: lu.description, file: lu.file || "" })
-    setLuFile(null)
-    setRemoveLuFile(false)
     setShowAddForm(true)
   }
 
@@ -2343,60 +2330,45 @@ const AdminDashboard = () => {
                   </div>
 
                   {!showAddForm && (
-                    <button onClick={() => { setShowAddForm(true); setEditingId(null); setLuForm(DEFAULT_LU_FORM); setLuFile(null); setRemoveLuFile(false); }} style={btnPrimary}>
+                    <button onClick={() => { setShowAddForm(true); setEditingId(null); setLuForm(DEFAULT_LU_FORM); }} style={btnPrimary}>
                       <Plus size={18} /> Add Notice
                     </button>
                   )}
                 </div>
 
                 <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
-                  <table style={{ width: "100%", minWidth: "650px", borderCollapse: "collapse" }}>
+                  <table style={{ width: "100%", minWidth: "600px", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: "var(--bg-alt)", borderBottom: "1.5px solid var(--border)" }}>
                         <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Notice Title</th>
                         <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Date</th>
                         <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Description</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Attachment</th>
                         <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
                       {latestUpdates.length === 0 ? (
-                        <tr><td colSpan={5} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No notices posted yet</td></tr>
+                        <tr><td colSpan={4} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No notices posted yet</td></tr>
                       ) : latestUpdates.map(lu => (
                         <tr key={lu._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
                           <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>
-                            <span>{lu.title}</span>
+                            <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                              <span>{lu.title}</span>
+                              {lu.file && (
+                                <a
+                                  href={lu.file.startsWith('http') ? lu.file : `/${lu.file}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{ color: "var(--primary)", display: "inline-flex", alignItems: "center" }}
+                                  title="View Attachment">
+                                  <ExternalLink size={14} />
+                                </a>
+                              )}
+                            </div>
                           </td>
 
                           <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{lu.date}</td>
                           <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem", maxWidth: "420px" }}>{lu.description}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
-                            {lu.file ? (
-                              <a
-                                href={lu.file.startsWith('http') ? lu.file : `/${lu.file.replace(/^\//, '')}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                  display: "inline-flex",
-                                  alignItems: "center",
-                                  gap: "0.35rem",
-                                  padding: "0.35rem 0.75rem",
-                                  borderRadius: "8px",
-                                  background: "rgba(126, 58, 65, 0.08)",
-                                  color: "var(--primary)",
-                                  fontSize: "0.82rem",
-                                  fontWeight: 600,
-                                  textDecoration: "none"
-                                }}
-                                title="Open Attached File/Link"
-                              >
-                                <ExternalLink size={13} /> View File
-                              </a>
-                            ) : (
-                              <span style={{ color: "var(--text-muted)", fontSize: "0.82rem" }}>No attachment</span>
-                            )}
-                          </td>
                           <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
                             <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center" }}>
                               <button onClick={() => handleLuEdit(lu)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }} title="Edit"><Edit3 size={17} /></button>
@@ -2423,7 +2395,7 @@ const AdminDashboard = () => {
                       <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.35rem", fontWeight: 800 }}>
                         {editingId ? "Edit Notice" : "Post Notice"}
                       </h3>
-                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); setLuFile(null); setRemoveLuFile(false); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
+                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
                         <X size={20} />
                       </button>
                     </div>
@@ -2446,169 +2418,13 @@ const AdminDashboard = () => {
                           value={luForm.description} onChange={(e) => handleChange("lu", "description", e.target.value)} />
                       </div>
                       <div style={{ gridColumn: "1 / -1" }}>
-                        <label style={{ ...labelStyle, marginBottom: "0.6rem" }}>Notice Attachment / Link</label>
-
-                        {/* If editing and has an existing file attached and not yet marked for removal */}
-                        {editingId && luForm.file && !removeLuFile && (
-                          <div style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            flexWrap: "wrap",
-                            gap: "0.75rem",
-                            padding: "0.85rem 1.15rem",
-                            background: "var(--bg-alt)",
-                            borderRadius: "12px",
-                            border: "1.5px solid var(--border)",
-                            marginBottom: "1rem"
-                          }}>
-                            <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", minWidth: 0 }}>
-                              <Paperclip size={18} style={{ color: "var(--primary)", flexShrink: 0 }} />
-                              <div style={{ display: "flex", flexDirection: "column", minWidth: 0 }}>
-                                <span style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--text)" }}>Current Attached File / Link:</span>
-                                <a
-                                  href={luForm.file.startsWith('http') ? luForm.file : `/${luForm.file.replace(/^\//, '')}`}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  style={{
-                                    fontSize: "0.82rem",
-                                    color: "var(--primary)",
-                                    textDecoration: "underline",
-                                    overflow: "hidden",
-                                    textOverflow: "ellipsis",
-                                    whiteSpace: "nowrap",
-                                    maxWidth: "min(400px, 60vw)",
-                                    display: "inline-flex",
-                                    alignItems: "center",
-                                    gap: "0.3rem"
-                                  }}
-                                >
-                                  {luForm.file} <ExternalLink size={12} />
-                                </a>
-                              </div>
-                            </div>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setRemoveLuFile(true)
-                                setLuFile(null)
-                              }}
-                              style={{
-                                display: "inline-flex",
-                                alignItems: "center",
-                                gap: "0.4rem",
-                                padding: "0.45rem 0.85rem",
-                                background: "rgba(239, 68, 68, 0.1)",
-                                color: "#ef4444",
-                                border: "1px solid rgba(239, 68, 68, 0.3)",
-                                borderRadius: "8px",
-                                fontSize: "0.82rem",
-                                fontWeight: 700,
-                                cursor: "pointer",
-                                transition: "all 0.2s"
-                              }}
-                              title="Remove attached file from this notice"
-                            >
-                              <Trash2 size={14} /> Remove File
-                            </button>
-                          </div>
-                        )}
-
-                        {/* If user marked existing attachment for removal */}
-                        {editingId && removeLuFile && (
-                          <div style={{
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "space-between",
-                            padding: "0.85rem 1.15rem",
-                            background: "rgba(239, 68, 68, 0.08)",
-                            borderRadius: "12px",
-                            border: "1.5px dashed rgba(239, 68, 68, 0.4)",
-                            marginBottom: "1rem"
-                          }}>
-                            <span style={{ fontSize: "0.85rem", color: "#ef4444", fontWeight: 600 }}>
-                              Attachment marked for removal. It will be removed upon saving.
-                            </span>
-                            <button
-                              type="button"
-                              onClick={() => setRemoveLuFile(false)}
-                              style={{
-                                background: "none",
-                                border: "none",
-                                color: "var(--primary)",
-                                fontWeight: 700,
-                                fontSize: "0.82rem",
-                                cursor: "pointer",
-                                textDecoration: "underline"
-                              }}
-                            >
-                              Undo
-                            </button>
-                          </div>
-                        )}
-
-                        {/* Direct link input */}
-                        <div style={{ marginBottom: "0.85rem" }}>
-                          <label style={{ ...labelStyle, fontSize: "0.82rem", color: "var(--text-muted)" }}>
-                            Direct Link / URL (Optional - paste Cloudinary, Google Drive, or document link)
-                          </label>
-                          <input
-                            type="url"
-                            style={inputStyle}
-                            placeholder="https://..."
-                            value={removeLuFile ? "" : (luForm.file || "")}
-                            onChange={(e) => {
-                              setRemoveLuFile(false)
-                              handleChange("lu", "file", e.target.value)
-                            }}
-                          />
-                        </div>
-
-                        {/* File upload input */}
-                        <div>
-                          <label style={{ ...labelStyle, fontSize: "0.82rem", color: "var(--text-muted)" }}>
-                            {editingId && luForm.file && !removeLuFile ? "OR Upload New File (Replaces current attachment)" : "OR Upload File"}
-                          </label>
-                          <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", flexWrap: "wrap" }}>
-                            <input
-                              type="file"
-                              id="luFileInput"
-                              onChange={(e) => {
-                                if (e.target.files && e.target.files[0]) {
-                                  setLuFile(e.target.files[0])
-                                  setRemoveLuFile(false)
-                                }
-                              }}
-                              style={{ ...inputStyle, padding: "0.55rem", flex: 1, minWidth: "200px" }}
-                            />
-                            {luFile && (
-                              <button
-                                type="button"
-                                onClick={() => {
-                                  setLuFile(null)
-                                  const el = document.getElementById("luFileInput")
-                                  if (el) el.value = ""
-                                }}
-                                style={{
-                                  padding: "0.55rem 0.85rem",
-                                  background: "var(--bg-alt)",
-                                  border: "1px solid var(--border)",
-                                  borderRadius: "8px",
-                                  color: "var(--text-muted)",
-                                  fontSize: "0.82rem",
-                                  cursor: "pointer"
-                                }}
-                              >
-                                Clear selected file
-                              </button>
-                            )}
-                          </div>
-                        </div>
+                        <label style={labelStyle}>Optional Attachment</label>
+                        <input type="file" onChange={(e) => setLuFile(e.target.files[0])} style={{ ...inputStyle, padding: "0.55rem" }} />
                       </div>
                     </div>
 
                     <div style={{ display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
-                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); setLuFile(null); setRemoveLuFile(false); }} style={btnSecondary}>
+                      <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={btnSecondary}>
                         Cancel
                       </button>
                       <button type="submit" style={btnPrimary}>
