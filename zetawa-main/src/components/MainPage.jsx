@@ -89,16 +89,24 @@ const LatestUpdates = () => {
               borderRadius: '16px',
               border: '1px solid var(--border)',
               transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease',
-              cursor: 'pointer',
+              cursor: update.file ? 'pointer' : 'default',
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
               boxShadow: 'var(--shadow)'
             }}
+              onClick={() => {
+                if (update.file) {
+                  const targetUrl = update.file.startsWith('http') ? update.file : `/${update.file.replace(/^\//, '')}`;
+                  window.open(targetUrl, '_blank', 'noopener,noreferrer');
+                }
+              }}
               onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
-                e.currentTarget.style.borderColor = 'var(--accent)';
+                if (update.file) {
+                  e.currentTarget.style.transform = 'translateY(-4px)';
+                  e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
+                  e.currentTarget.style.borderColor = 'var(--accent)';
+                }
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
@@ -123,9 +131,15 @@ const LatestUpdates = () => {
               </div>
               {update.file && (
                 <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1rem', marginTop: 'auto' }}>
-                  <a href={update.file.startsWith('http') ? update.file : `http://localhost:4000/${update.file}`} target="_blank" rel="noopener noreferrer" style={{
-                    color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontWeight: '700', textDecoration: 'none', fontSize: '0.88rem'
-                  }}>
+                  <a
+                    href={update.file.startsWith('http') ? update.file : `/${update.file.replace(/^\//, '')}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    style={{
+                      color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontWeight: '700', textDecoration: 'none', fontSize: '0.88rem'
+                    }}
+                  >
                     View Attachment <ChevronRight size={16} />
                   </a>
                 </div>
