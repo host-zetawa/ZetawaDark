@@ -7,6 +7,7 @@ const careerSchema = new mongoose.Schema({
   type: { type: String, default: '' },
   experience: { type: String, default: '' },
   description: { type: String, default: '' },
+  requirements: { type: [String], default: [] },
   applyLink: { type: String, default: '' },
 }, { timestamps: true })
 

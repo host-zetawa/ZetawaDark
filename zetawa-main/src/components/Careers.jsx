@@ -168,7 +168,7 @@ const Careers = () => {
     fetch('/api/careers')
       .then(res => res.json())
       .then(data => {
-        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+        if (data.success && Array.isArray(data.data)) {
           setJobs(data.data);
         } else {
           setJobs(DEFAULT_JOB_OPENINGS);

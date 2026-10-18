@@ -127,7 +127,7 @@ const AdminDashboard = () => {
 
   const DEFAULT_PR_FORM = { title: "", date: "", type: "Official Announcement", source: "LinkedIn", linkedinUrl: "", year: "FY2025", content: "" }
   const DEFAULT_LU_FORM = { title: "", date: "", description: "", file: "" }
-  const DEFAULT_CAREER_FORM = { title: "", department: "Engineering", location: "Remote / Hybrid", type: "Full-time", experience: "Fresher / 0-2 yrs", description: "", applyLink: "" }
+  const DEFAULT_CAREER_FORM = { title: "", department: "Engineering", location: "Remote / Hybrid", type: "Full-time", experience: "Fresher / 0-2 yrs", description: "", requirements: "", applyLink: "" }
   const DEFAULT_SERVICE_FORM = {
     title: "",
     tagline: "",
@@ -517,10 +517,17 @@ const AdminDashboard = () => {
   const handleCareerSubmit = async (e) => {
     e.preventDefault()
     try {
+      const payload = {
+        ...careerForm,
+        requirements: (typeof careerForm.requirements === 'string'
+          ? careerForm.requirements.split('\n')
+          : careerForm.requirements || []
+        ).map(r => r.trim()).filter(Boolean)
+      }
       if (editingId) {
-        await axios.put(`${API_URL}/api/careers/${editingId}`, careerForm)
+        await axios.put(`${API_URL}/api/careers/${editingId}`, payload)
       } else {
-        await axios.post(`${API_URL}/api/careers`, careerForm)
+        await axios.post(`${API_URL}/api/careers`, payload)
       }
       setEditingId(null)
       setShowAddForm(false)
@@ -540,6 +547,7 @@ const AdminDashboard = () => {
       type: career.type || "Full-time",
       experience: career.experience || "Fresher / 0-2 yrs",
       description: career.description || "",
+      requirements: Array.isArray(career.requirements) ? career.requirements.join('\n') : (career.requirements || ""),
       applyLink: career.applyLink || ""
     })
     setShowAddForm(true)
@@ -552,6 +560,17 @@ const AdminDashboard = () => {
       fetchData()
     } catch (err) {
       alert(err.response?.data?.message || "Error deleting")
+    }
+  }
+
+  const handleCareerReset = async () => {
+    if (!confirm("Reset all careers to predefined defaults? Any custom added careers will be replaced.")) return
+    try {
+      await axios.post(`${API_URL}/api/careers/reset-defaults`)
+      fetchData()
+      alert("Career opportunities reset to defaults successfully!")
+    } catch (err) {
+      alert(err.response?.data?.message || "Error resetting careers")
     }
   }
 
@@ -1796,11 +1815,21 @@ const AdminDashboard = () => {
                     </p>
                   </div>
 
-                  {!showAddForm && (
-                    <button onClick={() => { setShowAddForm(true); setEditingId(null); setCareerForm(DEFAULT_CAREER_FORM); }} style={btnPrimary}>
-                      <Plus size={18} /> Add Opportunity
+                  <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+                    <button
+                      type="button"
+                      onClick={handleCareerReset}
+                      style={{ ...btnSecondary, padding: "0.7rem 1.2rem", fontSize: "0.85rem" }}
+                      title="Reset database to default career openings">
+                      <RotateCcw size={15} /> Reset Default Openings
                     </button>
-                  )}
+
+                    {!showAddForm && (
+                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setCareerForm(DEFAULT_CAREER_FORM); }} style={btnPrimary}>
+                        <Plus size={18} /> Add Opportunity
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 {/* Careers Table */}
@@ -1822,7 +1851,14 @@ const AdminDashboard = () => {
                         <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No career opportunities posted yet</td></tr>
                       ) : careers.map(c => (
                         <tr key={c._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
-                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>{c.title}</td>
+                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>
+                            <div>{c.title}</div>
+                            {Array.isArray(c.requirements) && c.requirements.length > 0 && (
+                              <div style={{ fontSize: "0.76rem", color: "var(--accent-2)", fontWeight: 500, marginTop: "0.25rem" }}>
+                                {c.requirements.length} {c.requirements.length === 1 ? 'requirement' : 'requirements'}
+                              </div>
+                            )}
+                          </td>
                           <td style={{ padding: "1.1rem 1.25rem" }}>
                             <span style={{ padding: "0.25rem 0.65rem", borderRadius: "6px", backgroundColor: "var(--bg-alt)", fontSize: "0.78rem", fontWeight: 600, color: "var(--text)" }}>
                               {c.department || "General"}
@@ -1908,6 +1944,12 @@ const AdminDashboard = () => {
                         <textarea style={{ ...inputStyle, minHeight: "100px", resize: "vertical" }}
                           placeholder="Outline candidate qualifications, tech requirements, and growth opportunities..."
                           value={careerForm.description} onChange={(e) => handleChange("career", "description", e.target.value)} />
+                      </div>
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={labelStyle}>Key Requirements & Tech Stack (One per line)</label>
+                        <textarea style={{ ...inputStyle, minHeight: "100px", resize: "vertical" }}
+                          placeholder="Proficiency in JavaScript/TypeScript, React or Next.js&#10;Understanding of relational databases (PostgreSQL/MySQL) or MongoDB&#10;Experience with Git version control and modern web architectures"
+                          value={careerForm.requirements} onChange={(e) => handleChange("career", "requirements", e.target.value)} />
                       </div>
                     </div>
 
