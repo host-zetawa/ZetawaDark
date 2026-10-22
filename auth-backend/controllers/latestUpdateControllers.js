@@ -11,25 +11,25 @@ export const DEFAULT_UPDATES = [
     title: 'Bonus Announcement for Interns',
     date: '29-08-2025',
     description: 'We are pleased to announce a 10% bonus for all current interns. As part of our efforts to recognize and reward the hard work and dedication of our interns, Zetawa Dark Private Limited has approved a 10% bonus effective from 29-08-2025. The bonus will be disbursed accordingly in the current payment cycle.',
-    file: 'https://res.cloudinary.com/drxr2ghdj/image/upload/v1792674273/zetawa_documents/temp_1792674264425_Zetawa_dark_bonus_a7iuv9.pdf'
+    file: 'https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677626/zetawa_documents/Zetawa_dark_bonus.pdf'
   },
   {
     title: 'Internship Notice',
     date: 'August 2025',
     description: 'Join Our Dynamic Team - Internship Opportunities Available. We are excited to announce internship opportunities across various departments. Join us to gain valuable experience and contribute to our innovative projects.',
-    file: 'https://res.cloudinary.com/drxr2ghdj/image/upload/v1792674289/zetawa_documents/temp_1792674277041_internshipnotice_eprmcw.jpg'
+    file: 'https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677628/zetawa_documents/internshipnotice.jpg'
   },
   {
     title: 'Board Resolution for FY24-25',
     date: 'FY 2024-25',
     description: 'Complete board resolution document for the financial year 2024-25, including all strategic decisions and corporate governance updates: Strategic Decisions & Approvals, Corporate Governance Updates, Financial Year Planning.',
-    file: 'https://res.cloudinary.com/drxr2ghdj/image/upload/v1792674292/zetawa_documents/temp_1792674290368_boardResolution_elrmai.pdf'
+    file: 'https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677632/zetawa_documents/boardResolution.pdf'
   },
   {
     title: 'Sonam Wangchuk Internship',
     date: 'August 2025',
     description: 'Launch of the Sonam Wangchuk Internship Program. We are extremely proud to announce that Zetawa Dark Private Limited is launching the "SONAM WANGCHUK INTERNSHIP". Inspired by the vision of Sonam Wangchuk Sir and the fact that we are proud Alumni of NIT Srinagar. Our mission is simple – Using technology to solve real social problems.',
-    file: 'https://res.cloudinary.com/drxr2ghdj/image/upload/v1792674309/zetawa_documents/temp_1792674293261_SonamWangchukInternship_rf07h9.jpg'
+    file: 'https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677634/zetawa_documents/SonamWangchukInternship.jpg'
   }
 ]
 

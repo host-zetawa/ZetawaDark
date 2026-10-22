@@ -19,7 +19,7 @@ export const isCloudinaryReady = () => {
   // Dynamically re-read .env from disk so changes take effect immediately without server restart
   dotenv.config({ path: path.join(__dirname, "..", ".env"), override: true })
 
-  // 1. Check for CLOUDINARY_URL (format: cloudinary://<api_key>:<api_secret>@drxr2ghdj)
+  // 1. Check for CLOUDINARY_URL (format: cloudinary://<api_key>:<api_secret>@ezgx4l1i)
   const cloudinaryUrl = process.env.CLOUDINARY_URL?.trim()
   if (cloudinaryUrl && cloudinaryUrl.startsWith("cloudinary://")) {
     const match = cloudinaryUrl.match(/^cloudinary:\/\/([^:]+):([^@]+)@([^/?#]+)/)
@@ -44,8 +44,8 @@ export const isCloudinaryReady = () => {
     }
   }
 
-  // 2. Check for individual variables (defaults cloud_name to drxr2ghdj if not specified)
-  const cloud_name = process.env.CLOUDINARY_CLOUD_NAME?.trim() || "drxr2ghdj"
+  // 2. Check for individual variables (defaults cloud_name to ezgx4l1i if not specified)
+  const cloud_name = process.env.CLOUDINARY_CLOUD_NAME?.trim() || "ezgx4l1i"
   const api_key = process.env.CLOUDINARY_API_KEY?.trim()
   const api_secret = process.env.CLOUDINARY_API_SECRET?.trim()
 

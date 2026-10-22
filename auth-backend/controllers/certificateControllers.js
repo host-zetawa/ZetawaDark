@@ -44,7 +44,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2025-07-05",
     duration: "3 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672140/zetawa_certificates/intern2_hj0h2r.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677563/zetawa_certificates/ZD202501_certificate.pdf"
   },
   {
     certificateNumber: "ZD202502",
@@ -54,7 +54,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2025-08-31",
     duration: "8 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672142/zetawa_certificates/intern_eq7i09.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677568/zetawa_certificates/ZD202502_certificate.pdf"
   },
   {
     certificateNumber: "ZD202503",
@@ -64,7 +64,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2025-09-20",
     duration: "2 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672144/zetawa_certificates/intern3_rgspqy.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677572/zetawa_certificates/ZD202503_certificate.pdf"
   },
   {
     certificateNumber: "ZD202504",
@@ -74,7 +74,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2025-10-02",
     duration: "2 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672147/zetawa_certificates/intern4_rebxlk.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677575/zetawa_certificates/ZD202504_certificate.pdf"
   },
   {
     certificateNumber: "ZD202505",
@@ -84,7 +84,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2025-09-31",
     duration: "3 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672149/zetawa_certificates/intern5_lsnpgn.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677578/zetawa_certificates/ZD202505_certificate.pdf"
   },
   {
     certificateNumber: "ZD202601",
@@ -94,7 +94,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2026-02-05",
     duration: "2 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672151/zetawa_certificates/intern6_kojaj0.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677582/zetawa_certificates/ZD202601_certificate.pdf"
   },
   {
     certificateNumber: "ZD202602",
@@ -104,7 +104,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2026-02-05",
     duration: "2 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672153/zetawa_certificates/intern7_vpkhlu.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677585/zetawa_certificates/ZD202602_certificate.pdf"
   },
   {
     certificateNumber: "ZD202603",
@@ -114,7 +114,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2026-02-28",
     duration: "6 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672155/zetawa_certificates/intern8_hqzuzj.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677589/zetawa_certificates/ZD202603_certificate.pdf"
   },
   {
     certificateNumber: "ZD202604",
@@ -124,7 +124,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2026-06-22",
     duration: "2 months",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672156/zetawa_certificates/intern9_jamsue.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677595/zetawa_certificates/ZD202604_certificate.pdf"
   },
   {
     certificateNumber: "ZD202605",
@@ -134,7 +134,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2026-08-01",
     duration: "1 month",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672160/zetawa_certificates/intern11_wsfvag.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677601/zetawa_certificates/ZD202605_certificate.pdf"
   },
   {
     certificateNumber: "ZD202606",
@@ -144,7 +144,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2026-08-01",
     duration: "1 month",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672158/zetawa_certificates/intern10_x5jpcy.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677619/zetawa_certificates/ZD202606_certificate.pdf"
   },
   {
     certificateNumber: "ZD202607",
@@ -154,7 +154,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "2026-08-14",
     duration: "1 month",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672164/zetawa_certificates/intern12_rvz8lz.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677624/zetawa_certificates/ZD202607_certificate.pdf"
   },
   {
     certificateNumber: "ZD-2026-AI-0101",
@@ -164,7 +164,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "Sep 28, 2026",
     duration: "6 Months Fellowship",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1791087895/zetawa_certificates/file-1791087892893-830426158_bltftt.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677870/zetawa_certificates/ZD-2026-AI-0101_cert.pdf"
   },
   {
     certificateNumber: "ZD-2026-DS-0305",
@@ -174,7 +174,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "Jul 05, 2026",
     duration: "6 Months Fellowship",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1791819060/zetawa_certificates/file-1791819059804-683850726_f3rkex.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677873/zetawa_certificates/ZD-2026-DS-0305_cert.pdf"
   },
   {
     certificateNumber: "ZD-2026-SEC-0089",
@@ -184,7 +184,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "Aug 18, 2026",
     duration: "4 Months Fellowship",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1791087967/zetawa_certificates/file-1791087964805-673583802_nvdaxa.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677894/zetawa_certificates/ZD-2026-SEC-0089_cert.pdf"
   },
   {
     certificateNumber: "ZD-2026-WEB-0214",
@@ -194,7 +194,7 @@ export const DEFAULT_CERTIFICATES = [
     completionDate: "Sep 10, 2026",
     duration: "3 Months Internship",
     status: "Valid",
-    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1791088040/zetawa_certificates/file-1791088037988-781714514_ysxk50.pdf"
+    certificateFile: "https://res.cloudinary.com/ezgx4l1i/image/upload/v1792677900/zetawa_certificates/ZD-2026-WEB-0214_cert.pdf"
   }
 ];
 
