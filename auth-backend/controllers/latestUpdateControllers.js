@@ -6,13 +6,59 @@ import { fileURLToPath } from "url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-// Get all latest updates
+export const DEFAULT_UPDATES = [
+  {
+    title: 'Bonus Announcement for Interns',
+    date: '29-08-2025',
+    description: 'We are pleased to announce a 10% bonus for all current interns. As part of our efforts to recognize and reward the hard work and dedication of our interns, Zetawa Dark Private Limited has approved a 10% bonus effective from 29-08-2025. The bonus will be disbursed accordingly in the current payment cycle.',
+    file: 'https://res.cloudinary.com/drxr2ghdj/image/upload/v1792674273/zetawa_documents/temp_1792674264425_Zetawa_dark_bonus_a7iuv9.pdf'
+  },
+  {
+    title: 'Internship Notice',
+    date: 'August 2025',
+    description: 'Join Our Dynamic Team - Internship Opportunities Available. We are excited to announce internship opportunities across various departments. Join us to gain valuable experience and contribute to our innovative projects.',
+    file: 'https://res.cloudinary.com/drxr2ghdj/image/upload/v1792674289/zetawa_documents/temp_1792674277041_internshipnotice_eprmcw.jpg'
+  },
+  {
+    title: 'Board Resolution for FY24-25',
+    date: 'FY 2024-25',
+    description: 'Complete board resolution document for the financial year 2024-25, including all strategic decisions and corporate governance updates: Strategic Decisions & Approvals, Corporate Governance Updates, Financial Year Planning.',
+    file: 'https://res.cloudinary.com/drxr2ghdj/image/upload/v1792674292/zetawa_documents/temp_1792674290368_boardResolution_elrmai.pdf'
+  },
+  {
+    title: 'Sonam Wangchuk Internship',
+    date: 'August 2025',
+    description: 'Launch of the Sonam Wangchuk Internship Program. We are extremely proud to announce that Zetawa Dark Private Limited is launching the "SONAM WANGCHUK INTERNSHIP". Inspired by the vision of Sonam Wangchuk Sir and the fact that we are proud Alumni of NIT Srinagar. Our mission is simple – Using technology to solve real social problems.',
+    file: 'https://res.cloudinary.com/drxr2ghdj/image/upload/v1792674309/zetawa_documents/temp_1792674293261_SonamWangchukInternship_rf07h9.jpg'
+  }
+]
+
+// Get all latest updates (auto-seeds defaults if empty)
 export const getLatestUpdates = async (req, res) => {
   try {
-    const updates = await latestUpdateModel.find().sort({ createdAt: -1 })
-    res.json({ success: true, data: updates })
+    let updates = await latestUpdateModel.find().sort({ createdAt: -1 })
+    if (!updates || updates.length === 0) {
+      updates = await latestUpdateModel.insertMany(DEFAULT_UPDATES)
+    }
+    res.json({ success: true, count: updates.length, data: updates })
   } catch (error) {
     res.json({ success: false, message: error.message })
+  }
+}
+
+// Reset latest updates to defaults (admin utility)
+export const resetDefaultUpdates = async (req, res) => {
+  try {
+    await latestUpdateModel.deleteMany({})
+    const updates = await latestUpdateModel.insertMany(DEFAULT_UPDATES)
+    return res.json({
+      success: true,
+      message: 'Latest updates reset to predefined defaults',
+      count: updates.length,
+      data: updates
+    })
+  } catch (error) {
+    return res.json({ success: false, message: error.message })
   }
 }
 

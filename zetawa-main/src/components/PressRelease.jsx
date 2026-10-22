@@ -16,7 +16,9 @@ import {
   Mail, 
   Sparkles,
   Filter,
-  ChevronRight
+  ChevronRight,
+  Bell,
+  Download
 } from 'lucide-react';
 import Nav from './Nav';
 import Footer from './Footer';
@@ -31,6 +33,8 @@ const PressRelease = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedRelease, setSelectedRelease] = useState(null);
   const [copiedId, setCopiedId] = useState(null);
+
+  const [latestUpdates, setLatestUpdates] = useState([]);
 
   // Fetch all press releases from backend
   useEffect(() => {
@@ -47,7 +51,21 @@ const PressRelease = () => {
         setIsLoading(false);
       }
     };
+
+    const fetchUpdates = async () => {
+      try {
+        const res = await fetch('/api/latest-updates');
+        const data = await res.json();
+        if (data.success && Array.isArray(data.data)) {
+          setLatestUpdates(data.data);
+        }
+      } catch (err) {
+        console.error('Failed to fetch latest updates:', err);
+      }
+    };
+
     fetchReleases();
+    fetchUpdates();
   }, []);
 
   // Close modal on Escape key
@@ -1128,6 +1146,179 @@ const PressRelease = () => {
             </div>
           </div>
         </section>
+
+        {/* Latest Updates & Company Notices Section */}
+        {latestUpdates.length > 0 && (
+          <section style={{
+            padding: '4rem 0',
+            backgroundColor: 'var(--bg-alt, #f8f9fa)',
+            borderTop: '1px solid var(--border)',
+            borderBottom: '1px solid var(--border)'
+          }}>
+            <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
+              <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                <div style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.5rem',
+                  padding: '0.4rem 1rem',
+                  backgroundColor: 'rgba(242, 140, 40, 0.1)',
+                  border: '1px solid rgba(242, 140, 40, 0.25)',
+                  borderRadius: '50px',
+                  color: 'var(--primary, #f28c28)',
+                  fontSize: '0.85rem',
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.5px',
+                  marginBottom: '1rem'
+                }}>
+                  <Bell size={16} /> Official Disclosures
+                </div>
+                <h2 style={{
+                  fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+                  fontWeight: 800,
+                  color: 'var(--text)',
+                  marginBottom: '0.75rem',
+                  letterSpacing: '-0.02em'
+                }}>
+                  Latest Updates & Notices
+                </h2>
+                <p style={{
+                  fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+                  color: 'var(--text-muted)',
+                  maxWidth: '650px',
+                  margin: '0 auto'
+                }}>
+                  Additional announcements, resolutions, and media documents from Zetawa Dark
+                </p>
+              </div>
+
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+                gap: '1.75rem'
+              }}>
+                {latestUpdates.map((update) => (
+                  <div
+                    key={update._id}
+                    style={{
+                      padding: '2rem',
+                      backgroundColor: 'var(--surface)',
+                      backdropFilter: 'blur(16px)',
+                      WebkitBackdropFilter: 'blur(16px)',
+                      borderRadius: '16px',
+                      border: '1px solid var(--border)',
+                      boxShadow: 'var(--shadow)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between',
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-6px)';
+                      e.currentTarget.style.boxShadow = '0 16px 32px -8px rgba(0,0,0,0.2)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = 'var(--shadow)';
+                    }}
+                  >
+                    <div>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                        <div style={{
+                          width: '42px',
+                          height: '42px',
+                          borderRadius: '10px',
+                          backgroundColor: 'rgba(242, 140, 40, 0.1)',
+                          color: 'var(--primary, #f28c28)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center'
+                        }}>
+                          <Bell size={20} />
+                        </div>
+                        <span style={{
+                          fontSize: '0.8rem',
+                          color: 'var(--text-muted)',
+                          fontWeight: 600,
+                          backgroundColor: 'var(--bg)',
+                          padding: '0.25rem 0.65rem',
+                          borderRadius: '6px',
+                          border: '1px solid var(--border)'
+                        }}>
+                          {update.date}
+                        </span>
+                      </div>
+
+                      <h3 style={{
+                        fontSize: '1.25rem',
+                        fontWeight: 700,
+                        color: 'var(--text)',
+                        marginBottom: '0.75rem',
+                        lineHeight: 1.35
+                      }}>
+                        {update.title}
+                      </h3>
+
+                      <p style={{
+                        color: 'var(--text-muted)',
+                        fontSize: '0.92rem',
+                        lineHeight: 1.65,
+                        marginBottom: '1.75rem'
+                      }}>
+                        {update.description}
+                      </p>
+                    </div>
+
+                    {update.file ? (
+                      <a
+                        href={update.file.startsWith('http') ? update.file : `/${update.file}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          backgroundColor: 'var(--primary, #f28c28)',
+                          color: '#ffffff',
+                          border: 'none',
+                          padding: '0.75rem 1.25rem',
+                          borderRadius: '10px',
+                          fontSize: '0.9rem',
+                          fontWeight: 600,
+                          textDecoration: 'none',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: '0.5rem',
+                          transition: 'all 0.25s ease',
+                          boxShadow: '0 4px 14px rgba(242, 140, 40, 0.25)'
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = '#d97706';
+                          e.currentTarget.style.transform = 'translateY(-2px)';
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = 'var(--primary, #f28c28)';
+                          e.currentTarget.style.transform = 'translateY(0)';
+                        }}
+                      >
+                        <FileText size={16} />
+                        <span>View Document</span>
+                        <ExternalLink size={14} />
+                      </a>
+                    ) : (
+                      <span style={{
+                        color: 'var(--text-muted)',
+                        fontSize: '0.85rem',
+                        fontStyle: 'italic'
+                      }}>
+                        Official Notice
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
       </main>
 
       {/* Full Press Release Reader Modal */}

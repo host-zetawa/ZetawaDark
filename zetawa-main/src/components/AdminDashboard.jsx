@@ -418,6 +418,17 @@ const AdminDashboard = () => {
     }
   }
 
+  const handlePrReset = async () => {
+    if (!confirm("Reset all press releases to predefined defaults? Any custom added releases will be replaced.")) return
+    try {
+      await axios.post(`${API_URL}/api/press-releases/reset-defaults`)
+      fetchData()
+      alert("Press releases reset to defaults successfully!")
+    } catch (err) {
+      alert(err.response?.data?.message || "Error resetting press releases")
+    }
+  }
+
   // Certificate CRUD
   const handleCertSubmit = async (e) => {
     e.preventDefault()
@@ -525,6 +536,17 @@ const AdminDashboard = () => {
       fetchData()
     } catch (err) {
       alert(err.response?.data?.message || "Error deleting")
+    }
+  }
+
+  const handleLuReset = async () => {
+    if (!confirm("Reset all latest announcements & notices to predefined defaults? Any custom added notices will be replaced.")) return
+    try {
+      await axios.post(`${API_URL}/api/latest-updates/reset-defaults`)
+      fetchData()
+      alert("Latest updates & notices reset to defaults successfully!")
+    } catch (err) {
+      alert(err.response?.data?.message || "Error resetting latest updates")
     }
   }
 
@@ -2008,11 +2030,21 @@ const AdminDashboard = () => {
                     </p>
                   </div>
 
-                  {!showAddForm && (
-                    <button onClick={() => { setShowAddForm(true); setEditingId(null); setPrForm(DEFAULT_PR_FORM); }} style={btnPrimary}>
-                      <Plus size={18} /> Add Press Release
+                  <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+                    <button
+                      type="button"
+                      onClick={handlePrReset}
+                      style={{ ...btnSecondary, padding: "0.7rem 1.2rem", fontSize: "0.85rem" }}
+                      title="Reset database to default press releases">
+                      <RotateCcw size={15} /> Reset Default Releases
                     </button>
-                  )}
+
+                    {!showAddForm && (
+                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setPrForm(DEFAULT_PR_FORM); }} style={btnPrimary}>
+                        <Plus size={18} /> Add Press Release
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
@@ -2394,11 +2426,21 @@ const AdminDashboard = () => {
                     </p>
                   </div>
 
-                  {!showAddForm && (
-                    <button onClick={() => { setShowAddForm(true); setEditingId(null); setLuForm(DEFAULT_LU_FORM); }} style={btnPrimary}>
-                      <Plus size={18} /> Add Notice
+                  <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+                    <button
+                      type="button"
+                      onClick={handleLuReset}
+                      style={{ ...btnSecondary, padding: "0.7rem 1.2rem", fontSize: "0.85rem" }}
+                      title="Reset database to default announcements & notices">
+                      <RotateCcw size={15} /> Reset Default Notices
                     </button>
-                  )}
+
+                    {!showAddForm && (
+                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setLuForm(DEFAULT_LU_FORM); }} style={btnPrimary}>
+                        <Plus size={18} /> Add Notice
+                      </button>
+                    )}
+                  </div>
                 </div>
 
                 <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>

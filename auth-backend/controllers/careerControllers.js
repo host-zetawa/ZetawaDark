@@ -2,7 +2,98 @@ import careerModel from "../models/careerModel.js"
 
 const DEFAULT_APPLY_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSfzUllRkATkN6e9uRR25Fa2JoUgkcorcGOAJYzTtzMNOpYv7g/viewform';
 
+const SANIYA_APPLY_LINK = 'https://forms.gle/2gMcHVynaLx7Bei38';
+
 export const DEFAULT_CAREERS = [
+  {
+    title: "3D Animation",
+    department: "Technology",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Create high-quality 3D animations and visual effects for digital media, games, and applications. Collaborate with designers and developers to bring creative concepts to life.",
+    requirements: [
+      "Bachelor's in Animation/Design or related field",
+      "Strong skills in Blender, Maya, or 3ds Max",
+      "Knowledge of texturing, rigging, and rendering",
+      "Creative storytelling and visualization skills"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    title: "Android Developer",
+    department: "Analytics",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Develop and maintain Android applications with a focus on performance, usability, and scalability. Work closely with product and design teams to deliver seamless user experiences.",
+    requirements: [
+      "Bachelor's in Computer Science/Engineering",
+      "Proficiency in Java/Kotlin",
+      "Experience with Android Studio and SDKs",
+      "Understanding of REST APIs and mobile UI design"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    title: "UX Designer",
+    department: "Design",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Design user-centered interfaces and experiences across web and mobile platforms. Conduct research, wireframing, prototyping, and usability testing to improve product design.",
+    requirements: [
+      "Bachelor's in Design, HCI, or related field",
+      "Proficiency in Figma, Adobe XD, or Sketch",
+      "Experience with wireframes, prototypes, and user testing",
+      "Strong portfolio demonstrating UX/UI design skills"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    title: "Software Developer",
+    department: "Strategy",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Build, test, and deploy software applications across different platforms. Collaborate with teams to design efficient and scalable solutions.",
+    requirements: [
+      "Bachelor's in Computer Science/IT",
+      "Proficiency in Java, Python, or C++",
+      "Knowledge of databases (MySQL, MongoDB)",
+      "Familiarity with Git and version control"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    title: "Machine Learning",
+    department: "Strategy",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Develop and implement machine learning models for solving real-world problems. Work with large datasets to build predictive and analytical solutions.",
+    requirements: [
+      "Bachelor’s/Master’s in Computer Science, AI, or Data Science",
+      "Strong programming skills in Python",
+      "Experience with ML libraries like TensorFlow, PyTorch, or Scikit-learn",
+      "Understanding of statistics and data preprocessing"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    title: "Certification Aptitude Test",
+    department: "Examinations & Certifications",
+    location: "Online Assessment",
+    type: "Qualification Test",
+    experience: "Open to Students & Freshers",
+    description: "Take our certification aptitude test to evaluate your skills and qualify for Zetawa certifications. Date: 22 March 2026 | Time: 11:00 AM IST.",
+    requirements: [
+      "Evaluate fundamental coding, logical reasoning, and domain aptitude",
+      "Qualify for Zetawa verified corporate credentials and internship placement offers",
+      "Conducted online — register via the official Google Form application"
+    ],
+    applyLink: DEFAULT_APPLY_LINK
+  },
   {
     title: "Full-Stack Software Engineer (React / Node.js)",
     department: "Engineering",

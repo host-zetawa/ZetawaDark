@@ -29,8 +29,89 @@ import AuthModal from './AuthModal';
 import Background3D from './Background3D';
 
 const DEFAULT_APPLY_LINK = 'https://docs.google.com/forms/d/e/1FAIpQLSfzUllRkATkN6e9uRR25Fa2JoUgkcorcGOAJYzTtzMNOpYv7g/viewform';
+const SANIYA_APPLY_LINK = 'https://forms.gle/2gMcHVynaLx7Bei38';
 
 const DEFAULT_JOB_OPENINGS = [
+  {
+    _id: "saniya-job-1",
+    title: "3D Animation",
+    department: "Technology",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Create high-quality 3D animations and visual effects for digital media, games, and applications. Collaborate with designers and developers to bring creative concepts to life.",
+    requirements: [
+      "Bachelor's in Animation/Design or related field",
+      "Strong skills in Blender, Maya, or 3ds Max",
+      "Knowledge of texturing, rigging, and rendering",
+      "Creative storytelling and visualization skills"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    _id: "saniya-job-2",
+    title: "Android Developer",
+    department: "Analytics",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Develop and maintain Android applications with a focus on performance, usability, and scalability. Work closely with product and design teams to deliver seamless user experiences.",
+    requirements: [
+      "Bachelor's in Computer Science/Engineering",
+      "Proficiency in Java/Kotlin",
+      "Experience with Android Studio and SDKs",
+      "Understanding of REST APIs and mobile UI design"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    _id: "saniya-job-3",
+    title: "UX Designer",
+    department: "Design",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Design user-centered interfaces and experiences across web and mobile platforms. Conduct research, wireframing, prototyping, and usability testing to improve product design.",
+    requirements: [
+      "Bachelor's in Design, HCI, or related field",
+      "Proficiency in Figma, Adobe XD, or Sketch",
+      "Experience with wireframes, prototypes, and user testing",
+      "Strong portfolio demonstrating UX/UI design skills"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    _id: "saniya-job-4",
+    title: "Software Developer",
+    department: "Strategy",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Build, test, and deploy software applications across different platforms. Collaborate with teams to design efficient and scalable solutions.",
+    requirements: [
+      "Bachelor's in Computer Science/IT",
+      "Proficiency in Java, Python, or C++",
+      "Knowledge of databases (MySQL, MongoDB)",
+      "Familiarity with Git and version control"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
+  {
+    _id: "saniya-job-5",
+    title: "Machine Learning",
+    department: "Strategy",
+    location: "Remote",
+    type: "Full-time / Intern",
+    experience: "Freshers / 0-2 years",
+    description: "Develop and implement machine learning models for solving real-world problems. Work with large datasets to build predictive and analytical solutions.",
+    requirements: [
+      "Bachelor’s/Master’s in Computer Science, AI, or Data Science",
+      "Strong programming skills in Python",
+      "Experience with ML libraries like TensorFlow, PyTorch, or Scikit-learn",
+      "Understanding of statistics and data preprocessing"
+    ],
+    applyLink: SANIYA_APPLY_LINK
+  },
   {
     _id: "job-1",
     title: "Full-Stack Software Engineer (React / Node.js)",
@@ -382,6 +463,111 @@ const Careers = () => {
       {/* ──────── Open Positions Explorer ──────── */}
       <section style={{ padding: 'clamp(3rem, 6vw, 4.5rem) clamp(1rem, 3vw, 1.5rem)', maxWidth: '1240px', margin: '0 auto' }}>
         
+        {/* Certification Aptitude Test Featured Card */}
+        <div style={{
+          background: 'var(--surface)',
+          borderRadius: '24px',
+          padding: 'clamp(2rem, 4vw, 3rem)',
+          marginBottom: '3.5rem',
+          border: '1.5px solid rgba(242, 140, 40, 0.35)',
+          boxShadow: '0 12px 35px -8px rgba(242, 140, 40, 0.15)',
+          textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            padding: '0.4rem 1.1rem',
+            backgroundColor: 'rgba(242, 140, 40, 0.12)',
+            borderRadius: '50px',
+            color: 'var(--accent-orange, #f28c28)',
+            fontSize: '0.85rem',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            letterSpacing: '0.6px',
+            marginBottom: '1rem'
+          }}>
+            <Sparkles size={16} /> Official Examination
+          </div>
+
+          <h2 style={{
+            fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
+            fontWeight: 800,
+            color: 'var(--text-primary, #1e293b)',
+            marginBottom: '0.85rem',
+            letterSpacing: '-0.02em'
+          }}>
+            Certification Aptitude Test
+          </h2>
+
+          <p style={{
+            color: 'var(--text-secondary, #64748b)',
+            fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+            maxWidth: '680px',
+            margin: '0 auto 1.5rem',
+            lineHeight: 1.65
+          }}>
+            Take our certification aptitude test to evaluate your skills, benchmark your core technical foundations, and qualify for verified Zetawa certifications and fellowship placements.
+          </p>
+
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '1.5rem',
+            backgroundColor: 'var(--bg-canvas, #f8fafc)',
+            padding: '0.75rem 1.5rem',
+            borderRadius: '12px',
+            border: '1px solid var(--border-default, #e2e8f0)',
+            marginBottom: '2rem',
+            flexWrap: 'wrap',
+            justifyContent: 'center',
+            color: 'var(--text-primary, #1e293b)',
+            fontWeight: 600,
+            fontSize: '0.95rem'
+          }}>
+            <span>📅 <strong>Date:</strong> 22 March 2026</span>
+            <span style={{ color: 'var(--border-default, #cbd5e1)' }}>|</span>
+            <span>⏰ <strong>Time:</strong> 11:00 AM IST</span>
+            <span style={{ color: 'var(--border-default, #cbd5e1)' }}>|</span>
+            <span>🌐 <strong>Mode:</strong> Online Proctored</span>
+          </div>
+
+          <div>
+            <a
+              href="https://docs.google.com/forms/d/e/1FAIpQLSfzUllRkATkN6e9uRR25Fa2JoUgkcorcGOAJYzTtzMNOpYv7g/viewform"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                backgroundColor: 'var(--accent-orange, #f28c28)',
+                color: '#ffffff',
+                padding: '0.95rem 2.25rem',
+                borderRadius: '12px',
+                fontSize: '1.05rem',
+                fontWeight: 700,
+                textDecoration: 'none',
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                boxShadow: '0 8px 20px rgba(242, 140, 40, 0.35)',
+                transition: 'all 0.25s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--accent-orange-hover, #e07b18)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'var(--accent-orange, #f28c28)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+            >
+              <span>Apply For Test</span>
+              <ExternalLink size={18} />
+            </a>
+          </div>
+        </div>
+
         {/* Section Title & Search */}
         <div style={{
           display: 'flex',
@@ -768,6 +954,99 @@ const Careers = () => {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ──────── Mentor Testimonials Section ──────── */}
+      <section style={{ padding: 'clamp(3rem, 6vw, 4.5rem) clamp(1rem, 3vw, 1.5rem)', maxWidth: '1240px', margin: '0 auto' }}>
+        <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.4rem',
+            backgroundColor: 'rgba(242, 140, 40, 0.1)',
+            color: 'var(--accent-orange, #f28c28)',
+            border: '1px solid rgba(242, 140, 40, 0.25)',
+            padding: '0.35rem 0.9rem',
+            borderRadius: '20px',
+            fontSize: '0.8rem',
+            fontWeight: 700,
+            marginBottom: '0.6rem',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
+          }}>
+            <Award size={14} /> MENTOR VOICES
+          </div>
+          <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.4rem)', fontWeight: 800, color: 'var(--text-primary, #1e293b)', margin: 0, letterSpacing: '-0.02em' }}>
+            What Our Mentors &amp; Leaders Say
+          </h2>
+          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'var(--text-secondary, #64748b)', maxWidth: '640px', margin: '0.75rem auto 0' }}>
+            Hear from our mentors and leaders about their experiences guiding talent at Zetawa Dark
+          </p>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 340px), 1fr))',
+          gap: '2rem'
+        }}>
+          <div style={{
+            backgroundColor: 'var(--surface)',
+            padding: '2.5rem',
+            borderRadius: '20px',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+          }}>
+            <p style={{
+              fontSize: '1.05rem',
+              color: 'var(--text-primary, #1e293b)',
+              lineHeight: 1.7,
+              fontStyle: 'italic',
+              marginBottom: '2rem'
+            }}>
+              &ldquo;Real identity comes from those who support you. Real friends keep you grounded, real goals keep you awake. To shine like the sun, work like the sun. Classroom lessons fade, but education lasts a lifetime.&rdquo;
+            </p>
+            <div>
+              <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', margin: '0 0 0.25rem' }}>
+                Surendra Kumar Sir
+              </h4>
+              <p style={{ color: 'var(--accent-orange, #f28c28)', fontSize: '0.9rem', fontWeight: 600, margin: 0 }}>
+                Founder • Newton Coaching Centre
+              </p>
+            </div>
+          </div>
+
+          <div style={{
+            backgroundColor: 'var(--surface)',
+            padding: '2.5rem',
+            borderRadius: '20px',
+            border: '1px solid var(--border)',
+            boxShadow: 'var(--shadow)',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between'
+          }}>
+            <p style={{
+              fontSize: '1.05rem',
+              color: 'var(--text-primary, #1e293b)',
+              lineHeight: 1.7,
+              fontStyle: 'italic',
+              marginBottom: '2rem'
+            }}>
+              &ldquo;The unique vision and collective effort makes this company a great place to work and very good for the personal and professional growth of an individual.&rdquo;
+            </p>
+            <div>
+              <h4 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--text-primary, #1e293b)', margin: '0 0 0.25rem' }}>
+                Ayush Kumar
+              </h4>
+              <p style={{ color: 'var(--accent-orange, #f28c28)', fontSize: '0.9rem', fontWeight: 600, margin: 0 }}>
+                HR Team • Analytics &amp; Operations
+              </p>
+            </div>
           </div>
         </div>
       </section>
