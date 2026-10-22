@@ -35,17 +35,183 @@ const ensureCloudinaryUrl = async (cert) => {
   return cert
 }
 
+export const DEFAULT_CERTIFICATES = [
+  {
+    certificateNumber: "ZD202501",
+    internName: "Manjeet Kumar",
+    course: "Data Analyst",
+    issueDate: "2025-05-05",
+    completionDate: "2025-07-05",
+    duration: "3 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672140/zetawa_certificates/intern2_hj0h2r.pdf"
+  },
+  {
+    certificateNumber: "ZD202502",
+    internName: "Harshwardhan Rahul Patil",
+    course: "Software Development",
+    issueDate: "2024-12-01",
+    completionDate: "2025-08-31",
+    duration: "8 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672142/zetawa_certificates/intern_eq7i09.pdf"
+  },
+  {
+    certificateNumber: "ZD202503",
+    internName: "Aditya Bhamu",
+    course: "Graphic designer",
+    issueDate: "2025-06-20",
+    completionDate: "2025-09-20",
+    duration: "2 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672144/zetawa_certificates/intern3_rgspqy.pdf"
+  },
+  {
+    certificateNumber: "ZD202504",
+    internName: "Monaf Ansari",
+    course: "Web Development",
+    issueDate: "2025-11-01",
+    completionDate: "2025-10-02",
+    duration: "2 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672147/zetawa_certificates/intern4_rebxlk.pdf"
+  },
+  {
+    certificateNumber: "ZD202505",
+    internName: "Ikjot Kour",
+    course: "Software Development Intern",
+    issueDate: "2025-11-05",
+    completionDate: "2025-09-31",
+    duration: "3 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672149/zetawa_certificates/intern5_lsnpgn.pdf"
+  },
+  {
+    certificateNumber: "ZD202601",
+    internName: "Radha Raman",
+    course: "Web Development",
+    issueDate: "2026-02-14",
+    completionDate: "2026-02-05",
+    duration: "2 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672151/zetawa_certificates/intern6_kojaj0.pdf"
+  },
+  {
+    certificateNumber: "ZD202602",
+    internName: "Saniya Dogra",
+    course: "Machine Learning",
+    issueDate: "2026-02-14",
+    completionDate: "2026-02-05",
+    duration: "2 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672153/zetawa_certificates/intern7_vpkhlu.pdf"
+  },
+  {
+    certificateNumber: "ZD202603",
+    internName: "Saniya Dogra",
+    course: "SDE",
+    issueDate: "2026-03-20",
+    completionDate: "2026-02-28",
+    duration: "6 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672155/zetawa_certificates/intern8_hqzuzj.pdf"
+  },
+  {
+    certificateNumber: "ZD202604",
+    internName: "Anupriya Singh",
+    course: "Web Dev",
+    issueDate: "2026-06-24",
+    completionDate: "2026-06-22",
+    duration: "2 months",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672156/zetawa_certificates/intern9_jamsue.pdf"
+  },
+  {
+    certificateNumber: "ZD202605",
+    internName: "Sanskriti Pandey",
+    course: "Web Dev",
+    issueDate: "2026-08-01",
+    completionDate: "2026-08-01",
+    duration: "1 month",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672160/zetawa_certificates/intern11_wsfvag.pdf"
+  },
+  {
+    certificateNumber: "ZD202606",
+    internName: "Sneha Devi",
+    course: "Web Dev",
+    issueDate: "2026-08-01",
+    completionDate: "2026-08-01",
+    duration: "1 month",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672158/zetawa_certificates/intern10_x5jpcy.pdf"
+  },
+  {
+    certificateNumber: "ZD202607",
+    internName: "Tanisha Mahajan",
+    course: "Web Dev",
+    issueDate: "2026-09-02",
+    completionDate: "2026-08-14",
+    duration: "1 month",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1792672164/zetawa_certificates/intern12_rvz8lz.pdf"
+  },
+  {
+    certificateNumber: "ZD-2026-AI-0101",
+    internName: "Aarav Sharma",
+    course: "Autonomous AI Systems Engineering",
+    issueDate: "Oct 01, 2026",
+    completionDate: "Sep 28, 2026",
+    duration: "6 Months Fellowship",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1791087895/zetawa_certificates/file-1791087892893-830426158_bltftt.pdf"
+  },
+  {
+    certificateNumber: "ZD-2026-DS-0305",
+    internName: "Ananya Verma",
+    course: "Data Science & MLOps",
+    issueDate: "Jul 10, 2026",
+    completionDate: "Jul 05, 2026",
+    duration: "6 Months Fellowship",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1791819060/zetawa_certificates/file-1791819059804-683850726_f3rkex.pdf"
+  },
+  {
+    certificateNumber: "ZD-2026-SEC-0089",
+    internName: "Rohan Gupta",
+    course: "Cybersecurity & Cryptography",
+    issueDate: "Aug 20, 2026",
+    completionDate: "Aug 18, 2026",
+    duration: "4 Months Fellowship",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1791087967/zetawa_certificates/file-1791087964805-673583802_nvdaxa.pdf"
+  },
+  {
+    certificateNumber: "ZD-2026-WEB-0214",
+    internName: "Priya Patel",
+    course: "Full-Stack Web Development",
+    issueDate: "Sep 15, 2026",
+    completionDate: "Sep 10, 2026",
+    duration: "3 Months Internship",
+    status: "Valid",
+    certificateFile: "https://res.cloudinary.com/drxr2ghdj/image/upload/v1791088040/zetawa_certificates/file-1791088037988-781714514_ysxk50.pdf"
+  }
+];
+
 // Get all certificates (public for verification & admin listing)
 export const getCertificates = async (req, res) => {
   try {
-    const certs = await certificateModel.find().sort({ createdAt: -1 })
+    let certs = await certificateModel.find().sort({ createdAt: -1 })
+    if (!certs || certs.length === 0) {
+      certs = await certificateModel.insertMany(DEFAULT_CERTIFICATES)
+    }
     // Ensure any local files get synced to Cloudinary if credentials are ready
     for (let i = 0; i < certs.length; i++) {
       if (certs[i].certificateFile && !certs[i].certificateFile.startsWith("http")) {
         await ensureCloudinaryUrl(certs[i])
       }
     }
-    res.json({ success: true, data: certs })
+    res.json({ success: true, count: certs.length, data: certs })
   } catch (error) {
     res.json({ success: false, message: error.message })
   }
@@ -221,3 +387,77 @@ export const syncCertificatesToCloudinary = async (req, res) => {
     res.json({ success: false, message: error.message })
   }
 }
+
+// Bulk import certificates (admin only)
+export const bulkImportCertificates = async (req, res) => {
+  try {
+    const list = Array.isArray(req.body) ? req.body : req.body.certificates;
+    if (!Array.isArray(list) || list.length === 0) {
+      return res.json({ success: false, message: 'Please provide an array of certificates to import.' });
+    }
+
+    let inserted = 0;
+    let updated = 0;
+    const errors = [];
+
+    for (const item of list) {
+      const certNo = item.certificateNumber || item.certNo || item.id;
+      const name = item.internName || item.name || item.studentName;
+      const course = item.course || item.domain || 'Full-Stack Software Engineering';
+
+      if (!certNo || !name) {
+        errors.push({ item, error: 'Missing certificateNumber or internName' });
+        continue;
+      }
+
+      const docData = {
+        certificateNumber: String(certNo).trim(),
+        internName: String(name).trim(),
+        course: String(course).trim(),
+        issueDate: item.issueDate ? String(item.issueDate).trim() : '',
+        completionDate: item.completionDate ? String(item.completionDate).trim() : '',
+        duration: item.duration ? String(item.duration).trim() : '3 Months',
+        status: item.status || 'Valid',
+        certificateFile: item.certificateFile || item.file || item.certificateUrl || ''
+      };
+
+      const existing = await certificateModel.findOne({ certificateNumber: docData.certificateNumber });
+      if (existing) {
+        await certificateModel.updateOne({ _id: existing._id }, { $set: docData });
+        updated++;
+      } else {
+        await certificateModel.create(docData);
+        inserted++;
+      }
+    }
+
+    return res.json({
+      success: true,
+      message: `Bulk import completed: ${inserted} newly added, ${updated} updated.`,
+      inserted,
+      updated,
+      failed: errors.length,
+      errors
+    });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+};
+
+// Reset certificates to defaults (admin utility)
+export const resetDefaultCertificates = async (req, res) => {
+  try {
+    await certificateModel.deleteMany({});
+    const certs = await certificateModel.insertMany(DEFAULT_CERTIFICATES);
+    return res.json({
+      success: true,
+      message: 'Certificates reset to official registry defaults',
+      count: certs.length,
+      data: certs
+    });
+  } catch (error) {
+    return res.json({ success: false, message: error.message });
+  }
+};
+
+

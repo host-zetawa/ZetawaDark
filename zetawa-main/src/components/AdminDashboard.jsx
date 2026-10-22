@@ -472,6 +472,21 @@ const AdminDashboard = () => {
     }
   }
 
+  const handleCertificatesReset = async () => {
+    if (!confirm("Reset certificate registry to official defaults (all 16 verified certificates)?")) return
+    try {
+      const res = await axios.post(`${API_URL}/api/certificates/reset-defaults`)
+      if (res.data.success) {
+        alert(res.data.message)
+        fetchData()
+      } else {
+        alert(res.data.message || "Failed to reset certificates")
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || "Reset request failed")
+    }
+  }
+
   // Latest Updates CRUD
   const handleLuSubmit = async (e) => {
     e.preventDefault()
@@ -2141,6 +2156,14 @@ const AdminDashboard = () => {
                   </div>
 
                   <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+                    <button
+                      type="button"
+                      onClick={handleCertificatesReset}
+                      style={{ ...btnSecondary, padding: "0.7rem 1.2rem", fontSize: "0.85rem" }}
+                      title="Reset certificate registry to official defaults (all 16 verified certificates)"
+                    >
+                      <RotateCcw size={15} /> Reset Official Registry
+                    </button>
                     <button
                       onClick={handleSyncCloudinary}
                       disabled={syncingCloudinary}
