@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { 
   Code2, 
   Smartphone, 
@@ -79,9 +79,8 @@ const TIMELINE_OPTIONS = [
 ];
 
 const Hireforms = () => {
-  const { isAuth, user } = useAppContext();
+  const { user } = useAppContext();
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     firstName: user?.name ? user.name.split(" ")[0] : "",

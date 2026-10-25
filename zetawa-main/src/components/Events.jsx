@@ -142,7 +142,7 @@ const Events = () => {
     { date: '2025-10-05', event: 'Annual Tech Awards Ceremony', type: 'ceremony' }
   ];
 
-  const handleRegistration = (eventId) => {
+  const handleRegistration = () => {
     if (!registrationData.name || !registrationData.email || !registrationData.phone) {
       setRegistrationStatus({
         type: 'error',
@@ -160,7 +160,7 @@ const Events = () => {
     setSelectedEvent(null);
   };
 
-  const getEventTypeIcon = (type) => {
+  const _getEventTypeIcon = (type) => {
     const icons = {
       'Workshop': <Coffee size={16} />,
       'Conference': <Briefcase size={16} />,

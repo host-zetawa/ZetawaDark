@@ -215,7 +215,6 @@ const Careers = () => {
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedJobId, setExpandedJobId] = useState(null);
   
   const { isAuth } = useAppContext();
   const [showAuthModal, setShowAuthModal] = useState(false);

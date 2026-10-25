@@ -91,6 +91,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     fetchMyInquiries();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user?.email]);
 
   const filteredInquiries = inquiries.filter(inq => {

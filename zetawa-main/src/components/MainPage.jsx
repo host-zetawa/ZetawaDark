@@ -354,8 +354,6 @@ const PressReleasesSection = () => {
 };
 
 const ServicesOverviewSection = ({ handleGatedAction }) => {
-  const navigate = useNavigate();
-
   const [displayServices, setDisplayServices] = useState([
     {
       icon: Code2,

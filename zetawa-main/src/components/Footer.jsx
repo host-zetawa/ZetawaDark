@@ -9,7 +9,6 @@ function Footer() {
   });
   
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -27,16 +26,13 @@ function Footer() {
     window.addEventListener('resize', handleResize);
     window.addEventListener('scroll', handleScroll);
     
-    // Trigger animation on mount
-    setTimeout(() => setIsVisible(true), 100);
-    
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const { isMobile, isTablet } = screenSize;
+  const { isMobile } = screenSize;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });

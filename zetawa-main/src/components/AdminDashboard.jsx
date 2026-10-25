@@ -157,9 +157,6 @@ const AdminDashboard = () => {
   const [serviceCategoryFilter, setServiceCategoryFilter] = useState("all")
   const [expandedServiceIds, setExpandedServiceIds] = useState([])
 
-  // Search filters for other tabs
-  const [tableSearch, setTableSearch] = useState("")
-
   const handleChange = (form, field, value) => {
     if (form === "pr") setPrForm(prev => ({...prev, [field]: value}))
     else if (form === "cert") setCertForm(prev => ({...prev, [field]: value}))
@@ -923,7 +920,7 @@ const AdminDashboard = () => {
               <button 
                 key={tab.id} 
                 className="admin-nav-tab"
-                onClick={() => { setActiveTab(tab.id); setEditingId(null); setShowAddForm(false); setTableSearch(""); }}
+                onClick={() => { setActiveTab(tab.id); setEditingId(null); setShowAddForm(false); }}
                 style={{
                   padding: "0.8rem 1.4rem", 
                   borderRadius: "12px", 
