@@ -6,7 +6,7 @@ import {
   Tag, Eye, Search, Check, ListChecks, ArrowUp, ArrowDown, ChevronDown, 
   ChevronUp, Wrench, Inbox, MessageSquare, Clock, DollarSign, Calendar,
   User, Mail, Phone, Building, FileText, Send, AlertCircle, RefreshCw,
-  Copy, CheckCheck, Compass, CheckSquare, Shield
+  Copy, CheckCheck, Compass, CheckSquare, Shield, GraduationCap
 } from "lucide-react"
 import { useAppContext } from "../context/AppContext"
 import Nav from "./Nav"
@@ -89,12 +89,15 @@ const INQUIRY_STATUSES = [
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState("inquiries")
+  const [newsSubView, setNewsSubView] = useState("announcements")
   const [pressReleases, setPressReleases] = useState([])
   const [certificates, setCertificates] = useState([])
   const [services, setServices] = useState([])
   const [inquiries, setInquiries] = useState([])
   const [latestUpdates, setLatestUpdates] = useState([])
   const [careers, setCareers] = useState([])
+  const [announcements, setAnnouncements] = useState([])
+  const [certifications, setCertifications] = useState([])
   const [loading, setLoading] = useState(true)
   const [editingId, setEditingId] = useState(null)
   const [showAddForm, setShowAddForm] = useState(false)
@@ -128,6 +131,21 @@ const AdminDashboard = () => {
   const DEFAULT_PR_FORM = { title: "", date: "", type: "Official Announcement", source: "LinkedIn", linkedinUrl: "", year: "FY2025", content: "" }
   const DEFAULT_LU_FORM = { title: "", date: "", description: "", file: "" }
   const DEFAULT_CAREER_FORM = { title: "", department: "Engineering", location: "Remote / Hybrid", type: "Full-time", experience: "Fresher / 0-2 yrs", description: "", requirements: "", applyLink: "" }
+  const DEFAULT_ANNOUNCEMENT_FORM = {
+    title: "",
+    category: "Announcement",
+    content: "",
+    publishedDate: new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+  }
+  const DEFAULT_CERTIFICATION_FORM = {
+    title: "",
+    description: "",
+    examDate: "",
+    examTime: "11:00 AM IST",
+    mode: "Online Proctored",
+    applyLink: "https://docs.google.com/forms/d/e/1FAIpQLSfzUllRkATkN6e9uRR25Fa2JoUgkcorcGOAJYzTtzMNOpYv7g/viewform",
+    isActive: true
+  }
   const DEFAULT_SERVICE_FORM = {
     title: "",
     tagline: "",
@@ -147,6 +165,8 @@ const AdminDashboard = () => {
   const [luForm, setLuForm] = useState({ ...DEFAULT_LU_FORM })
   const [careerForm, setCareerForm] = useState({ ...DEFAULT_CAREER_FORM })
   const [serviceForm, setServiceForm] = useState({ ...DEFAULT_SERVICE_FORM })
+  const [announcementForm, setAnnouncementForm] = useState({ ...DEFAULT_ANNOUNCEMENT_FORM })
+  const [certificationForm, setCertificationForm] = useState({ ...DEFAULT_CERTIFICATION_FORM })
 
   // Interactive parts in service form
   const [newCapInput, setNewCapInput] = useState("")
@@ -163,6 +183,8 @@ const AdminDashboard = () => {
     else if (form === "lu") setLuForm(prev => ({...prev, [field]: value}))
     else if (form === "career") setCareerForm(prev => ({...prev, [field]: value}))
     else if (form === "service") setServiceForm(prev => ({...prev, [field]: value}))
+    else if (form === "announcement") setAnnouncementForm(prev => ({...prev, [field]: value}))
+    else if (form === "certification") setCertificationForm(prev => ({...prev, [field]: value}))
   }
 
   const handleCopy = (text, id) => {
@@ -241,13 +263,15 @@ const AdminDashboard = () => {
   const fetchData = async () => {
     setLoading(true)
     try {
-      const [prRes, certRes, luRes, careerRes, serviceRes, hireRes] = await Promise.all([
+      const [prRes, certRes, luRes, careerRes, serviceRes, hireRes, annRes, testRes] = await Promise.all([
         axios.get(`${API_URL}/api/press-releases`).catch(() => ({ data: { success: false, data: [] } })),
         axios.get(`${API_URL}/api/certificates`).catch(() => ({ data: { success: false, data: [] } })),
         axios.get(`${API_URL}/api/latest-updates`).catch(() => ({ data: { success: false, data: [] } })),
         axios.get(`${API_URL}/api/careers`).catch(() => ({ data: { success: false, data: [] } })),
         axios.get(`${API_URL}/api/services`).catch(() => ({ data: { success: false, data: [] } })),
-        axios.get(`${API_URL}/api/hire`).catch(() => ({ data: { success: false, data: [] } }))
+        axios.get(`${API_URL}/api/hire`).catch(() => ({ data: { success: false, data: [] } })),
+        axios.get(`${API_URL}/api/announcements`).catch(() => ({ data: { success: false, data: [] } })),
+        axios.get(`${API_URL}/api/certifications?all=true`).catch(() => ({ data: { success: false, data: [] } }))
       ])
       if (prRes.data.success) setPressReleases(prRes.data.data)
       if (certRes.data.success) setCertificates(certRes.data.data)
@@ -255,6 +279,8 @@ const AdminDashboard = () => {
       if (careerRes.data.success) setCareers(careerRes.data.data)
       if (serviceRes.data.success) setServices(serviceRes.data.data)
       if (hireRes.data.success) setInquiries(hireRes.data.data)
+      if (annRes.data.success) setAnnouncements(annRes.data.data)
+      if (testRes.data.success) setCertifications(testRes.data.data)
     } catch (err) {
       console.error("Failed to fetch dashboard data:", err)
     } finally {
@@ -423,6 +449,129 @@ const AdminDashboard = () => {
       alert("Press releases reset to defaults successfully!")
     } catch (err) {
       alert(err.response?.data?.message || "Error resetting press releases")
+    }
+  }
+
+  // ================= Announcements (News & Insights) CRUD =================
+  const handleAnnouncementSubmit = async (e) => {
+    e.preventDefault()
+    if (!announcementForm.title.trim()) {
+      alert("Please enter a title")
+      return
+    }
+    if (!announcementForm.content.trim()) {
+      alert("Please enter the article content")
+      return
+    }
+    try {
+      const payload = {
+        title: announcementForm.title.trim(),
+        category: announcementForm.category || "Announcement",
+        content: announcementForm.content.trim(),
+        publishedDate: announcementForm.publishedDate.trim() || new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+      }
+      if (editingId) {
+        await axios.put(`${API_URL}/api/admin/announcements/${editingId}`, payload)
+      } else {
+        await axios.post(`${API_URL}/api/admin/announcements`, payload)
+      }
+      setEditingId(null)
+      setShowAddForm(false)
+      setAnnouncementForm({ ...DEFAULT_ANNOUNCEMENT_FORM })
+      fetchData()
+    } catch (err) {
+      alert(err.response?.data?.message || "Error saving announcement")
+    }
+  }
+
+  const handleAnnouncementEdit = (item) => {
+    setEditingId(item._id)
+    setAnnouncementForm({
+      title: item.title || "",
+      category: item.category || "Announcement",
+      content: item.content || "",
+      publishedDate: item.publishedDate || ""
+    })
+    setShowAddForm(true)
+  }
+
+  const handleAnnouncementDelete = async (id) => {
+    if (!confirm("Are you sure you want to delete this news & insights entry?")) return
+    try {
+      await axios.delete(`${API_URL}/api/admin/announcements/${id}`)
+      fetchData()
+    } catch (err) {
+      alert(err.response?.data?.message || "Error deleting announcement")
+    }
+  }
+
+  // ================= Certifications CRUD =================
+  const handleCertificationSubmit = async (e) => {
+    e.preventDefault()
+    if (!certificationForm.title.trim()) {
+      alert("Please enter a certification title")
+      return
+    }
+    try {
+      const payload = {
+        title: certificationForm.title.trim(),
+        description: certificationForm.description.trim(),
+        examDate: certificationForm.examDate,
+        examTime: certificationForm.examTime.trim(),
+        mode: certificationForm.mode.trim() || "Online Proctored",
+        applyLink: (certificationForm.applyLink || "").trim(),
+        isActive: Boolean(certificationForm.isActive)
+      }
+      if (editingId) {
+        await axios.put(`${API_URL}/api/admin/certifications/${editingId}`, payload)
+      } else {
+        await axios.post(`${API_URL}/api/admin/certifications`, payload)
+      }
+      setEditingId(null)
+      setShowAddForm(false)
+      setCertificationForm({ ...DEFAULT_CERTIFICATION_FORM })
+      fetchData()
+    } catch (err) {
+      alert(err.response?.data?.message || "Error saving certification")
+    }
+  }
+
+  const handleCertificationEdit = (item) => {
+    setEditingId(item._id)
+    setCertificationForm({
+      title: item.title || "",
+      description: item.description || "",
+      examDate: item.examDate ? (
+        !isNaN(new Date(item.examDate).getTime())
+          ? new Date(item.examDate).toISOString().split('T')[0]
+          : String(item.examDate)
+      ) : "",
+      examTime: item.examTime || "",
+      mode: item.mode || "Online Proctored",
+      applyLink: item.applyLink || "https://docs.google.com/forms/d/e/1FAIpQLSfzUllRkATkN6e9uRR25Fa2JoUgkcorcGOAJYzTtzMNOpYv7g/viewform",
+      isActive: item.isActive !== undefined ? item.isActive : true
+    })
+    setShowAddForm(true)
+  }
+
+  const handleCertificationToggleActive = async (item) => {
+    try {
+      await axios.put(`${API_URL}/api/admin/certifications/${item._id}`, {
+        isActive: !item.isActive
+      })
+      fetchData()
+    } catch (err) {
+      alert(err.response?.data?.message || "Error updating test status")
+    }
+  }
+
+  const handleCertificationDelete = async (id) => {
+    if (!confirm("Are you sure you want to delete this aptitude test / certification?")) return
+    try {
+      await axios.delete(`${API_URL}/api/admin/certifications/${id}`)
+      fetchData()
+    } catch (err) {
+      alert(err.response?.data?.message || "Error deleting test")
     }
   }
 
@@ -834,7 +983,8 @@ const AdminDashboard = () => {
             { label: "Consultation Inquiries", val: inquiries.length, sub: "Client project requests", icon: Inbox, color: "#7e3a41", bg: "rgba(126, 58, 65, 0.06)", border: "rgba(126, 58, 65, 0.16)" },
             { label: "Pending Response", val: pendingInquiriesCount, sub: "Requires officer review", icon: AlertCircle, color: "#b45309", bg: "#fffdfa", border: "#fef3c7" },
             { label: "Active Services", val: services.length, sub: "Public offerings catalog", icon: Layers, color: "#1d4ed8", bg: "#fbfdff", border: "#dbeafe" },
-            { label: "Press Disclosures", val: pressReleases.length, sub: "Official newsroom posts", icon: Newspaper, color: "#6b21a8", bg: "#fcfaff", border: "#f3e8ff" },
+            { label: "News & Insights", val: announcements.length, sub: "Disclosures & Milestones", icon: Newspaper, color: "#6b21a8", bg: "#fcfaff", border: "#f3e8ff" },
+            { label: "Certifications", val: certifications.length, sub: "Official certification exams", icon: GraduationCap, color: "#0d9488", bg: "#f0fdfa", border: "#ccfbf1" },
             { label: "Verified Certificates", val: certificates.length, sub: "Cryptographic credentials", icon: Award, color: "#15803d", bg: "#fbfffc", border: "#dcfce7" },
             { label: "Career Postings", val: careers.length, sub: "Active fellowship openings", icon: Briefcase, color: "#0369a1", bg: "#f0f9ff", border: "#bae6fd" }
           ].map((kpi, idx) => (
@@ -911,9 +1061,10 @@ const AdminDashboard = () => {
             { id: "inquiries", label: "Project Consultations", icon: Inbox, badge: inquiries.length, pendingBadge: pendingInquiriesCount },
             { id: "services", label: "Services CMS", icon: Layers, badge: services.length },
             { id: "careers", label: "Careers & Openings", icon: Briefcase, badge: careers.length },
-            { id: "press-releases", label: "Press Releases", icon: Newspaper, badge: pressReleases.length },
+            { id: "aptitude-tests", label: "Certifications", icon: GraduationCap, badge: certifications.length },
+            { id: "news-insights", label: "News & Insights", icon: Newspaper, badge: announcements.length },
             { id: "certificates", label: "Certificates Registry", icon: Award, badge: certificates.length },
-            { id: "latest-updates", label: "Latest Announcements", icon: Bell, badge: latestUpdates.length },
+            { id: "latest-updates", label: "Latest Notices", icon: Bell, badge: latestUpdates.length },
           ].map(tab => {
             const isActive = activeTab === tab.id
             return (
@@ -2003,7 +2154,7 @@ const AdminDashboard = () => {
             {/* ========================================================================= */}
             {/* ======================= 4. PRESS RELEASES TAB =========================== */}
             {/* ========================================================================= */}
-            {activeTab === "press-releases" && (
+            {(activeTab === "news-insights" || activeTab === "press-releases") && (
               <div>
                 <div style={{
                   display: "flex",
@@ -2019,75 +2170,460 @@ const AdminDashboard = () => {
                   boxShadow: "var(--shadow)"
                 }}>
                   <div>
-                    <h2 style={{ color: "var(--text)", fontSize: "1.45rem", fontWeight: 800, margin: 0 }}>
-                      Press Releases & Corporate Disclosures
+                    <h2 style={{ color: "var(--text)", fontSize: "1.45rem", fontWeight: 800, margin: 0, display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                      <Newspaper size={24} color="var(--primary)" /> News & Insights CMS
                     </h2>
                     <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
-                      Publish official news, strategic announcements, and media statements.
+                      Publish official announcements, product milestones, and culture & internship updates.
+                    </p>
+                  </div>
+
+                  <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+                    {newsSubView === "archived" && (
+                      <button
+                        type="button"
+                        onClick={handlePrReset}
+                        style={{ ...btnSecondary, padding: "0.7rem 1.2rem", fontSize: "0.85rem" }}
+                        title="Reset database to default press releases">
+                        <RotateCcw size={15} /> Reset Default Releases
+                      </button>
+                    )}
+
+                    {!showAddForm && newsSubView === "announcements" && (
+                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setAnnouncementForm(DEFAULT_ANNOUNCEMENT_FORM); }} style={btnPrimary}>
+                        <Plus size={18} /> Add Article / Insight
+                      </button>
+                    )}
+
+                    {!showAddForm && newsSubView === "archived" && (
+                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setPrForm(DEFAULT_PR_FORM); }} style={btnPrimary}>
+                        <Plus size={18} /> Add Press Release
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Sub-view toggle tabs */}
+                  <div style={{ display: "flex", gap: "0.6rem", width: "100%", marginTop: "0.85rem", borderTop: "1px solid var(--border)", paddingTop: "1rem" }}>
+                    <button
+                      type="button"
+                      onClick={() => { setNewsSubView("announcements"); setShowAddForm(false); setEditingId(null); }}
+                      style={{
+                        padding: "0.45rem 1rem",
+                        borderRadius: "8px",
+                        border: "1px solid " + (newsSubView === "announcements" ? "var(--primary)" : "var(--border)"),
+                        fontWeight: 700,
+                        fontSize: "0.85rem",
+                        cursor: "pointer",
+                        backgroundColor: newsSubView === "announcements" ? "var(--primary)" : "var(--bg-alt)",
+                        color: newsSubView === "announcements" ? "var(--primary-contrast)" : "var(--text-muted)"
+                      }}>
+                      News & Insights ({announcements.length})
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => { setNewsSubView("archived"); setShowAddForm(false); setEditingId(null); }}
+                      style={{
+                        padding: "0.45rem 1rem",
+                        borderRadius: "8px",
+                        border: "1px solid " + (newsSubView === "archived" ? "var(--primary)" : "var(--border)"),
+                        fontWeight: 700,
+                        fontSize: "0.85rem",
+                        cursor: "pointer",
+                        backgroundColor: newsSubView === "archived" ? "var(--primary)" : "var(--bg-alt)",
+                        color: newsSubView === "archived" ? "var(--primary-contrast)" : "var(--text-muted)"
+                      }}>
+                      Archived Disclosures ({pressReleases.length})
+                    </button>
+                  </div>
+                </div>
+
+                {newsSubView === "announcements" ? (
+                  <>
+                    <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
+                      <table style={{ width: "100%", minWidth: "680px", borderCollapse: "collapse" }}>
+                        <thead>
+                          <tr style={{ background: "var(--bg-alt)", borderBottom: "1.5px solid var(--border)" }}>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Article Title</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Category Tag</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Published Date</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Content Preview</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {announcements.length === 0 ? (
+                            <tr><td colSpan={5} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No news or insights published yet</td></tr>
+                          ) : announcements.map(ann => {
+                            const cat = ann.category || "Announcement"
+                            const catStyle = cat === "Milestone"
+                              ? { bg: "rgba(14, 165, 233, 0.12)", color: "#0284c7", border: "rgba(14, 165, 233, 0.25)", label: "Product Milestones" }
+                              : cat === "Culture"
+                                ? { bg: "rgba(16, 185, 129, 0.12)", color: "#10b981", border: "rgba(16, 185, 129, 0.25)", label: "Culture & Internships" }
+                                : { bg: "rgba(107, 33, 168, 0.12)", color: "#9333ea", border: "rgba(107, 33, 168, 0.25)", label: "Announcements" }
+                            return (
+                              <tr key={ann._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
+                                <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>{ann.title}</td>
+                                <td style={{ padding: "1.1rem 1.25rem" }}>
+                                  <span style={{
+                                    padding: "0.3rem 0.75rem",
+                                    borderRadius: "20px",
+                                    backgroundColor: catStyle.bg,
+                                    color: catStyle.color,
+                                    border: `1px solid ${catStyle.border}`,
+                                    fontSize: "0.78rem",
+                                    fontWeight: 700
+                                  }}>
+                                    {catStyle.label}
+                                  </span>
+                                </td>
+                                <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem", whiteSpace: "nowrap" }}>{ann.publishedDate}</td>
+                                <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem", maxWidth: "340px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                                  {ann.content}
+                                </td>
+                                <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
+                                  <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center" }}>
+                                    <button onClick={() => handleAnnouncementEdit(ann)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }} title="Edit"><Edit3 size={17} /></button>
+                                    <button onClick={() => handleAnnouncementDelete(ann._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)" }} title="Delete"><Trash2 size={17} /></button>
+                                  </div>
+                                </td>
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {showAddForm && (
+                      <form onSubmit={handleAnnouncementSubmit} style={{
+                        background: "var(--surface)",
+                        borderRadius: "clamp(14px, 4vw, 20px)",
+                        padding: "clamp(1.25rem, 4vw, 2.25rem)",
+                        marginTop: "2rem",
+                        boxShadow: "var(--shadow)",
+                        border: "2px solid var(--primary)",
+                        boxSizing: "border-box"
+                      }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                          <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.35rem", fontWeight: 800 }}>
+                            {editingId ? "Edit Article / Insight" : "Publish New Article / Insight"}
+                          </h3>
+                          <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
+                            <X size={20} />
+                          </button>
+                        </div>
+
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                          <div style={{ gridColumn: "1 / -1" }}>
+                            <label style={labelStyle}>Article / Insight Title *</label>
+                            <input style={inputStyle} placeholder="e.g. Zetawa Unveils Next-Gen AI Inference Engine" required
+                              value={announcementForm.title} onChange={(e) => handleChange("announcement", "title", e.target.value)} />
+                          </div>
+                          <div>
+                            <label style={labelStyle}>Category Tag *</label>
+                            <select
+                              style={inputStyle}
+                              value={announcementForm.category}
+                              onChange={(e) => handleChange("announcement", "category", e.target.value)}
+                            >
+                              <option value="Announcement">Announcements</option>
+                              <option value="Milestone">Product Milestones</option>
+                              <option value="Culture">Culture & Internships</option>
+                            </select>
+                          </div>
+                          <div>
+                            <label style={labelStyle}>Publication Date *</label>
+                            <input style={inputStyle} placeholder="e.g. Mar 2026 or Oct 24, 2025" required
+                              value={announcementForm.publishedDate} onChange={(e) => handleChange("announcement", "publishedDate", e.target.value)} />
+                          </div>
+                          <div style={{ gridColumn: "1 / -1" }}>
+                            <label style={labelStyle}>Article Content & Narrative *</label>
+                            <textarea style={{ ...inputStyle, minHeight: "140px", resize: "vertical" }}
+                              placeholder="Provide the full announcement story, key achievements, metrics, or candidate instructions..." required
+                              value={announcementForm.content} onChange={(e) => handleChange("announcement", "content", e.target.value)} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
+                          <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={btnSecondary}>
+                            Cancel
+                          </button>
+                          <button type="submit" style={btnPrimary}>
+                            <Save size={16} /> {editingId ? "Update Article" : "Publish Article"}
+                          </button>
+                        </div>
+                      </form>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
+                      <table style={{ width: "100%", minWidth: "680px", borderCollapse: "collapse" }}>
+                        <thead>
+                          <tr style={{ background: "var(--bg-alt)", borderBottom: "1.5px solid var(--border)" }}>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Title</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Date</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Category / Type</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Source</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Fiscal Year</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Link</th>
+                            <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {pressReleases.length === 0 ? (
+                            <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No archived press releases found</td></tr>
+                          ) : pressReleases.map(pr => (
+                            <tr key={pr._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
+                              <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>{pr.title}</td>
+                              <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.date}</td>
+                              <td style={{ padding: "1.1rem 1.25rem" }}><span style={{ padding: "0.25rem 0.65rem", borderRadius: "6px", backgroundColor: "var(--bg-alt)", fontSize: "0.78rem", fontWeight: 600, color: "var(--text)" }}>{pr.type}</span></td>
+                              <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.source}</td>
+                              <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.year}</td>
+                              <td style={{ padding: "1.1rem 1.25rem" }}>
+                                {pr.linkedinUrl && (
+                                  <a href={pr.linkedinUrl} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-2)", display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 600, textDecoration: "none" }}>
+                                    <ExternalLink size={14} /> View
+                                  </a>
+                                )}
+                              </td>
+                              <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
+                                <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center" }}>
+                                  <button onClick={() => handlePrEdit(pr)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }} title="Edit"><Edit3 size={17} /></button>
+                                  <button onClick={() => handlePrDelete(pr._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)" }} title="Delete"><Trash2 size={17} /></button>
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+
+                    {showAddForm && (
+                      <form onSubmit={handlePrSubmit} style={{
+                        background: "var(--surface)",
+                        borderRadius: "clamp(14px, 4vw, 20px)",
+                        padding: "clamp(1.25rem, 4vw, 2.25rem)",
+                        marginTop: "2rem",
+                        boxShadow: "var(--shadow)",
+                        border: "2px solid var(--primary)",
+                        boxSizing: "border-box"
+                      }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
+                          <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.35rem", fontWeight: 800 }}>
+                            {editingId ? "Edit Press Release" : "Add Press Release"}
+                          </h3>
+                          <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
+                            <X size={20} />
+                          </button>
+                        </div>
+
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
+                          <div>
+                            <label style={labelStyle}>Announcement Title *</label>
+                            <input style={inputStyle} placeholder="e.g. Zetawa Dark Announces Next-Gen AI Solutions" required
+                              value={prForm.title} onChange={(e) => handleChange("pr", "title", e.target.value)} />
+                          </div>
+                          <div>
+                            <label style={labelStyle}>Publication Date *</label>
+                            <input style={inputStyle} placeholder="e.g. Jan 15, 2025" required
+                              value={prForm.date} onChange={(e) => handleChange("pr", "date", e.target.value)} />
+                          </div>
+                          <div>
+                            <label style={labelStyle}>Category / Type</label>
+                            <input style={inputStyle} placeholder="Official Announcement, Technology, Partnership"
+                              value={prForm.type} onChange={(e) => handleChange("pr", "type", e.target.value)} />
+                          </div>
+                          <div>
+                            <label style={labelStyle}>Source Publication</label>
+                            <input style={inputStyle} placeholder="e.g. LinkedIn, Medium, Press Center"
+                              value={prForm.source} onChange={(e) => handleChange("pr", "source", e.target.value)} />
+                          </div>
+                          <div>
+                            <label style={labelStyle}>LinkedIn / Direct Link URL</label>
+                            <input style={inputStyle} placeholder="https://www.linkedin.com/feed/update/..."
+                              value={prForm.linkedinUrl} onChange={(e) => handleChange("pr", "linkedinUrl", e.target.value)} />
+                          </div>
+                          <div>
+                            <label style={labelStyle}>Fiscal Period</label>
+                            <input style={inputStyle} placeholder="e.g. FY2025"
+                              value={prForm.year} onChange={(e) => handleChange("pr", "year", e.target.value)} />
+                          </div>
+                          <div style={{ gridColumn: "1 / -1" }}>
+                            <label style={labelStyle}>Full Announcement / Abstract</label>
+                            <textarea style={{ ...inputStyle, minHeight: "90px", resize: "vertical" }}
+                              placeholder="Enter summary or full transcript of the press announcement..."
+                              value={prForm.content} onChange={(e) => handleChange("pr", "content", e.target.value)} />
+                          </div>
+                        </div>
+
+                        <div style={{ display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
+                          <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={btnSecondary}>
+                            Cancel
+                          </button>
+                          <button type="submit" style={btnPrimary}>
+                            <Save size={16} /> {editingId ? "Update Release" : "Publish Release"}
+                          </button>
+                        </div>
+                      </form>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
+
+            {/* ========================================================================= */}
+            {activeTab === "aptitude-tests" && (
+              <div>
+                <div style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  marginBottom: "1.5rem",
+                  flexWrap: "wrap",
+                  gap: "1rem",
+                  backgroundColor: "var(--surface)",
+                  padding: "1.5rem 1.75rem",
+                  borderRadius: "18px",
+                  border: "1px solid var(--border)",
+                  boxShadow: "var(--shadow)"
+                }}>
+                  <div>
+                    <h2 style={{ color: "var(--text)", fontSize: "1.45rem", fontWeight: 800, margin: 0, display: "flex", alignItems: "center", gap: "0.6rem" }}>
+                      <GraduationCap size={26} color="var(--primary)" /> Certifications
+                    </h2>
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0.25rem 0 0" }}>
+                      Configure upcoming certification exams, registration links, schedules, and candidate access.
                     </p>
                   </div>
 
                   <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
-                    <button
-                      type="button"
-                      onClick={handlePrReset}
-                      style={{ ...btnSecondary, padding: "0.7rem 1.2rem", fontSize: "0.85rem" }}
-                      title="Reset database to default press releases">
-                      <RotateCcw size={15} /> Reset Default Releases
-                    </button>
-
                     {!showAddForm && (
-                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setPrForm(DEFAULT_PR_FORM); }} style={btnPrimary}>
-                        <Plus size={18} /> Add Press Release
+                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setCertificationForm(DEFAULT_CERTIFICATION_FORM); }} style={btnPrimary}>
+                        <Plus size={18} /> Schedule Certification
                       </button>
                     )}
                   </div>
                 </div>
 
                 <div style={{ background: "var(--surface)", borderRadius: "18px", overflowX: "auto", WebkitOverflowScrolling: "touch", boxShadow: "var(--shadow)", border: "1px solid var(--border)" }}>
-                  <table style={{ width: "100%", minWidth: "680px", borderCollapse: "collapse" }}>
+                  <table style={{ width: "100%", minWidth: "820px", borderCollapse: "collapse" }}>
                     <thead>
                       <tr style={{ background: "var(--bg-alt)", borderBottom: "1.5px solid var(--border)" }}>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Title</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Date</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Category / Type</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Source</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Fiscal Year</th>
-                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Link</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Certification Title</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Exam Date & Time</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Mode</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Registration Link</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Status</th>
+                        <th style={{ padding: "1.1rem 1.25rem", textAlign: "left", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Syllabus / Details</th>
                         <th style={{ padding: "1.1rem 1.25rem", textAlign: "center", fontWeight: 700, color: "var(--primary)", fontSize: "0.85rem", textTransform: "uppercase" }}>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {pressReleases.length === 0 ? (
-                        <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No press releases published yet</td></tr>
-                      ) : pressReleases.map(pr => (
-                        <tr key={pr._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
-                          <td style={{ padding: "1.1rem 1.25rem", fontWeight: 700, color: "var(--primary)" }}>{pr.title}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.date}</td>
-                          <td style={{ padding: "1.1rem 1.25rem" }}><span style={{ padding: "0.25rem 0.65rem", borderRadius: "6px", backgroundColor: "var(--bg-alt)", fontSize: "0.78rem", fontWeight: 600, color: "var(--text)" }}>{pr.type}</span></td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.source}</td>
-                          <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.88rem" }}>{pr.year}</td>
-                          <td style={{ padding: "1.1rem 1.25rem" }}>
-                            {pr.linkedinUrl && (
-                              <a href={pr.linkedinUrl} target="_blank" rel="noopener noreferrer" style={{ color: "var(--accent-2)", display: "inline-flex", alignItems: "center", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 600, textDecoration: "none" }}>
-                                <ExternalLink size={14} /> View
-                              </a>
-                            )}
-                          </td>
-                          <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
-                            <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center" }}>
-                              <button onClick={() => handlePrEdit(pr)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }} title="Edit"><Edit3 size={17} /></button>
-                              <button onClick={() => handlePrDelete(pr._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)" }} title="Delete"><Trash2 size={17} /></button>
-                            </div>
-                          </td>
-                        </tr>
-                      ))}
+                      {certifications.length === 0 ? (
+                        <tr><td colSpan={7} style={{ padding: "4rem 2rem", textAlign: "center", color: "var(--text-muted)" }}>No certifications scheduled yet</td></tr>
+                      ) : certifications.map(test => {
+                        const formattedDate = test.examDate ? (
+                          !isNaN(new Date(test.examDate).getTime())
+                            ? new Date(test.examDate).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
+                            : String(test.examDate)
+                        ) : "TBA";
+
+                        return (
+                          <tr key={test._id} className="table-row-hover" style={{ borderTop: "1px solid var(--border)", transition: "background 0.2s" }}>
+                            <td style={{ padding: "1.1rem 1.25rem" }}>
+                              <div style={{ fontWeight: 800, color: "var(--primary)", fontSize: "0.98rem" }}>{test.title}</div>
+                            </td>
+                            <td style={{ padding: "1.1rem 1.25rem", color: "var(--text)", fontSize: "0.9rem" }}>
+                              <div style={{ fontWeight: 700 }}>{formattedDate}</div>
+                              <div style={{ color: "var(--text-muted)", fontSize: "0.8rem", marginTop: "0.15rem" }}>{test.examTime || "TBA"}</div>
+                            </td>
+                            <td style={{ padding: "1.1rem 1.25rem" }}>
+                              <span style={{
+                                padding: "0.3rem 0.7rem",
+                                borderRadius: "8px",
+                                backgroundColor: "var(--bg-alt)",
+                                color: "var(--text)",
+                                fontSize: "0.82rem",
+                                fontWeight: 600,
+                                border: "1px solid var(--border)"
+                              }}>
+                                {test.mode || "Online Proctored"}
+                              </span>
+                            </td>
+                            <td style={{ padding: "1.1rem 1.25rem" }}>
+                              {test.applyLink ? (
+                                <a
+                                  href={test.applyLink}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  style={{
+                                    display: "inline-flex",
+                                    alignItems: "center",
+                                    gap: "0.35rem",
+                                    padding: "0.35rem 0.75rem",
+                                    borderRadius: "8px",
+                                    backgroundColor: "rgba(13, 148, 136, 0.12)",
+                                    color: "#0d9488",
+                                    border: "1px solid rgba(13, 148, 136, 0.25)",
+                                    fontSize: "0.82rem",
+                                    fontWeight: 700,
+                                    textDecoration: "none"
+                                  }}
+                                  title={test.applyLink}
+                                >
+                                  <ExternalLink size={13} /> Open Link
+                                </a>
+                              ) : (
+                                <span style={{ color: "var(--text-muted)", fontSize: "0.82rem", fontStyle: "italic" }}>No link</span>
+                              )}
+                            </td>
+                            <td style={{ padding: "1.1rem 1.25rem" }}>
+                              <button
+                                onClick={() => handleCertificationToggleActive(test)}
+                                style={{
+                                  border: "none",
+                                  background: "none",
+                                  padding: 0,
+                                  cursor: "pointer",
+                                  textAlign: "left"
+                                }}
+                                title="Click to toggle active registration status"
+                              >
+                                <span style={{
+                                  padding: "0.35rem 0.8rem",
+                                  borderRadius: "20px",
+                                  fontSize: "0.78rem",
+                                  fontWeight: 700,
+                                  backgroundColor: test.isActive ? "rgba(16, 185, 129, 0.12)" : "rgba(156, 163, 175, 0.12)",
+                                  color: test.isActive ? "#10b981" : "var(--text-muted)",
+                                  border: `1px solid ${test.isActive ? "rgba(16, 185, 129, 0.25)" : "var(--border)"}`,
+                                  display: "inline-flex",
+                                  alignItems: "center",
+                                  gap: "0.4rem"
+                                }}>
+                                  <span style={{ width: "7px", height: "7px", borderRadius: "50%", backgroundColor: test.isActive ? "#10b981" : "#9ca3af" }} />
+                                  {test.isActive ? "Active (Open)" : "Inactive / Draft"}
+                                </span>
+                              </button>
+                            </td>
+                            <td style={{ padding: "1.1rem 1.25rem", color: "var(--text-muted)", fontSize: "0.85rem", maxWidth: "240px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                              {test.description || "No description"}
+                            </td>
+                            <td style={{ padding: "1.1rem 1.25rem", textAlign: "center" }}>
+                              <div style={{ display: "flex", gap: "0.6rem", justifyContent: "center" }}>
+                                <button onClick={() => handleCertificationEdit(test)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--accent-2)" }} title="Edit"><Edit3 size={17} /></button>
+                                <button onClick={() => handleCertificationDelete(test._id)} className="action-icon-btn" style={{ background: "none", border: "none", cursor: "pointer", color: "var(--danger)" }} title="Delete"><Trash2 size={17} /></button>
+                              </div>
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
 
                 {showAddForm && (
-                  <form onSubmit={handlePrSubmit} style={{
+                  <form onSubmit={handleCertificationSubmit} style={{
                     background: "var(--surface)",
                     borderRadius: "clamp(14px, 4vw, 20px)",
                     padding: "clamp(1.25rem, 4vw, 2.25rem)",
@@ -2098,7 +2634,7 @@ const AdminDashboard = () => {
                   }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
                       <h3 style={{ margin: 0, color: "var(--primary)", fontSize: "1.35rem", fontWeight: 800 }}>
-                        {editingId ? "Edit Press Release" : "Add Press Release"}
+                        {editingId ? "Edit Certification" : "Schedule New Certification"}
                       </h3>
                       <button type="button" onClick={() => { setShowAddForm(false); setEditingId(null); }} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text-muted)" }}>
                         <X size={20} />
@@ -2106,41 +2642,48 @@ const AdminDashboard = () => {
                     </div>
 
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 240px), 1fr))", gap: "1.25rem", marginBottom: "1.5rem" }}>
-                      <div>
-                        <label style={labelStyle}>Announcement Title *</label>
-                        <input style={inputStyle} placeholder="e.g. Zetawa Dark Announces Next-Gen AI Solutions" required
-                          value={prForm.title} onChange={(e) => handleChange("pr", "title", e.target.value)} />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Publication Date *</label>
-                        <input style={inputStyle} placeholder="e.g. Jan 15, 2025" required
-                          value={prForm.date} onChange={(e) => handleChange("pr", "date", e.target.value)} />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Category / Type</label>
-                        <input style={inputStyle} placeholder="Official Announcement, Technology, Partnership"
-                          value={prForm.type} onChange={(e) => handleChange("pr", "type", e.target.value)} />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Source Publication</label>
-                        <input style={inputStyle} placeholder="e.g. LinkedIn, Medium, Press Center"
-                          value={prForm.source} onChange={(e) => handleChange("pr", "source", e.target.value)} />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>LinkedIn / Direct Link URL</label>
-                        <input style={inputStyle} placeholder="https://www.linkedin.com/feed/update/..."
-                          value={prForm.linkedinUrl} onChange={(e) => handleChange("pr", "linkedinUrl", e.target.value)} />
-                      </div>
-                      <div>
-                        <label style={labelStyle}>Fiscal Period</label>
-                        <input style={inputStyle} placeholder="e.g. FY2025"
-                          value={prForm.year} onChange={(e) => handleChange("pr", "year", e.target.value)} />
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={labelStyle}>Certification Title *</label>
+                        <input style={inputStyle} placeholder="e.g. Certification Aptitude Test" required
+                          value={certificationForm.title} onChange={(e) => handleChange("certification", "title", e.target.value)} />
                       </div>
                       <div style={{ gridColumn: "1 / -1" }}>
-                        <label style={labelStyle}>Full Announcement / Abstract</label>
-                        <textarea style={{ ...inputStyle, minHeight: "90px", resize: "vertical" }}
-                          placeholder="Enter summary or full transcript of the press announcement..."
-                          value={prForm.content} onChange={(e) => handleChange("pr", "content", e.target.value)} />
+                        <label style={labelStyle}>Application / Registration Link (Google Form / Exam Portal URL) *</label>
+                        <input style={inputStyle} placeholder="https://docs.google.com/forms/d/e/..." required
+                          value={certificationForm.applyLink} onChange={(e) => handleChange("certification", "applyLink", e.target.value)} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Examination Date *</label>
+                        <input style={inputStyle} placeholder="e.g. 2026-03-22 or 22 March 2026" required
+                          value={certificationForm.examDate} onChange={(e) => handleChange("certification", "examDate", e.target.value)} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Examination Time *</label>
+                        <input style={inputStyle} placeholder="e.g. 11:00 AM IST" required
+                          value={certificationForm.examTime} onChange={(e) => handleChange("certification", "examTime", e.target.value)} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Proctoring / Examination Mode</label>
+                        <input style={inputStyle} placeholder="e.g. Online Proctored"
+                          value={certificationForm.mode} onChange={(e) => handleChange("certification", "mode", e.target.value)} />
+                      </div>
+                      <div>
+                        <label style={labelStyle}>Registration Status</label>
+                        <label style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginTop: "0.6rem", cursor: "pointer", fontWeight: 600 }}>
+                          <input
+                            type="checkbox"
+                            checked={Boolean(certificationForm.isActive)}
+                            onChange={(e) => handleChange("certification", "isActive", e.target.checked)}
+                            style={{ width: "18px", height: "18px", accentColor: "var(--primary)", cursor: "pointer" }}
+                          />
+                          <span>Active (Open for Candidate Registrations)</span>
+                        </label>
+                      </div>
+                      <div style={{ gridColumn: "1 / -1" }}>
+                        <label style={labelStyle}>Syllabus, Eligibility & Guidelines</label>
+                        <textarea style={{ ...inputStyle, minHeight: "110px", resize: "vertical" }}
+                          placeholder="Candidate guidelines, duration, proctoring requirements, curriculum..."
+                          value={certificationForm.description} onChange={(e) => handleChange("certification", "description", e.target.value)} />
                       </div>
                     </div>
 
@@ -2149,7 +2692,7 @@ const AdminDashboard = () => {
                         Cancel
                       </button>
                       <button type="submit" style={btnPrimary}>
-                        <Save size={16} /> {editingId ? "Update Release" : "Publish Release"}
+                        <Save size={16} /> {editingId ? "Update Certification" : "Schedule Certification"}
                       </button>
                     </div>
                   </form>

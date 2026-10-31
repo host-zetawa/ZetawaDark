@@ -13,13 +13,16 @@ import contactRouter from "./routes/contactRoutes.js"
 import reviewRouter from "./routes/reviewRoutes.js"
 import hireRouter from "./routes/hireRoutes.js"
 import serviceRouter from "./routes/serviceRoutes.js"
+import adminRouter, { seedDefaultsIfEmpty } from "./routes/adminRoutes.js"
 import path from "path"
 import { fileURLToPath } from "url"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 
-connectDB()
+connectDB().then(() => {
+  seedDefaultsIfEmpty()
+}).catch(err => console.error("Database connection failed:", err.message))
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -76,5 +79,9 @@ app.use('/api/reviews', reviewRouter)
 // Hire routes
 app.use('/api/hire', hireRouter)
 app.use('/api', hireRouter) // Compatibility for /api/hire
+
+// Dynamic CMS Admin & Public Feed routes
+app.use('/api/admin', adminRouter)
+app.use('/api', adminRouter)
 
 app.listen(port, () => console.log(`🚀 Zetawa Unified Server running on PORT: ${port}`))

@@ -28,7 +28,7 @@ function ZetawaNav() {
     { name: 'Home', path: '/' },
     { name: 'About Us', path: '/aboutus' },
     { name: 'Services', path: '/services' },
-    { name: 'Press Releases', path: '/press-release' },
+    { name: 'News & Insights', path: '/news-insights' },
     { name: 'Certifications', path: '/certifications' },
     { name: 'Careers', path: '/careers' },
   ];

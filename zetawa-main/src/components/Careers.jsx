@@ -220,11 +220,32 @@ const Careers = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [pendingApplyLink, setPendingApplyLink] = useState(null);
 
+  // Dynamic Aptitude Test & Certification state
+  const [aptitudeTest, setAptitudeTest] = useState({
+    title: 'Certification Aptitude Test',
+    description: 'Take our certification aptitude test to evaluate your skills, benchmark your core technical foundations, and qualify for verified Zetawa certifications and fellowship placements.',
+    examDate: '2026-03-22',
+    examTime: '11:00 AM IST',
+    mode: 'Online Proctored',
+    isActive: true
+  });
+
   const formatUrl = (url) => {
     if (!url) return DEFAULT_APPLY_LINK;
     const trimmed = String(url).trim();
     if (!trimmed) return DEFAULT_APPLY_LINK;
     return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
+  };
+
+  const formatExamDate = (dateVal) => {
+    if (!dateVal) return '22 March 2026';
+    try {
+      const d = new Date(dateVal);
+      if (isNaN(d.getTime())) return String(dateVal);
+      return d.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
+    } catch {
+      return String(dateVal);
+    }
   };
 
   const handleApplyClick = (link) => {
@@ -237,6 +258,16 @@ const Careers = () => {
     }
   };
 
+  const handleApplyForTest = () => {
+    const testFormLink = aptitudeTest.applyLink || "https://docs.google.com/forms/d/e/1FAIpQLSfzUllRkATkN6e9uRR25Fa2JoUgkcorcGOAJYzTtzMNOpYv7g/viewform";
+    if (isAuth) {
+      window.open(testFormLink, '_blank', 'noopener,noreferrer');
+    } else {
+      setPendingApplyLink(testFormLink);
+      setShowAuthModal(true);
+    }
+  };
+
   const handleAuthSuccess = () => {
     setShowAuthModal(false);
     const targetLink = formatUrl(pendingApplyLink);
@@ -245,6 +276,7 @@ const Careers = () => {
   };
 
   useEffect(() => {
+    // 1. Fetch Open Roles
     fetch('/api/careers')
       .then(res => res.json())
       .then(data => {
@@ -259,6 +291,25 @@ const Careers = () => {
         setJobs(DEFAULT_JOB_OPENINGS);
       })
       .finally(() => setLoading(false));
+
+    // 2. Fetch Active Certification / Aptitude Test
+    fetch('/api/certifications')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+          const test = data.data[0];
+          setAptitudeTest({
+            title: test.title,
+            description: test.description,
+            examDate: test.examDate,
+            examTime: test.examTime,
+            mode: test.mode || 'Online Proctored',
+            applyLink: test.applyLink || '',
+            isActive: test.isActive !== false
+          });
+        }
+      })
+      .catch(err => console.error('Failed to fetch certifications/tests:', err));
   }, []);
 
   const departments = [
@@ -498,7 +549,7 @@ const Careers = () => {
             marginBottom: '0.85rem',
             letterSpacing: '-0.02em'
           }}>
-            Certification Aptitude Test
+            {aptitudeTest.title}
           </h2>
 
           <p style={{
@@ -508,7 +559,7 @@ const Careers = () => {
             margin: '0 auto 1.5rem',
             lineHeight: 1.65
           }}>
-            Take our certification aptitude test to evaluate your skills, benchmark your core technical foundations, and qualify for verified Zetawa certifications and fellowship placements.
+            {aptitudeTest.description}
           </p>
 
           <div style={{
@@ -526,26 +577,25 @@ const Careers = () => {
             fontWeight: 600,
             fontSize: '0.95rem'
           }}>
-            <span>📅 <strong>Date:</strong> 22 March 2026</span>
+            <span>📅 <strong>Date:</strong> {formatExamDate(aptitudeTest.examDate)}</span>
             <span style={{ color: 'var(--border-default, #cbd5e1)' }}>|</span>
-            <span>⏰ <strong>Time:</strong> 11:00 AM IST</span>
+            <span>⏰ <strong>Time:</strong> {aptitudeTest.examTime}</span>
             <span style={{ color: 'var(--border-default, #cbd5e1)' }}>|</span>
-            <span>🌐 <strong>Mode:</strong> Online Proctored</span>
+            <span>🌐 <strong>Mode:</strong> {aptitudeTest.mode}</span>
           </div>
 
           <div>
-            <a
-              href="https://docs.google.com/forms/d/e/1FAIpQLSfzUllRkATkN6e9uRR25Fa2JoUgkcorcGOAJYzTtzMNOpYv7g/viewform"
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={handleApplyForTest}
               style={{
                 backgroundColor: 'var(--accent-orange, #f28c28)',
                 color: '#ffffff',
+                border: 'none',
                 padding: '0.95rem 2.25rem',
                 borderRadius: '12px',
                 fontSize: '1.05rem',
                 fontWeight: 700,
-                textDecoration: 'none',
+                cursor: 'pointer',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.5rem',
@@ -563,7 +613,7 @@ const Careers = () => {
             >
               <span>Apply For Test</span>
               <ExternalLink size={18} />
-            </a>
+            </button>
           </div>
         </div>
 

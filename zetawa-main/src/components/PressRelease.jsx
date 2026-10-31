@@ -36,17 +36,66 @@ const PressRelease = () => {
 
   const [latestUpdates, setLatestUpdates] = useState([]);
 
-  // Fetch all press releases from backend
+  // Category Normalization Helper (mapping backend schema to requested tags)
+  const normalizeCategory = (item) => {
+    if (item.category === 'Announcement' || item.type === 'Official Announcement') {
+      return 'Announcements';
+    }
+    if (item.category === 'Milestone' || item.type === 'Business Update' || item.type === 'Milestone') {
+      return 'Product Milestones';
+    }
+    if (item.category === 'Culture' || (item.title && /culture|intern|fellowship|viral/i.test(item.title))) {
+      return 'Culture & Internships';
+    }
+    return 'Announcements';
+  };
+
+  // Fetch all announcements & releases from backend
   useEffect(() => {
     const fetchReleases = async () => {
       try {
-        const res = await fetch('/api/press-releases');
-        const data = await res.json();
-        if (data.success && Array.isArray(data.data)) {
-          setReleases(data.data);
+        const [annRes, prRes] = await Promise.all([
+          fetch('/api/announcements').then(r => r.json()).catch(() => ({ success: false })),
+          fetch('/api/press-releases').then(r => r.json()).catch(() => ({ success: false }))
+        ]);
+
+        const combined = [];
+        const seenTitles = new Set();
+
+        if (annRes.success && Array.isArray(annRes.data)) {
+          annRes.data.forEach(item => {
+            const cat = normalizeCategory(item);
+            seenTitles.add(item.title.toLowerCase().trim());
+            combined.push({
+              ...item,
+              displayCategory: cat,
+              type: cat,
+              year: item.publishedDate ? new Date(item.publishedDate).getFullYear().toString() : '2026',
+              date: item.publishedDate ? new Date(item.publishedDate).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Recent'
+            });
+          });
         }
+
+        if (prRes.success && Array.isArray(prRes.data)) {
+          prRes.data.forEach(item => {
+            const normalizedTitle = item.title.toLowerCase().trim();
+            if (!seenTitles.has(normalizedTitle)) {
+              seenTitles.add(normalizedTitle);
+              const cat = normalizeCategory(item);
+              combined.push({
+                ...item,
+                displayCategory: cat,
+                type: cat,
+                year: item.year || (item.date ? item.date.split(' ').pop() : '2025'),
+                date: item.date || 'Recent'
+              });
+            }
+          });
+        }
+
+        setReleases(combined);
       } catch (err) {
-        console.error('Failed to fetch press releases:', err);
+        console.error('Failed to fetch announcements:', err);
       } finally {
         setIsLoading(false);
       }
@@ -92,15 +141,13 @@ const PressRelease = () => {
     new Set(releases.map((r) => (r.year ? r.year.trim() : 'FY2025')).filter(Boolean))
   ).sort().reverse();
 
-  // Distinct list of categories/types
-  const availableCategories = Array.from(
-    new Set(releases.map((r) => r.type || 'Official Announcement').filter(Boolean))
-  );
+  // Categorization tags matching roadmap: Announcements, Product Milestones, and Culture & Internships
+  const availableCategories = ['Announcements', 'Product Milestones', 'Culture & Internships'];
 
   // Filtered releases based on year, category, and search query
   const filteredReleases = releases.filter((release) => {
     const relYear = release.year ? release.year.trim() : 'FY2025';
-    const relType = release.type || 'Official Announcement';
+    const relType = release.displayCategory || release.type || 'Announcements';
 
     const matchesYear = selectedYear === 'ALL' || relYear === selectedYear;
     const matchesCategory = selectedCategory === 'ALL' || relType === selectedCategory;
@@ -118,20 +165,18 @@ const PressRelease = () => {
 
   const getTypeStyle = (type) => {
     switch (type) {
+      case 'Announcements':
       case 'Official Announcement':
         return { bg: 'rgba(242, 140, 40, 0.1)', text: '#f28c28', border: 'rgba(242, 140, 40, 0.25)' };
+      case 'Product Milestones':
       case 'Business Update':
-      case 'Company Update':
-        return { bg: 'rgba(59, 75, 200, 0.1)', text: '#3b4bc8', border: 'rgba(59, 75, 200, 0.25)' };
       case 'Milestone':
-      case 'Project Award':
-        return { bg: 'rgba(16, 185, 129, 0.1)', text: '#047857', border: 'rgba(16, 185, 129, 0.25)' };
-      case 'Partnership':
-        return { bg: 'rgba(217, 119, 6, 0.1)', text: '#b45309', border: 'rgba(217, 119, 6, 0.25)' };
-      case 'Industry News':
-        return { bg: 'rgba(107, 45, 58, 0.1)', text: '#6b2d3a', border: 'rgba(107, 45, 58, 0.25)' };
+        return { bg: 'rgba(59, 130, 246, 0.1)', text: '#3b82f6', border: 'rgba(59, 130, 246, 0.25)' };
+      case 'Culture & Internships':
+      case 'Culture':
+        return { bg: 'rgba(16, 185, 129, 0.1)', text: '#10b981', border: 'rgba(16, 185, 129, 0.25)' };
       default:
-        return { bg: 'rgba(100, 116, 139, 0.1)', text: '#475569', border: 'rgba(100, 116, 139, 0.25)' };
+        return { bg: 'rgba(242, 140, 40, 0.1)', text: '#f28c28', border: 'rgba(242, 140, 40, 0.25)' };
     }
   };
 
@@ -399,7 +444,7 @@ const PressRelease = () => {
             border: '1px solid var(--hero-badge-border)'
           }}>
             <Newspaper size={16} />
-            ZETAWA DARK NEWSROOM & MEDIA CENTER
+            NEWS &amp; INSIGHTS — ZETAWA ENGINEERING HUB
           </div>
 
           <h1 className="hero-title" style={{
@@ -411,7 +456,7 @@ const PressRelease = () => {
             textWrap: 'balance',
             color: 'var(--hero-text)'
           }}>
-            Press Releases &amp; Corporate Announcements
+            News &amp; Insights
           </h1>
 
           <p className="hero-subtitle" style={{
@@ -422,7 +467,7 @@ const PressRelease = () => {
             fontWeight: 400,
             marginBottom: '2rem'
           }}>
-            Official press disclosures, corporate milestones, leadership updates, and strategic technology developments from Zetawa Dark.
+            Official company milestones, platform product breakthroughs, engineering updates, and culture initiatives from Zetawa Dark.
           </p>
 
           <div className="hero-action-buttons-wrap" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', alignItems: 'center' }}>
@@ -733,7 +778,7 @@ const PressRelease = () => {
                     flexShrink: 0
                   }}
                 >
-                  All Types
+                  All Insights
                 </button>
                 {availableCategories.map((cat) => {
                   const isSelected = selectedCategory === cat;
@@ -898,7 +943,7 @@ const PressRelease = () => {
                         textTransform: 'uppercase',
                         letterSpacing: '0.5px'
                       }}>
-                        {release.type || 'Announcement'}
+                        {release.displayCategory || release.type || 'Announcements'}
                       </span>
 
                       <div style={{
@@ -1388,7 +1433,7 @@ const PressRelease = () => {
                     textTransform: 'uppercase',
                     letterSpacing: '0.5px'
                   }}>
-                    {selectedRelease.type || 'Official Announcement'}
+                    {selectedRelease.displayCategory || selectedRelease.type || 'Announcements'}
                   </span>
 
                   {selectedRelease.year && (

@@ -78,7 +78,7 @@ function Footer() {
     { name: 'Services', path: '/services' },
     { name: 'Careers', path: '/careers' },
     { name: 'Certifications', path: '/certifications' },
-    { name: 'Press Releases', path: '/press-release' },
+    { name: 'News & Insights', path: '/news-insights' },
     { name: 'Privacy Policy', path: '/privacy-policy' },
   ];
 

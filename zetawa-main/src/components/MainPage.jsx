@@ -57,296 +57,117 @@ const resolveIcon = (icon) => {
   return ICONS_MAP[icon] || Code2;
 };
 
-const LatestUpdates = () => {
-  const [updates, setUpdates] = useState([]);
-  useEffect(() => {
-    fetch('/api/latest-updates')
-      .then(res => res.json())
-      .then(data => { if (data.success) setUpdates(data.data); })
-      .catch(err => console.error('Failed to fetch latest updates:', err));
-  }, []);
-
-  if (updates.length === 0) return null;
-
-  return (
-    <section style={{ padding: 'clamp(3rem, 6vw, 5rem) 0', backgroundColor: 'var(--bg)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
-        <div style={{ textAlign: 'center', marginBottom: 'clamp(2rem, 4vw, 3rem)' }}>
-          <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', fontWeight: '800', color: 'var(--text)', marginBottom: '0.75rem', letterSpacing: '-0.02em', textWrap: 'balance' }}>
-            Latest Updates
-          </h2>
-          <p style={{ fontSize: 'clamp(0.95rem, 2vw, 1.1rem)', color: 'var(--text-muted)', maxWidth: '640px', margin: '0 auto' }}>
-            Stay informed about our latest engineering developments and team milestones
-          </p>
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', gap: '1.5rem' }}>
-          {updates.map(update => (
-            <div key={update._id} style={{
-              padding: 'clamp(1.5rem, 3vw, 2rem)',
-              backgroundColor: 'var(--surface)',
-              backdropFilter: 'blur(16px)',
-              WebkitBackdropFilter: 'blur(16px)',
-              borderRadius: '16px',
-              border: '1px solid var(--border)',
-              transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease',
-              cursor: 'pointer',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              boxShadow: 'var(--shadow)'
-            }}
-              onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
-                e.currentTarget.style.borderColor = 'var(--accent)';
-              }}
-              onMouseOut={(e) => {
-                e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'var(--shadow)';
-                e.currentTarget.style.borderColor = 'var(--border)';
-              }}
-            >
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--accent)', fontWeight: '700', fontSize: '0.85rem' }}>
-                    <Bell size={16} />
-                    <span>Update</span>
-                  </div>
-                  {update.date && <span style={{ marginLeft: 'auto', fontSize: '0.8rem', color: 'var(--text-muted)' }}>{update.date}</span>}
-                </div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '700', color: 'var(--text)', marginBottom: '0.75rem', lineHeight: 1.35 }}>
-                  {update.title}
-                </h3>
-                <p style={{ color: 'var(--text-muted)', marginBottom: '1.25rem', lineHeight: '1.6', fontSize: '0.92rem' }}>
-                  {update.description}
-                </p>
-              </div>
-              {update.file && (
-                <div style={{ borderTop: '1px solid var(--border)', paddingTop: '1rem', marginTop: 'auto' }}>
-                  <a href={update.file.startsWith('http') ? update.file : `http://localhost:4000/${update.file}`} target="_blank" rel="noopener noreferrer" style={{
-                    color: 'var(--accent)', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', fontWeight: '700', textDecoration: 'none', fontSize: '0.88rem'
-                  }}>
-                    View Attachment <ChevronRight size={16} />
-                  </a>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-const PressReleasesSection = () => {
-  const [releases, setReleases] = useState([]);
+const NewsAndInsightsBanner = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch('/api/press-releases')
-      .then(res => res.json())
-      .then(data => {
-        if (data.success && Array.isArray(data.data)) {
-          setReleases(data.data.slice(0, 3));
-        }
-      })
-      .catch(err => console.error('Failed to fetch press releases:', err));
-  }, []);
-
-  if (releases.length === 0) return null;
-
-  const formatExternalUrl = (url) => {
-    if (!url) return '';
-    const trimmed = String(url).trim();
-    if (!trimmed) return '';
-    return /^https?:\/\//i.test(trimmed) ? trimmed : `https://${trimmed}`;
-  };
 
   return (
     <section style={{
-      padding: 'clamp(3rem, 6vw, 5rem) 0',
+      padding: 'clamp(3rem, 5vw, 4.5rem) 0',
       backgroundColor: 'var(--bg)',
       borderTop: '1px solid var(--border)',
       borderBottom: '1px solid var(--border)'
     }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(1rem, 3vw, 2rem)' }}>
         <div style={{
+          background: 'linear-gradient(135deg, var(--surface) 0%, color-mix(in srgb, var(--accent) 8%, var(--surface)) 100%)',
+          borderRadius: '24px',
+          border: '1.5px solid var(--border)',
+          padding: 'clamp(2rem, 4vw, 3rem)',
           display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-end',
-          marginBottom: 'clamp(2rem, 4vw, 3rem)',
-          flexWrap: 'wrap',
-          gap: '1.25rem'
+          flexDirection: 'column',
+          alignItems: 'center',
+          textAlign: 'center',
+          position: 'relative',
+          overflow: 'hidden',
+          boxShadow: 'var(--shadow-lg)'
         }}>
-          <div>
-            <div style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              backgroundColor: 'color-mix(in srgb, var(--accent) 12%, transparent)',
-              color: 'var(--accent)',
-              border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)',
-              padding: '0.35rem 0.85rem',
-              borderRadius: '20px',
-              fontSize: '0.78rem',
-              fontWeight: 700,
-              textTransform: 'uppercase',
-              letterSpacing: '0.6px',
-              marginBottom: '0.6rem'
-            }}>
-              <Newspaper size={14} /> OFFICIAL ANNOUNCEMENTS
-            </div>
-            <h2 style={{ fontSize: 'clamp(1.4rem, 4vw, 2.4rem)', fontWeight: 800, color: 'var(--text)', margin: 0, textWrap: 'balance', letterSpacing: '-0.02em' }}>
-              Company Announcements &amp; Updates
-            </h2>
+          <div style={{
+            position: 'absolute',
+            top: '-50%',
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: '450px',
+            height: '250px',
+            background: 'radial-gradient(ellipse, color-mix(in srgb, var(--accent) 20%, transparent) 0%, transparent 70%)',
+            pointerEvents: 'none'
+          }} />
+
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            backgroundColor: 'color-mix(in srgb, var(--accent) 15%, transparent)',
+            color: 'var(--accent)',
+            border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)',
+            padding: '0.4rem 1rem',
+            borderRadius: '50px',
+            fontSize: '0.8rem',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            letterSpacing: '0.8px',
+            marginBottom: '1rem',
+            position: 'relative',
+            zIndex: 1
+          }}>
+            <Sparkles size={15} /> CORPORATE INSIGHTS &amp; MILESTONES
           </div>
 
-          <button
-            className="section-header-btn"
-            onClick={() => navigate('/press-release')}
-            style={{
-              backgroundColor: 'var(--surface)',
-              color: 'var(--text)',
-              border: '1.5px solid var(--border)',
-              padding: '0.65rem 1.25rem',
-              borderRadius: '12px',
-              fontWeight: 700,
-              fontSize: '0.88rem',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '0.4rem',
-              transition: 'all 0.25s ease',
-              minHeight: '44px',
-              backdropFilter: 'blur(8px)',
-              boxShadow: 'var(--shadow)'
-            }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--primary)';
-              e.currentTarget.style.color = 'var(--primary-contrast)';
-              e.currentTarget.style.borderColor = 'var(--primary)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.backgroundColor = 'var(--surface)';
-              e.currentTarget.style.color = 'var(--text)';
-              e.currentTarget.style.borderColor = 'var(--border)';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
-          >
-            Browse All Announcements <ArrowRight size={16} />
-          </button>
-        </div>
+          <h2 style={{
+            fontSize: 'clamp(1.6rem, 3.8vw, 2.5rem)',
+            fontWeight: 800,
+            color: 'var(--text)',
+            marginBottom: '0.85rem',
+            letterSpacing: '-0.02em',
+            maxWidth: '780px',
+            lineHeight: 1.25,
+            position: 'relative',
+            zIndex: 1
+          }}>
+            News, Engineering Updates &amp; Company Milestones
+          </h2>
 
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
-          gap: '1.5rem'
-        }}>
-          {releases.map((release) => (
-            <div
-              key={release._id}
-              onClick={() => navigate('/press-release')}
+          <p style={{
+            fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+            color: 'var(--text-muted)',
+            maxWidth: '680px',
+            margin: '0 auto 2rem auto',
+            lineHeight: 1.6,
+            position: 'relative',
+            zIndex: 1
+          }}>
+            Stay up to date with our autonomous AI deployments, cloud telemetry breakthroughs, security accreditations, and fellowship programs in our dedicated media portal.
+          </p>
+
+          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
+            <button
+              onClick={() => navigate('/news-insights')}
               style={{
-                backgroundColor: 'var(--surface)',
-                backdropFilter: 'blur(16px)',
-                WebkitBackdropFilter: 'blur(16px)',
-                borderRadius: '16px',
-                border: '1px solid var(--border)',
-                padding: 'clamp(1.25rem, 3.5vw, 1.75rem)',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                backgroundColor: 'var(--accent)',
+                color: '#ffffff',
+                border: 'none',
+                padding: '0.85rem 2rem',
+                borderRadius: '50px',
+                fontSize: '0.95rem',
+                fontWeight: 700,
                 cursor: 'pointer',
-                boxShadow: 'var(--shadow)'
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                transition: 'all 0.25s ease',
+                boxShadow: '0 6px 20px color-mix(in srgb, var(--accent) 35%, transparent)'
               }}
               onMouseOver={(e) => {
-                e.currentTarget.style.transform = 'translateY(-4px)';
-                e.currentTarget.style.boxShadow = 'var(--shadow-lg)';
-                e.currentTarget.style.borderColor = 'var(--accent)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.boxShadow = '0 10px 25px color-mix(in srgb, var(--accent) 45%, transparent)';
               }}
               onMouseOut={(e) => {
                 e.currentTarget.style.transform = 'translateY(0)';
-                e.currentTarget.style.boxShadow = 'var(--shadow)';
-                e.currentTarget.style.borderColor = 'var(--border)';
+                e.currentTarget.style.boxShadow = '0 6px 20px color-mix(in srgb, var(--accent) 35%, transparent)';
               }}
             >
-              <div>
-                <div style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  marginBottom: '1rem',
-                  flexWrap: 'wrap',
-                  gap: '0.5rem'
-                }}>
-                  <span style={{
-                    padding: '0.25rem 0.65rem',
-                    borderRadius: '20px',
-                    fontSize: '0.75rem',
-                    fontWeight: 700,
-                    backgroundColor: 'color-mix(in srgb, var(--accent) 12%, transparent)',
-                    color: 'var(--accent)',
-                    border: '1px solid color-mix(in srgb, var(--accent) 30%, transparent)'
-                  }}>
-                    {release.type || 'Announcement'}
-                  </span>
-                  <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                    <Calendar size={13} /> {release.date}
-                  </span>
-                </div>
-
-                <h3 style={{ fontSize: '1.2rem', fontWeight: 700, color: 'var(--text)', marginBottom: '0.75rem', lineHeight: 1.4, wordBreak: 'break-word' }}>
-                  {release.title}
-                </h3>
-
-                {release.content && (
-                  <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
-                    {release.content.length > 140 ? release.content.substring(0, 140) + '...' : release.content}
-                  </p>
-                )}
-              </div>
-
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                paddingTop: '1rem',
-                borderTop: '1px solid var(--border)',
-                flexWrap: 'wrap',
-                gap: '0.65rem',
-                marginTop: 'auto'
-              }}>
-                <span style={{ color: 'var(--accent)', fontWeight: 700, fontSize: '0.88rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}>
-                  Read Announcement <ChevronRight size={15} />
-                </span>
-
-                {release.linkedinUrl && (
-                  <span
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      window.open(formatExternalUrl(release.linkedinUrl), '_blank', 'noopener,noreferrer');
-                    }}
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '0.35rem',
-                      color: 'var(--accent-2)',
-                      backgroundColor: 'color-mix(in srgb, var(--accent-2) 12%, transparent)',
-                      border: '1px solid color-mix(in srgb, var(--accent-2) 28%, transparent)',
-                      padding: '0.35rem 0.75rem',
-                      borderRadius: '8px',
-                      fontSize: '0.82rem',
-                      fontWeight: 600,
-                      cursor: 'pointer'
-                    }}>
-                    <ExternalLink size={13} /> Source
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
+              Explore News &amp; Insights <ArrowRight size={16} />
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -959,11 +780,8 @@ const MainPage = () => {
       {/* ──────── Services Overview Section ──────── */}
       <ServicesOverviewSection handleGatedAction={handleGatedAction} />
 
-      {/* Press Releases Section */}
-      <PressReleasesSection />
-
-      {/* Latest Updates */}
-      <LatestUpdates />
+      {/* News & Insights Spotlight */}
+      <NewsAndInsightsBanner />
 
       {/* ──────── Modern Frosted Glass Contact Section ──────── */}
       <section id="contact" style={{ padding: 'clamp(3rem, 6vw, 6rem) 0', backgroundColor: 'var(--bg)' }}>
