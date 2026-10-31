@@ -423,7 +423,7 @@ const ServicesOverviewSection = ({ handleGatedAction }) => {
                   </Link>
 
                   <button
-                    onClick={() => handleGatedAction('/hireforms')}
+                    onClick={() => handleGatedAction('/hireforms', { selectedService: item })}
                     style={{
                       backgroundColor: 'transparent',
                       border: 'none',
@@ -492,11 +492,11 @@ const MainPage = () => {
     }
   };
 
-  const handleGatedAction = (path) => {
+  const handleGatedAction = (path, state = null) => {
     if (isAuth) {
-      navigate(path);
+      navigate(path, { state });
     } else {
-      setPendingRedirect(path);
+      setPendingRedirect({ path, state });
       setShowAuthModal(true);
     }
   };
@@ -504,7 +504,11 @@ const MainPage = () => {
   const handleAuthSuccess = () => {
     setShowAuthModal(false);
     if (pendingRedirect) {
-      navigate(pendingRedirect);
+      if (typeof pendingRedirect === 'string') {
+        navigate(pendingRedirect);
+      } else {
+        navigate(pendingRedirect.path, { state: pendingRedirect.state });
+      }
       setPendingRedirect(null);
     }
   };

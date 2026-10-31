@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { 
   Code2, 
   Smartphone, 
@@ -12,54 +12,123 @@ import {
   Send, 
   Clock, 
   ShieldCheck, 
-  DollarSign, 
   IndianRupee,
-  Briefcase, 
   ArrowRight,
-  ExternalLink,
-  MessageSquare
+  Layers,
+  Check,
+  RotateCcw,
+  Info,
+  Server,
+  Zap,
+  Database,
+  Terminal,
+  FileCheck
 } from "lucide-react";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import { useAppContext } from "../context/AppContext";
 import AuthModal from "./AuthModal";
 
-const SERVICES_OPTIONS = [
+const ICONS_MAP = {
+  Code2,
+  Smartphone,
+  Cpu,
+  Palette,
+  Cloud,
+  Users,
+  ShieldCheck,
+  Sparkles,
+  Layers,
+  Server,
+  Zap,
+  Database,
+  Terminal
+};
+
+const resolveIcon = (icon) => {
+  if (!icon) return Code2;
+  if (typeof icon === "function" || (typeof icon === "object" && icon !== null)) return icon;
+  return ICONS_MAP[icon] || Code2;
+};
+
+const BASE_SERVICES_OPTIONS = [
   {
     id: "web-saas",
     icon: Code2,
     title: "Full-Stack Web & SaaS",
-    tagline: "React, Next.js, Node.js, Python, scalable APIs & databases."
+    tagline: "React, Next.js, Node.js, Python, scalable APIs & databases.",
+    capabilities: [
+      "Modern full-stack web application development",
+      "Robust REST & GraphQL API architecture",
+      "High-performance databases & real-time synchronization",
+      "Production-grade security & automated CI/CD deployment"
+    ],
+    techStack: ["React", "Next.js", "TypeScript", "Node.js", "PostgreSQL", "MongoDB"]
   },
   {
     id: "mobile-app",
     icon: Smartphone,
     title: "Mobile App Development",
-    tagline: "Cross-platform iOS & Android apps with smooth native UX."
+    tagline: "Cross-platform iOS & Android apps with smooth native UX.",
+    capabilities: [
+      "Cross-platform iOS and Android mobile engineering",
+      "Fluid 60fps animations & responsive native design",
+      "Offline-first sync & push notifications integration",
+      "App Store & Google Play submission and approval support"
+    ],
+    techStack: ["React Native", "Flutter", "TypeScript", "Swift / Kotlin", "Firebase"]
   },
   {
     id: "ai-automation",
     icon: Cpu,
     title: "AI & Smart Automation",
-    tagline: "Custom LLM agents, RAG retrieval & workflow automation."
+    tagline: "Custom LLM agents, RAG retrieval & workflow automation.",
+    capabilities: [
+      "Custom Retrieval-Augmented Generation (RAG) vector pipelines",
+      "Autonomous multi-agent workflows for repetitive tasks",
+      "Fine-tuned LLM implementations & prompt optimization",
+      "Smart document parsing, semantic search & automated reporting"
+    ],
+    techStack: ["Python", "OpenAI", "Gemini API", "LangChain", "FastAPI", "Pinecone"]
   },
   {
     id: "ui-ux",
     icon: Palette,
     title: "UI/UX & Design Systems",
-    tagline: "Figma component libraries, prototypes & high-conversion UI."
+    tagline: "Figma component libraries, prototypes & high-conversion UI.",
+    capabilities: [
+      "Interactive clickable prototypes for rapid validation",
+      "Scalable Figma design systems & reusable component libraries",
+      "WCAG 2.1 accessibility compliance & responsive design",
+      "Conversion-rate-optimized (CRO) user onboarding flows"
+    ],
+    techStack: ["Figma", "Design Tokens", "Tailwind CSS", "Storybook", "WCAG A11y"]
   },
   {
     id: "cloud-devops",
     icon: Cloud,
     title: "Cloud, DevOps & Infra",
-    tagline: "AWS, GCP, Docker, Kubernetes, CI/CD & zero-downtime scale."
+    tagline: "AWS, GCP, Docker, Kubernetes, CI/CD & zero-downtime scale.",
+    capabilities: [
+      "Cloud architecture & cost optimization (AWS, GCP)",
+      "Docker containerization & Kubernetes cluster orchestration",
+      "Automated CI/CD deployment pipelines with zero downtime",
+      "Comprehensive log observability, tracing & uptime monitoring"
+    ],
+    techStack: ["AWS", "GCP", "Kubernetes", "Docker", "Terraform", "GitHub Actions"]
   },
   {
     id: "dedicated-squad",
     icon: Users,
     title: "Dedicated Developer Squad",
-    tagline: "Embedded senior engineers for fast sprint execution."
+    tagline: "Embedded senior engineers for fast sprint execution.",
+    capabilities: [
+      "Dedicated senior software engineers embedded in your team",
+      "Agile 2-week sprint delivery with transparent milestones",
+      "Direct technical leadership & architecture code reviews",
+      "Seamless ramp-up and flexible scaling based on velocity"
+    ],
+    techStack: ["Agile/Scrum", "Jira", "Full-Stack Engineers", "Code Reviews", "Sprint Sprints"]
   }
 ];
 
@@ -78,9 +147,38 @@ const TIMELINE_OPTIONS = [
   { id: "exploring", label: "Flexible / Planning Stage" }
 ];
 
+const formatInitialDescription = (service) => {
+  if (!service) return "";
+  let desc = `Consultation Request for: ${service.title}\n`;
+  if (service.tagline) {
+    desc += `Scope Overview: ${service.tagline}\n\n`;
+  }
+  if (Array.isArray(service.capabilities) && service.capabilities.length > 0) {
+    desc += `Included Standard Deliverables (Automatically Registered):\n`;
+    service.capabilities.forEach(cap => {
+      desc += `• ${cap}\n`;
+    });
+    desc += `\n`;
+  }
+  if (Array.isArray(service.techStack) && service.techStack.length > 0) {
+    desc += `Preferred Technology Stack: ${service.techStack.join(', ')}\n\n`;
+  }
+  desc += `Additional Custom Requirements & Goals:\n(Describe any specific features, third-party integrations, or custom requirements here...)`;
+  return desc;
+};
+
 const Hireforms = () => {
   const { user } = useAppContext();
+  const location = useLocation();
   const [showAuthModal, setShowAuthModal] = useState(false);
+
+  // Read incoming service from route state or URL query parameter
+  const searchParams = new URLSearchParams(location.search);
+  const queryServiceName = searchParams.get("service");
+  const passedService = location.state?.selectedService || null;
+
+  const [availableServices, setAvailableServices] = useState(BASE_SERVICES_OPTIONS);
+  const [primaryService, setPrimaryService] = useState(null);
 
   const [formData, setFormData] = useState({
     firstName: user?.name ? user.name.split(" ")[0] : "",
@@ -92,6 +190,7 @@ const Hireforms = () => {
     projectTitle: "",
     projectType: "Web Application",
     projectDescription: "",
+    customFeatures: "",
     reference: "",
     additionalInfo: ""
   });
@@ -102,17 +201,88 @@ const Hireforms = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
 
+  // Initialize or fetch dynamic services catalog
+  useEffect(() => {
+    fetch('/api/services')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+          // Merge dynamic services with base options, deduplicating by title
+          const dynamicServices = data.data.map(d => ({
+            id: d._id || d.id || d.title.toLowerCase().replace(/\s+/g, '-'),
+            icon: resolveIcon(d.icon),
+            title: d.title,
+            tagline: d.tagline || d.description?.slice(0, 80) || "",
+            description: d.description || "",
+            capabilities: Array.isArray(d.capabilities) ? d.capabilities : [],
+            techStack: Array.isArray(d.techStack) ? d.techStack : [],
+            highlight: d.highlight || ""
+          }));
+
+          const combined = [...dynamicServices];
+          BASE_SERVICES_OPTIONS.forEach(base => {
+            if (!combined.some(c => c.title.toLowerCase() === base.title.toLowerCase())) {
+              combined.push(base);
+            }
+          });
+          setAvailableServices(combined);
+        }
+      })
+      .catch(err => console.error("Could not fetch remote services catalog:", err));
+  }, []);
+
+  // Configure pre-filled details when a specific service is clicked
+  useEffect(() => {
+    let target = passedService;
+
+    if (!target && queryServiceName) {
+      target = availableServices.find(s => s.title.toLowerCase() === queryServiceName.toLowerCase()) || {
+        title: queryServiceName,
+        tagline: `Dedicated consultation for ${queryServiceName}`,
+        capabilities: ["Custom architecture & sprint planning", "Production-grade implementation"],
+        techStack: ["Full-Stack Stack"]
+      };
+    }
+
+    if (target) {
+      setPrimaryService(target);
+      setSelectedServices([target.title]);
+
+      setFormData(prev => ({
+        ...prev,
+        projectTitle: `${target.title} Implementation`,
+        projectType: target.category || target.title,
+        projectDescription: formatInitialDescription(target)
+      }));
+    }
+  }, [passedService, queryServiceName, availableServices]);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
   const handleServiceToggle = (serviceTitle) => {
-    setSelectedServices(prev => 
-      prev.includes(serviceTitle)
-        ? (prev.length > 1 ? prev.filter(t => t !== serviceTitle) : prev)
-        : [...prev, serviceTitle]
-    );
+    setSelectedServices(prev => {
+      if (prev.includes(serviceTitle)) {
+        // Prevent deselecting if it is the only one selected
+        return prev.length > 1 ? prev.filter(t => t !== serviceTitle) : prev;
+      } else {
+        return [...prev, serviceTitle];
+      }
+    });
+  };
+
+  const handleClearPreselectedService = () => {
+    setPrimaryService(null);
+    setSelectedServices(["Full-Stack Web & SaaS"]);
+    setFormData(prev => ({
+      ...prev,
+      projectTitle: "",
+      projectType: "Web Application",
+      projectDescription: "",
+      customFeatures: ""
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -134,12 +304,20 @@ const Hireforms = () => {
       ? (budget.trim().startsWith("₹") ? budget.trim() : `₹${budget.trim()}`)
       : "Flexible / Not specified";
 
+    // Combine description and custom extra details
+    let finalDescription = formData.projectDescription.trim();
+    if (formData.customFeatures && formData.customFeatures.trim()) {
+      finalDescription += `\n\n--- Custom Additions & Specific Feature Requests ---\n${formData.customFeatures.trim()}`;
+    }
+
     const payload = {
       ...formData,
       clientName: `${formData.firstName} ${formData.lastName}`.trim() || (user?.name || "Client"),
       services: selectedServices,
+      projectDescription: finalDescription,
       budget: formattedBudget,
       timeline: selectedTimeline,
+      additionalInfo: formData.customFeatures?.trim() || formData.additionalInfo || "",
       userId: user?._id || user?.id || ""
     };
 
@@ -232,15 +410,15 @@ const Hireforms = () => {
               marginBottom: "1rem",
               border: "1px solid var(--border)"
             }}>
-              <Sparkles size={14} /> Discovery Request Received
+              <Check size={14} /> CONSULTATION INITIATED
             </div>
 
-            <h1 style={{ fontSize: "2.4rem", fontWeight: 800, color: "var(--text)", marginBottom: "1rem" }}>
-              We have Received Your Project Blueprint!
+            <h1 style={{ fontSize: "clamp(1.6rem, 4vw, 2.4rem)", fontWeight: 800, color: "var(--text)", marginBottom: "1rem" }}>
+              Project Scope Successfully Received
             </h1>
 
             <p style={{ color: "var(--text-muted)", fontSize: "1.1rem", maxWidth: "600px", margin: "0 auto 2rem", lineHeight: 1.6 }}>
-              Thank you, <strong style={{ color: "var(--text)" }}>{formData.firstName || "Client"}</strong>. Our technical lead and sprint architects are reviewing your specifications. We will reach out to you at <strong style={{ color: "var(--primary)" }}>{formData.email}</strong> within 24 hours with an initial architectural roadmap and estimate.
+              Thank you, <strong style={{ color: "var(--text)" }}>{formData.firstName || "Client"}</strong>. Our technical architects are reviewing your specifications. We will reach out to you at <strong style={{ color: "var(--primary)" }}>{formData.email}</strong> within 24 hours with an initial architectural roadmap and sprint estimate.
             </p>
 
             <div style={{
@@ -248,13 +426,17 @@ const Hireforms = () => {
               borderRadius: "16px",
               border: "1px solid var(--border)",
               padding: "1.5rem",
-              maxWidth: "520px",
+              maxWidth: "560px",
               margin: "0 auto 2.5rem",
               textAlign: "left"
             }}>
+              <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.75rem", flexWrap: "wrap", gap: "0.5rem" }}>
+                <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Registered Disciplines:</span>
+                <span style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 700 }}>{selectedServices.join(", ")}</span>
+              </div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.75rem" }}>
-                <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Selected Disciplines:</span>
-                <span style={{ color: "var(--text)", fontSize: "0.85rem", fontWeight: 600 }}>{selectedServices.join(", ")}</span>
+                <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Project Title:</span>
+                <span style={{ color: "var(--primary)", fontSize: "0.85rem", fontWeight: 700 }}>{formData.projectTitle || "Custom Solution"}</span>
               </div>
               <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "0.75rem" }}>
                 <span style={{ color: "var(--text-muted)", fontSize: "0.85rem" }}>Estimated Budget:</span>
@@ -294,12 +476,7 @@ const Hireforms = () => {
               <button
                 onClick={() => {
                   setIsSubmitted(false);
-                  setFormData({
-                    firstName: "", lastName: "", email: "", phone: "",
-                    company: "", website: "", projectTitle: "",
-                    projectType: "Web Application", projectDescription: "",
-                    reference: "", additionalInfo: ""
-                  });
+                  handleClearPreselectedService();
                 }}
                 style={{
                   backgroundColor: "transparent",
@@ -325,7 +502,7 @@ const Hireforms = () => {
           /* Project Consultation Form */
           <div>
             {/* Header */}
-            <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
+            <div style={{ textAlign: "center", marginBottom: "3rem" }}>
               <div style={{
                 display: "inline-flex",
                 alignItems: "center",
@@ -377,6 +554,183 @@ const Hireforms = () => {
               </div>
             </div>
 
+            {/* ========================================================================= */}
+            {/* ====== SPOTLIGHT: PRE-LOADED SERVICE PACKAGE BANNER (WHEN CLICKED) ====== */}
+            {/* ========================================================================= */}
+            {primaryService && (
+              <div style={{
+                background: "linear-gradient(145deg, var(--surface) 0%, var(--bg-alt) 100%)",
+                border: "1.5px solid var(--primary)",
+                borderRadius: "20px",
+                padding: "clamp(1.25rem, 3.5vw, 2rem)",
+                marginBottom: "2.5rem",
+                boxShadow: "0 10px 30px rgba(0,0,0,0.12)",
+                position: "relative",
+                overflow: "hidden"
+              }}>
+                <div style={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  height: "3px",
+                  background: "linear-gradient(90deg, var(--primary), var(--accent))"
+                }} />
+
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                    <div style={{
+                      width: "48px",
+                      height: "48px",
+                      borderRadius: "14px",
+                      backgroundColor: "rgba(242, 140, 40, 0.12)",
+                      color: "var(--primary)",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      border: "1px solid rgba(242, 140, 40, 0.25)"
+                    }}>
+                      <FileCheck size={26} />
+                    </div>
+                    <div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+                        <span style={{
+                          backgroundColor: "rgba(16, 185, 129, 0.12)",
+                          color: "#10b981",
+                          border: "1px solid rgba(16, 185, 129, 0.25)",
+                          padding: "3px 10px",
+                          borderRadius: "12px",
+                          fontSize: "0.75rem",
+                          fontWeight: 800,
+                          textTransform: "uppercase",
+                          letterSpacing: "0.5px"
+                        }}>
+                          ✓ Pre-Loaded Service Scope
+                        </span>
+                        {primaryService.highlight && (
+                          <span style={{
+                            backgroundColor: "var(--bg-alt)",
+                            color: "var(--text-muted)",
+                            border: "1px solid var(--border)",
+                            padding: "3px 10px",
+                            borderRadius: "12px",
+                            fontSize: "0.75rem",
+                            fontWeight: 700
+                          }}>
+                            {primaryService.highlight}
+                          </span>
+                        )}
+                      </div>
+                      <h2 style={{ fontSize: "1.35rem", fontWeight: 800, color: "var(--text)", margin: "0.35rem 0 0" }}>
+                        {primaryService.title}
+                      </h2>
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={handleClearPreselectedService}
+                    style={{
+                      background: "transparent",
+                      border: "1px solid var(--border)",
+                      color: "var(--text-muted)",
+                      padding: "0.45rem 0.9rem",
+                      borderRadius: "10px",
+                      fontSize: "0.8rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "0.35rem",
+                      transition: "all 0.2s ease"
+                    }}
+                    title="Switch to blank general form"
+                  >
+                    <RotateCcw size={13} /> Reset to Blank Form
+                  </button>
+                </div>
+
+                {primaryService.tagline && (
+                  <p style={{ color: "var(--primary)", fontSize: "0.95rem", fontWeight: 600, margin: "0 0 1.25rem" }}>
+                    {primaryService.tagline}
+                  </p>
+                )}
+
+                {/* Pre-included deliverables */}
+                {Array.isArray(primaryService.capabilities) && primaryService.capabilities.length > 0 && (
+                  <div style={{ marginBottom: "1.25rem" }}>
+                    <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.65rem" }}>
+                      Pre-Included Standard Deliverables (No Need to Re-Enter):
+                    </div>
+                    <div style={{
+                      display: "grid",
+                      gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
+                      gap: "0.6rem"
+                    }}>
+                      {primaryService.capabilities.map((cap, idx) => (
+                        <div key={idx} style={{
+                          display: "flex",
+                          alignItems: "flex-start",
+                          gap: "0.5rem",
+                          backgroundColor: "var(--surface)",
+                          padding: "0.65rem 0.85rem",
+                          borderRadius: "10px",
+                          border: "1px solid var(--border)",
+                          fontSize: "0.85rem",
+                          color: "var(--text)",
+                          lineHeight: 1.4
+                        }}>
+                          <CheckCircle2 size={15} style={{ color: "#10b981", flexShrink: 0, marginTop: "2px" }} />
+                          <span>{cap}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Tech Stack Pills */}
+                {Array.isArray(primaryService.techStack) && primaryService.techStack.length > 0 && (
+                  <div style={{ marginBottom: "1.25rem" }}>
+                    <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.5rem" }}>
+                      Included Technology Ecosystem:
+                    </div>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                      {primaryService.techStack.map((tech, tIdx) => (
+                        <span key={tIdx} style={{
+                          backgroundColor: "var(--bg-alt)",
+                          color: "var(--text)",
+                          border: "1px solid var(--border)",
+                          padding: "0.25rem 0.65rem",
+                          borderRadius: "6px",
+                          fontSize: "0.78rem",
+                          fontWeight: 600
+                        }}>
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                  backgroundColor: "rgba(16, 185, 129, 0.08)",
+                  border: "1px solid rgba(16, 185, 129, 0.2)",
+                  padding: "0.7rem 1rem",
+                  borderRadius: "10px",
+                  fontSize: "0.82rem",
+                  color: "var(--text)"
+                }}>
+                  <Info size={16} style={{ color: "#10b981", flexShrink: 0 }} />
+                  <span>
+                    <strong>Zero re-entry required:</strong> All deliverables and specifications above are already registered into your consultation request. You can check off extra disciplines below or enter custom features.
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* Form */}
             <form onSubmit={handleSubmit} style={{
               background: "var(--surface)",
@@ -386,44 +740,66 @@ const Hireforms = () => {
               boxShadow: "var(--shadow)"
             }}>
 
-              {/* Step 1: Select Disciplines */}
+              {/* Step 1: Select Disciplines & Add Extra Services */}
               <div style={{ marginBottom: "3rem" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                    <span style={{
+                      backgroundColor: "var(--primary)",
+                      color: "var(--primary-contrast)",
+                      width: "24px",
+                      height: "24px",
+                      borderRadius: "50%",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "0.75rem",
+                      fontWeight: 700
+                    }}>1</span>
+                    <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
+                      What disciplines or services do you need?
+                    </h3>
+                  </div>
+
                   <span style={{
-                    backgroundColor: "var(--primary)",
-                    color: "var(--primary-contrast)",
-                    width: "24px",
-                    height: "24px",
-                    borderRadius: "50%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "0.75rem",
+                    backgroundColor: "var(--bg-alt)",
+                    border: "1px solid var(--border)",
+                    color: "var(--primary)",
+                    padding: "0.3rem 0.8rem",
+                    borderRadius: "16px",
+                    fontSize: "0.78rem",
                     fontWeight: 700
-                  }}>1</span>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
-                    What disciplines or services do you need?
-                  </h3>
+                  }}>
+                    {selectedServices.length} Selected {primaryService ? "(Primary + Add-ons)" : ""}
+                  </span>
                 </div>
+
                 <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
-                  Select all that apply to your product roadmap.
+                  {primaryService 
+                    ? "Your selected service is active below. Click any other service cards to add extra disciplines to your roadmap."
+                    : "Select all disciplines that apply to your product roadmap."
+                  }
                 </p>
 
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
                   gap: "1rem"
                 }}>
-                  {SERVICES_OPTIONS.map((srv) => {
-                    const IconComp = srv.icon;
+                  {availableServices.map((srv) => {
+                    const IconComp = resolveIcon(srv.icon);
                     const isSelected = selectedServices.includes(srv.title);
+                    const isPrimary = primaryService && primaryService.title.toLowerCase() === srv.title.toLowerCase();
+
                     return (
                       <div
-                        key={srv.id}
+                        key={srv.id || srv.title}
                         onClick={() => handleServiceToggle(srv.title)}
                         style={{
                           backgroundColor: isSelected ? "var(--bg-alt)" : "var(--surface)",
-                          border: isSelected ? "1.5px solid var(--primary)" : "1px solid var(--border)",
+                          border: isSelected 
+                            ? (isPrimary ? "2px solid var(--primary)" : "1.5px solid var(--accent)")
+                            : "1px solid var(--border)",
                           borderRadius: "16px",
                           padding: "clamp(1rem, 2.5vw, 1.25rem)",
                           cursor: "pointer",
@@ -431,7 +807,9 @@ const Hireforms = () => {
                           display: "flex",
                           alignItems: "flex-start",
                           gap: "1rem",
-                          touchAction: "manipulation"
+                          touchAction: "manipulation",
+                          position: "relative",
+                          boxShadow: isSelected ? "0 4px 14px rgba(0,0,0,0.06)" : "none"
                         }}
                       >
                         <div style={{
@@ -448,11 +826,24 @@ const Hireforms = () => {
                           <IconComp size={22} />
                         </div>
                         <div style={{ flex: 1 }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "4px" }}>
-                            <h4 style={{ margin: 0, fontSize: "0.98rem", fontWeight: 700, color: isSelected ? "var(--primary)" : "var(--text)" }}>
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "4px" }}>
+                            <h4 style={{ margin: 0, fontSize: "0.96rem", fontWeight: 700, color: isSelected ? "var(--primary)" : "var(--text)" }}>
                               {srv.title}
                             </h4>
-                            {isSelected && <CheckCircle2 size={16} style={{ color: "var(--success)" }} />}
+                            {isSelected && (
+                              <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
+                                {isPrimary ? (
+                                  <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "var(--primary)", textTransform: "uppercase", backgroundColor: "rgba(242, 140, 40, 0.12)", padding: "2px 6px", borderRadius: "6px" }}>
+                                    Primary
+                                  </span>
+                                ) : (
+                                  <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "#10b981", textTransform: "uppercase", backgroundColor: "rgba(16, 185, 129, 0.12)", padding: "2px 6px", borderRadius: "6px" }}>
+                                    + Add-on
+                                  </span>
+                                )}
+                                <CheckCircle2 size={16} style={{ color: isPrimary ? "var(--primary)" : "#10b981", flexShrink: 0 }} />
+                              </div>
+                            )}
                           </div>
                           <p style={{ margin: 0, fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.4 }}>
                             {srv.tagline}
@@ -535,7 +926,7 @@ const Hireforms = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      placeholder="+1 (555) 000-0000"
+                      placeholder="+91 98765 43210"
                     />
                   </div>
 
@@ -579,16 +970,22 @@ const Hireforms = () => {
                     fontWeight: 700
                   }}>3</span>
                   <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
-                    Tell us about the project
+                    Project Specifications &amp; Requirements
                   </h3>
                 </div>
                 <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
-                  Give us as much context as possible to help us scope accurately.
+                  {primaryService 
+                    ? "Your baseline deliverables have been pre-filled below. You can edit any details or add extra custom requirements."
+                    : "Give us as much context as possible to help us scope accurately."
+                  }
                 </p>
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Project Title / Working Name</label>
+                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
+                      <span>Project Title / Working Name</span>
+                      {primaryService && <span style={{ color: "#10b981", fontSize: "0.75rem", fontWeight: 700 }}>✓ Pre-filled from service</span>}
+                    </label>
                     <input
                       style={formInputGlass}
                       name="projectTitle"
@@ -599,15 +996,39 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>Project Overview &amp; Key Goals *</label>
+                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
+                      <span>Project Overview &amp; Included Scope *</span>
+                      {primaryService && <span style={{ color: "#10b981", fontSize: "0.75rem", fontWeight: 700 }}>✓ Deliverables pre-loaded</span>}
+                    </label>
                     <textarea
-                      style={{ ...formInputGlass, minHeight: "110px", resize: "vertical" }}
+                      style={{ ...formInputGlass, minHeight: "150px", resize: "vertical", fontFamily: "inherit", lineHeight: 1.5 }}
                       required
                       name="projectDescription"
                       value={formData.projectDescription}
                       onChange={handleInputChange}
                       placeholder="Describe what you want to build, the core problem it solves, target users, and any key feature requirements..."
                     />
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.78rem", marginTop: "4px" }}>
+                      You can directly edit the text above to adjust any pre-loaded deliverables.
+                    </p>
+                  </div>
+
+                  {/* Dedicated Extra Details / Custom Features input */}
+                  <div>
+                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
+                      <span>Add Extra Custom Features or Changes (Optional)</span>
+                      <span style={{ color: "var(--primary)", fontSize: "0.75rem", fontWeight: 700 }}>Add-on specifications</span>
+                    </label>
+                    <textarea
+                      style={{ ...formInputGlass, minHeight: "95px", resize: "vertical" }}
+                      name="customFeatures"
+                      value={formData.customFeatures}
+                      onChange={handleInputChange}
+                      placeholder="e.g. Need WhatsApp notifications integration, custom admin analytics dashboard, multi-currency Stripe checkout, or 3-week target delivery..."
+                    />
+                    <p style={{ color: "var(--text-muted)", fontSize: "0.78rem", marginTop: "4px" }}>
+                      Anything entered here will be added on top of your selected service package.
+                    </p>
                   </div>
 
                   <div>
@@ -749,8 +1170,50 @@ const Hireforms = () => {
                 </div>
               </div>
 
+              {/* Scope Review & Live Summary Strip */}
+              <div style={{
+                backgroundColor: "var(--bg-alt)",
+                border: "1px solid var(--border)",
+                borderRadius: "16px",
+                padding: "1.25rem 1.5rem",
+                marginBottom: "2rem",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                flexWrap: "wrap",
+                gap: "1rem"
+              }}>
+                <div>
+                  <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>
+                    Inquiry Summary
+                  </div>
+                  <div style={{ fontSize: "1rem", fontWeight: 800, color: "var(--text)", marginTop: "2px" }}>
+                    {selectedServices.join(" + ")}
+                  </div>
+                  <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: "2px" }}>
+                    Target Timeline: <strong style={{ color: "var(--primary)" }}>{selectedTimeline}</strong> • Budget: <strong style={{ color: "var(--primary)" }}>{budget || "Flexible"}</strong>
+                  </div>
+                </div>
+
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                  <span style={{
+                    backgroundColor: "rgba(16, 185, 129, 0.12)",
+                    color: "#10b981",
+                    padding: "4px 12px",
+                    borderRadius: "12px",
+                    fontSize: "0.78rem",
+                    fontWeight: 700,
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px"
+                  }}>
+                    <CheckCircle2 size={14} /> Scope Ready
+                  </span>
+                </div>
+              </div>
+
               {/* Submit Button */}
-              <div style={{ textAlign: "center", paddingTop: "1.5rem", borderTop: "1px solid var(--border)" }}>
+              <div style={{ textAlign: "center", paddingTop: "1rem", borderTop: "1px solid var(--border)" }}>
                 <button
                   type="submit"
                   disabled={isSubmitting}

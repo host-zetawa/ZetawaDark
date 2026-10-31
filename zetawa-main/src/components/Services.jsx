@@ -172,11 +172,11 @@ const Services = () => {
       .catch(err => console.error('Failed to fetch services:', err));
   }, []);
 
-  const handleGatedAction = (path) => {
+  const handleGatedAction = (path, state = null) => {
     if (isAuth) {
-      navigate(path);
+      navigate(path, { state });
     } else {
-      setPendingRedirect(path);
+      setPendingRedirect({ path, state });
       setShowAuthModal(true);
     }
   };
@@ -184,7 +184,11 @@ const Services = () => {
   const handleAuthSuccess = () => {
     setShowAuthModal(false);
     if (pendingRedirect) {
-      navigate(pendingRedirect);
+      if (typeof pendingRedirect === 'string') {
+        navigate(pendingRedirect);
+      } else {
+        navigate(pendingRedirect.path, { state: pendingRedirect.state });
+      }
       setPendingRedirect(null);
     }
   };
@@ -575,7 +579,7 @@ const Services = () => {
                 {/* Card Bottom CTA */}
                 <div style={{ borderTop: '1px solid var(--border-subtle, #f1f5f9)', paddingTop: '1.25rem', marginTop: 'auto' }}>
                   <button
-                    onClick={() => handleGatedAction('/hireforms')}
+                    onClick={() => handleGatedAction('/hireforms', { selectedService: service })}
                     style={{
                       backgroundColor: 'var(--brand-maroon, #6b2d3a)',
                       color: '#ffffff',
