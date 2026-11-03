@@ -1,6 +1,8 @@
 import express from 'express';
+import bcrypt from 'bcryptjs';
 import { Certification } from '../models/Certification.js';
 import { Announcement } from '../models/Announcement.js';
+import userModel from '../models/userModel.js';
 import adminAuth from '../middleware/adminAuth.js';
 
 const router = express.Router();
@@ -59,6 +61,35 @@ export const DEFAULT_ANNOUNCEMENTS = [
 // Seed helper function
 export const seedDefaultsIfEmpty = async () => {
   try {
+    // Ensure primary admin accounts exist, are active, and auto-verified
+    const adminEmail = 'tabrez.zeta@gmail.com';
+    const existingAdmin = await userModel.findOne({ email: adminEmail });
+    if (!existingAdmin) {
+      const hash = await bcrypt.hash('Zeta@1234#', 10);
+      await userModel.create({
+        name: 'Tabrez Alam (Admin)',
+        email: adminEmail,
+        password: hash,
+        isAccountVerified: true,
+        isAdmin: true
+      });
+      console.log('👑 Admin user tabrez.zeta@gmail.com created and auto-verified');
+    } else {
+      let changed = false;
+      if (!existingAdmin.isAdmin) {
+        existingAdmin.isAdmin = true;
+        changed = true;
+      }
+      if (!existingAdmin.isAccountVerified) {
+        existingAdmin.isAccountVerified = true;
+        changed = true;
+      }
+      if (changed) {
+        await existingAdmin.save();
+        console.log('👑 Admin user tabrez.zeta@gmail.com updated with verified admin rights');
+      }
+    }
+
     const certCount = await Certification.countDocuments();
     if (certCount === 0) {
       await Certification.insertMany(DEFAULT_CERTIFICATIONS);
@@ -88,30 +119,53 @@ export const seedDefaultsIfEmpty = async () => {
 router.get('/certifications', async (req, res) => {
   try {
     const filter = req.query.all === 'true' ? {} : { isActive: true };
-    const tests = await Certification.find(filter).sort({ examDate: 1 });
+    const tests = await Certification.find(filter).sort({ createdAt: -1 });
     res.status(200).json({ success: true, count: tests.length, data: tests });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, message: err.message, error: err.message });
   }
 });
 
 // Admin: Create Certification / Test
 router.post('/certifications', adminAuth, async (req, res) => {
   try {
-    const newTest = new Certification(req.body);
+    const payload = { ...req.body };
+    if (!payload.title || !String(payload.title).trim()) {
+      return res.status(400).json({ success: false, message: "Certification title is required." });
+    }
+    payload.title = String(payload.title).trim();
+    payload.description = payload.description ? String(payload.description).trim() : "";
+    payload.examDate = payload.examDate !== undefined && payload.examDate !== null && String(payload.examDate).trim() !== ""
+      ? payload.examDate
+      : new Date();
+    payload.examTime = payload.examTime ? String(payload.examTime).trim() : "11:00 AM IST";
+    payload.mode = payload.mode ? String(payload.mode).trim() : "Online Proctored";
+    payload.applyLink = payload.applyLink ? String(payload.applyLink).trim() : "";
+    payload.isActive = payload.isActive !== undefined ? Boolean(payload.isActive) : true;
+
+    const newTest = new Certification(payload);
     const savedTest = await newTest.save();
     res.status(201).json({ success: true, data: savedTest });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    console.error("Error creating certification:", err);
+    res.status(400).json({ success: false, message: err.message, error: err.message });
   }
 });
 
 // Admin: Update Certification / Test
 router.put('/certifications/:id', adminAuth, async (req, res) => {
   try {
+    const payload = { ...req.body };
+    if (payload.title !== undefined && !String(payload.title).trim()) {
+      return res.status(400).json({ success: false, message: "Certification title cannot be empty." });
+    }
+    if (payload.title) payload.title = String(payload.title).trim();
+    if (payload.description !== undefined) payload.description = String(payload.description).trim();
+    if (payload.applyLink !== undefined) payload.applyLink = String(payload.applyLink).trim();
+
     const updatedTest = await Certification.findByIdAndUpdate(
       req.params.id, 
-      req.body, 
+      payload, 
       { returnDocument: 'after', runValidators: true }
     );
     if (!updatedTest) {
@@ -119,7 +173,8 @@ router.put('/certifications/:id', adminAuth, async (req, res) => {
     }
     res.status(200).json({ success: true, data: updatedTest });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    console.error("Error updating certification:", err);
+    res.status(400).json({ success: false, message: err.message, error: err.message });
   }
 });
 
@@ -132,7 +187,7 @@ router.delete('/certifications/:id', adminAuth, async (req, res) => {
     }
     res.status(200).json({ success: true, message: "Certification/Test deleted successfully." });
   } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    res.status(500).json({ success: false, message: err.message, error: err.message });
   }
 });
 

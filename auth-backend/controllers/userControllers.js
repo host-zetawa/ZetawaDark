@@ -1,5 +1,11 @@
 import userModel from "../models/userModel.js"
 
+const ADMIN_EMAILS = [
+  'tabrez.zeta@gmail.com',
+  'vansh100101102@gmail.com',
+  (process.env.ADMIN_EMAIL || '').trim().toLowerCase()
+].filter(Boolean).map(e => e.toLowerCase())
+
 export const getUserData = async (req, res) => {
   try {
     const userId = req.userId || req.body?.userId
@@ -9,10 +15,19 @@ export const getUserData = async (req, res) => {
       return res.json({ success: false, message: "User not found" })
     }
 
-    const ADMIN_EMAIL = 'vansh100101102@gmail.com'
-    const isAdmin = Boolean(user.email === ADMIN_EMAIL)
-    if (user.isAdmin !== isAdmin) {
-      user.isAdmin = isAdmin
+    const cleanEmail = (user.email || '').trim().toLowerCase()
+    const isAdmin = Boolean(user.isAdmin || ADMIN_EMAILS.includes(cleanEmail))
+    let needsSave = false
+
+    if (isAdmin && !user.isAdmin) {
+      user.isAdmin = true
+      needsSave = true
+    }
+    if (isAdmin && !user.isAccountVerified) {
+      user.isAccountVerified = true
+      needsSave = true
+    }
+    if (needsSave) {
       await user.save()
     }
 

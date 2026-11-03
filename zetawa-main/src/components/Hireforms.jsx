@@ -533,23 +533,23 @@ const Hireforms = () => {
               <div style={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: "clamp(0.75rem, 2.5vw, 1.5rem)",
+                gap: "clamp(0.6rem, 2vw, 1.25rem)",
                 backgroundColor: "var(--surface)",
                 border: "1px solid var(--border)",
-                padding: "0.75rem clamp(1rem, 3vw, 1.5rem)",
-                borderRadius: "50px",
+                padding: "0.6rem clamp(0.85rem, 2.5vw, 1.25rem)",
+                borderRadius: "20px",
                 flexWrap: "wrap",
                 justifyContent: "center",
                 boxShadow: "var(--shadow)"
               }}>
-                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "var(--text)" }}>
-                  <Clock size={15} style={{ color: "var(--primary)" }} /> 24-Hour Response
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "0.82rem", color: "var(--text)", whiteSpace: "nowrap" }}>
+                  <Clock size={14} style={{ color: "var(--primary)", flexShrink: 0 }} /> 24-Hour Response
                 </span>
-                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "var(--text)" }}>
-                  <ShieldCheck size={15} style={{ color: "var(--success)" }} /> Strict NDA Protection
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "0.82rem", color: "var(--text)", whiteSpace: "nowrap" }}>
+                  <ShieldCheck size={14} style={{ color: "var(--success)", flexShrink: 0 }} /> Strict NDA Protection
                 </span>
-                <span style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "0.85rem", color: "var(--text)" }}>
-                  <IndianRupee size={15} style={{ color: "var(--accent)" }} /> Milestone-Based Pricing
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "6px", fontSize: "0.82rem", color: "var(--text)", whiteSpace: "nowrap" }}>
+                  <IndianRupee size={14} style={{ color: "var(--accent)", flexShrink: 0 }} /> Milestone-Based Pricing
                 </span>
               </div>
             </div>
@@ -562,8 +562,8 @@ const Hireforms = () => {
                 background: "linear-gradient(145deg, var(--surface) 0%, var(--bg-alt) 100%)",
                 border: "1.5px solid var(--primary)",
                 borderRadius: "20px",
-                padding: "clamp(1.25rem, 3.5vw, 2rem)",
-                marginBottom: "2.5rem",
+                padding: "clamp(1rem, 3.5vw, 1.75rem)",
+                marginBottom: "2rem",
                 boxShadow: "0 10px 30px rgba(0,0,0,0.12)",
                 position: "relative",
                 overflow: "hidden"
@@ -577,33 +577,35 @@ const Hireforms = () => {
                   background: "linear-gradient(90deg, var(--primary), var(--accent))"
                 }} />
 
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "1rem", marginBottom: "1.25rem" }}>
-                  <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "0.85rem", marginBottom: "1.25rem" }}>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "0.85rem", flex: "1 1 240px", minWidth: 0 }}>
                     <div style={{
-                      width: "48px",
-                      height: "48px",
-                      borderRadius: "14px",
+                      width: "44px",
+                      height: "44px",
+                      borderRadius: "12px",
                       backgroundColor: "rgba(242, 140, 40, 0.12)",
                       color: "var(--primary)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      border: "1px solid rgba(242, 140, 40, 0.25)"
+                      border: "1px solid rgba(242, 140, 40, 0.25)",
+                      flexShrink: 0
                     }}>
-                      <FileCheck size={26} />
+                      <FileCheck size={24} />
                     </div>
-                    <div>
-                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", flexWrap: "wrap", marginBottom: "4px" }}>
                         <span style={{
                           backgroundColor: "rgba(16, 185, 129, 0.12)",
                           color: "#10b981",
                           border: "1px solid rgba(16, 185, 129, 0.25)",
-                          padding: "3px 10px",
-                          borderRadius: "12px",
-                          fontSize: "0.75rem",
+                          padding: "3px 8px",
+                          borderRadius: "10px",
+                          fontSize: "0.72rem",
                           fontWeight: 800,
                           textTransform: "uppercase",
-                          letterSpacing: "0.5px"
+                          letterSpacing: "0.5px",
+                          whiteSpace: "nowrap"
                         }}>
                           ✓ Pre-Loaded Service Scope
                         </span>
@@ -612,16 +614,17 @@ const Hireforms = () => {
                             backgroundColor: "var(--bg-alt)",
                             color: "var(--text-muted)",
                             border: "1px solid var(--border)",
-                            padding: "3px 10px",
-                            borderRadius: "12px",
-                            fontSize: "0.75rem",
-                            fontWeight: 700
+                            padding: "3px 8px",
+                            borderRadius: "10px",
+                            fontSize: "0.72rem",
+                            fontWeight: 700,
+                            whiteSpace: "nowrap"
                           }}>
                             {primaryService.highlight}
                           </span>
                         )}
                       </div>
-                      <h2 style={{ fontSize: "1.35rem", fontWeight: 800, color: "var(--text)", margin: "0.35rem 0 0" }}>
+                      <h2 style={{ fontSize: "clamp(1.15rem, 3.5vw, 1.45rem)", fontWeight: 800, color: "var(--text)", margin: "0.25rem 0 0", wordBreak: "break-word" }}>
                         {primaryService.title}
                       </h2>
                     </div>
@@ -631,18 +634,20 @@ const Hireforms = () => {
                     type="button"
                     onClick={handleClearPreselectedService}
                     style={{
-                      background: "transparent",
+                      background: "var(--surface)",
                       border: "1px solid var(--border)",
                       color: "var(--text-muted)",
-                      padding: "0.45rem 0.9rem",
+                      padding: "0.45rem 0.85rem",
                       borderRadius: "10px",
-                      fontSize: "0.8rem",
+                      fontSize: "0.78rem",
                       fontWeight: 600,
                       cursor: "pointer",
                       display: "inline-flex",
                       alignItems: "center",
                       gap: "0.35rem",
-                      transition: "all 0.2s ease"
+                      transition: "all 0.2s ease",
+                      whiteSpace: "nowrap",
+                      flexShrink: 0
                     }}
                     title="Switch to blank general form"
                   >
@@ -651,7 +656,7 @@ const Hireforms = () => {
                 </div>
 
                 {primaryService.tagline && (
-                  <p style={{ color: "var(--primary)", fontSize: "0.95rem", fontWeight: 600, margin: "0 0 1.25rem" }}>
+                  <p style={{ color: "var(--primary)", fontSize: "0.92rem", fontWeight: 600, margin: "0 0 1.15rem", lineHeight: 1.45 }}>
                     {primaryService.tagline}
                   </p>
                 )}
@@ -659,13 +664,13 @@ const Hireforms = () => {
                 {/* Pre-included deliverables */}
                 {Array.isArray(primaryService.capabilities) && primaryService.capabilities.length > 0 && (
                   <div style={{ marginBottom: "1.25rem" }}>
-                    <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.65rem" }}>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.6rem" }}>
                       Pre-Included Standard Deliverables (No Need to Re-Enter):
                     </div>
                     <div style={{
                       display: "grid",
-                      gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))",
-                      gap: "0.6rem"
+                      gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))",
+                      gap: "0.55rem"
                     }}>
                       {primaryService.capabilities.map((cap, idx) => (
                         <div key={idx} style={{
@@ -673,15 +678,15 @@ const Hireforms = () => {
                           alignItems: "flex-start",
                           gap: "0.5rem",
                           backgroundColor: "var(--surface)",
-                          padding: "0.65rem 0.85rem",
+                          padding: "0.6rem 0.8rem",
                           borderRadius: "10px",
                           border: "1px solid var(--border)",
-                          fontSize: "0.85rem",
+                          fontSize: "0.82rem",
                           color: "var(--text)",
                           lineHeight: 1.4
                         }}>
                           <CheckCircle2 size={15} style={{ color: "#10b981", flexShrink: 0, marginTop: "2px" }} />
-                          <span>{cap}</span>
+                          <span style={{ wordBreak: "break-word" }}>{cap}</span>
                         </div>
                       ))}
                     </div>
@@ -691,7 +696,7 @@ const Hireforms = () => {
                 {/* Tech Stack Pills */}
                 {Array.isArray(primaryService.techStack) && primaryService.techStack.length > 0 && (
                   <div style={{ marginBottom: "1.25rem" }}>
-                    <div style={{ fontSize: "0.8rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.5rem" }}>
+                    <div style={{ fontSize: "0.78rem", fontWeight: 700, color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "0.5rem" }}>
                       Included Technology Ecosystem:
                     </div>
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
@@ -702,8 +707,9 @@ const Hireforms = () => {
                           border: "1px solid var(--border)",
                           padding: "0.25rem 0.65rem",
                           borderRadius: "6px",
-                          fontSize: "0.78rem",
-                          fontWeight: 600
+                          fontSize: "0.76rem",
+                          fontWeight: 600,
+                          whiteSpace: "nowrap"
                         }}>
                           {tech}
                         </span>
@@ -714,16 +720,17 @@ const Hireforms = () => {
 
                 <div style={{
                   display: "flex",
-                  alignItems: "center",
-                  gap: "0.5rem",
+                  alignItems: "flex-start",
+                  gap: "0.6rem",
                   backgroundColor: "rgba(16, 185, 129, 0.08)",
                   border: "1px solid rgba(16, 185, 129, 0.2)",
-                  padding: "0.7rem 1rem",
+                  padding: "0.75rem 0.9rem",
                   borderRadius: "10px",
-                  fontSize: "0.82rem",
-                  color: "var(--text)"
+                  fontSize: "0.8rem",
+                  color: "var(--text)",
+                  lineHeight: 1.45
                 }}>
-                  <Info size={16} style={{ color: "#10b981", flexShrink: 0 }} />
+                  <Info size={16} style={{ color: "#10b981", flexShrink: 0, marginTop: "2px" }} />
                   <span>
                     <strong>Zero re-entry required:</strong> All deliverables and specifications above are already registered into your consultation request. You can check off extra disciplines below or enter custom features.
                   </span>
@@ -736,13 +743,13 @@ const Hireforms = () => {
               background: "var(--surface)",
               border: "1px solid var(--border)",
               borderRadius: "24px",
-              padding: "clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3.5vw, 2.5rem)",
+              padding: "clamp(1.25rem, 4vw, 3rem) clamp(0.85rem, 3.5vw, 2.5rem)",
               boxShadow: "var(--shadow)"
             }}>
 
               {/* Step 1: Select Disciplines & Add Extra Services */}
               <div style={{ marginBottom: "3rem" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.5rem", marginBottom: "0.5rem" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.6rem", marginBottom: "0.5rem" }}>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                     <span style={{
                       backgroundColor: "var(--primary)",
@@ -754,9 +761,10 @@ const Hireforms = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       fontSize: "0.75rem",
-                      fontWeight: 700
+                      fontWeight: 700,
+                      flexShrink: 0
                     }}>1</span>
-                    <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
+                    <h3 style={{ fontSize: "clamp(1.05rem, 3.5vw, 1.25rem)", fontWeight: 700, color: "var(--text)", margin: 0 }}>
                       What disciplines or services do you need?
                     </h3>
                   </div>
@@ -765,16 +773,17 @@ const Hireforms = () => {
                     backgroundColor: "var(--bg-alt)",
                     border: "1px solid var(--border)",
                     color: "var(--primary)",
-                    padding: "0.3rem 0.8rem",
+                    padding: "0.3rem 0.75rem",
                     borderRadius: "16px",
-                    fontSize: "0.78rem",
-                    fontWeight: 700
+                    fontSize: "0.75rem",
+                    fontWeight: 700,
+                    whiteSpace: "nowrap"
                   }}>
                     {selectedServices.length} Selected {primaryService ? "(Primary + Add-ons)" : ""}
                   </span>
                 </div>
 
-                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.88rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)", lineHeight: 1.45 }}>
                   {primaryService 
                     ? "Your selected service is active below. Click any other service cards to add extra disciplines to your roadmap."
                     : "Select all disciplines that apply to your product roadmap."
@@ -783,8 +792,8 @@ const Hireforms = () => {
 
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))",
-                  gap: "1rem"
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))",
+                  gap: "0.85rem"
                 }}>
                   {availableServices.map((srv) => {
                     const IconComp = resolveIcon(srv.icon);
@@ -796,56 +805,105 @@ const Hireforms = () => {
                         key={srv.id || srv.title}
                         onClick={() => handleServiceToggle(srv.title)}
                         style={{
-                          backgroundColor: isSelected ? "var(--bg-alt)" : "var(--surface)",
+                          backgroundColor: isSelected 
+                            ? (isPrimary ? "rgba(242, 140, 40, 0.05)" : "rgba(16, 185, 129, 0.05)") 
+                            : "var(--surface)",
                           border: isSelected 
-                            ? (isPrimary ? "2px solid var(--primary)" : "1.5px solid var(--accent)")
+                            ? (isPrimary ? "1.5px solid var(--primary)" : "1.5px solid #10b981")
                             : "1px solid var(--border)",
                           borderRadius: "16px",
-                          padding: "clamp(1rem, 2.5vw, 1.25rem)",
+                          padding: "clamp(0.9rem, 2.5vw, 1.25rem)",
                           cursor: "pointer",
                           transition: "all 0.2s ease",
                           display: "flex",
-                          alignItems: "flex-start",
-                          gap: "1rem",
-                          touchAction: "manipulation",
+                          flexDirection: "column",
+                          justifyContent: "space-between",
+                          gap: "0.75rem",
                           position: "relative",
-                          boxShadow: isSelected ? "0 4px 14px rgba(0,0,0,0.06)" : "none"
+                          boxShadow: isSelected 
+                            ? (isPrimary ? "0 4px 18px rgba(242, 140, 40, 0.12)" : "0 4px 18px rgba(16, 185, 129, 0.12)") 
+                            : "none",
+                          touchAction: "manipulation"
                         }}
                       >
-                        <div style={{
-                          width: "42px",
-                          height: "42px",
-                          borderRadius: "10px",
-                          backgroundColor: isSelected ? "var(--primary)" : "var(--bg-alt)",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          color: isSelected ? "var(--primary-contrast)" : "var(--text-muted)",
-                          flexShrink: 0
-                        }}>
-                          <IconComp size={22} />
-                        </div>
-                        <div style={{ flex: 1 }}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "4px" }}>
-                            <h4 style={{ margin: 0, fontSize: "0.96rem", fontWeight: 700, color: isSelected ? "var(--primary)" : "var(--text)" }}>
-                              {srv.title}
-                            </h4>
-                            {isSelected && (
-                              <div style={{ display: "flex", alignItems: "center", gap: "0.3rem" }}>
-                                {isPrimary ? (
-                                  <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "var(--primary)", textTransform: "uppercase", backgroundColor: "rgba(242, 140, 40, 0.12)", padding: "2px 6px", borderRadius: "6px" }}>
-                                    Primary
-                                  </span>
-                                ) : (
-                                  <span style={{ fontSize: "0.68rem", fontWeight: 800, color: "#10b981", textTransform: "uppercase", backgroundColor: "rgba(16, 185, 129, 0.12)", padding: "2px 6px", borderRadius: "6px" }}>
-                                    + Add-on
-                                  </span>
-                                )}
-                                <CheckCircle2 size={16} style={{ color: isPrimary ? "var(--primary)" : "#10b981", flexShrink: 0 }} />
-                              </div>
-                            )}
+                        {/* Top row: Icon on left, status pill on right (prevents any letter wrapping) */}
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.5rem" }}>
+                          <div style={{
+                            width: "40px",
+                            height: "40px",
+                            borderRadius: "10px",
+                            backgroundColor: isSelected 
+                              ? (isPrimary ? "var(--primary)" : "#10b981")
+                              : "var(--bg-alt)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            color: isSelected ? "#ffffff" : "var(--text-muted)",
+                            border: "1px solid var(--border)",
+                            flexShrink: 0,
+                            transition: "all 0.2s ease"
+                          }}>
+                            <IconComp size={20} />
                           </div>
-                          <p style={{ margin: 0, fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.4 }}>
+
+                          {isSelected ? (
+                            <span style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "4px",
+                              flexShrink: 0,
+                              whiteSpace: "nowrap",
+                              fontSize: "0.72rem",
+                              fontWeight: 800,
+                              textTransform: "uppercase",
+                              letterSpacing: "0.5px",
+                              padding: "3px 9px",
+                              borderRadius: "20px",
+                              backgroundColor: isPrimary ? "rgba(242, 140, 40, 0.16)" : "rgba(16, 185, 129, 0.16)",
+                              color: isPrimary ? "var(--primary)" : "#10b981",
+                              border: isPrimary ? "1px solid rgba(242, 140, 40, 0.35)" : "1px solid rgba(16, 185, 129, 0.35)"
+                            }}>
+                              {isPrimary ? "Primary" : "+ Add-on"}
+                              <CheckCircle2 size={13} style={{ flexShrink: 0 }} />
+                            </span>
+                          ) : (
+                            <span style={{
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "3px",
+                              flexShrink: 0,
+                              whiteSpace: "nowrap",
+                              fontSize: "0.72rem",
+                              fontWeight: 600,
+                              color: "var(--text-muted)",
+                              padding: "3px 8px",
+                              borderRadius: "20px",
+                              backgroundColor: "var(--bg-alt)",
+                              border: "1px dashed var(--border)"
+                            }}>
+                              + Select
+                            </span>
+                          )}
+                        </div>
+
+                        {/* Card Text: Full width under icon row */}
+                        <div>
+                          <h4 style={{
+                            margin: "0 0 0.35rem 0",
+                            fontSize: "0.96rem",
+                            fontWeight: 700,
+                            color: isSelected ? "var(--primary)" : "var(--text)",
+                            lineHeight: 1.35,
+                            wordBreak: "break-word"
+                          }}>
+                            {srv.title}
+                          </h4>
+                          <p style={{
+                            margin: 0,
+                            fontSize: "0.82rem",
+                            color: "var(--text-muted)",
+                            lineHeight: 1.45
+                          }}>
                             {srv.tagline}
                           </p>
                         </div>
@@ -868,20 +926,21 @@ const Hireforms = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     fontSize: "0.75rem",
-                    fontWeight: 700
+                    fontWeight: 700,
+                    flexShrink: 0
                   }}>2</span>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
+                  <h3 style={{ fontSize: "clamp(1.05rem, 3.5vw, 1.25rem)", fontWeight: 700, color: "var(--text)", margin: 0 }}>
                     About you and your business
                   </h3>
                 </div>
-                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.88rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)", lineHeight: 1.45 }}>
                   Where should we send your project proposal and sprint timeline?
                 </p>
 
                 <div style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 200px), 1fr))",
-                  gap: "1.25rem"
+                  gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 220px), 1fr))",
+                  gap: "1rem"
                 }}>
                   <div>
                     <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>First Name *</label>
@@ -967,13 +1026,14 @@ const Hireforms = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     fontSize: "0.75rem",
-                    fontWeight: 700
+                    fontWeight: 700,
+                    flexShrink: 0
                   }}>3</span>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
+                  <h3 style={{ fontSize: "clamp(1.05rem, 3.5vw, 1.25rem)", fontWeight: 700, color: "var(--text)", margin: 0 }}>
                     Project Specifications &amp; Requirements
                   </h3>
                 </div>
-                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.88rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)", lineHeight: 1.45 }}>
                   {primaryService 
                     ? "Your baseline deliverables have been pre-filled below. You can edit any details or add extra custom requirements."
                     : "Give us as much context as possible to help us scope accurately."
@@ -982,9 +1042,9 @@ const Hireforms = () => {
 
                 <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
                   <div>
-                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
+                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.35rem", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
                       <span>Project Title / Working Name</span>
-                      {primaryService && <span style={{ color: "#10b981", fontSize: "0.75rem", fontWeight: 700 }}>✓ Pre-filled from service</span>}
+                      {primaryService && <span style={{ color: "#10b981", fontSize: "0.74rem", fontWeight: 700, whiteSpace: "nowrap" }}>✓ Pre-filled from service</span>}
                     </label>
                     <input
                       style={formInputGlass}
@@ -996,12 +1056,12 @@ const Hireforms = () => {
                   </div>
 
                   <div>
-                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
+                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.35rem", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
                       <span>Project Overview &amp; Included Scope *</span>
-                      {primaryService && <span style={{ color: "#10b981", fontSize: "0.75rem", fontWeight: 700 }}>✓ Deliverables pre-loaded</span>}
+                      {primaryService && <span style={{ color: "#10b981", fontSize: "0.74rem", fontWeight: 700, whiteSpace: "nowrap" }}>✓ Deliverables pre-loaded</span>}
                     </label>
                     <textarea
-                      style={{ ...formInputGlass, minHeight: "150px", resize: "vertical", fontFamily: "inherit", lineHeight: 1.5 }}
+                      style={{ ...formInputGlass, minHeight: "140px", resize: "vertical", fontFamily: "inherit", lineHeight: 1.5 }}
                       required
                       name="projectDescription"
                       value={formData.projectDescription}
@@ -1015,9 +1075,9 @@ const Hireforms = () => {
 
                   {/* Dedicated Extra Details / Custom Features input */}
                   <div>
-                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
+                    <label style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "0.35rem", fontSize: "0.82rem", fontWeight: 600, color: "var(--text)", marginBottom: "6px" }}>
                       <span>Add Extra Custom Features or Changes (Optional)</span>
-                      <span style={{ color: "var(--primary)", fontSize: "0.75rem", fontWeight: 700 }}>Add-on specifications</span>
+                      <span style={{ color: "var(--primary)", fontSize: "0.74rem", fontWeight: 700, whiteSpace: "nowrap" }}>Add-on specifications</span>
                     </label>
                     <textarea
                       style={{ ...formInputGlass, minHeight: "95px", resize: "vertical" }}
@@ -1057,22 +1117,23 @@ const Hireforms = () => {
                     alignItems: "center",
                     justifyContent: "center",
                     fontSize: "0.75rem",
-                    fontWeight: 700
+                    fontWeight: 700,
+                    flexShrink: 0
                   }}>4</span>
-                  <h3 style={{ fontSize: "1.25rem", fontWeight: 700, color: "var(--text)", margin: 0 }}>
+                  <h3 style={{ fontSize: "clamp(1.05rem, 3.5vw, 1.25rem)", fontWeight: 700, color: "var(--text)", margin: 0 }}>
                     Estimated Budget &amp; Target Timeline
                   </h3>
                 </div>
-                <p style={{ color: "var(--text-muted)", fontSize: "0.9rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)" }}>
+                <p style={{ color: "var(--text-muted)", fontSize: "0.88rem", margin: "0 0 1.25rem clamp(0.25rem, 1.5vw, 2rem)", lineHeight: 1.45 }}>
                   This helps us architect the right scope, team size, and milestone schedule.
                 </p>
 
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 260px), 1fr))", gap: "1.5rem" }}>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 250px), 1fr))", gap: "1.25rem" }}>
                   {/* Budget Input in Rupees */}
                   <div>
-                    <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "0.85rem", fontWeight: 700, color: "var(--text)", marginBottom: "8px" }}>
+                    <label style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 700, color: "var(--text)", marginBottom: "8px" }}>
                       <span>Estimated Budget (₹ Rupees)</span>
-                      <span style={{ fontSize: "0.75rem", fontWeight: 500, color: "var(--text-muted)" }}>In Indian Rupees (INR)</span>
+                      <span style={{ fontSize: "0.74rem", fontWeight: 500, color: "var(--text-muted)" }}>In Indian Rupees (INR)</span>
                     </label>
                     <div style={{ position: "relative" }}>
                       <div style={{
@@ -1123,7 +1184,8 @@ const Hireforms = () => {
                             transition: "all 0.2s ease",
                             touchAction: "manipulation",
                             display: "inline-flex",
-                            alignItems: "center"
+                            alignItems: "center",
+                            whiteSpace: "nowrap"
                           }}
                         >
                           {preset}
@@ -1147,21 +1209,29 @@ const Hireforms = () => {
                             style={{
                               backgroundColor: isSelected ? "var(--bg-alt)" : "var(--surface)",
                               border: isSelected ? "1.5px solid var(--primary)" : "1px solid var(--border)",
-                              padding: "12px 14px",
-                              minHeight: "44px",
-                              borderRadius: "10px",
+                              padding: "10px 14px",
+                              borderRadius: "12px",
                               cursor: "pointer",
                               display: "flex",
                               alignItems: "center",
                               justifyContent: "space-between",
-                              fontSize: "0.85rem",
-                              color: isSelected ? "var(--primary)" : "var(--text)",
-                              fontWeight: isSelected ? 700 : 500,
+                              gap: "0.5rem",
+                              transition: "all 0.2s ease",
+                              minHeight: "44px",
                               touchAction: "manipulation"
                             }}
                           >
-                            <span>{t.label}</span>
-                            {isSelected && <CheckCircle2 size={16} style={{ color: "var(--success)" }} />}
+                            <span style={{ fontSize: "0.88rem", fontWeight: isSelected ? 700 : 500, color: isSelected ? "var(--primary)" : "var(--text)" }}>
+                              {t.label}
+                            </span>
+                            <div style={{
+                              width: "18px",
+                              height: "18px",
+                              borderRadius: "50%",
+                              border: isSelected ? "5px solid var(--primary)" : "2px solid var(--border)",
+                              backgroundColor: isSelected ? "var(--surface)" : "transparent",
+                              flexShrink: 0
+                            }} />
                           </div>
                         );
                       })}
@@ -1175,27 +1245,27 @@ const Hireforms = () => {
                 backgroundColor: "var(--bg-alt)",
                 border: "1px solid var(--border)",
                 borderRadius: "16px",
-                padding: "1.25rem 1.5rem",
+                padding: "clamp(0.85rem, 3vw, 1.25rem)",
                 marginBottom: "2rem",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
                 flexWrap: "wrap",
-                gap: "1rem"
+                gap: "0.85rem"
               }}>
-                <div>
-                  <div style={{ fontSize: "0.78rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>
+                <div style={{ flex: "1 1 240px", minWidth: 0 }}>
+                  <div style={{ fontSize: "0.75rem", color: "var(--text-muted)", fontWeight: 700, textTransform: "uppercase" }}>
                     Inquiry Summary
                   </div>
-                  <div style={{ fontSize: "1rem", fontWeight: 800, color: "var(--text)", marginTop: "2px" }}>
+                  <div style={{ fontSize: "0.96rem", fontWeight: 800, color: "var(--text)", marginTop: "2px", wordBreak: "break-word" }}>
                     {selectedServices.join(" + ")}
                   </div>
-                  <div style={{ fontSize: "0.82rem", color: "var(--text-muted)", marginTop: "2px" }}>
+                  <div style={{ fontSize: "0.8rem", color: "var(--text-muted)", marginTop: "3px" }}>
                     Target Timeline: <strong style={{ color: "var(--primary)" }}>{selectedTimeline}</strong> • Budget: <strong style={{ color: "var(--primary)" }}>{budget || "Flexible"}</strong>
                   </div>
                 </div>
 
-                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexShrink: 0 }}>
                   <span style={{
                     backgroundColor: "rgba(16, 185, 129, 0.12)",
                     color: "#10b981",
@@ -1205,7 +1275,8 @@ const Hireforms = () => {
                     fontWeight: 700,
                     display: "inline-flex",
                     alignItems: "center",
-                    gap: "4px"
+                    gap: "4px",
+                    whiteSpace: "nowrap"
                   }}>
                     <CheckCircle2 size={14} /> Scope Ready
                   </span>
@@ -1221,11 +1292,11 @@ const Hireforms = () => {
                     backgroundColor: "var(--primary)",
                     color: "var(--primary-contrast)",
                     border: "none",
-                    padding: "1.1rem 3rem",
+                    padding: "1rem 2.5rem",
                     width: "min(100%, 420px)",
                     minHeight: "48px",
                     borderRadius: "50px",
-                    fontSize: "1.05rem",
+                    fontSize: "1rem",
                     fontWeight: 700,
                     cursor: isSubmitting ? "not-allowed" : "pointer",
                     display: "inline-flex",

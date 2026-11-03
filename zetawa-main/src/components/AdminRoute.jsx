@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom"
 import { useAppContext } from "../context/AppContext"
 
-const ADMIN_EMAIL = 'vansh100101102@gmail.com'
+const ADMIN_EMAILS = ['tabrez.zeta@gmail.com', 'vansh100101102@gmail.com']
 
 const AdminRoute = ({ children }) => {
   const { isAuth, isAdmin, loading, user } = useAppContext()
@@ -28,7 +28,8 @@ const AdminRoute = ({ children }) => {
     )
   }
 
-  const hasAdminAccess = Boolean(isAdmin || user?.isAdmin || user?.email === ADMIN_EMAIL)
+  const userEmail = (user?.email || '').trim().toLowerCase()
+  const hasAdminAccess = Boolean(isAdmin || user?.isAdmin || ADMIN_EMAILS.includes(userEmail))
 
   if (!isAuth) {
     return <Navigate to="/login" replace />

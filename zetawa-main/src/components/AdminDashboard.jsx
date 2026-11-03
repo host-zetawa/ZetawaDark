@@ -508,31 +508,52 @@ const AdminDashboard = () => {
   // ================= Certifications CRUD =================
   const handleCertificationSubmit = async (e) => {
     e.preventDefault()
-    if (!certificationForm.title.trim()) {
+    const cleanTitle = (certificationForm.title || "").trim()
+    if (!cleanTitle) {
       alert("Please enter a certification title")
       return
     }
     try {
       const payload = {
-        title: certificationForm.title.trim(),
-        description: certificationForm.description.trim(),
-        examDate: certificationForm.examDate,
-        examTime: certificationForm.examTime.trim(),
-        mode: certificationForm.mode.trim() || "Online Proctored",
+        title: cleanTitle,
+        description: (certificationForm.description || "").trim(),
+        examDate: certificationForm.examDate || "",
+        examTime: (certificationForm.examTime || "").trim() || "11:00 AM IST",
+        mode: (certificationForm.mode || "").trim() || "Online Proctored",
         applyLink: (certificationForm.applyLink || "").trim(),
         isActive: Boolean(certificationForm.isActive)
       }
+      let res
       if (editingId) {
-        await axios.put(`${API_URL}/api/admin/certifications/${editingId}`, payload)
+        res = await axios.put(`${API_URL}/api/admin/certifications/${editingId}`, payload)
       } else {
-        await axios.post(`${API_URL}/api/admin/certifications`, payload)
+        res = await axios.post(`${API_URL}/api/admin/certifications`, payload)
+      }
+      if (res && res.data && res.data.success === false) {
+        alert(res.data.message || "Failed to save certification")
+        return
       }
       setEditingId(null)
       setShowAddForm(false)
       setCertificationForm({ ...DEFAULT_CERTIFICATION_FORM })
       fetchData()
     } catch (err) {
-      alert(err.response?.data?.message || "Error saving certification")
+      alert(err.response?.data?.message || err.response?.data?.error || err.message || "Error saving certification")
+    }
+  }
+
+  const handleCertificationsReset = async () => {
+    if (!confirm("Are you sure you want to reset Certifications & Tests to official defaults?")) return
+    try {
+      const res = await axios.post(`${API_URL}/api/admin/certifications/reset-defaults`)
+      if (res.data?.success) {
+        fetchData()
+        alert("Certifications reset to official defaults successfully!")
+      } else {
+        alert(res.data?.message || "Failed to reset certifications")
+      }
+    } catch (err) {
+      alert(err.response?.data?.message || "Error resetting certifications")
     }
   }
 
@@ -2496,9 +2517,17 @@ const AdminDashboard = () => {
                     </p>
                   </div>
 
-                  <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap" }}>
+                  <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", alignItems: "center" }}>
+                    <button
+                      type="button"
+                      onClick={handleCertificationsReset}
+                      style={{ ...btnSecondary, padding: "0.7rem 1.2rem", fontSize: "0.85rem" }}
+                      title="Reset certifications to official defaults"
+                    >
+                      <RotateCcw size={15} /> Reset Official Defaults
+                    </button>
                     {!showAddForm && (
-                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setCertificationForm(DEFAULT_CERTIFICATION_FORM); }} style={btnPrimary}>
+                      <button onClick={() => { setShowAddForm(true); setEditingId(null); setCertificationForm({ ...DEFAULT_CERTIFICATION_FORM }); }} style={btnPrimary}>
                         <Plus size={18} /> Schedule Certification
                       </button>
                     )}
@@ -2645,27 +2674,27 @@ const AdminDashboard = () => {
                       <div style={{ gridColumn: "1 / -1" }}>
                         <label style={labelStyle}>Certification Title *</label>
                         <input style={inputStyle} placeholder="e.g. Certification Aptitude Test" required
-                          value={certificationForm.title} onChange={(e) => handleChange("certification", "title", e.target.value)} />
+                          value={certificationForm.title || ""} onChange={(e) => handleChange("certification", "title", e.target.value)} />
                       </div>
                       <div style={{ gridColumn: "1 / -1" }}>
                         <label style={labelStyle}>Application / Registration Link (Google Form / Exam Portal URL) *</label>
                         <input style={inputStyle} placeholder="https://docs.google.com/forms/d/e/..." required
-                          value={certificationForm.applyLink} onChange={(e) => handleChange("certification", "applyLink", e.target.value)} />
+                          value={certificationForm.applyLink || ""} onChange={(e) => handleChange("certification", "applyLink", e.target.value)} />
                       </div>
                       <div>
                         <label style={labelStyle}>Examination Date *</label>
                         <input style={inputStyle} placeholder="e.g. 2026-03-22 or 22 March 2026" required
-                          value={certificationForm.examDate} onChange={(e) => handleChange("certification", "examDate", e.target.value)} />
+                          value={certificationForm.examDate || ""} onChange={(e) => handleChange("certification", "examDate", e.target.value)} />
                       </div>
                       <div>
                         <label style={labelStyle}>Examination Time *</label>
                         <input style={inputStyle} placeholder="e.g. 11:00 AM IST" required
-                          value={certificationForm.examTime} onChange={(e) => handleChange("certification", "examTime", e.target.value)} />
+                          value={certificationForm.examTime || ""} onChange={(e) => handleChange("certification", "examTime", e.target.value)} />
                       </div>
                       <div>
                         <label style={labelStyle}>Proctoring / Examination Mode</label>
                         <input style={inputStyle} placeholder="e.g. Online Proctored"
-                          value={certificationForm.mode} onChange={(e) => handleChange("certification", "mode", e.target.value)} />
+                          value={certificationForm.mode || ""} onChange={(e) => handleChange("certification", "mode", e.target.value)} />
                       </div>
                       <div>
                         <label style={labelStyle}>Registration Status</label>
@@ -2683,7 +2712,7 @@ const AdminDashboard = () => {
                         <label style={labelStyle}>Syllabus, Eligibility & Guidelines</label>
                         <textarea style={{ ...inputStyle, minHeight: "110px", resize: "vertical" }}
                           placeholder="Candidate guidelines, duration, proctoring requirements, curriculum..."
-                          value={certificationForm.description} onChange={(e) => handleChange("certification", "description", e.target.value)} />
+                          value={certificationForm.description || ""} onChange={(e) => handleChange("certification", "description", e.target.value)} />
                       </div>
                     </div>
 

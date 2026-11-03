@@ -198,8 +198,11 @@ export const AppProvider = ({ children }) => {
     init()
   }, [])
 
-  const ADMIN_EMAIL = 'vansh100101102@gmail.com'
-  const isAdmin = Boolean(user?.email === ADMIN_EMAIL)
+  const ADMIN_EMAILS = ['tabrez.zeta@gmail.com', 'vansh100101102@gmail.com']
+  const isAdmin = Boolean(
+    user?.isAdmin || 
+    (user?.email && ADMIN_EMAILS.includes(String(user.email).trim().toLowerCase()))
+  )
 
   return (
     <AppContext.Provider

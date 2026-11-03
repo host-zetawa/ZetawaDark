@@ -4,6 +4,17 @@ import userModel from "../models/userModel.js"
 import "dotenv/config"
 import transporter, { sendEmail } from "../config/nodemailer.js"
 
+const ADMIN_EMAILS = [
+  'tabrez.zeta@gmail.com',
+  'vansh100101102@gmail.com',
+  (process.env.ADMIN_EMAIL || '').trim().toLowerCase()
+].filter(Boolean).map(e => e.toLowerCase())
+
+export const isCandidateAdmin = (email) => {
+  if (!email) return false
+  return ADMIN_EMAILS.includes(String(email).trim().toLowerCase())
+}
+
 export const register = async (req, res) => {
   const { name, email, password } = req.body
 
@@ -12,32 +23,63 @@ export const register = async (req, res) => {
   }
 
   try {
-    const existingUser = await userModel.findOne({ email })
+    const cleanEmail = email.trim().toLowerCase()
+    const existingUser = await userModel.findOne({ email: cleanEmail })
     if (existingUser) {
       return res.json({ success: false, message: "User already exists" })
     }
     const hashedPassword = await bcrypt.hash(password, 10)
-    const isAdmin = email === 'vansh100101102@gmail.com'
-    const user = new userModel({ name, email, password: hashedPassword, isAdmin })
+    const isAdmin = isCandidateAdmin(cleanEmail)
+    const isAccountVerified = isAdmin // Admins are auto-verified, no OTP verification needed
 
-    // Generate OTP before saving
-    const otp = String(Math.floor(100000 + Math.random() * 900000))
-    user.verifyOtp = otp
-    user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
-    await user.save()
+    const user = new userModel({ 
+      name, 
+      email: cleanEmail, 
+      password: hashedPassword, 
+      isAdmin,
+      isAccountVerified
+    })
 
-    console.log(`\n========================================`)
-    console.log(`🔑 [AUTH-OTP] Action: Registration`)
-    console.log(`📧 [AUTH-OTP] Target: ${email}`)
-    console.log(`🔢 [AUTH-OTP] Code:   ${otp}`)
-    console.log(`========================================\n`)
-    sendEmail({
-      to: email,
-      subject: 'Verify your Zetawa account',
-      text: `Welcome to Zetawa! Your verification OTP is ${otp}. Enter this OTP to verify your account.`
-    }).catch(err => console.error('[AUTH] Email dispatch error:', err.message))
+    if (!isAdmin) {
+      // Generate OTP before saving for regular users
+      const otp = String(Math.floor(100000 + Math.random() * 900000))
+      user.verifyOtp = otp
+      user.verifyOtpExpireAt = Date.now() + 24 * 60 * 60 * 1000
+      await user.save()
 
-    return res.json({ success: true, message: 'OTP sent to your email. Please verify your account.' })
+      console.log(`\n========================================`)
+      console.log(`🔑 [AUTH-OTP] Action: Registration`)
+      console.log(`📧 [AUTH-OTP] Target: ${cleanEmail}`)
+      console.log(`🔢 [AUTH-OTP] Code:   ${otp}`)
+      console.log(`========================================\n`)
+      sendEmail({
+        to: cleanEmail,
+        subject: 'Verify your Zetawa account',
+        text: `Welcome to Zetawa! Your verification OTP is ${otp}. Enter this OTP to verify your account.`
+      }).catch(err => console.error('[AUTH] Email dispatch error:', err.message))
+
+      return res.json({ success: true, message: 'OTP sent to your email. Please verify your account.' })
+    } else {
+      await user.save()
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' })
+      res.cookie('token', token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        maxAge: 7 * 24 * 60 * 60 * 1000
+      })
+      return res.json({ 
+        success: true, 
+        message: 'Admin account created and verified successfully.',
+        token,
+        userData: {
+          name: user.name,
+          email: user.email,
+          isAccountVerified: true,
+          isAdmin: true
+        }
+      })
+    }
   } catch (error) {
     res.json({ success: false, message: error.message })
   }
@@ -49,7 +91,8 @@ export const login = async (req, res) => {
     return res.json({ success: false, message: 'Email and password are required' })
   }
   try {
-    const user = await userModel.findOne({ email })
+    const cleanEmail = email.trim().toLowerCase()
+    const user = await userModel.findOne({ email: cleanEmail })
     if (!user) {
       return res.json({ success: false, message: "Invalid email" })
     }
@@ -64,10 +107,18 @@ export const login = async (req, res) => {
       sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000
     })
-    const ADMIN_EMAIL = 'vansh100101102@gmail.com'
-    const isAdmin = Boolean(user.email === ADMIN_EMAIL)
-    if (user.isAdmin !== isAdmin) {
-      user.isAdmin = isAdmin
+    
+    const isAdmin = Boolean(user.isAdmin || isCandidateAdmin(user.email))
+    let needsSave = false
+    if (isAdmin && !user.isAdmin) {
+      user.isAdmin = true
+      needsSave = true
+    }
+    if (isAdmin && !user.isAccountVerified) {
+      user.isAccountVerified = true
+      needsSave = true
+    }
+    if (needsSave) {
       await user.save()
     }
 
